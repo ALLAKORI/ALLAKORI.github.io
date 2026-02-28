@@ -847,11 +847,11 @@
         Open to opportunities, collaborations, and interesting conversations about AI, security, or anything in between.
       </p>
       <div class="contact-grid">
-        <a href="/cdn-cgi/l/email-protection#39585555585d564b505a51584b5d0b090800795e54585055175a5654" class="contact-card reveal">
+        <a href="mailto:alladorichard2019@gmail.com" class="contact-card reveal">
           <div class="contact-icon mail">📧</div>
           <div class="contact-info">
             <div class="contact-type">Email</div>
-            <div class="contact-value"><span class="__cf_email__" data-cfemail="ef8e83838e8b809d868c878e9d8bdddfded6af88828e8683c18c8082">[email&#160;protected]</span></div>
+            <div class="contact-value">alladorichard2019@gmail.com</div>
           </div>
         </a>
         <a href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" class="contact-card reveal">
@@ -888,7 +888,7 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     // Custom cursor
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
@@ -926,4 +926,13 @@
     const observer = new IntersectionObserver(entries => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-          setTi
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

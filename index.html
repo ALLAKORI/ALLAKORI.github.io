@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Richard Allado — Cybersecurity & AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #060810;
+      --surface: #0d1221;
+      --surface2: #111827;
+      --border: #1e2d45;
+      --accent: #00d4ff;
+      --accent2: #7c3aed;
+      --accent3: #10b981;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --danger: #f43f5e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom Cursor */
+    .cursor {
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, opacity 0.2s;
+      opacity: 0.5;
+    }
+
+    /* Background noise + grid */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Glowing orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.15;
+    }
+    .orb-1 { width: 500px; height: 500px; background: var(--accent2); top: -100px; left: -150px; animation: drift1 20s ease-in-out infinite; }
+    .orb-2 { width: 400px; height: 400px; background: var(--accent); top: 40%; right: -100px; animation: drift2 18s ease-in-out infinite; }
+    .orb-3 { width: 350px; height: 350px; background: var(--accent3); bottom: 0; left: 30%; animation: drift3 22s ease-in-out infinite; }
+
+    @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,60px)} }
+    @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-50px,-40px)} }
+    @keyframes drift3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,-50px)} }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(6,8,16,0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,212,255,0.08);
+    }
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+    .nav-logo span { color: var(--muted); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0; right: 0; height: 1px;
+      background: var(--accent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* Sections */
+    section { position: relative; z-index: 1; }
+
+    /* Hero */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 3rem 4rem;
+      max-width: 1100px; margin: auto;
+    }
+
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-tag::before { content: '> '; opacity: 0.5; }
+
+    .hero-name {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 800;
+      line-height: 0.95;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .hero-name .line1 { display: block; color: var(--text); }
+    .hero-name .line2 {
+      display: block;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+
+    .hero-flags {
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s forwards;
+    }
+
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+
+    .btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      padding: 0.8rem 1.8rem;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s ease;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+    }
+    .btn-primary:hover { background: #33ddff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,212,255,0.3); }
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid rgba(0,212,255,0.4);
+    }
+    .btn-outline:hover { border-color: var(--accent); background: rgba(0,212,255,0.08); transform: translateY(-2px); }
+
+    .hero-scroll {
+      position: absolute; bottom: 2rem;
+      left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      opacity: 0;
+      animation: fadeUp 1s 1.2s forwards;
+    }
+    .scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+    /* Section layout */
+    .section-container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 6rem 3rem;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .section-label::before { content: '// '; opacity: 0.5; }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 3rem;
+      line-height: 1.1;
+    }
+    .section-title span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Skills */
+    #skills { background: var(--surface); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-category {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .skill-category:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-4px); }
+
+    .skill-cat-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .skill-cat-title::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.3rem 0.8rem;
+      background: rgba(0,212,255,0.05);
+      border: 1px solid rgba(0,212,255,0.15);
+      border-radius: 3px;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .skill-tag:hover { background: rgba(0,212,255,0.12); border-color: rgba(0,212,255,0.4); color: var(--accent); }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.8rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .project-card:hover { border-color: rgba(0,212,255,0.25); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .project-card:hover::before { transform: scaleX(1); }
+
+    .project-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+    }
+    .project-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
+    .project-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      color: var(--accent);
+      background: rgba(0,212,255,0.07);
+      border: 1px solid rgba(0,212,255,0.15);
+    }
+    .project-tag.purple { color: #a78bfa; background: rgba(124,58,237,0.07); border-color: rgba(124,58,237,0.2); }
+    .project-tag.green { color: var(--accent3); background: rgba(16,185,129,0.07); border-color: rgba(16,185,129,0.2); }
+
+    .project-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      letter-spacing: 0.05em;
+      transition: gap 0.2s;
+    }
+    .project-link:hover { gap: 0.7rem; }
+    .project-link::after { content: '→'; }
+
+    .project-status {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    .status-live { background: rgba(16,185,129,0.1); color: var(--accent3); border: 1px solid rgba(16,185,129,0.3); }
+    .status-wip { background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+    .status-done { background: rgba(0,212,255,0.08); color: var(--accent); border: 1px solid rgba(0,212,255,0.2); }
+
+    /* About */
+    #about { background: var(--surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+    }
+    .about-text p strong { color: var(--text); }
+
+    .about-quote {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--accent);
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.5rem;
+      background: rgba(0,212,255,0.04);
+      border-radius: 0 4px 4px 0;
+      line-height: 1.7;
+      margin-top: 2rem;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .stat-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: border-color 0.3s;
+    }
+    .stat-card:hover { border-color: rgba(0,212,255,0.3); }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .thm-badge {
+      grid-column: span 2;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .thm-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #1db954, #158a3a);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .thm-text { font-size: 0.85rem; color: var(--muted); }
+    .thm-text strong { color: var(--accent3); display: block; margin-bottom: 0.2rem; }
+    .thm-text a { color: var(--accent3); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .contact-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-3px); }
+    .contact-icon {
+      width: 44px; height: 44px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .contact-icon.mail { background: rgba(244,63,94,0.1); border: 1px solid rgba(244,63,94,0.2); }
+    .contact-icon.linkedin { background: rgba(0,119,181,0.1); border: 1px solid rgba(0,119,181,0.25); }
+    .contact-icon.github { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+    .contact-icon.discord { background: rgba(88,101,242,0.1); border: 1px solid rgba(88,101,242,0.2); }
+    .contact-info { min-width: 0; }
+    .contact-type {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+    .contact-value {
+      font-size: 0.85rem;
+      color: var(--text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 1100px; margin: auto;
+    }
+    .footer-text {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    .footer-text span { color: var(--accent); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Terminal typing effect */
+    .typing {
+      display: inline;
+      border-right: 2px solid var(--accent);
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{border-color:var(--accent)} 50%{border-color:transparent} }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .section-container { padding: 4rem 1.5rem; }
+      #hero { padding: 6rem 1.5rem 3rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { flex-direction: column; gap: 1rem; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-logo">kossi.richard<span>@allado</span>:~$</div>
+    <ul class="nav-links">
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-tag">Engineering Student · Cybersecurity & AI</div>
+    <h1 class="hero-name">
+      <span class="line1">Kossi Richard</span>
+      <span class="line2">Allado</span>
+    </h1>
+    <p class="hero-desc">
+      Building at the intersection of <strong>AI Safety</strong> and <strong>Network Security</strong>.
+      Turning complex security problems into elegant, intelligent solutions.
+    </p>
+    <div class="hero-flags">🇹🇬 → 🇲🇦 &nbsp;<span style="font-size:0.9rem;color:var(--muted);font-family:'Space Mono',monospace;font-size:0.75rem"> ENSA Béni Mellal • 2nd Year Engineering</span></div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      <a href="https://github.com/ALLAKORI" target="_blank" class="btn btn-outline">GitHub ↗</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      scroll
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="section-container">
+      <p class="section-label reveal">featured work</p>
+      <h2 class="section-title reveal">Selected <span>Projects</span></h2>
+
+      <div class="projects-grid">
+
+        <!-- Project 1 -->
+        <div class="project-card reveal">
+          <div class="project-number">01 / SECURITY TOOL</div>
+          <span class="project-status status-done">COMPLETED</span>
+          <h3 class="project-title">Password Complexity Checker</h3>
+          <p class="project-desc">A Python tool that analyzes and evaluates password strength using entropy-based scoring, pattern detection, and real-time feedback to help users build more secure passwords.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Security</span>
+            <span class="project-tag">CLI Tool</span>
+          </div>
+          <a href="https://github.com/ALLAKORI/-Password-Complexity-Checker" target="_blank" class="project-link">View on GitHub</a>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card reveal">
+          <div class="project-number">02 / MACHINE LEARNING</div>
+          <span class="project-status status-done">INTERNSHIP PROJECT</span>
+          <h3 class="project-title">High-Pressure Pump Fault Prediction</h3>
+          <p class="project-desc">ML model built during internship that predicts failures in high-pressure pump systems using Random Forest classification. Enables predictive maintenance and reduces downtime in industrial environments.</p>
+          <div class="project-tags">
+            <span class="project-tag purple">Python</span>
+            <span class="project-tag purple">Scikit-Learn</span>
+            <span class="project-tag purple">Random Forest</span>
+            <span class="project-tag purple">Pandas</span>
+          </div>
+          <a href="https://github.com/ALLAKORI" target="_blank" class="project-link">View on GitHub</a>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card reveal">
+          <div class="project-number">03 / AI CHATBOT</div>
+          <span class="project-status status-wip">IN PROGRESS</span>
+          <h3 class="project-title">USMS Intelligent Chatbot</h3>
+          <p class="project-desc">An intelligent conversational assistant for USMS (Université Sultan Moulay Slimane). Designed to help students access academic info, schedules, and campus resources through natural language queries.</p>
+          <div class="project-tags">
+            <span class="project-tag green">Python</span>
+            <span class="project-tag green">NLP</span>
+            <span class="project-tag green">Django</span>
+            <span class="project-tag green">AI</span>
+          </div>
+          <span style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--muted)">Active Development</span>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project-card reveal">
+          <div class="project-number">04 / CRYPTOGRAPHY</div>
+          <span class="project-status status-done">COMPLETED</span>
+          <h3 class="project-title">Image XOR Encryption</h3>
+          <p class="project-desc">Implementation of XOR-based image encryption in Python. Applies bitwise operations to encrypt and decrypt image data, demonstrating symmetric key cryptography concepts.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Cryptography</span>
+            <span class="project-tag">XOR</span>
+          </div>
+          <a href="https://github.com/ALLAKORI/-Image-XOR-Encryption" target="_blank" class="project-link">View on GitHub</a>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="project-card reveal">
+          <div class="project-number">05 / CRYPTOGRAPHY</div>
+          <span class="project-status status-done">COMPLETED</span>
+          <h3 class="project-title">Caesar Cipher</h3>
+          <p class="project-desc">A clean Python implementation of the Caesar cipher with encoding and decoding support. A foundational cryptography project exploring classical encryption algorithms.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Cryptography</span>
+          </div>
+          <a href="https://github.com/ALLAKORI/Caesar-cipher" target="_blank" class="project-link">View on GitHub</a>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="project-card reveal">
+          <div class="project-number">06 / WEB</div>
+          <span class="project-status status-done">COMPLETED</span>
+          <h3 class="project-title">School Blog Platform</h3>
+          <p class="project-desc">A web-based blog application for school content management. Features article publishing, browsing, and a clean UI built with modern JavaScript.</p>
+          <div class="project-tags">
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">Web Dev</span>
+            <span class="project-tag">HTML/CSS</span>
+          </div>
+          <a href="https://github.com/ALLAKORI/shool-blog" target="_blank" class="project-link">View on GitHub</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <div class="section-container">
+      <p class="section-label reveal">technical arsenal</p>
+      <h2 class="section-title reveal">Skills & <span>Stack</span></h2>
+
+      <div class="skills-grid">
+        <div class="skill-category reveal">
+          <div class="skill-cat-title">AI & Machine Learning</div>
+          <div class="skill-tags">
+            <span class="skill-tag">TensorFlow</span>
+            <span class="skill-tag">PyTorch</span>
+            <span class="skill-tag">Scikit-Learn</span>
+            <span class="skill-tag">Random Forest</span>
+            <span class="skill-tag">Pandas</span>
+            <span class="skill-tag">Matplotlib</span>
+            <span class="skill-tag">Jupyter</span>
+          </div>
+        </div>
+        <div class="skill-category reveal">
+          <div class="skill-cat-title">Cybersecurity</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Nmap</span>
+            <span class="skill-tag">Wireshark</span>
+            <span class="skill-tag">Burp Suite</span>
+            <span class="skill-tag">Kali Linux</span>
+            <span class="skill-tag">Pentesting</span>
+            <span class="skill-tag">AI Security</span>
+            <span class="skill-tag">TryHackMe</span>
+          </div>
+        </div>
+        <div class="skill-category reveal">
+          <div class="skill-cat-title">Languages</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">C</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">LaTeX</span>
+          </div>
+        </div>
+        <div class="skill-category reveal">
+          <div class="skill-cat-title">Frameworks & Tools</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Django</span>
+            <span class="skill-tag">Linux</span>
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="section-container">
+      <p class="section-label reveal">who i am</p>
+      <h2 class="section-title reveal">About <span>Me</span></h2>
+
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>I'm <strong>Kossi Richard Allado</strong>, an engineering student at <strong>ENSA Béni Mellal</strong> (Morocco), originally from <strong>Togo 🇹🇬</strong>. I'm passionate about the convergence of artificial intelligence and cybersecurity — two fields that are increasingly inseparable.</p>
+          <p>My work spans from low-level network security (pentesting, traffic analysis) to high-level AI system design (predictive ML models, intelligent chatbots). I believe the most impactful security work of the next decade will happen at the intersection of these domains.</p>
+          <p>When I'm not coding or studying, I'm sharpening my skills on <strong>TryHackMe</strong> and exploring adversarial machine learning concepts.</p>
+          <div class="about-quote">
+            "In the age of AI, true security isn't just about building walls — it's about teaching the mind of the machine to defend its own integrity."
+            <br><br>— Richard Allado
+          </div>
+        </div>
+
+        <div>
+          <div class="about-stats reveal">
+            <div class="stat-card" style="grid-column:span 2; display:flex; align-items:center; gap:1.5rem; padding:1.2rem 1.5rem;">
+              <div style="
+                width:90px; height:90px; flex-shrink:0;
+                border-radius:50%;
+                border:2px dashed rgba(0,212,255,0.35);
+                background:rgba(0,212,255,0.04);
+                display:flex; flex-direction:column; align-items:center; justify-content:center;
+                font-size:1.6rem;
+                position:relative;
+                overflow:hidden;
+              ">
+                <!-- Replace the src below with your actual photo path or URL -->
+                
+                <img id="profile-photo" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;position:absolute;inset:0;" />
+                <span id="photo-placeholder" style="font-size:1.8rem;">👤</span>
+              </div>
+              <div>
+                <div style="font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Photo</div>
+                <div style="font-size:0.82rem;color:var(--text);">Kossi Richard Allado</div>
+                <div style="font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--muted);margin-top:0.2rem;">🇹🇬 Togo → 🇲🇦 Morocco</div>
+                <div style="font-family:'Space Mono',monospace;font-size:0.6rem;color:rgba(0,212,255,0.4);margin-top:0.5rem;">
+                  ← Replace with your photo by editing <code style="color:var(--accent);">src=""</code>
+                </div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">6+</div>
+              <div class="stat-label">GitHub Repos</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">2nd</div>
+              <div class="stat-label">Year Engineering</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">∞</div>
+              <div class="stat-label">Curiosity</div>
+            </div>
+            <div class="thm-badge">
+              <div class="thm-icon">🎯</div>
+              <div class="thm-text">
+                <strong>TryHackMe Active</strong>
+                Practicing pentesting & CTF challenges
+                <br><a href="https://tryhackme.com/p/RIDOKY" target="_blank">tryhackme.com/p/RIDOKY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="section-container">
+      <p class="section-label reveal">get in touch</p>
+      <h2 class="section-title reveal">Let's <span>Connect</span></h2>
+      <p class="reveal" style="color:var(--muted);margin-bottom:2.5rem;font-size:0.95rem;max-width:500px;line-height:1.7;">
+        Open to opportunities, collaborations, and interesting conversations about AI, security, or anything in between.
+      </p>
+      <div class="contact-grid">
+        <a href="/cdn-cgi/l/email-protection#39585555585d564b505a51584b5d0b090800795e54585055175a5654" class="contact-card reveal">
+          <div class="contact-icon mail">📧</div>
+          <div class="contact-info">
+            <div class="contact-type">Email</div>
+            <div class="contact-value"><span class="__cf_email__" data-cfemail="ef8e83838e8b809d868c878e9d8bdddfded6af88828e8683c18c8082">[email&#160;protected]</span></div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" class="contact-card reveal">
+          <div class="contact-icon linkedin">💼</div>
+          <div class="contact-info">
+            <div class="contact-type">LinkedIn</div>
+            <div class="contact-value">Kossi Richard Allado</div>
+          </div>
+        </a>
+        <a href="https://github.com/ALLAKORI" target="_blank" class="contact-card reveal">
+          <div class="contact-icon github">⚡</div>
+          <div class="contact-info">
+            <div class="contact-type">GitHub</div>
+            <div class="contact-value">ALLAKORI</div>
+          </div>
+        </a>
+        <div class="contact-card reveal" style="cursor:default;">
+          <div class="contact-icon discord">🎮</div>
+          <div class="contact-info">
+            <div class="contact-type">Discord</div>
+            <div class="contact-value">ridoky4421</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-text">© 2025 <span>Kossi Richard Allado</span> — Built with passion & caffeine ☕</div>
+    <div class="footer-links">
+      <a href="https://github.com/ALLAKORI" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top = mouseY + 'px';
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      ring.style.left = ringX + 'px';
+      ring.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button, .project-card, .skill-category').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '20px';
+        cursor.style.height = '20px';
+        ring.style.opacity = '0.9';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '12px';
+        cursor.style.height = '12px';
+        ring.style.opacity = '0.5';
+      });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTi

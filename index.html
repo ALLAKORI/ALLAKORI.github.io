@@ -3,947 +3,968 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kossi Richard Allado | Cybersecurity and AI</title>
+  <title>Kossi Richard Allado | Cybersecurity &amp; AI Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #060810;
-      --surface: #0d1221;
-      --surface2: #111827;
-      --border: #1e2d45;
-      --accent: #00d4ff;
-      --accent2: #7c3aed;
-      --accent3: #10b981;
-      --text: #e2e8f0;
-      --muted: #64748b;
-      --danger: #f43f5e;
+      --bg: #15171b;
+      --side: #191b1f;
+      --main: #17191e;
+      --card: #1f2228;
+      --card-2: #23272f;
+      --line: #30343d;
+      --line-soft: #272b33;
+      --text: #e6e8ee;
+      --muted: #a5a9b3;
+      --soft: #767b86;
+      --blue: #75a7ff;
+      --cyan: #58d5ff;
+      --green: #70d58b;
+      --violet: #b9a7ff;
+      --amber: #f0c15a;
+      --danger: #ff7788;
+      --shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
-      font-family: 'Syne', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      cursor: none;
-    }
-
-    /* Custom Cursor */
-    .cursor {
-      width: 12px; height: 12px;
-      background: var(--accent);
-      border-radius: 50%;
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
-      mix-blend-mode: difference;
-    }
-    .cursor-ring {
-      width: 36px; height: 36px;
-      border: 1.5px solid var(--accent);
-      border-radius: 50%;
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: transform 0.15s ease, opacity 0.2s;
-      opacity: 0.5;
-    }
-
-    /* Background noise + grid */
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image:
-        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Glowing orbs */
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.15;
-    }
-    .orb-1 { width: 500px; height: 500px; background: var(--accent2); top: -100px; left: -150px; animation: drift1 20s ease-in-out infinite; }
-    .orb-2 { width: 400px; height: 400px; background: var(--accent); top: 40%; right: -100px; animation: drift2 18s ease-in-out infinite; }
-    .orb-3 { width: 350px; height: 350px; background: var(--accent3); bottom: 0; left: 30%; animation: drift3 22s ease-in-out infinite; }
-
-    @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,60px)} }
-    @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-50px,-40px)} }
-    @keyframes drift3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,-50px)} }
-
-    /* Nav */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 3rem;
-      background: rgba(6,8,16,0.7);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0,212,255,0.08);
-    }
-    .nav-logo {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.85rem;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-    }
-    .nav-logo span { color: var(--muted); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      transition: color 0.2s;
-      position: relative;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute; bottom: -4px; left: 0; right: 0; height: 1px;
-      background: var(--accent);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.3s ease;
-    }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-links a:hover::after { transform: scaleX(1); }
-
-    /* Sections */
-    section { position: relative; z-index: 1; }
-
-    /* Hero */
-    #hero {
       min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 8rem 3rem 4rem;
-      max-width: 1100px; margin: auto;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--main);
     }
 
-    .hero-tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--accent);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.2s forwards;
+    a {
+      color: inherit;
     }
-    .hero-tag::before { content: '> '; opacity: 0.5; }
 
-    .hero-name {
-      font-size: clamp(3rem, 8vw, 7rem);
-      font-weight: 800;
-      line-height: 0.95;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.4s forwards;
-    }
-    .hero-name .line1 { display: block; color: var(--text); }
-    .hero-name .line2 {
+    img {
       display: block;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      max-width: 100%;
     }
 
-    .hero-desc {
-      font-size: 1.1rem;
+    .mono,
+    .tag,
+    .meta,
+    .button,
+    .search input,
+    .brand-code {
+      font-family: "JetBrains Mono", monospace;
+      letter-spacing: 0;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      border-right: 1px solid var(--line);
+      background: var(--side);
+      padding: 34px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .identity {
+      display: grid;
+      gap: 18px;
+    }
+
+    .avatar {
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #3b414d;
+      box-shadow: var(--shadow);
+    }
+
+    .name {
+      font-size: 2rem;
+      line-height: 1.05;
+      font-weight: 800;
+    }
+
+    .role {
       color: var(--muted);
-      max-width: 540px;
-      line-height: 1.7;
-      margin-bottom: 2.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.6s forwards;
+      font-style: italic;
+      line-height: 1.55;
     }
 
-    .hero-flags {
-      font-size: 1.5rem;
-      margin-bottom: 3rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.7s forwards;
+    .nav {
+      display: grid;
+      gap: 10px;
+      margin-top: 22px;
     }
 
-    .hero-cta {
-      display: flex; gap: 1rem; flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.8s forwards;
-    }
-
-    .btn {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
-      letter-spacing: 0.05em;
-      padding: 0.8rem 1.8rem;
-      border-radius: 4px;
+    .nav a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 46px;
+      padding: 0 14px;
+      border-radius: 8px;
+      color: var(--muted);
       text-decoration: none;
-      cursor: pointer;
-      border: none;
-      transition: all 0.25s ease;
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.82rem;
     }
-    .btn-primary {
-      background: var(--accent);
-      color: var(--bg);
-      font-weight: 700;
-    }
-    .btn-primary:hover { background: #33ddff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,212,255,0.3); }
-    .btn-outline {
-      background: transparent;
-      color: var(--accent);
-      border: 1px solid rgba(0,212,255,0.4);
-    }
-    .btn-outline:hover { border-color: var(--accent); background: rgba(0,212,255,0.08); transform: translateY(-2px); }
 
-    .hero-scroll {
-      position: absolute; bottom: 2rem;
-      left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
+    .nav a:hover,
+    .nav a.active {
+      color: var(--text);
+      background: #24272e;
+    }
+
+    .nav-icon {
+      width: 20px;
+      color: var(--soft);
+      text-align: center;
+    }
+
+    .social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #242832;
       color: var(--muted);
-      letter-spacing: 0.1em;
-      opacity: 0;
-      animation: fadeUp 1s 1.2s forwards;
+      text-decoration: none;
+      border: 1px solid var(--line);
+      font-weight: 800;
     }
-    .scroll-line {
-      width: 1px; height: 50px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
-    }
-    @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
 
-    /* Section layout */
-    .section-container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 6rem 3rem;
+    .content {
+      min-width: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 38px;
+      padding: 0 42px 56px;
+    }
+
+    .topbar {
+      grid-column: 1 / -1;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      background: rgba(23, 25, 30, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line-soft);
     }
 
     .section-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--accent);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-    .section-label::before { content: '// '; opacity: 0.5; }
-
-    .section-title {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 3rem;
-      line-height: 1.1;
-    }
-    .section-title span {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--muted);
+      font-size: 1.05rem;
     }
 
-    /* Skills */
-    #skills { background: var(--surface); }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .skill-category {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
-      transition: border-color 0.3s, transform 0.3s;
-    }
-    .skill-category:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-4px); }
-
-    .skill-cat-title {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .skill-cat-title::before {
-      content: '';
-      display: inline-block;
-      width: 6px; height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-    }
-
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .skill-tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      padding: 0.3rem 0.8rem;
-      background: rgba(0,212,255,0.05);
-      border: 1px solid rgba(0,212,255,0.15);
-      border-radius: 3px;
-      color: var(--text);
-      transition: all 0.2s;
-    }
-    .skill-tag:hover { background: rgba(0,212,255,0.12); border-color: rgba(0,212,255,0.4); color: var(--accent); }
-
-    /* Projects */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.8rem;
-      transition: all 0.3s ease;
+    .search {
+      width: min(330px, 100%);
       position: relative;
-      overflow: hidden;
     }
-    .project-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.4s ease;
-    }
-    .project-card:hover { border-color: rgba(0,212,255,0.25); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-    .project-card:hover::before { transform: scaleX(1); }
 
-    .project-number {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--muted);
-      margin-bottom: 1rem;
-      letter-spacing: 0.1em;
-    }
-    .project-title {
-      font-size: 1.15rem;
-      font-weight: 700;
+    .search input {
+      width: 100%;
+      height: 46px;
+      border-radius: 23px;
+      border: 1px solid var(--line);
+      background: #16181d;
       color: var(--text);
-      margin-bottom: 0.75rem;
-    }
-    .project-desc {
+      padding: 0 18px 0 44px;
       font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 1.2rem;
-    }
-    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
-    .project-tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 2px;
-      color: var(--accent);
-      background: rgba(0,212,255,0.07);
-      border: 1px solid rgba(0,212,255,0.15);
-    }
-    .project-tag.purple { color: #a78bfa; background: rgba(124,58,237,0.07); border-color: rgba(124,58,237,0.2); }
-    .project-tag.green { color: var(--accent3); background: rgba(16,185,129,0.07); border-color: rgba(16,185,129,0.2); }
-
-    .project-link {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--accent);
-      text-decoration: none;
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      letter-spacing: 0.05em;
-      transition: gap 0.2s;
-    }
-    .project-link:hover { gap: 0.7rem; }
-    .project-link::after { content: '→'; }
-
-    .project-status {
-      display: inline-block;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 20px;
-      letter-spacing: 0.1em;
-      margin-bottom: 1rem;
-    }
-    .status-live { background: rgba(16,185,129,0.1); color: var(--accent3); border: 1px solid rgba(16,185,129,0.3); }
-    .status-wip { background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
-    .status-done { background: rgba(0,212,255,0.08); color: var(--accent); border: 1px solid rgba(0,212,255,0.2); }
-
-    /* About */
-    #about { background: var(--surface); }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-    .about-text p {
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 0.95rem;
-      margin-bottom: 1.2rem;
-    }
-    .about-text p strong { color: var(--text); }
-
-    .about-quote {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.82rem;
-      font-style: italic;
-      color: var(--accent);
-      border-left: 3px solid var(--accent);
-      padding: 1rem 1.5rem;
-      background: rgba(0,212,255,0.04);
-      border-radius: 0 4px 4px 0;
-      line-height: 1.7;
-      margin-top: 2rem;
+      outline: none;
     }
 
-    .about-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
+    .search input:focus {
+      border-color: rgba(117, 167, 255, 0.72);
     }
-    .stat-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
-      transition: border-color 0.3s;
-    }
-    .stat-card:hover { border-color: rgba(0,212,255,0.3); }
-    .stat-number {
-      font-size: 2.5rem;
+
+    .search::before {
+      content: "/";
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--soft);
       font-weight: 800;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-      margin-bottom: 0.3rem;
-    }
-    .stat-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
     }
 
-    .thm-badge {
-      grid-column: span 2;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
-      display: flex; align-items: center; gap: 1rem;
+    main {
+      min-width: 0;
+      padding-top: 34px;
     }
-    .thm-icon {
-      width: 40px; height: 40px;
-      background: linear-gradient(135deg, #1db954, #158a3a);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem;
-      flex-shrink: 0;
-    }
-    .thm-text { font-size: 0.85rem; color: var(--muted); }
-    .thm-text strong { color: var(--accent3); display: block; margin-bottom: 0.2rem; }
-    .thm-text a { color: var(--accent3); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; }
 
-    /* Contact */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.2rem;
+    .hero {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at 90% 15%, rgba(88, 213, 255, 0.11), transparent 25rem),
+        linear-gradient(135deg, #20242c, #191c22);
+      padding: 34px;
+      box-shadow: var(--shadow);
+      margin-bottom: 28px;
     }
-    .contact-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
-      text-decoration: none;
-      transition: all 0.3s;
-      display: flex; align-items: center; gap: 1rem;
+
+    .eyebrow {
+      color: var(--green);
+      font-size: 0.78rem;
+      margin-bottom: 14px;
     }
-    .contact-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-3px); }
-    .contact-icon {
-      width: 44px; height: 44px;
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem;
-      flex-shrink: 0;
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(2.2rem, 4.8vw, 4.8rem);
+      line-height: 0.98;
+      font-weight: 800;
     }
-    .contact-icon.mail { background: rgba(244,63,94,0.1); border: 1px solid rgba(244,63,94,0.2); }
-    .contact-icon.linkedin { background: rgba(0,119,181,0.1); border: 1px solid rgba(0,119,181,0.25); }
-    .contact-icon.github { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
-    .contact-icon.discord { background: rgba(88,101,242,0.1); border: 1px solid rgba(88,101,242,0.2); }
-    .contact-info { min-width: 0; }
-    .contact-type {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
+
+    .accent {
+      color: var(--cyan);
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin-top: 18px;
       color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 0.2rem;
+      line-height: 1.75;
+      font-size: 1rem;
     }
-    .contact-value {
-      font-size: 0.85rem;
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .button {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #252a33;
       color: var(--text);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    /* Footer */
-    footer {
-      position: relative; z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 2rem 3rem;
-      display: flex; justify-content: space-between; align-items: center;
-      max-width: 1100px; margin: auto;
-    }
-    .footer-text {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--muted);
-    }
-    .footer-text span { color: var(--accent); }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links a {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--muted);
+      padding: 0 15px;
       text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--accent); }
-
-    /* Animations */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+      font-size: 0.75rem;
+      font-weight: 700;
     }
 
-    /* Terminal typing effect */
-    .typing {
-      display: inline;
-      border-right: 2px solid var(--accent);
-      animation: blink 1s step-end infinite;
+    .button.primary {
+      color: #101319;
+      background: var(--cyan);
+      border-color: transparent;
     }
-    @keyframes blink { 0%,100%{border-color:var(--accent)} 50%{border-color:transparent} }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      .section-container { padding: 4rem 1.5rem; }
-      #hero { padding: 6rem 1.5rem 3rem; }
-      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      footer { flex-direction: column; gap: 1rem; padding: 1.5rem; }
+    .button:hover {
+      border-color: rgba(88, 213, 255, 0.75);
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: clamp(1.55rem, 2.8vw, 2.5rem);
+      line-height: 1.12;
+    }
+
+    .section-note {
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.6;
+      font-size: 0.92rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .cards-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .cards-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card,
+    .post,
+    .case {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--card);
+      min-width: 0;
+    }
+
+    .card {
+      padding: 20px;
+    }
+
+    .meta {
+      color: var(--blue);
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .card h3,
+    .post h3,
+    .case h3 {
+      font-size: 1.07rem;
+      line-height: 1.3;
+      margin-bottom: 9px;
+    }
+
+    .card p,
+    .post p,
+    .case p,
+    .side-card p {
+      color: var(--muted);
+      line-height: 1.62;
+      font-size: 0.91rem;
+    }
+
+    .case {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      overflow: hidden;
+    }
+
+    .case-media {
+      border-right: 1px solid var(--line);
+      background: #16191f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .case-media img,
+    .code-panel {
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .case-body {
+      padding: 22px;
+    }
+
+    .case h3 {
+      font-size: 1.35rem;
+    }
+
+    .bullets {
+      list-style: none;
+      display: grid;
+      gap: 9px;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.52;
+    }
+
+    .bullets li::before {
+      content: ">";
+      color: var(--green);
+      margin-right: 8px;
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    .code-panel {
+      width: 100%;
+      background: #14171d;
+      padding: 18px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.7;
+    }
+
+    .prompt {
+      color: var(--green);
+    }
+
+    .cmd {
+      color: var(--cyan);
+    }
+
+    .post {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 180px;
+      min-height: 210px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .post:hover {
+      border-color: rgba(117, 167, 255, 0.55);
+      transform: translateY(-2px);
+    }
+
+    .post-body {
+      padding: 24px;
+    }
+
+    .post-art {
+      border-left: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 35% 45%, rgba(117, 167, 255, 0.12), transparent 8rem),
+        linear-gradient(90deg, #242832, #191c22);
+      display: flex;
+      align-items: end;
+      justify-content: end;
+      padding: 16px;
+      color: var(--soft);
+      font-size: 2.4rem;
+      font-weight: 800;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 15px;
+    }
+
+    .tag {
+      min-height: 24px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid #3a404c;
+      border-radius: 13px;
+      color: var(--muted);
+      padding: 0 9px;
+      font-size: 0.68rem;
+      text-decoration: none;
+      background: #20242b;
+    }
+
+    .tag.blue {
+      color: #cfe0ff;
+      border-color: rgba(117, 167, 255, 0.28);
+    }
+
+    .tag.green {
+      color: #cef8d9;
+      border-color: rgba(112, 213, 139, 0.28);
+    }
+
+    .tag.violet {
+      color: #e5dcff;
+      border-color: rgba(185, 167, 255, 0.3);
+    }
+
+    .link {
+      display: inline-flex;
+      margin-top: 16px;
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.86rem;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    .side {
+      padding-top: 34px;
+      min-width: 0;
+    }
+
+    .side-card {
+      border-left: 1px solid var(--line);
+      padding: 0 0 28px 24px;
+      margin-bottom: 28px;
+    }
+
+    .side-card h3 {
+      font-size: 1.04rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .recent {
+      display: grid;
+      gap: 13px;
+    }
+
+    .recent a {
+      color: var(--soft);
+      text-decoration: none;
+      line-height: 1.45;
+    }
+
+    .recent a:hover {
+      color: var(--blue);
+    }
+
+    .stack-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1.1fr repeat(3, minmax(0, 0.7fr));
+    }
+
+    footer {
+      color: var(--soft);
+      border-top: 1px solid var(--line-soft);
+      padding: 24px 0 34px;
+      font-size: 0.78rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 1180px) {
+      .layout {
+        grid-template-columns: 260px minmax(0, 1fr);
+      }
+
+      .content {
+        grid-template-columns: 1fr;
+        padding: 0 28px 46px;
+      }
+
+      .side {
+        padding-top: 0;
+      }
+
+      .side-card {
+        border-left: 0;
+        border-top: 1px solid var(--line);
+        padding: 22px 0 0;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .layout {
+        display: block;
+      }
+
+      .sidebar {
+        position: relative;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .content {
+        padding: 0 18px 42px;
+      }
+
+      .topbar {
+        min-height: auto;
+        padding: 16px 0;
+        display: grid;
+      }
+
+      .search {
+        width: 100%;
+      }
+
+      .cards-3,
+      .cards-2,
+      .case,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .case-media,
+      .post-art {
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .post {
+        grid-template-columns: 1fr;
+      }
+
+      .post-art {
+        min-height: 82px;
+        order: -1;
+      }
     }
   </style>
 </head>
 <body>
-
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-
-  <!-- Nav -->
-  <nav>
-    <div class="nav-logo">kossi.richard<span>@allado</span>:~$</div>
-    <ul class="nav-links">
-      <li><a href="#projects">projects</a></li>
-      <li><a href="#skills">skills</a></li>
-      <li><a href="#about">about</a></li>
-      <li><a href="#contact">contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- Hero -->
-  <section id="hero">
-    <div class="hero-tag">Cybersecurity and AI Engineering Student</div>
-    <h1 class="hero-name">
-      <span class="line1">Kossi Richard</span>
-      <span class="line2">Allado</span>
-    </h1>
-    <p class="hero-desc">
-      Building practical projects in <strong>Linux security</strong>, <strong>digital forensics</strong>, and <strong>applied machine learning</strong>.
-      I like turning hands-on lab work into clear, well-documented technical case studies.
-    </p>
-    <div class="hero-flags">🇹🇬 → 🇲🇦 &nbsp;<span style="font-size:0.9rem;color:var(--muted);font-family:'Space Mono',monospace;font-size:0.75rem"> ENSA Béni Mellal • 2nd Year Engineering</span></div>
-    <div class="hero-cta">
-      <a href="#projects" class="btn btn-primary">View Projects</a>
-      <a href="#contact" class="btn btn-outline">Get in Touch</a>
-      <a href="https://github.com/ALLAKORI" target="_blank" class="btn btn-outline">GitHub ↗</a>
-    </div>
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      scroll
-    </div>
-  </section>
-
-  <!-- Projects -->
-  <section id="projects">
-    <div class="section-container">
-      <p class="section-label reveal">featured work</p>
-      <h2 class="section-title reveal">Selected <span>Projects</span></h2>
-
-      <div class="projects-grid">
-
-        <!-- Project 1 -->
-        <div class="project-card reveal">
-          <div class="project-number">01 / LINUX SECURITY</div>
-          <span class="project-status status-done">COMPLETED</span>
-          <h3 class="project-title">Linux Security Labs</h3>
-          <p class="project-desc">Three documented labs covering SELinux, AppArmor, auditd, Linux auditing, intrusion detection, and cross-platform log analysis.</p>
-          <div class="project-tags">
-            <span class="project-tag">SELinux</span>
-            <span class="project-tag">AppArmor</span>
-            <span class="project-tag">auditd</span>
-            <span class="project-tag">Forensics</span>
+  <div class="layout">
+    <aside class="sidebar">
+      <div>
+        <div class="identity">
+          <img class="avatar" src="richard.jpg" alt="Kossi Richard Allado" />
+          <div>
+            <div class="name">Kossi Richard Allado</div>
+            <p class="role">Cybersecurity &amp; AI engineering student. PFA internship target: June 2026.</p>
           </div>
-          <a href="https://github.com/ALLAKORI/linux-security-labs" target="_blank" class="project-link">View on GitHub</a>
         </div>
 
-        <!-- Project 2 -->
-        <div class="project-card reveal">
-          <div class="project-number">02 / INCIDENT RESPONSE</div>
-          <span class="project-status status-done">LAB PROJECT</span>
-          <h3 class="project-title">Linux Server Compromise Lab</h3>
-          <p class="project-desc">A full attack-and-defense lab simulating brute-force access, persistence, privilege escalation, IOC extraction, and incident response on a Linux host.</p>
-          <div class="project-tags">
-            <span class="project-tag purple">Digital Forensics</span>
-            <span class="project-tag purple">Blue Team</span>
-            <span class="project-tag purple">Incident Response</span>
-            <span class="project-tag purple">auditd</span>
-          </div>
-          <a href="https://github.com/ALLAKORI/Linux-Server-Compromise-Forensic-Investigation-Lab" target="_blank" class="project-link">View on GitHub</a>
-        </div>
-
-        <!-- Project 3 -->
-        <div class="project-card reveal">
-          <div class="project-number">03 / CTF WRITEUPS</div>
-          <span class="project-status status-done">ACTIVE SERIES</span>
-          <h3 class="project-title">ECOWAS CTF 2026</h3>
-          <p class="project-desc">Organized challenge writeups across web, pwn, mobile, forensics, and steganography, with notes focused on method, tooling, and lessons learned.</p>
-          <div class="project-tags">
-            <span class="project-tag green">CTF</span>
-            <span class="project-tag green">Writeups</span>
-            <span class="project-tag green">Web</span>
-            <span class="project-tag green">Pwn</span>
-          </div>
-          <a href="https://github.com/ALLAKORI/Ecowas_ctf_2026" target="_blank" class="project-link">View on GitHub</a>
-        </div>
-
-        <!-- Project 4 -->
-        <div class="project-card reveal">
-          <div class="project-number">04 / MACHINE LEARNING</div>
-          <span class="project-status status-done">INTERNSHIP PROJECT</span>
-          <h3 class="project-title">High-Pressure Pump Fault Prediction</h3>
-          <p class="project-desc">A predictive maintenance application using machine learning and a Python desktop interface to classify potential faults from industrial sensor data.</p>
-          <div class="project-tags">
-            <span class="project-tag">Python</span>
-            <span class="project-tag">Scikit-Learn</span>
-            <span class="project-tag">Pandas</span>
-            <span class="project-tag">Tkinter</span>
-          </div>
-          <a href="https://github.com/ALLAKORI/Defaut-Pompe-Prediction" target="_blank" class="project-link">View on GitHub</a>
-        </div>
-
-        <!-- Project 5 -->
-        <div class="project-card reveal">
-          <div class="project-number">05 / PERSONAL BRAND</div>
-          <span class="project-status status-done">LIVE</span>
-          <h3 class="project-title">Portfolio Website</h3>
-          <p class="project-desc">A custom GitHub Pages portfolio built in vanilla HTML, CSS, and JavaScript to present my background, featured work, and contact links.</p>
-          <div class="project-tags">
-            <span class="project-tag">HTML</span>
-            <span class="project-tag">CSS</span>
-            <span class="project-tag">JavaScript</span>
-            <span class="project-tag">GitHub Pages</span>
-          </div>
-          <a href="https://github.com/ALLAKORI/ALLAKORI.github.io" target="_blank" class="project-link">View on GitHub</a>
-        </div>
-
-        <!-- Project 6 -->
-        <div class="project-card reveal">
-          <div class="project-number">06 / CONVERSATIONAL AI</div>
-          <span class="project-status status-done">LEARNING LAB</span>
-          <h3 class="project-title">Local LLM Chatbot Experiments</h3>
-          <p class="project-desc">A learning repository for local LLM experiments using Chainlit, LangChain, and ctransformers, covering prompting, streaming, and conversational memory.</p>
-          <div class="project-tags">
-            <span class="project-tag">Python</span>
-            <span class="project-tag">Chainlit</span>
-            <span class="project-tag">LangChain</span>
-            <span class="project-tag">LLM</span>
-          </div>
-          <a href="https://github.com/ALLAKORI/MY-FIRST-AI-CHATBOT" target="_blank" class="project-link">View on GitHub</a>
-        </div>
-
+        <nav class="nav" aria-label="Main navigation">
+          <a class="active" href="#home"><span class="nav-icon">01</span> Home</a>
+          <a href="#writeups"><span class="nav-icon">02</span> Writeups</a>
+          <a href="#projects"><span class="nav-icon">03</span> Projects</a>
+          <a href="#stack"><span class="nav-icon">04</span> Stack</a>
+          <a href="#about"><span class="nav-icon">05</span> About</a>
+          <a href="#contact"><span class="nav-icon">06</span> Contact</a>
+        </nav>
       </div>
-    </div>
-  </section>
 
-  <!-- Skills -->
-  <section id="skills">
-    <div class="section-container">
-      <p class="section-label reveal">technical arsenal</p>
-      <h2 class="section-title reveal">Skills & <span>Stack</span></h2>
-
-      <div class="skills-grid">
-        <div class="skill-category reveal">
-          <div class="skill-cat-title">AI & Machine Learning</div>
-          <div class="skill-tags">
-            <span class="skill-tag">TensorFlow</span>
-            <span class="skill-tag">PyTorch</span>
-            <span class="skill-tag">Scikit-Learn</span>
-            <span class="skill-tag">Random Forest</span>
-            <span class="skill-tag">Pandas</span>
-            <span class="skill-tag">Matplotlib</span>
-            <span class="skill-tag">Jupyter</span>
-          </div>
-        </div>
-        <div class="skill-category reveal">
-          <div class="skill-cat-title">Cybersecurity</div>
-          <div class="skill-tags">
-            <span class="skill-tag">SELinux</span>
-            <span class="skill-tag">AppArmor</span>
-            <span class="skill-tag">auditd</span>
-            <span class="skill-tag">Nmap</span>
-            <span class="skill-tag">Hydra</span>
-            <span class="skill-tag">Wireshark</span>
-            <span class="skill-tag">Burp Suite</span>
-            <span class="skill-tag">Sysmon</span>
-            <span class="skill-tag">Kali Linux</span>
-            <span class="skill-tag">TryHackMe</span>
-          </div>
-        </div>
-        <div class="skill-category reveal">
-          <div class="skill-cat-title">Languages</div>
-          <div class="skill-tags">
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">C</span>
-            <span class="skill-tag">SQL</span>
-            <span class="skill-tag">HTML5</span>
-            <span class="skill-tag">CSS3</span>
-            <span class="skill-tag">JavaScript</span>
-            <span class="skill-tag">LaTeX</span>
-          </div>
-        </div>
-        <div class="skill-category reveal">
-          <div class="skill-cat-title">Frameworks & Tools</div>
-          <div class="skill-tags">
-            <span class="skill-tag">Chainlit</span>
-            <span class="skill-tag">LangChain</span>
-            <span class="skill-tag">Scikit-Learn</span>
-            <span class="skill-tag">Linux</span>
-            <span class="skill-tag">VirtualBox</span>
-            <span class="skill-tag">VS Code</span>
-            <span class="skill-tag">Git</span>
-            <span class="skill-tag">GitHub</span>
-          </div>
-        </div>
+      <div class="social" aria-label="Social links">
+        <a href="https://github.com/ALLAKORI" target="_blank" rel="noreferrer">Gh</a>
+        <a href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noreferrer">In</a>
+        <a href="mailto:alladokossirichard2025@gmail.com">@</a>
+        <a href="https://tryhackme.com/p/RIDOKY" target="_blank" rel="noreferrer">THM</a>
       </div>
-    </div>
-  </section>
+    </aside>
 
-  <!-- About -->
-  <section id="about">
-    <div class="section-container">
-      <p class="section-label reveal">who i am</p>
-      <h2 class="section-title reveal">About <span>Me</span></h2>
+    <div class="content">
+      <div class="topbar">
+        <div class="section-label">Home</div>
+        <label class="search" aria-label="Search portfolio">
+          <input id="searchInput" type="search" placeholder="Search writeups, projects, tags..." />
+        </label>
+      </div>
 
-      <div class="about-grid">
-        <div class="about-text reveal">
-          <p>I'm <strong>Kossi Richard Allado</strong>, an engineering student at <strong>ENSA Beni Mellal</strong> in Morocco, originally from <strong>Togo</strong>. I enjoy practical work that combines curiosity, discipline, and clear technical communication.</p>
-          <p>My strongest projects today are hands-on cybersecurity labs: Linux hardening, digital forensics, intrusion analysis, and CTF writeups. Alongside that, I build applied AI and machine learning projects when the problem benefits from automation, classification, or conversational interfaces.</p>
-          <p>I like projects that are reproducible, documented, and easy to explain in an interview, because good technical work should also be understandable to other people.</p>
-          <div class="about-quote">
-            "I learn best by building projects that leave traces: systems to harden, logs to analyze, and results to explain clearly."
-            <br><br>- Kossi Richard Allado
+      <main id="home">
+        <section class="hero searchable" data-search="pfa internship cybersecurity ai dfir blue team machine learning">
+          <p class="eyebrow mono">available for PFA internship from June 2026</p>
+          <h1>Portfolio, writeups, and AI projects with the <span class="accent">method visible</span>.</h1>
+          <p>
+            I am a second-year Cybersecurity &amp; AI engineering student at ENSA Beni Mellal. This portfolio is designed like a technical blog: recruiters can scan my profile quickly, then read concise writeup previews and project case studies without being forced to open every GitHub repository.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#writeups">Read writeup previews</a>
+            <a class="button" href="#projects">View AI projects</a>
+            <a class="button" href="cv_ia.pdf">CV</a>
           </div>
-        </div>
+        </section>
 
-        <div>
-          <div class="about-stats reveal">
-            <div class="stat-card" style="grid-column:span 2; display:flex; align-items:center; gap:1.5rem; padding:1.2rem 1.5rem;">
-              <div style="
-                width:90px; height:90px; flex-shrink:0;
-                border-radius:50%;
-                border:2px dashed rgba(0,212,255,0.35);
-                background:rgba(0,212,255,0.04);
-                display:flex; flex-direction:column; align-items:center; justify-content:center;
-                font-size:1.6rem;
-                position:relative;
-                overflow:hidden;
-              ">
-                <img id="profile-photo" src="richard.jpg" alt="Kossi Richard Allado" style="width:100%;height:100%;object-fit:cover;border-radius:50%;position:absolute;inset:0;" />
-                <span id="photo-placeholder" style="font-size:1.8rem;display:none;">👤</span>
+        <section class="section" id="fit">
+          <div class="section-head">
+            <div>
+              <p class="meta">RECRUITER SNAPSHOT</p>
+              <h2>What I can bring to a team.</h2>
+            </div>
+            <p class="section-note">A focused junior profile: enough cyber practice to investigate carefully, enough AI practice to automate and prototype.</p>
+          </div>
+
+          <div class="grid cards-3">
+            <article class="card searchable" data-search="blue team soc dfir logs wireshark nmap">
+              <p class="meta">BLUE TEAM / DFIR</p>
+              <h3>Investigation mindset</h3>
+              <p>Comfortable documenting evidence, artifacts, suspicious behavior, forensic steps, and lessons learned from CTF/lab scenarios.</p>
+            </article>
+            <article class="card searchable" data-search="machine learning python pandas scikit learn classification maintenance predictive">
+              <p class="meta">APPLIED ML</p>
+              <h3>Useful prototypes</h3>
+              <p>Built a predictive maintenance workflow with data preparation, classification, Random Forest, and a desktop prediction interface.</p>
+            </article>
+            <article class="card searchable" data-search="llm chatbot chainlit langchain ctransformers prompt engineering">
+              <p class="meta">AI FOR SECURITY</p>
+              <h3>LLM experimentation</h3>
+              <p>Explored local LLM usage, prompt formatting, streaming, conversation memory, and chatbot UI basics with Python tooling.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="writeups">
+          <div class="section-head">
+            <div>
+              <p class="meta">MOROCCO CTF &amp; TECHNICAL WRITEUPS</p>
+              <h2>Readable previews before GitHub.</h2>
+            </div>
+            <p class="section-note">The front page highlights Moroccan and locally relevant CTF material first. The goal is to show reasoning, not just flags.</p>
+          </div>
+
+          <div class="grid">
+            <article class="post searchable" data-search="enset challenge morocco pwn heap exploitation browzi gdb pwntools function pointer">
+              <div class="post-body">
+                <p class="meta">ENSET CHALLENGE 2026 / PWN</p>
+                <h3>Browzi MiniBrowser Heap Exploitation</h3>
+                <p>Analyzed a minimal HTML parser, mapped Node and RenderOps structures, found an unchecked img src copy into heap memory, calculated the overwrite offset, and used a partial function-pointer overwrite under null-byte constraints.</p>
+                <div class="tags">
+                  <span class="tag violet">Pwn</span>
+                  <span class="tag violet">Heap</span>
+                  <span class="tag violet">GDB</span>
+                  <span class="tag violet">pwntools</span>
+                </div>
+                <a class="link" href="https://github.com/ALLAKORI/Enset_Challenge_2026/blob/main/Pwn/browsi.md" target="_blank" rel="noreferrer">Read full writeup</a>
               </div>
-              <div>
-                <div style="font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Photo</div>
-                <div style="font-size:0.82rem;color:var(--text);">Kossi Richard Allado</div>
-                <div style="font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--muted);margin-top:0.2rem;">🇹🇬 Togo → 🇲🇦 Morocco</div>
+              <div class="post-art">01</div>
+            </article>
 
+            <article class="post searchable" data-search="citeflag morocco web php datetime parser logic hash payload">
+              <div class="post-body">
+                <p class="meta">CITEFLAG QUALIFIERS 2026 / WEB</p>
+                <h3>deepwash: PHP DateTime Parser Logic</h3>
+                <p>Studied the source constraints, identified DateTimeImmutable normalization behavior, reasoned about overflow cases, and constructed a valid payload logically instead of treating the challenge as hash cracking.</p>
+                <div class="tags">
+                  <span class="tag blue">Web</span>
+                  <span class="tag blue">PHP</span>
+                  <span class="tag blue">Parser logic</span>
+                  <span class="tag blue">Payload design</span>
+                </div>
+                <a class="link" href="https://github.com/ALLAKORI/CITEFLAG_QUALS_2026/blob/main/deepwash.md" target="_blank" rel="noreferrer">Read full writeup</a>
               </div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-number">19</div>
-              <div class="stat-label">Public Repos</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-number">2nd</div>
-              <div class="stat-label">Year Engineering</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-number">Labs</div>
-              <div class="stat-label">Security Practice</div>
-            </div>
-            <div class="thm-badge">
-              <div class="thm-icon">🎯</div>
-              <div class="thm-text">
-                <strong>TryHackMe Active</strong>
-                Practicing pentesting & CTF challenges
-                <br><a href="https://tryhackme.com/p/RIDOKY" target="_blank">tryhackme.com/p/RIDOKY ↗</a>
+              <div class="post-art">02</div>
+            </article>
+
+            <article class="post searchable" data-search="academia cyber morocco active directory lab rbcd kerberos dpapi bloodhound impacket">
+              <div class="post-body">
+                <p class="meta">ACADEMIA CYBER / ACTIVE DIRECTORY LAB</p>
+                <h3>SOKOLO AD Lab Progress</h3>
+                <p>Documented an Active Directory attack path: initial access, SMB enumeration, SAM hash extraction, pass-the-hash, DPAPI investigation, BloodHound review, Kerberos ticket attempts, and RBCD next steps.</p>
+                <div class="tags">
+                  <span class="tag green">Active Directory</span>
+                  <span class="tag green">BloodHound</span>
+                  <span class="tag green">Impacket</span>
+                  <span class="tag green">Kerberos</span>
+                </div>
+                <a class="link" href="https://github.com/ALLAKORI/Academia_Cyber/blob/main/AD105_lab_progress.md" target="_blank" rel="noreferrer">Read progress note</a>
               </div>
+              <div class="post-art">03</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="projects">
+          <div class="section-head">
+            <div>
+              <p class="meta">AI &amp; ENGINEERING PROJECTS</p>
+              <h2>Projects shown as case studies.</h2>
             </div>
+            <p class="section-note">The AI part supports your cyber profile: data work, model thinking, automation, and interfaces.</p>
+          </div>
+
+          <div class="grid">
+            <article class="case searchable" data-search="predictive maintenance machine learning pump random forest pandas scikit learn tkinter onee">
+              <div class="case-media">
+                <img src="assets/pump-interface.png" alt="High-pressure pump prediction interface" />
+              </div>
+              <div class="case-body">
+                <p class="meta">ONEE INTERNSHIP PROJECT / MACHINE LEARNING</p>
+                <h3>High-Pressure Pump Fault Prediction</h3>
+                <p>Predictive maintenance workflow for estimating industrial pump fault risk from sensor values such as voltage, power, speed, temperature, pressure, and flow rate.</p>
+                <ul class="bullets">
+                  <li>Prepared and analyzed sensor data for supervised classification.</li>
+                  <li>Used Random Forest to estimate risk and generate readable feedback.</li>
+                  <li>Built a desktop interface to make the model testable by a user.</li>
+                </ul>
+                <div class="tags">
+                  <span class="tag blue">Python</span>
+                  <span class="tag blue">Pandas</span>
+                  <span class="tag blue">Scikit-learn</span>
+                  <span class="tag blue">Tkinter</span>
+                </div>
+                <a class="link" href="https://github.com/ALLAKORI/Defaut-Pompe-Prediction" target="_blank" rel="noreferrer">Open repository</a>
+              </div>
+            </article>
+
+            <article class="case searchable" data-search="local llm chatbot chainlit langchain ctransformers streaming memory prompt">
+              <div class="case-media">
+                <div class="code-panel mono">
+                  <p><span class="prompt">$</span> chainlit run solutions/chainlit_stream.py</p>
+                  <p><span class="cmd">streaming chatbot response</span></p>
+                  <p><span class="prompt">$</span> python solutions/conversational_memory.py</p>
+                  <p><span class="cmd">conversation memory experiment</span></p>
+                  <p><span class="prompt">$</span> model</p>
+                  <p><span class="cmd">local GGUF via CTransformers</span></p>
+                </div>
+              </div>
+              <div class="case-body">
+                <p class="meta">GENERATIVE AI / LOCAL LLM LAB</p>
+                <h3>Local LLM &amp; Chatbot Experiments</h3>
+                <p>Learning repository for understanding chatbot mechanics before building production systems: prompting, streaming, local model loading, memory, and UI experimentation.</p>
+                <ul class="bullets">
+                  <li>Implemented basic generation and prompt formatting scripts.</li>
+                  <li>Explored Chainlit interfaces with streaming responses.</li>
+                  <li>Tested LangChain conversation memory patterns.</li>
+                </ul>
+                <div class="tags">
+                  <span class="tag blue">Python</span>
+                  <span class="tag blue">Chainlit</span>
+                  <span class="tag blue">LangChain</span>
+                  <span class="tag blue">CTransformers</span>
+                </div>
+                <a class="link" href="https://github.com/ALLAKORI/MY-FIRST-AI-CHATBOT" target="_blank" rel="noreferrer">Open repository</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="stack">
+          <div class="section-head">
+            <div>
+              <p class="meta">STACK</p>
+              <h2>Tools I can discuss and use.</h2>
+            </div>
+          </div>
+
+          <div class="grid cards-2">
+            <article class="card searchable" data-search="cybersecurity linux wireshark nmap burp suite active directory bloodhound impacket">
+              <p class="meta">CYBERSECURITY</p>
+              <h3>Investigation &amp; CTF practice</h3>
+              <div class="tags">
+                <span class="tag green">Linux</span>
+                <span class="tag green">Wireshark</span>
+                <span class="tag green">Nmap</span>
+                <span class="tag green">Burp Suite</span>
+                <span class="tag green">BloodHound</span>
+                <span class="tag green">Impacket</span>
+              </div>
+            </article>
+            <article class="card searchable" data-search="ai python pandas numpy scikit learn matplotlib jupyter chainlit langchain">
+              <p class="meta">AI / DATA</p>
+              <h3>Data science &amp; LLM experiments</h3>
+              <div class="tags">
+                <span class="tag blue">Python</span>
+                <span class="tag blue">Pandas</span>
+                <span class="tag blue">NumPy</span>
+                <span class="tag blue">Scikit-learn</span>
+                <span class="tag blue">Jupyter</span>
+                <span class="tag blue">Chainlit</span>
+                <span class="tag blue">LangChain</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="about">
+          <div class="section-head">
+            <div>
+              <p class="meta">ABOUT</p>
+              <h2>Engineering student focused on evidence-based learning.</h2>
+            </div>
+          </div>
+          <div class="grid cards-2">
+            <article class="card">
+              <p>My strongest portfolio direction is cybersecurity with practical AI. I am building public proof through writeups, project repositories, and clear technical summaries that show how I think, not only what tools I know.</p>
+            </article>
+            <article class="card">
+              <p>Current target: PFA internship from June 2026 in Morocco, remote, or hybrid. Best fit: SOC/blue team, DFIR, security analytics, applied ML, or AI-assisted investigation.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="contact">
+          <div class="section-head">
+            <div>
+              <p class="meta">CONTACT</p>
+              <h2>Open to PFA internship discussions.</h2>
+            </div>
+          </div>
+          <div class="grid contact-grid">
+            <article class="card">
+              <p class="meta">AVAILABILITY</p>
+              <h3>June 2026</h3>
+              <p>PFA internship in cybersecurity, applied AI, or AI-assisted security tooling.</p>
+            </article>
+            <a class="card link" href="mailto:alladokossirichard2025@gmail.com">Email</a>
+            <a class="card link" href="https://github.com/ALLAKORI" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="card link" href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
+        </section>
+
+        <footer class="mono">&copy; 2026 Kossi Richard Allado. Cybersecurity &amp; Applied AI portfolio.</footer>
+      </main>
+
+      <aside class="side">
+        <div class="side-card">
+          <h3>Recently Updated</h3>
+          <div class="recent">
+            <a href="#writeups">ENSET Challenge | Browzi heap exploitation</a>
+            <a href="#writeups">CiteFlag | deepwash PHP parser logic</a>
+            <a href="#writeups">Academia Cyber | SOKOLO AD lab</a>
+            <a href="#projects">Pump fault prediction ML interface</a>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Contact -->
-  <section id="contact">
-    <div class="section-container">
-      <p class="section-label reveal">get in touch</p>
-      <h2 class="section-title reveal">Let's <span>Connect</span></h2>
-      <p class="reveal" style="color:var(--muted);margin-bottom:2.5rem;font-size:0.95rem;max-width:500px;line-height:1.7;">
-        Open to internships, collaborations, and conversations about cybersecurity, digital forensics, and applied AI.
-      </p>
-      <div class="contact-grid">
-        <a href="mailto:alladorichard2019@gmail.com" class="contact-card reveal">
-          <div class="contact-icon mail">📧</div>
-          <div class="contact-info">
-            <div class="contact-type">Email</div>
-            <div class="contact-value">alladorichard2019@gmail.com</div>
-          </div>
-        </a>
-        <a href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" class="contact-card reveal">
-          <div class="contact-icon linkedin">💼</div>
-          <div class="contact-info">
-            <div class="contact-type">LinkedIn</div>
-            <div class="contact-value">Kossi Richard Allado</div>
-          </div>
-        </a>
-        <a href="https://github.com/ALLAKORI" target="_blank" class="contact-card reveal">
-          <div class="contact-icon github">⚡</div>
-          <div class="contact-info">
-            <div class="contact-type">GitHub</div>
-            <div class="contact-value">ALLAKORI</div>
-          </div>
-        </a>
-        <div class="contact-card reveal" style="cursor:default;">
-          <div class="contact-icon discord">🎮</div>
-          <div class="contact-info">
-            <div class="contact-type">Discord</div>
-            <div class="contact-value">ridoky4421</div>
+        <div class="side-card">
+          <h3>Trending Tags</h3>
+          <div class="stack-grid">
+            <span class="tag green">Active Directory</span>
+            <span class="tag green">DFIR</span>
+            <span class="tag violet">Pwn</span>
+            <span class="tag blue">Web</span>
+            <span class="tag green">BloodHound</span>
+            <span class="tag blue">Machine Learning</span>
+            <span class="tag blue">LLM</span>
+            <span class="tag violet">GDB</span>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-text">© 2026 <span>Kossi Richard Allado</span> - Built with focus and curiosity.</div>
-    <div class="footer-links">
-      <a href="https://github.com/ALLAKORI" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank">LinkedIn</a>
+        <div class="side-card">
+          <h3>Profile Signal</h3>
+          <p>Portfolio built as a technical blog: writeup previews, project case studies, tags, search, and direct recruiter context.</p>
+        </div>
+      </aside>
     </div>
-  </footer>
+  </div>
 
   <script>
-    // Custom cursor
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+    const input = document.getElementById("searchInput");
+    const items = Array.from(document.querySelectorAll(".searchable"));
 
-    document.addEventListener('mousemove', e => {
-      mouseX = e.clientX; mouseY = e.clientY;
-      cursor.style.left = mouseX + 'px';
-      cursor.style.top = mouseY + 'px';
-    });
-
-    function animateRing() {
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
-      ring.style.left = ringX + 'px';
-      ring.style.top = ringY + 'px';
-      requestAnimationFrame(animateRing);
-    }
-    animateRing();
-
-    document.querySelectorAll('a, button, .project-card, .skill-category').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '20px';
-        cursor.style.height = '20px';
-        ring.style.opacity = '0.9';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '12px';
-        cursor.style.height = '12px';
-        ring.style.opacity = '0.5';
+    input.addEventListener("input", () => {
+      const query = input.value.trim().toLowerCase();
+      items.forEach((item) => {
+        const text = (item.textContent + " " + item.dataset.search).toLowerCase();
+        item.classList.toggle("hidden", query && !text.includes(query));
       });
     });
-
-    // Scroll reveal
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>

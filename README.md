@@ -1,40 +1,42 @@
 # Portfolio Website
 
-This repository contains my personal portfolio website, published with GitHub Pages at:
+Personal GitHub Pages portfolio for **Kossi Richard Allado**, focused on cybersecurity, Moroccan CTF writeups, applied machine learning, and local LLM experiments.
+
+Live site:
 
 https://allakori.github.io/
 
 ## Overview
 
-The site presents my background as a cybersecurity and AI engineering student and highlights selected projects in:
+The portfolio presents a concise professional profile for PFA internship and collaboration opportunities, with selected work grouped around:
 
-- Linux security and hardening
-- Digital forensics and log analysis
-- CTF writeups
-- Applied machine learning
-- Conversational AI
+- Cybersecurity writeup previews
+- Moroccan CTF and lab documentation
+- Applied machine learning case studies
+- Local LLM and chatbot experimentation
+
+## Positioning
+
+- PFA internship target from June 2026
+- Strongest fit: blue team, DFIR, SOC fundamentals, applied machine learning, and AI-assisted security workflows
+- Portfolio structure: sidebar identity, search, writeup previews, AI project case studies, stack, recruiter context, and contact links
+- The front page prioritizes Enset Challenge, CiteFlag, Academia Cyber, applied ML, and local LLM work.
+
+## Featured Repositories
+
+- `Defaut-Pompe-Prediction`
+- `MY-FIRST-AI-CHATBOT`
+- `Academia_Cyber`
+- `Enset_Challenge_2026`
+- `CITEFLAG_QUALS_2026`
 
 ## Stack
 
 - HTML
 - CSS
-- Vanilla JavaScript
+- Vanilla JavaScript search filter
 - GitHub Pages
-
-## Main Sections
-
-- Hero section with a short professional introduction
-- Featured projects with direct GitHub links
-- Technical skills and tools
-- About section
-- Contact links
 
 ## Local Preview
 
-Open `index.html` in a browser, or run a simple local server:
-
-```bash
-python -m http.server 8000
-```
-
-Then visit `http://localhost:8000`.
+Open `index.html` directly in a browser.

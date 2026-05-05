@@ -127,6 +127,35 @@ img {
   font-family: "JetBrains Mono", monospace;
 }
 
+.lang-switch {
+  display: inline-grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  width: 112px;
+  margin-top: 18px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #101318;
+}
+
+.lang-switch button {
+  min-height: 30px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 800;
+  font-size: 0.72rem;
+}
+
+.lang-switch button.active {
+  background: var(--cyan);
+  color: #0b1117;
+}
+
 .social {
   display: flex;
   flex-wrap: wrap;

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writeups | Kossi Richard Allado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div>
+        <div class="profile"><img class="avatar" src="richard.jpg" alt="Kossi Richard Allado" /><div><div class="name">Kossi Richard Allado</div><p class="role">CTF and lab notes focused on reasoning and reproducible method.</p></div></div>
+        <nav class="nav"><a href="index.html"><span>01</span> Home</a><a href="proof.html"><span>02</span> Proof</a><a href="labs.html"><span>03</span> Labs</a><a class="active" href="writeups.html"><span>04</span> Writeups</a><a href="projects.html"><span>05</span> Projects</a></nav>
+      </div>
+      <div class="social"><a href="https://github.com/ALLAKORI" target="_blank" rel="noreferrer">Gh</a><a href="mailto:alladokossirichard2025@gmail.com">@</a></div>
+    </aside>
+    <main class="page">
+      <div class="topline"><div class="crumb"><a href="index.html">Portfolio</a> / <strong>Writeups</strong></div><div class="mono">CTF - AD - Web - Pwn</div></div>
+      <section class="hero compact"><p class="meta">Technical writeups</p><h1>Readable previews before <span class="accent">the full GitHub notes</span>.</h1><p>Short summaries help reviewers understand the method quickly, then jump into the full writeup when needed.</p></section>
+      <section class="section">
+        <div class="grid">
+          <article class="feature">
+            <div class="feature-body"><p class="meta">ENSET Challenge 2026 / Pwn</p><h2>Browzi MiniBrowser Heap Exploitation</h2><p>Mapped Node and RenderOps structures, found an unchecked img src copy into heap memory, calculated the overwrite offset, and used a partial function-pointer overwrite under null-byte constraints.</p><div class="tags"><span class="tag violet">Pwn</span><span class="tag violet">Heap</span><span class="tag violet">GDB</span><span class="tag violet">pwntools</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Enset_Challenge_2026/blob/main/Pwn/browsi.md" target="_blank" rel="noreferrer">Read full writeup</a></div></div>
+            <div class="feature-media"><img src="assets/ctf/csia-ctf-2026-poster.jpg" alt="CTF themed visual" /></div>
+          </article>
+          <article class="card"><p class="meta">CITEFLAG Qualifiers 2026 / Web</p><h3>deepwash: PHP DateTime Parser Logic</h3><p>Studied source constraints, identified DateTimeImmutable normalization behavior, reasoned about overflow cases, and built a valid payload logically.</p><div class="tags"><span class="tag blue">Web</span><span class="tag blue">PHP</span><span class="tag blue">Parser logic</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/CITEFLAG_QUALS_2026/blob/main/deepwash.md" target="_blank" rel="noreferrer">Read writeup</a></div></article>
+          <article class="card"><p class="meta">Academia Cyber / Active Directory</p><h3>SOKOLO AD Lab Progress</h3><p>Initial access, SMB enumeration, SAM hash extraction, pass-the-hash, DPAPI investigation, BloodHound review, Kerberos ticket attempts and RBCD next steps.</p><div class="tags"><span class="tag green">Active Directory</span><span class="tag green">BloodHound</span><span class="tag green">Impacket</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Academia_Cyber/blob/main/AD105_lab_progress.md" target="_blank" rel="noreferrer">Read progress note</a></div></article>
+        </div>
+      </section>
+      <footer class="footer mono">Writeups page - method, evidence and links to full notes.</footer>
+    </main>
+  </div>
+</body>
+</html>

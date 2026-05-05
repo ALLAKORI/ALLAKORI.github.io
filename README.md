@@ -8,7 +8,15 @@ https://allakori.github.io/
 
 ## Overview
 
-The portfolio presents a concise professional profile for PFA internship and collaboration opportunities, with selected work grouped around:
+The portfolio presents a concise professional profile for PFA internship and collaboration opportunities. It is now structured as a small multi-page site instead of one overloaded page:
+
+- `index.html`: recruiter-oriented home and profile overview
+- `proof.html`: certificates, transcripts, CTF results, and verification links
+- `labs.html`: Linux security, IAM, cybersecurity, and cryptography lab repositories
+- `writeups.html`: selected CTF and Active Directory writeup previews
+- `projects.html`: AI, machine learning, and chatbot case studies
+
+The work is grouped around:
 
 - Cybersecurity writeup previews
 - Certifications and CTF proof
@@ -21,7 +29,7 @@ The portfolio presents a concise professional profile for PFA internship and col
 
 - PFA internship target from July 2026, with possible early start depending on school and company requirements
 - Strongest fit: blue team, DFIR, SOC fundamentals, applied machine learning, and AI-assisted security workflows
-- Portfolio structure: sidebar identity, search, certificates, CTF proof, writeup previews, lab repositories, AI project case studies, stack, recruiter context, and contact links
+- Portfolio structure: sidebar identity, dedicated proof/labs/writeups/projects pages, certificates, CTF proof, lab repositories, AI project case studies, recruiter context, and contact links
 - The front page prioritizes certificates, CTF results, Linux/IAM/crypto labs, Enset Challenge, CiteFlag, Academia Cyber, applied ML, and local LLM work.
 - Certification proof now includes Cisco, Google/Coursera, IBM/Coursera, TryHackMe, HTB Academy, Udemy, MCSC, ENSET Challenge CTF, and CSIA CTF 2026 first-place evidence.
 

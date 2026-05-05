@@ -11,16 +11,18 @@ https://allakori.github.io/
 The portfolio presents a concise professional profile for PFA internship and collaboration opportunities, with selected work grouped around:
 
 - Cybersecurity writeup previews
+- Certifications and CTF proof
 - Moroccan CTF and lab documentation
+- Structured Linux, IAM, and cryptography lab portfolios
 - Applied machine learning case studies
 - Local LLM and chatbot experimentation
 
 ## Positioning
 
-- PFA internship target from June 2026
+- PFA internship target from July 2026, with possible early start depending on school and company requirements
 - Strongest fit: blue team, DFIR, SOC fundamentals, applied machine learning, and AI-assisted security workflows
-- Portfolio structure: sidebar identity, search, writeup previews, AI project case studies, stack, recruiter context, and contact links
-- The front page prioritizes Enset Challenge, CiteFlag, Academia Cyber, applied ML, and local LLM work.
+- Portfolio structure: sidebar identity, search, certificates, CTF proof, writeup previews, lab repositories, AI project case studies, stack, recruiter context, and contact links
+- The front page prioritizes certificates, CTF results, Linux/IAM/crypto labs, Enset Challenge, CiteFlag, Academia Cyber, applied ML, and local LLM work.
 
 ## Featured Repositories
 
@@ -29,6 +31,9 @@ The portfolio presents a concise professional profile for PFA internship and col
 - `Academia_Cyber`
 - `Enset_Challenge_2026`
 - `CITEFLAG_QUALS_2026`
+- `linux-security-labs`
+- `cybersecurity-iam-labs`
+- `cryptography-labs`
 
 ## Stack
 

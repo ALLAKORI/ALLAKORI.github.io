@@ -330,6 +330,10 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .cards-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
     .card,
     .post,
     .case {
@@ -511,6 +515,47 @@
       text-decoration: underline;
     }
 
+    .proof-card {
+      display: grid;
+      align-content: space-between;
+      min-height: 238px;
+    }
+
+    .proof-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .proof-mark {
+      min-width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #171b22;
+      border: 1px solid var(--line);
+      color: var(--cyan);
+      font-weight: 800;
+      font-size: 0.78rem;
+    }
+
+    .proof-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 16px;
+    }
+
+    .proof-links .button {
+      min-height: 34px;
+      padding: 0 11px;
+      font-size: 0.68rem;
+    }
+
     .side {
       padding-top: 34px;
       min-width: 0;
@@ -583,6 +628,10 @@
         border-top: 1px solid var(--line);
         padding: 22px 0 0;
       }
+
+      .cards-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 860px) {
@@ -616,6 +665,7 @@
       }
 
       .cards-3,
+      .cards-4,
       .cards-2,
       .case,
       .contact-grid {
@@ -648,17 +698,18 @@
           <img class="avatar" src="richard.jpg" alt="Kossi Richard Allado" />
           <div>
             <div class="name">Kossi Richard Allado</div>
-            <p class="role">Cybersecurity &amp; AI engineering student. PFA internship target: June 2026.</p>
+            <p class="role">Cybersecurity &amp; AI engineering student. PFA internship target: July 2026, with possible early start.</p>
           </div>
         </div>
 
         <nav class="nav" aria-label="Main navigation">
           <a class="active" href="#home"><span class="nav-icon">01</span> Home</a>
           <a href="#writeups"><span class="nav-icon">02</span> Writeups</a>
-          <a href="#projects"><span class="nav-icon">03</span> Projects</a>
-          <a href="#stack"><span class="nav-icon">04</span> Stack</a>
-          <a href="#about"><span class="nav-icon">05</span> About</a>
-          <a href="#contact"><span class="nav-icon">06</span> Contact</a>
+          <a href="#certifications"><span class="nav-icon">03</span> Proof</a>
+          <a href="#projects"><span class="nav-icon">04</span> Projects</a>
+          <a href="#stack"><span class="nav-icon">05</span> Stack</a>
+          <a href="#about"><span class="nav-icon">06</span> About</a>
+          <a href="#contact"><span class="nav-icon">07</span> Contact</a>
         </nav>
       </div>
 
@@ -680,7 +731,7 @@
 
       <main id="home">
         <section class="hero searchable" data-search="pfa internship cybersecurity ai dfir blue team machine learning">
-          <p class="eyebrow mono">available for PFA internship from June 2026</p>
+          <p class="eyebrow mono">available for PFA internship from July 2026</p>
           <h1>Portfolio, writeups, and AI projects with the <span class="accent">method visible</span>.</h1>
           <p>
             I am a second-year Cybersecurity &amp; AI engineering student at ENSA Beni Mellal. This portfolio is designed like a technical blog: recruiters can scan my profile quickly, then read concise writeup previews and project case studies without being forced to open every GitHub repository.
@@ -688,7 +739,7 @@
           <div class="actions">
             <a class="button primary" href="#writeups">Read writeup previews</a>
             <a class="button" href="#projects">View AI projects</a>
-            <a class="button" href="cv_ia.pdf">CV</a>
+            <a class="button" href="#certifications">View certificates</a>
           </div>
         </section>
 
@@ -716,6 +767,138 @@
               <p class="meta">AI FOR SECURITY</p>
               <h3>LLM experimentation</h3>
               <p>Explored local LLM usage, prompt formatting, streaming, conversation memory, and chatbot UI basics with Python tooling.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="certifications">
+          <div class="section-head">
+            <div>
+              <p class="meta">CERTIFICATIONS &amp; CTF PROOF</p>
+              <h2>Verified learning and competition evidence.</h2>
+            </div>
+            <p class="section-note">Certificates, transcripts, and CTF results are linked directly when public verification exists, otherwise the original proof is hosted here.</p>
+          </div>
+
+          <div class="grid cards-4">
+            <article class="card proof-card searchable" data-search="cisco networking academy ethical hacker certification cybersecurity verified">
+              <div>
+                <div class="proof-top">
+                  <p class="meta">CISCO NETWORKING ACADEMY</p>
+                  <span class="proof-mark">EH</span>
+                </div>
+                <h3>Ethical Hacker</h3>
+                <p>Completed Cisco Networking Academy's Ethical Hacker course on 15 Nov 2025.</p>
+              </div>
+              <div class="proof-links">
+                <a class="button primary" href="assets/certifications/cisco-ethical-hacker.pdf" target="_blank" rel="noreferrer">Certificate</a>
+                <a class="button" href="assets/certifications/cisco-ethical-hacker-badge.png" target="_blank" rel="noreferrer">Badge</a>
+              </div>
+            </article>
+
+            <article class="card proof-card searchable" data-search="google coursera foundations of cybersecurity certificate verified">
+              <div>
+                <div class="proof-top">
+                  <p class="meta">GOOGLE / COURSERA</p>
+                  <span class="proof-mark">GO</span>
+                </div>
+                <h3>Foundations of Cybersecurity</h3>
+                <p>Completed the Google Career Certificate introductory cybersecurity course on Coursera.</p>
+              </div>
+              <div class="proof-links">
+                <a class="button primary" href="https://coursera.org/verify/XRYGA7I1PH6V" target="_blank" rel="noreferrer">Verify</a>
+                <a class="button" href="assets/certifications/google-foundations-cybersecurity.pdf" target="_blank" rel="noreferrer">PDF</a>
+              </div>
+            </article>
+
+            <article class="card proof-card searchable" data-search="tryhackme advent of cyber 2025 certificate challenges">
+              <div>
+                <div class="proof-top">
+                  <p class="meta">TRYHACKME</p>
+                  <span class="proof-mark">THM</span>
+                </div>
+                <h3>Advent of Cyber 2025</h3>
+                <p>Completed 24 cybersecurity challenges, showing consistency across practical fundamentals.</p>
+              </div>
+              <div class="proof-links">
+                <a class="button primary" href="https://tryhackme.com/p/RIDOKY" target="_blank" rel="noreferrer">Profile</a>
+                <a class="button" href="assets/certifications/tryhackme-advent-of-cyber-2025.pdf" target="_blank" rel="noreferrer">Certificate</a>
+              </div>
+            </article>
+
+            <article class="card proof-card searchable" data-search="hack the box academy htb student transcript cybersecurity">
+              <div>
+                <div class="proof-top">
+                  <p class="meta">HACK THE BOX ACADEMY</p>
+                  <span class="proof-mark">HTB</span>
+                </div>
+                <h3>Student Transcript</h3>
+                <p>Academy progress transcript with completed beginner learning modules and target practice evidence.</p>
+              </div>
+              <div class="proof-links">
+                <a class="button primary" href="assets/certifications/htb-academy-transcript.pdf" target="_blank" rel="noreferrer">Transcript</a>
+              </div>
+            </article>
+
+            <article class="card proof-card searchable" data-search="csia ctf 2026 first place ghostshell scoreboard capture the flag">
+              <div>
+                <div class="proof-top">
+                  <p class="meta">CSIA CTF 2026</p>
+                  <span class="proof-mark">1ST</span>
+                </div>
+                <h3>First Place - GHOSTSHELL</h3>
+                <p>Won first place at CSIA CTF'26, with scoreboard proof and event media available.</p>
+              </div>
+              <div class="proof-links">
+                <a class="button primary" href="assets/ctf/ghostshell-first-place.png" target="_blank" rel="noreferrer">Result</a>
+                <a class="button" href="assets/ctf/csia-scoreboard.png" target="_blank" rel="noreferrer">Scoreboard</a>
+                <a class="button" href="assets/ctf/csia-ctf-2026-photo.jpg" target="_blank" rel="noreferrer">Photo</a>
+              </div>
+            </article>
+
+            <article class="card proof-card searchable" data-search="enset challenge ctf 2026 participation n7sec certificate cybersecurity">
+              <div>
+                <div class="proof-top">
+                  <p class="meta">ENSET CHALLENGE CTF 2026</p>
+                  <span class="proof-mark">CTF</span>
+                </div>
+                <h3>Certificate of Participation</h3>
+                <p>Recognized for completing the ENSET Challenge CTF 2026 during GEIW.</p>
+              </div>
+              <div class="proof-links">
+                <a class="button primary" href="assets/ctf/enset-challenge-ctf-2026.pdf" target="_blank" rel="noreferrer">Certificate</a>
+              </div>
+            </article>
+
+            <article class="card proof-card searchable" data-search="moroccan cyber security camp mcsc beginner ctf ensias participation">
+              <div>
+                <div class="proof-top">
+                  <p class="meta">MCSC / ENSIAS</p>
+                  <span class="proof-mark">CTF</span>
+                </div>
+                <h3>MCSC Beginner CTF</h3>
+                <p>Participation certificate from the Moroccan Cyber Security Camp beginner CTF.</p>
+              </div>
+              <div class="proof-links">
+                <a class="button primary" href="assets/ctf/mcsc-beginner-ctf-participation.pdf" target="_blank" rel="noreferrer">Certificate</a>
+              </div>
+            </article>
+
+            <article class="card proof-card searchable" data-search="udemy cryptography hashing python java linux command line certificate">
+              <div>
+                <div class="proof-top">
+                  <p class="meta">UDEMY</p>
+                  <span class="proof-mark">Lab</span>
+                </div>
+                <h3>Crypto &amp; Linux Courses</h3>
+                <p>Completed practical courses in cryptography/hashing and Linux command-line fundamentals.</p>
+              </div>
+              <div class="proof-links">
+                <a class="button primary" href="https://ude.my/UC-f7870d72-d8d1-45be-a864-022543b837b3" target="_blank" rel="noreferrer">Crypto</a>
+                <a class="button" href="https://ude.my/UC-5db0cef1-4372-4eed-976a-439ed68bfb82" target="_blank" rel="noreferrer">Linux</a>
+                <a class="button" href="assets/certifications/udemy-cryptography-hashing-python-java.pdf" target="_blank" rel="noreferrer">Crypto PDF</a>
+                <a class="button" href="assets/certifications/udemy-linux-command-line.pdf" target="_blank" rel="noreferrer">Linux PDF</a>
+              </div>
             </article>
           </div>
         </section>
@@ -845,6 +1028,57 @@
           </div>
         </section>
 
+        <section class="section" id="labs">
+          <div class="section-head">
+            <div>
+              <p class="meta">ACADEMIC LAB PORTFOLIO</p>
+              <h2>Structured labs for recruiters.</h2>
+            </div>
+            <p class="section-note">Recent repositories reorganized from academic work into readable English/French documentation.</p>
+          </div>
+
+          <div class="grid cards-3">
+            <article class="card searchable" data-search="linux security labs forensic auditd selinux apparmor incident response blue team french english">
+              <p class="meta">LINUX SECURITY / DFIR</p>
+              <h3>Linux Security Labs</h3>
+              <p>Hardening, audit, intrusion detection, log-based investigation, forensic acquisition, memory analysis, and incident reconstruction.</p>
+              <div class="tags">
+                <span class="tag green">SELinux</span>
+                <span class="tag green">auditd</span>
+                <span class="tag green">Autopsy</span>
+                <span class="tag green">Volatility</span>
+              </div>
+              <a class="link" href="https://github.com/ALLAKORI/linux-security-labs" target="_blank" rel="noreferrer">Open repository</a>
+            </article>
+
+            <article class="card searchable" data-search="cybersecurity iam keycloak openssl pki mfa rbac dvwa xss sql injection english french">
+              <p class="meta">CYBERSECURITY / IAM</p>
+              <h3>Cybersecurity &amp; IAM Labs</h3>
+              <p>Network audit, ARP poisoning, Linux security, DVWA SQLi/XSS, Keycloak, OpenSSL/PKI, MFA and RBAC documentation.</p>
+              <div class="tags">
+                <span class="tag blue">Keycloak</span>
+                <span class="tag blue">OpenSSL</span>
+                <span class="tag blue">MFA</span>
+                <span class="tag blue">RBAC</span>
+              </div>
+              <a class="link" href="https://github.com/ALLAKORI/cybersecurity-iam-labs" target="_blank" rel="noreferrer">Open repository</a>
+            </article>
+
+            <article class="card searchable" data-search="cryptography labs caesar rsa diffie hellman elgamal sha hashing aes english french">
+              <p class="meta">CRYPTOGRAPHY</p>
+              <h3>Cryptography Labs</h3>
+              <p>Classical cryptography, RSA exercises, padding, Diffie-Hellman, ElGamal-style signatures, SHA-1 and AES learning skeletons.</p>
+              <div class="tags">
+                <span class="tag violet">Caesar</span>
+                <span class="tag violet">RSA</span>
+                <span class="tag violet">SHA-1</span>
+                <span class="tag violet">AES</span>
+              </div>
+              <a class="link" href="https://github.com/ALLAKORI/cryptography-labs" target="_blank" rel="noreferrer">Open repository</a>
+            </article>
+          </div>
+        </section>
+
         <section class="section" id="stack">
           <div class="section-head">
             <div>
@@ -894,7 +1128,7 @@
               <p>My strongest portfolio direction is cybersecurity with practical AI. I am building public proof through writeups, project repositories, and clear technical summaries that show how I think, not only what tools I know.</p>
             </article>
             <article class="card">
-              <p>Current target: PFA internship from June 2026 in Morocco, remote, or hybrid. Best fit: SOC/blue team, DFIR, security analytics, applied ML, or AI-assisted investigation.</p>
+              <p>Current target: PFA internship from July 2026 in Morocco, remote, or hybrid, with possible early start depending on school and company requirements. Best fit: SOC/blue team, DFIR, security analytics, applied ML, or AI-assisted investigation.</p>
             </article>
           </div>
         </section>
@@ -909,8 +1143,8 @@
           <div class="grid contact-grid">
             <article class="card">
               <p class="meta">AVAILABILITY</p>
-              <h3>June 2026</h3>
-              <p>PFA internship in cybersecurity, applied AI, or AI-assisted security tooling.</p>
+              <h3>July 2026</h3>
+              <p>PFA internship in cybersecurity, applied AI, or AI-assisted security tooling. Early start possible depending on requirements.</p>
             </article>
             <a class="card link" href="mailto:alladokossirichard2025@gmail.com">Email</a>
             <a class="card link" href="https://github.com/ALLAKORI" target="_blank" rel="noreferrer">GitHub</a>
@@ -925,10 +1159,11 @@
         <div class="side-card">
           <h3>Recently Updated</h3>
           <div class="recent">
+            <a href="#certifications">Certificates and CTF proof links</a>
+            <a href="#labs">Linux, IAM, and cryptography lab portfolios</a>
             <a href="#writeups">ENSET Challenge | Browzi heap exploitation</a>
             <a href="#writeups">CiteFlag | deepwash PHP parser logic</a>
             <a href="#writeups">Academia Cyber | SOKOLO AD lab</a>
-            <a href="#projects">Pump fault prediction ML interface</a>
           </div>
         </div>
 
@@ -937,18 +1172,19 @@
           <div class="stack-grid">
             <span class="tag green">Active Directory</span>
             <span class="tag green">DFIR</span>
+            <span class="tag green">SOC</span>
             <span class="tag violet">Pwn</span>
             <span class="tag blue">Web</span>
+            <span class="tag blue">IAM</span>
+            <span class="tag violet">Crypto</span>
             <span class="tag green">BloodHound</span>
             <span class="tag blue">Machine Learning</span>
-            <span class="tag blue">LLM</span>
-            <span class="tag violet">GDB</span>
           </div>
         </div>
 
         <div class="side-card">
           <h3>Profile Signal</h3>
-          <p>Portfolio built as a technical blog: writeup previews, project case studies, tags, search, and direct recruiter context.</p>
+          <p>Portfolio built as a technical blog: writeup previews, project case studies, verified learning proof, lab repositories, tags, search, and direct recruiter context.</p>
         </div>
       </aside>
     </div>

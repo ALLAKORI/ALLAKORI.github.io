@@ -23,6 +23,7 @@ The portfolio presents a concise professional profile for PFA internship and col
 - Strongest fit: blue team, DFIR, SOC fundamentals, applied machine learning, and AI-assisted security workflows
 - Portfolio structure: sidebar identity, search, certificates, CTF proof, writeup previews, lab repositories, AI project case studies, stack, recruiter context, and contact links
 - The front page prioritizes certificates, CTF results, Linux/IAM/crypto labs, Enset Challenge, CiteFlag, Academia Cyber, applied ML, and local LLM work.
+- Certification proof now includes Cisco, Google/Coursera, IBM/Coursera, TryHackMe, HTB Academy, Udemy, MCSC, ENSET Challenge CTF, and CSIA CTF 2026 first-place evidence.
 
 ## Featured Repositories
 

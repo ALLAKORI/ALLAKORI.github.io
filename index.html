@@ -261,6 +261,36 @@
       font-size: 1rem;
     }
 
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 24px;
+      max-width: 820px;
+    }
+
+    .hero-stat {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(20, 23, 29, 0.58);
+      padding: 13px 14px;
+      min-height: 82px;
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 1.55rem;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .hero-stat span {
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -521,6 +551,33 @@
       min-height: 238px;
     }
 
+    .proof-feature {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 210px;
+      gap: 18px;
+      min-height: 268px;
+      background:
+        radial-gradient(circle at 88% 8%, rgba(240, 193, 90, 0.16), transparent 16rem),
+        linear-gradient(135deg, #252a32, #1e2229);
+    }
+
+    .proof-media {
+      align-self: stretch;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #16191f;
+      min-height: 170px;
+    }
+
+    .proof-media img {
+      width: 100%;
+      height: 100%;
+      min-height: 170px;
+      object-fit: cover;
+    }
+
     .proof-top {
       display: flex;
       align-items: flex-start;
@@ -632,6 +689,11 @@
       .cards-4 {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .proof-feature {
+        grid-column: span 2;
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 860px) {
@@ -667,9 +729,14 @@
       .cards-3,
       .cards-4,
       .cards-2,
+      .hero-stats,
       .case,
       .contact-grid {
         grid-template-columns: 1fr;
+      }
+
+      .proof-feature {
+        grid-column: auto;
       }
 
       .case-media,
@@ -736,6 +803,24 @@
           <p>
             I am a second-year Cybersecurity &amp; AI engineering student at ENSA Beni Mellal. This portfolio is designed like a technical blog: recruiters can scan my profile quickly, then read concise writeup previews and project case studies without being forced to open every GitHub repository.
           </p>
+          <div class="hero-stats" aria-label="Portfolio highlights">
+            <div class="hero-stat">
+              <strong>1st</strong>
+              <span>CSIA CTF 2026 with GHOSTSHELL</span>
+            </div>
+            <div class="hero-stat">
+              <strong>9</strong>
+              <span>security, IAM and crypto lab groups</span>
+            </div>
+            <div class="hero-stat">
+              <strong>10+</strong>
+              <span>certificates and transcripts linked</span>
+            </div>
+            <div class="hero-stat">
+              <strong>3</strong>
+              <span>portfolio lab repositories bilingual</span>
+            </div>
+          </div>
           <div class="actions">
             <a class="button primary" href="#writeups">Read writeup previews</a>
             <a class="button" href="#projects">View AI projects</a>
@@ -781,6 +866,25 @@
           </div>
 
           <div class="grid cards-4">
+            <article class="card proof-card proof-feature searchable" data-search="csia ctf 2026 first place ghostshell scoreboard capture the flag certificate">
+              <div>
+                <div class="proof-top">
+                  <p class="meta">CSIA CTF 2026</p>
+                  <span class="proof-mark">1ST</span>
+                </div>
+                <h3>First Place - GHOSTSHELL</h3>
+                <p>Won first place at CSIA CTF'26, held on 29 Apr 2026 at ENSA Beni Mellal. The portfolio includes the certificate photo, scoreboard, and event media.</p>
+                <div class="proof-links">
+                  <a class="button primary" href="assets/ctf/csia-ctf-2026-first-place-certificate.jpg" target="_blank" rel="noreferrer">Certificate</a>
+                  <a class="button" href="assets/ctf/ghostshell-first-place.png" target="_blank" rel="noreferrer">Result</a>
+                  <a class="button" href="assets/ctf/csia-scoreboard.png" target="_blank" rel="noreferrer">Scoreboard</a>
+                </div>
+              </div>
+              <a class="proof-media" href="assets/ctf/csia-ctf-2026-first-place-certificate.jpg" target="_blank" rel="noreferrer" aria-label="Open CSIA CTF first place certificate">
+                <img src="assets/ctf/csia-ctf-2026-first-place-certificate.jpg" alt="CSIA CTF 2026 first place certificate" />
+              </a>
+            </article>
+
             <article class="card proof-card searchable" data-search="cisco networking academy ethical hacker certification cybersecurity verified">
               <div>
                 <div class="proof-top">
@@ -793,21 +897,6 @@
               <div class="proof-links">
                 <a class="button primary" href="assets/certifications/cisco-ethical-hacker.pdf" target="_blank" rel="noreferrer">Certificate</a>
                 <a class="button" href="assets/certifications/cisco-ethical-hacker-badge.png" target="_blank" rel="noreferrer">Badge</a>
-              </div>
-            </article>
-
-            <article class="card proof-card searchable" data-search="google coursera foundations of cybersecurity certificate verified">
-              <div>
-                <div class="proof-top">
-                  <p class="meta">GOOGLE / COURSERA</p>
-                  <span class="proof-mark">GO</span>
-                </div>
-                <h3>Foundations of Cybersecurity</h3>
-                <p>Completed the Google Career Certificate introductory cybersecurity course on Coursera.</p>
-              </div>
-              <div class="proof-links">
-                <a class="button primary" href="https://coursera.org/verify/XRYGA7I1PH6V" target="_blank" rel="noreferrer">Verify</a>
-                <a class="button" href="assets/certifications/google-foundations-cybersecurity.pdf" target="_blank" rel="noreferrer">PDF</a>
               </div>
             </article>
 
@@ -826,6 +915,80 @@
               </div>
             </article>
 
+            <article class="card proof-card searchable" data-search="tryhackme pre security learning path certificate fundamentals">
+              <div>
+                <div class="proof-top">
+                  <p class="meta">TRYHACKME</p>
+                  <span class="proof-mark">THM</span>
+                </div>
+                <h3>Pre Security Learning Path</h3>
+                <p>Completed the Pre Security learning path on 21 Feb 2026, covering core web, network and Linux fundamentals.</p>
+              </div>
+              <div class="proof-links">
+                <a class="button primary" href="https://tryhackme.com/p/RIDOKY" target="_blank" rel="noreferrer">Profile</a>
+                <a class="button" href="assets/certifications/tryhackme-pre-security.pdf" target="_blank" rel="noreferrer">Certificate</a>
+              </div>
+            </article>
+
+            <article class="card proof-card searchable" data-search="tryhackme love at first breach ctf participation offensive security">
+              <div>
+                <div class="proof-top">
+                  <p class="meta">TRYHACKME CTF</p>
+                  <span class="proof-mark">CTF</span>
+                </div>
+                <h3>Love at First Breach</h3>
+                <p>Participated in a TryHackMe CTF focused on real-world cybersecurity challenges and offensive problem-solving.</p>
+              </div>
+              <div class="proof-links">
+                <a class="button primary" href="assets/ctf/tryhackme-love-at-first-breach-ctf.pdf" target="_blank" rel="noreferrer">Certificate</a>
+              </div>
+            </article>
+
+            <article class="card proof-card searchable" data-search="google coursera foundations of cybersecurity certificate verified">
+              <div>
+                <div class="proof-top">
+                  <p class="meta">GOOGLE / COURSERA</p>
+                  <span class="proof-mark">GO</span>
+                </div>
+                <h3>Foundations of Cybersecurity</h3>
+                <p>Completed the Google Career Certificate introductory cybersecurity course on Coursera.</p>
+              </div>
+              <div class="proof-links">
+                <a class="button primary" href="https://coursera.org/verify/XRYGA7I1PH6V" target="_blank" rel="noreferrer">Verify</a>
+                <a class="button" href="assets/certifications/google-foundations-cybersecurity.pdf" target="_blank" rel="noreferrer">PDF</a>
+              </div>
+            </article>
+
+            <article class="card proof-card searchable" data-search="google coursera play it safe manage security risks certificate verify">
+              <div>
+                <div class="proof-top">
+                  <p class="meta">GOOGLE / COURSERA</p>
+                  <span class="proof-mark">GO</span>
+                </div>
+                <h3>Play It Safe: Manage Security Risks</h3>
+                <p>Completed Google's course on security risk management, governance basics and defensive security context.</p>
+              </div>
+              <div class="proof-links">
+                <a class="button primary" href="https://coursera.org/verify/643JG0LTTEY4" target="_blank" rel="noreferrer">Verify</a>
+                <a class="button" href="assets/certifications/google-play-it-safe-security-risks.pdf" target="_blank" rel="noreferrer">PDF</a>
+              </div>
+            </article>
+
+            <article class="card proof-card searchable" data-search="ibm coursera introduction to data engineering certificate verify">
+              <div>
+                <div class="proof-top">
+                  <p class="meta">IBM / COURSERA</p>
+                  <span class="proof-mark">IBM</span>
+                </div>
+                <h3>Introduction to Data Engineering</h3>
+                <p>Completed IBM's data engineering introduction, supporting the AI/data side of my cybersecurity profile.</p>
+              </div>
+              <div class="proof-links">
+                <a class="button primary" href="https://coursera.org/verify/336PBJ2ILXGD" target="_blank" rel="noreferrer">Verify</a>
+                <a class="button" href="assets/certifications/ibm-introduction-data-engineering.pdf" target="_blank" rel="noreferrer">PDF</a>
+              </div>
+            </article>
+
             <article class="card proof-card searchable" data-search="hack the box academy htb student transcript cybersecurity">
               <div>
                 <div class="proof-top">
@@ -837,22 +1000,6 @@
               </div>
               <div class="proof-links">
                 <a class="button primary" href="assets/certifications/htb-academy-transcript.pdf" target="_blank" rel="noreferrer">Transcript</a>
-              </div>
-            </article>
-
-            <article class="card proof-card searchable" data-search="csia ctf 2026 first place ghostshell scoreboard capture the flag">
-              <div>
-                <div class="proof-top">
-                  <p class="meta">CSIA CTF 2026</p>
-                  <span class="proof-mark">1ST</span>
-                </div>
-                <h3>First Place - GHOSTSHELL</h3>
-                <p>Won first place at CSIA CTF'26, with scoreboard proof and event media available.</p>
-              </div>
-              <div class="proof-links">
-                <a class="button primary" href="assets/ctf/ghostshell-first-place.png" target="_blank" rel="noreferrer">Result</a>
-                <a class="button" href="assets/ctf/csia-scoreboard.png" target="_blank" rel="noreferrer">Scoreboard</a>
-                <a class="button" href="assets/ctf/csia-ctf-2026-photo.jpg" target="_blank" rel="noreferrer">Photo</a>
               </div>
             </article>
 

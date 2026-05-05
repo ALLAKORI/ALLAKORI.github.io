@@ -352,7 +352,9 @@ a.card:hover {
 
 .achievement-media img {
   min-height: 300px;
+  object-fit: contain;
   object-position: center;
+  background: #0f1217;
 }
 
 .code-panel {

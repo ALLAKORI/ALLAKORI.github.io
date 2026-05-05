@@ -350,6 +350,11 @@ a.card:hover {
   object-fit: cover;
 }
 
+.achievement-media img {
+  min-height: 300px;
+  object-position: center;
+}
+
 .code-panel {
   height: 100%;
   min-height: 230px;

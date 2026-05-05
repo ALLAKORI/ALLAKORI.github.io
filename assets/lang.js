@@ -131,6 +131,20 @@ const translations = {
   "USMS Chatbot Work": "Travail chatbot USMS",
   "Ongoing chatbot application work around dialogue logic, backend integration, message handling and public documentation preparation.": "Travail en cours sur une application chatbot: logique de dialogue, integration backend, gestion des messages et preparation de documentation publique.",
   "Projects page - applied ML, local LLMs and chatbot experiments.": "Page Projets - ML applique, LLM locaux et experimentations chatbot."
+  ,
+  "Open to PFA internship discussions.": "Ouvert aux discussions pour un stage PFA.",
+  "Cybersecurity & AI engineering student based in Beni Mellal, available for a PFA internship from July 2026 with possible early start.": "Etudiant ingenieur en cybersecurite & IA base a Beni Mellal, disponible pour un stage PFA a partir de juillet 2026 avec demarrage anticipe possible.",
+  "Need verification or a short introduction?": "Besoin d'une verification ou d'une presentation rapide ?",
+  "I can share additional context about certificates, labs, CTF work and PFA internship availability.": "Je peux partager plus de contexte sur les certificats, les labs, les travaux CTF et ma disponibilite pour le stage PFA.",
+  "Discuss the lab work.": "Discuter des travaux de lab.",
+  "I can walk through the repositories, explain the technical choices and connect them to a PFA internship scope.": "Je peux presenter les repositories, expliquer les choix techniques et les relier a un sujet de stage PFA.",
+  "Want to discuss the writeups?": "Envie de discuter des writeups ?",
+  "I can explain the reasoning, reproduce the approach and share what I learned from each challenge.": "Je peux expliquer le raisonnement, reproduire l'approche et partager ce que chaque challenge m'a appris.",
+  "Open to technical internship discussions.": "Ouvert aux discussions de stage technique.",
+  "I can share more details about the AI projects, cybersecurity labs and how they fit a PFA internship.": "Je peux partager plus de details sur les projets IA, les labs cybersecurite et leur lien avec un stage PFA.",
+  "Email": "Email",
+  "GitHub": "GitHub",
+  "LinkedIn": "LinkedIn"
 };
 
 const hrefs = {
@@ -139,8 +153,24 @@ const hrefs = {
   "https://github.com/ALLAKORI/cryptography-labs": "https://github.com/ALLAKORI/cryptography-labs/blob/main/README.fr.md"
 };
 
+const navLabels = {
+  "Home": "Accueil",
+  "Proof": "Preuves",
+  "Labs": "Labs",
+  "Writeups": "Writeups",
+  "Projects": "Projets"
+};
+
 function textKey(element) {
   return element.innerHTML.replace(/\s+/g, " ").trim();
+}
+
+function translateNav() {
+  document.querySelectorAll(".nav a").forEach((link) => {
+    const number = link.querySelector("span")?.outerHTML || "";
+    const label = link.textContent.replace(/\d+/g, "").trim();
+    if (navLabels[label]) link.innerHTML = `${number} ${navLabels[label]}`;
+  });
 }
 
 function applyLanguage(lang) {
@@ -168,6 +198,7 @@ function applyLanguage(lang) {
     document.querySelectorAll("a[href]").forEach((link) => {
       if (hrefs[link.href]) link.href = hrefs[link.href];
     });
+    translateNav();
   }
 
   document.querySelectorAll("[data-lang-choice]").forEach((button) => {
@@ -202,20 +233,6 @@ function initLanguageSwitch() {
     });
   }
 
-  const navLabels = {
-    "Home": "Accueil",
-    "Proof": "Preuves",
-    "Labs": "Labs",
-    "Writeups": "Writeups",
-    "Projects": "Projets"
-  };
-  if (lang === "fr") {
-    document.querySelectorAll(".nav a").forEach((link) => {
-      const number = link.querySelector("span")?.outerHTML || "";
-      const label = link.textContent.replace(/\d+/g, "").trim();
-      if (navLabels[label]) link.innerHTML = `${number} ${navLabels[label]}`;
-    });
-  }
 }
 
 document.addEventListener("DOMContentLoaded", initLanguageSwitch);

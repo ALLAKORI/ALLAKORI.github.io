@@ -25,7 +25,15 @@
         <div class="grid">
           <article class="feature">
             <div class="feature-body"><p class="meta">ENSET Challenge 2026 / Pwn</p><h2>Browzi MiniBrowser Heap Exploitation</h2><p>Mapped Node and RenderOps structures, found an unchecked img src copy into heap memory, calculated the overwrite offset, and used a partial function-pointer overwrite under null-byte constraints.</p><div class="tags"><span class="tag violet">Pwn</span><span class="tag violet">Heap</span><span class="tag violet">GDB</span><span class="tag violet">pwntools</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Enset_Challenge_2026/blob/main/Pwn/browsi.md" target="_blank" rel="noreferrer">Read full writeup</a></div></div>
-            <div class="feature-media"><img src="assets/ctf/csia-ctf-2026-poster.jpg" alt="CTF themed visual" /></div>
+            <div class="feature-media">
+              <div class="code-panel" aria-label="ENSET Challenge pwn writeup summary">
+                <strong>ENSET Challenge 2026 / PWN</strong>
+                <span><span class="cmd">$</span> checksec ./browzi</span>
+                <span><span class="cmd">$</span> gdb ./browzi</span>
+                <span><span class="cmd">$</span> python3 exploit.py</span>
+                <span><span class="ok">focus:</span> heap layout, offset, function pointer overwrite</span>
+              </div>
+            </div>
           </article>
           <article class="card"><p class="meta">CITEFLAG Qualifiers 2026 / Web</p><h3>deepwash: PHP DateTime Parser Logic</h3><p>Studied source constraints, identified DateTimeImmutable normalization behavior, reasoned about overflow cases, and built a valid payload logically.</p><div class="tags"><span class="tag blue">Web</span><span class="tag blue">PHP</span><span class="tag blue">Parser logic</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/CITEFLAG_QUALS_2026/blob/main/deepwash.md" target="_blank" rel="noreferrer">Read writeup</a></div></article>
           <article class="card"><p class="meta">Academia Cyber / Active Directory</p><h3>SOKOLO AD Lab Progress</h3><p>Initial access, SMB enumeration, SAM hash extraction, pass-the-hash, DPAPI investigation, BloodHound review, Kerberos ticket attempts and RBCD next steps.</p><div class="tags"><span class="tag green">Active Directory</span><span class="tag green">BloodHound</span><span class="tag green">Impacket</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Academia_Cyber/blob/main/AD105_lab_progress.md" target="_blank" rel="noreferrer">Read progress note</a></div></article>

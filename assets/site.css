@@ -350,6 +350,35 @@ a.card:hover {
   object-fit: cover;
 }
 
+.code-panel {
+  height: 100%;
+  min-height: 230px;
+  padding: 22px;
+  display: grid;
+  align-content: center;
+  gap: 10px;
+  color: var(--muted);
+  background:
+    linear-gradient(135deg, rgba(185, 167, 255, 0.12), transparent 42%),
+    #11151b;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.code-panel strong {
+  color: var(--text);
+  font-size: 1.05rem;
+}
+
+.code-panel .cmd {
+  color: var(--cyan);
+}
+
+.code-panel .ok {
+  color: var(--green);
+}
+
 .stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

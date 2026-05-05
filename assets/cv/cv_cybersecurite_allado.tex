@@ -1,0 +1,137 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{tikz}
+
+\geometry{top=0.8cm,bottom=0.85cm,left=1.2cm,right=1.2cm}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlist[itemize]{leftmargin=1.0em,itemsep=0pt,topsep=1pt,parsep=0pt,partopsep=0pt}
+
+\definecolor{cvblue}{RGB}{18,56,103}
+\definecolor{cvgray}{RGB}{88,88,88}
+\definecolor{cvlink}{RGB}{32,94,160}
+
+\hypersetup{colorlinks=true,urlcolor=cvlink,linkcolor=cvlink}
+
+\titleformat{\section}
+  {\color{cvblue}\large\bfseries}
+  {}{0em}{}
+  [\vspace{-6pt}\textcolor{cvblue}{\rule{\linewidth}{0.7pt}}\vspace{0pt}]
+\titlespacing{\section}{0pt}{4pt}{2pt}
+
+\newcommand{\cventry}[4]{%
+  \begin{tabular*}{\linewidth}{@{}p{0.74\linewidth}@{\extracolsep{\fill}}r@{}}
+    \textbf{#1} \textcolor{cvgray}{|} \textit{#2} & \small\textcolor{cvgray}{#3}
+  \end{tabular*}\\[-2pt]
+  \small\textcolor{cvgray}{#4}\par\vspace{0pt}
+}
+
+\newcommand{\cvproject}[4]{%
+  \begin{tabular*}{\linewidth}{@{}p{0.78\linewidth}@{\extracolsep{\fill}}r@{}}
+    \textbf{#1} & \small\href{#2}{#3}
+  \end{tabular*}\\[-2pt]
+  \small #4\par\vspace{1pt}
+}
+
+\begin{document}
+
+\noindent
+\begin{minipage}[c]{0.73\linewidth}
+{\LARGE\bfseries\color{cvblue} Kossi Richard Allado}\\[3pt]
+{\large\color{cvgray} Étudiant ingénieur -- Cybersécurité \& Intelligence Artificielle}\\[6pt]
+\small
+Béni Mellal, Maroc \quad \textbullet \quad
+\href{tel:+212621074305}{+212 621 074 305} \quad \textbullet \quad
+\href{mailto:alladokossirichard2025@gmail.com}{alladokossirichard2025@gmail.com}\\[2pt]
+\href{https://github.com/ALLAKORI}{github.com/ALLAKORI} \quad \textbullet \quad
+\href{https://www.linkedin.com/in/kossi-richard-allado-50177b2a5}{linkedin.com/in/kossi-richard-allado} \quad \textbullet \quad
+\href{https://allakori.github.io/}{allakori.github.io}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.24\linewidth}
+\raggedleft
+\begin{tikzpicture}
+  \node[draw=black, line width=0.45pt, rounded corners=2pt]
+  {\includegraphics[width=2.25cm]{image.png}};
+\end{tikzpicture}
+\end{minipage}
+
+\vspace{4pt}
+
+\section{Profil}
+Étudiant ingénieur en \textbf{cybersécurité \& IA} à l'ENSA Béni Mellal, orienté \textbf{SOC/Blue Team}, investigation système, forensic, IAM et bases de sécurité offensive. Repositories bilingues, preuves CTF et certificats disponibles sur portfolio. Recherche un \textbf{stage PFA cybersécurité à partir de juillet 2026}, démarrage anticipé possible.
+
+\section{Formation}
+\cventry{Cycle ingénieur -- Cybersécurité \& Intelligence Artificielle}{ENSA Béni Mellal}{2024 -- Présent}{}
+\cventry{DEUST -- Mathématiques, Informatique, Physique}{FST Fès}{2022 -- 2024}{Mention : Bien}
+\cventry{Baccalauréat scientifique (Série D)}{Lycée de Djagblé, Togo}{2022}{Mention : Très bien}
+
+\section{Expérience}
+\cventry{Stagiaire IA / Maintenance prédictive}{ONEE -- Branche Eau, Kasba Tadla}{Août 2025}{}
+\vspace{-7pt}
+\begin{itemize}
+  \item Prédiction de défauts de pompes haute pression à partir de données capteurs.
+  \item Préparation de données, classification \textbf{Random Forest} en Python et interface de test.
+\end{itemize}
+
+\section{Projets \& labs cybersécurité}
+\cvproject
+  {Linux Security Labs -- Hardening, audit \& DFIR}
+  {https://github.com/ALLAKORI/linux-security-labs/blob/main/README.fr.md}
+  {GitHub}
+  {Hardening Linux, \textbf{SELinux}, \textbf{AppArmor}, auditd, Lynis, analyse de journaux, acquisition forensic, WinPMEM, Volatility et reconstruction d'incident.}
+
+\cvproject
+  {Cybersecurity \& IAM Labs}
+  {https://github.com/ALLAKORI/cybersecurity-iam-labs/blob/main/README.fr.md}
+  {GitHub}
+  {Audit réseau, ARP spoofing, DVWA SQLi/XSS, \textbf{Keycloak}, MFA/TOTP, RBAC, OpenSSL, PKI et documentation bilingue.}
+
+\cvproject
+  {Cryptography Labs}
+  {https://github.com/ALLAKORI/cryptography-labs/blob/main/README.fr.md}
+  {GitHub}
+  {César, arithmétique modulaire, RSA, padding, Diffie-Hellman, signatures type ElGamal, SHA-1, notions AES et raisonnement crypto.}
+
+\section{CTF \& preuves}
+\begin{itemize}
+  \item \textbf{1\textsuperscript{re} place -- CSIA CTF 2026} avec l'équipe GHOSTSHELL, ENSA Béni Mellal, 29 avril 2026.
+  \item Writeups : ENSET Challenge Pwn, CITEFLAG Web, Active Directory. Preuves : \href{https://allakori.github.io/proof.html}{allakori.github.io/proof.html}
+\end{itemize}
+
+\section{Compétences techniques}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{cvblue}}p{3.7cm}X@{}}
+Blue Team / DFIR & Logs Linux/Windows, auditd, IOC, Autopsy, FTK Imager, WinPMEM, Volatility, Splunk (bases) \\[1pt]
+IAM / Sécurité & Keycloak, MFA/TOTP, RBAC, OpenSSL, PKI, SELinux, AppArmor, Lynis \\[1pt]
+Offensive security & Kali Linux, Nmap, Wireshark, Burp Suite, Hydra, reconnaissance réseau, web security (bases), CTF \\[1pt]
+Programmation & Python, C, SQL, Bash (bases), Pandas, Scikit-learn, Git/GitHub, Linux, virtualisation \\
+\end{tabularx}
+
+\section{Certifications}
+\begin{itemize}
+  \item \textbf{Ethical Hacker} -- Cisco Networking Academy \hfill 2025
+  \item \textbf{Foundations of Cybersecurity} \& \textbf{Play It Safe} -- Google / Coursera \hfill 2025--2026
+  \item \textbf{TryHackMe Pre Security} \& \textbf{Advent of Cyber 2025} \hfill 2025
+\end{itemize}
+
+\section{Langues}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}p{2.8cm}X@{}}
+Français & Courant \\[1pt]
+Anglais & Professionnel -- documentation technique, lecture, compréhension orale et écrite \\[1pt]
+Ewe & Langue maternelle \\
+\end{tabularx}
+
+\end{document}

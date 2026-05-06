@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/site.css?v=20260506-cv" />
+  <link rel="stylesheet" href="assets/site.css?v=20260506-portfolio" />
 </head>
 <body>
   <div class="shell">
@@ -23,6 +23,19 @@
       <section class="hero compact"><p class="meta">Technical writeups</p><h1>Readable previews before <span class="accent">the full GitHub notes</span>.</h1><p>Short summaries help reviewers understand the method quickly, then jump into the full writeup when needed.</p></section>
       <section class="section">
         <div class="grid">
+          <article class="feature">
+            <div class="feature-body"><p class="meta">CSIA CTF 2026 / Team GHOSTSHELL</p><h2>First-place challenge writeups</h2><p>Repository of solved CSIA CTF 2026 challenges organized by category: web exploitation, steganography, misc signal decoding and OSINT reconstruction.</p><div class="tags"><span class="tag green">1st place</span><span class="tag green">Web</span><span class="tag green">Stego</span><span class="tag green">OSINT</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/csia-ctf-2026-writeups" target="_blank" rel="noreferrer">Open CSIA repo</a></div></div>
+            <div class="feature-media">
+              <div class="code-panel" aria-label="CSIA CTF 2026 writeups summary">
+                <strong>CSIA CTF 2026 / WRITEUPS</strong>
+                <span><span class="cmd">$</span> tree csia-ctf-2026-writeups</span>
+                <span><span class="ok">web:</span> JWT confusion, prototype pollution, Apache RCE</span>
+                <span><span class="ok">stego:</span> LSB extraction with zsteg</span>
+                <span><span class="ok">misc:</span> binary signal decoding</span>
+                <span><span class="ok">osint:</span> archive + JSON reconstruction</span>
+              </div>
+            </div>
+          </article>
           <article class="feature">
             <div class="feature-body"><p class="meta">ENSET Challenge 2026 / Pwn</p><h2>Browzi MiniBrowser Heap Exploitation</h2><p>Mapped Node and RenderOps structures, found an unchecked img src copy into heap memory, calculated the overwrite offset, and used a partial function-pointer overwrite under null-byte constraints.</p><div class="tags"><span class="tag violet">Pwn</span><span class="tag violet">Heap</span><span class="tag violet">GDB</span><span class="tag violet">pwntools</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Enset_Challenge_2026/blob/main/Pwn/browsi.md" target="_blank" rel="noreferrer">Read full writeup</a></div></div>
             <div class="feature-media">
@@ -43,6 +56,6 @@
       <footer class="footer mono">Writeups page - method, evidence and links to full notes.</footer>
     </main>
   </div>
-  <script src="assets/lang.js?v=20260506-cv"></script>
+  <script src="assets/lang.js?v=20260506-portfolio"></script>
 </body>
 </html>

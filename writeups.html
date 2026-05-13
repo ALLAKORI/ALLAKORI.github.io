@@ -24,6 +24,18 @@
       <section class="section">
         <div class="grid">
           <article class="feature">
+            <div class="feature-body"><p class="meta">TryHackMe / Threat Hunting</p><h2>Volt Typhoon Intrusion Investigation</h2><p>Reconstructed an APT-style intrusion through Splunk logs: ADSelfService Plus takeover, WMIC execution, web shell persistence, credential access, financial data collection, C2 proxying and event log cleanup.</p><div class="tags"><span class="tag green">Completed</span><span class="tag blue">Splunk</span><span class="tag blue">PowerShell</span><span class="tag violet">DFIR</span><span class="tag amber">MITRE ATT&amp;CK</span></div><div class="actions"><a class="btn primary" href="writeups/tryhackme/volt-typhoon/index.html">Read writeup</a><a class="btn" href="https://github.com/ALLAKORI/ALLAKORI.github.io/blob/main/writeups/tryhackme/volt-typhoon/README.md" target="_blank" rel="noreferrer">GitHub note</a></div></div>
+            <div class="feature-media">
+              <div class="code-panel" aria-label="Volt Typhoon writeup summary">
+                <strong>TRYHACKME / VOLT TYPHOON</strong>
+                <span><span class="cmd">$</span> splunk search wmic powershell adss</span>
+                <span><span class="ok">initial:</span> dean-admin takeover</span>
+                <span><span class="ok">persistence:</span> AuditReport.jspx web shell</span>
+                <span><span class="ok">c2:</span> netsh proxy to 10.2.30.1:8443</span>
+              </div>
+            </div>
+          </article>
+          <article class="feature">
             <div class="feature-body"><p class="meta">CSIA CTF 2026 / Team GHOSTSHELL</p><h2>First-place challenge writeups</h2><p>Repository of solved CSIA CTF 2026 challenges organized by category: web exploitation, steganography, misc signal decoding and OSINT reconstruction.</p><div class="tags"><span class="tag green">1st place</span><span class="tag green">Web</span><span class="tag green">Stego</span><span class="tag green">OSINT</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/csia-ctf-2026-writeups" target="_blank" rel="noreferrer">Open CSIA repo</a></div></div>
             <div class="feature-media">
               <div class="code-panel" aria-label="CSIA CTF 2026 writeups summary">

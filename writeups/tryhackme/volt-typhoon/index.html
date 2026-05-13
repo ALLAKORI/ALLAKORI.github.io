@@ -40,9 +40,12 @@
         <div class="writeup-layout">
           <aside class="writeup-toc">
             <a href="#summary">Summary</a>
+            <a href="#context">Context</a>
             <a href="#timeline">Timeline</a>
             <a href="#findings">Findings</a>
+            <a href="#evidence">Evidence</a>
             <a href="#iocs">Indicators</a>
+            <a href="#detections">Detections</a>
             <a href="#lessons">Lessons</a>
           </aside>
           <article class="writeup-article">
@@ -53,6 +56,10 @@
               <strong>Main result</strong>
               <span>The attack chain was reconstructed from Splunk logs by pivoting across ADSelfService Plus, WMIC and PowerShell events.</span>
             </div>
+
+            <h2 id="context">Threat Context</h2>
+            <p>Before writing the final version, I compared my notes with public material from Microsoft, Splunk Security Content, CISA/FBI guidance and other TryHackMe write-ups. The pattern is consistent: Volt Typhoon-style activity relies heavily on living-off-the-land tools, valid credentials, command-line activity, proxying and careful cleanup.</p>
+            <p>Microsoft describes post-compromise activity involving command-line discovery, WMIC, PowerShell, virtual environment checks and <code>netsh portproxy</code>. Splunk's Volt Typhoon analytic story also focuses on suspicious LOLBin execution, command-line activity, LSASS dumping, archiving and C2 proxy behavior. That matched the logs I investigated in the room.</p>
 
             <h2 id="timeline">Attack Timeline</h2>
             <div class="timeline">
@@ -66,7 +73,7 @@
             <h3>Initial Access</h3>
             <p>I searched ADSelfService Plus logs for password changes linked to <code>dean-admin</code>:</p>
             <pre><code>index=* service_name=ADSelfServicePlus username="dean-admin" "password change"</code></pre>
-            <p>The successful takeover happened at <code>2024-03-24T11:10:22</code>. By reviewing username values and rare entries, I identified the newly created administrator account: <code>voltyp-admin</code>.</p>
+            <p>Why this worked: the room tells us ADSelfService Plus was involved, so filtering on the service and the compromised user removes most noise. The successful takeover happened at <code>2024-03-24T11:10:22</code>. By reviewing username values and rare entries, I identified the newly created administrator account: <code>voltyp-admin</code>.</p>
 
             <h3>Execution</h3>
             <p>For WMIC activity, I filtered on the WMIC sourcetype and target server names:</p>
@@ -110,6 +117,17 @@
             <p>Cleanup activity cleared four logs:</p>
             <pre><code>Application Security Setup System</code></pre>
 
+            <h2 id="evidence">Evidence Screenshots</h2>
+            <p>The slots below are prepared for the screenshots from my investigation. The screenshot files are not committed yet because they still need to be exported locally from the browser/session and placed in <code>assets/writeups/volt-typhoon/</code>.</p>
+            <div class="evidence-grid">
+              <figure class="evidence-card"><div class="screenshot-slot">assets/writeups/volt-typhoon/01-initial-access-adss.png</div><figcaption>ADSelfService Plus password change for <code>dean-admin</code>.</figcaption></figure>
+              <figure class="evidence-card"><div class="screenshot-slot">assets/writeups/volt-typhoon/02-wmic-7z-password.png</div><figcaption>WMIC command using 7-Zip and exposing the archive password.</figcaption></figure>
+              <figure class="evidence-card"><div class="screenshot-slot">assets/writeups/volt-typhoon/03-webshell-persistence.png</div><figcaption>PowerShell decoding and copying the web shell to IIS.</figcaption></figure>
+              <figure class="evidence-card"><div class="screenshot-slot">assets/writeups/volt-typhoon/04-defense-evasion.png</div><figcaption>Evidence of RDP MRU cleanup, archive renaming and VM checks.</figcaption></figure>
+              <figure class="evidence-card"><div class="screenshot-slot">assets/writeups/volt-typhoon/05-mimikatz-base64.png</div><figcaption>Encoded PowerShell payload decoded to the Mimikatz command.</figcaption></figure>
+              <figure class="evidence-card"><div class="screenshot-slot">assets/writeups/volt-typhoon/06-c2-cleanup.png</div><figcaption><code>netsh</code> C2 proxy setup and event log cleanup.</figcaption></figure>
+            </div>
+
             <h2 id="iocs">Indicators</h2>
             <div class="table-wrap">
               <table>
@@ -127,9 +145,33 @@
               </table>
             </div>
 
+            <h2 id="detections">Detection Ideas</h2>
+            <p>A good write-up should help someone understand the lab and also think like a defender. Based on the activity observed, these are the detection ideas I would keep:</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Behavior</th><th>Search idea</th><th>Why it matters</th></tr></thead>
+                <tbody>
+                  <tr><td>Encoded PowerShell</td><td><code>sourcetype=powershell ("-enc" OR "-E" OR "FromBase64String")</code></td><td>Often used to hide payloads.</td></tr>
+                  <tr><td>WMIC remote execution</td><td><code>sourcetype=wmic "process call create"</code></td><td>Shows remote command execution through a LOLBin.</td></tr>
+                  <tr><td>Archive staging</td><td><code>"7z" OR ".7z" OR "-p"</code></td><td>Can reveal collected data and archive passwords.</td></tr>
+                  <tr><td>Web shell copy</td><td><code>sourcetype=powershell "Copy-Item" ("wwwroot" OR ".aspx" OR ".jspx")</code></td><td>Useful for IIS persistence hunting.</td></tr>
+                  <tr><td>Log clearing</td><td><code>"wevtutil cl"</code></td><td>Strong cleanup indicator.</td></tr>
+                  <tr><td>Port proxy</td><td><code>"netsh" "portproxy" "connectaddress"</code></td><td>Matches C2 proxy setup behavior.</td></tr>
+                </tbody>
+              </table>
+            </div>
+
             <h2 id="lessons">Lessons Learned</h2>
             <p>This lab taught me to pivot from exact keywords to attacker behavior. Searching directly for <code>ntds</code> or <code>mimikatz</code> was not always enough, but looking for compression commands, encoded PowerShell flags and staging paths revealed the chain. The full intrusion was visible because the events were analyzed as a sequence instead of isolated answers.</p>
             <p>It also reinforced how living-off-the-land tools can hide malicious activity in normal administration noise. WMIC, PowerShell, <code>certutil</code>, <code>netsh</code> and <code>wevtutil</code> are legitimate, but their combined usage formed a clear attack story.</p>
+
+            <h2>References</h2>
+            <ul class="reference-list">
+              <li><a href="https://research.splunk.com/stories/volt_typhoon/" target="_blank" rel="noreferrer">Splunk Security Content - Volt Typhoon analytic story</a></li>
+              <li><a href="https://www.microsoft.com/en-us/security/blog/2023/05/24/volt-typhoon-targets-us-critical-infrastructure-with-living-off-the-land-techniques/" target="_blank" rel="noreferrer">Microsoft Security Blog - Volt Typhoon living-off-the-land techniques</a></li>
+              <li><a href="https://www.fbi.gov/file-repository/cyber-alerts/prc-state-sponsored-actors-compromise-and-maintain-persistent-access-to-u-s-critical-infrastructure.pdf" target="_blank" rel="noreferrer">CISA/FBI advisory AA24-038A - PRC state-sponsored actors</a></li>
+              <li><a href="https://djalilayed.github.io/posts/tryhackme-volt-typhoonwrite-up/" target="_blank" rel="noreferrer">Djalil Ayed - TryHackMe Volt Typhoon write-up</a></li>
+            </ul>
           </article>
         </div>
       </section>

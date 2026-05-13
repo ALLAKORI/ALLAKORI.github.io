@@ -892,6 +892,72 @@ a.card:hover {
   margin-bottom: 5px;
 }
 
+.blog-board {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr) 230px;
+  gap: 16px;
+  align-items: start;
+}
+
+.blog-panel,
+.post-row {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.blog-panel {
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.blog-panel a {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  border-radius: 6px;
+  color: var(--muted);
+  text-decoration: none;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.blog-panel a:hover {
+  color: var(--text);
+  background: #232730;
+}
+
+.post-feed {
+  display: grid;
+  gap: 12px;
+}
+
+.post-row {
+  padding: 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+}
+
+.post-row h2 {
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+}
+
+.post-row h2 a {
+  text-decoration: none;
+}
+
+.post-row p {
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: 8px;
+}
+
 .writeup-layout {
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr);
@@ -1028,6 +1094,57 @@ tr:last-child td {
   border-bottom: 0;
 }
 
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.evidence-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #11151b;
+  overflow: hidden;
+}
+
+.screenshot-slot {
+  min-height: 190px;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  color: var(--soft);
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    #0f1217;
+  background-size: 26px 26px;
+  text-align: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.evidence-card figcaption {
+  padding: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: 0.86rem;
+}
+
+.reference-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.reference-list a {
+  color: var(--cyan);
+}
+
 .footer {
   border-top: 1px solid var(--line-soft);
   margin-top: 38px;
@@ -1158,6 +1275,8 @@ tr:last-child td {
   .grid-4,
   .stats,
   .skills-grid,
+  .blog-board,
+  .evidence-grid,
   .timeline.compact-timeline,
   .writeup-layout {
     grid-template-columns: 1fr;

@@ -18,6 +18,19 @@ The scenario provided multiple log sources over a two-week period. My goal was t
 
 The intrusion began with the takeover of the `dean-admin` account through ADSelfService Plus. After that, the attacker created a new administrator account, used WMIC for reconnaissance and remote command execution, copied sensitive Active Directory and financial data, deployed a web shell for persistence, performed credential access with registry queries and Mimikatz, configured a C2 proxy with `netsh`, and finally cleared event logs to cover tracks.
 
+## Threat Intelligence Context
+
+Before polishing this write-up, I compared my notes with public references from Microsoft, Splunk Security Content, CISA/FBI guidance, and other public TryHackMe write-ups. The same themes appeared repeatedly:
+
+- heavy use of living-off-the-land tools;
+- command-line and hands-on-keyboard activity;
+- valid credential abuse;
+- archive staging before exfiltration;
+- web shell or proxy-based persistence;
+- cleanup through log clearing and artifact removal.
+
+This made the lab more realistic because the answers were not isolated flags. They formed a coherent intrusion timeline.
+
 ## Initial Access
 
 The room first pointed to ADSelfService Plus logs. I searched for password changes linked to the compromised admin account:
@@ -33,6 +46,8 @@ This revealed a successful password change:
 - Source IP: `192.168.1.134`
 - Access mode: `web_browser`
 - Timestamp: `2024-03-24T11:10:22`
+
+Why this query worked: the task pointed to ADSelfService Plus, so filtering on the service and the compromised admin user quickly reduced the noise.
 
 The attacker then created a new administrator account. I inspected the `username` field values and used rare values/frequency to identify the suspicious account:
 
@@ -267,6 +282,25 @@ The attacker cleared four event logs:
 Application Security Setup System
 ```
 
+## Evidence Screenshots
+
+The image slots below are prepared for the portfolio version. The screenshots still need to be exported from the browser/session and placed under:
+
+```text
+assets/writeups/volt-typhoon/
+```
+
+Suggested filenames:
+
+| Screenshot | Purpose |
+| --- | --- |
+| `01-initial-access-adss.png` | ADSelfService Plus password change for `dean-admin` |
+| `02-wmic-7z-password.png` | WMIC + 7-Zip archive password |
+| `03-webshell-persistence.png` | `certutil` decode and web shell copy |
+| `04-defense-evasion.png` | RDP cleanup, archive rename, VM check |
+| `05-mimikatz-base64.png` | Encoded PowerShell and decoded Mimikatz command |
+| `06-c2-cleanup.png` | `netsh` proxy and event log clearing |
+
 ## Key Indicators
 
 | Type | Indicator |
@@ -297,9 +331,26 @@ Application Security Setup System
 | Collection | Financial CSV files staged in temp directory |
 | Command and Control | `netsh` port proxy |
 
+## Detection Ideas
+
+| Behavior | Search idea | Why it matters |
+| --- | --- | --- |
+| Encoded PowerShell | `sourcetype=powershell ("-enc" OR "-E" OR "FromBase64String")` | Helps identify hidden payloads |
+| WMIC remote execution | `sourcetype=wmic "process call create"` | Finds remote command execution |
+| Archive staging | `"7z" OR ".7z" OR "-p"` | Can reveal compressed data and archive passwords |
+| Web shell copy | `sourcetype=powershell "Copy-Item" ("wwwroot" OR ".aspx" OR ".jspx")` | Useful for IIS persistence hunting |
+| Log clearing | `"wevtutil cl"` | Strong cleanup indicator |
+| Port proxy | `"netsh" "portproxy" "connectaddress"` | Matches C2 proxy setup behavior |
+
 ## Lessons Learned
 
 This lab reinforced how important it is to pivot instead of relying on one keyword. For example, searching for `ntds` did not immediately reveal the archive password, but searching for compression behavior with `7z` did. The same applied to Mimikatz: the command was hidden behind base64, so looking for encoded PowerShell patterns was more effective than searching only for the tool name.
 
 The investigation also showed how Volt Typhoon-style activity can blend into normal administration: WMIC, PowerShell, `netsh`, `certutil`, `wevtutil`, and registry queries are all legitimate Windows tools, but the sequence of actions exposed the intrusion clearly.
 
+## References
+
+- [Splunk Security Content - Volt Typhoon analytic story](https://research.splunk.com/stories/volt_typhoon/)
+- [Microsoft Security Blog - Volt Typhoon living-off-the-land techniques](https://www.microsoft.com/en-us/security/blog/2023/05/24/volt-typhoon-targets-us-critical-infrastructure-with-living-off-the-land-techniques/)
+- [CISA/FBI advisory AA24-038A - PRC state-sponsored actors](https://www.fbi.gov/file-repository/cyber-alerts/prc-state-sponsored-actors-compromise-and-maintain-persistent-access-to-u-s-critical-infrastructure.pdf)
+- [Djalil Ayed - TryHackMe Volt Typhoon write-up](https://djalilayed.github.io/posts/tryhackme-volt-typhoonwrite-up/)

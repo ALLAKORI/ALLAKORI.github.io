@@ -118,14 +118,18 @@
             <pre><code>Application Security Setup System</code></pre>
 
             <h2 id="evidence">Evidence Screenshots</h2>
-            <p>The slots below are prepared for the screenshots from my investigation. The screenshot files are not committed yet because they still need to be exported locally from the browser/session and placed in <code>assets/writeups/volt-typhoon/</code>.</p>
+            <p>These screenshots are the main proof points from my investigation. I selected the ones that help a reader understand the method instead of only showing final TryHackMe validations.</p>
             <div class="evidence-grid">
-              <figure class="evidence-card"><div class="screenshot-slot">assets/writeups/volt-typhoon/01-initial-access-adss.png</div><figcaption>ADSelfService Plus password change for <code>dean-admin</code>.</figcaption></figure>
-              <figure class="evidence-card"><div class="screenshot-slot">assets/writeups/volt-typhoon/02-wmic-7z-password.png</div><figcaption>WMIC command using 7-Zip and exposing the archive password.</figcaption></figure>
-              <figure class="evidence-card"><div class="screenshot-slot">assets/writeups/volt-typhoon/03-webshell-persistence.png</div><figcaption>PowerShell decoding and copying the web shell to IIS.</figcaption></figure>
-              <figure class="evidence-card"><div class="screenshot-slot">assets/writeups/volt-typhoon/04-defense-evasion.png</div><figcaption>Evidence of RDP MRU cleanup, archive renaming and VM checks.</figcaption></figure>
-              <figure class="evidence-card"><div class="screenshot-slot">assets/writeups/volt-typhoon/05-mimikatz-base64.png</div><figcaption>Encoded PowerShell payload decoded to the Mimikatz command.</figcaption></figure>
-              <figure class="evidence-card"><div class="screenshot-slot">assets/writeups/volt-typhoon/06-c2-cleanup.png</div><figcaption><code>netsh</code> C2 proxy setup and event log cleanup.</figcaption></figure>
+              <figure class="evidence-card"><img src="../../../assets/writeups/volt-typhoon/01-initial-access-adss.png" alt="Splunk search showing dean-admin ADSelfService Plus password change" /><figcaption>ADSelfService Plus search showing the password change event for <code>dean-admin</code>.</figcaption></figure>
+              <figure class="evidence-card"><img src="../../../assets/writeups/volt-typhoon/02-wmic-drive-enum.png" alt="Splunk WMIC search showing logicaldisk enumeration on server01 and server02" /><figcaption>WMIC drive enumeration against <code>server01</code> and <code>server02</code>.</figcaption></figure>
+              <figure class="evidence-card"><img src="../../../assets/writeups/volt-typhoon/03-wmic-7z-password.png" alt="Splunk WMIC search showing 7-Zip archive command and password" /><figcaption>7-Zip command exposed the archive password used for the AD database copy.</figcaption></figure>
+              <figure class="evidence-card"><img src="../../../assets/writeups/volt-typhoon/04-webshell-persistence.png" alt="PowerShell logs showing certutil decode and Copy-Item web shell movement" /><figcaption>PowerShell evidence of web shell creation and copy to the IIS web root.</figcaption></figure>
+              <figure class="evidence-card"><img src="../../../assets/writeups/volt-typhoon/05-defense-evasion-remove.png" alt="PowerShell logs showing Remove-ItemProperty used for defense evasion" /><figcaption><code>Remove-ItemProperty</code> used to remove RDP MRU traces.</figcaption></figure>
+              <figure class="evidence-card"><img src="../../../assets/writeups/volt-typhoon/06-mimikatz-base64-decoded.png" alt="Terminal output showing decoded PowerShell command that downloads and runs Mimikatz" /><figcaption>Decoded base64 payload showing Mimikatz download and execution.</figcaption></figure>
+              <figure class="evidence-card"><img src="../../../assets/writeups/volt-typhoon/07-collection-finance.png" alt="PowerShell Copy-Item command copying finance backup CSV file" /><figcaption>Financial CSV collection staged under <code>C:\Windows\Temp\faudit\</code>.</figcaption></figure>
+              <figure class="evidence-card"><img src="../../../assets/writeups/volt-typhoon/08-c2-netsh-proxy.png" alt="Splunk netsh search showing portproxy connect address and port" /><figcaption><code>netsh portproxy</code> command revealing the C2 address and port.</figcaption></figure>
+              <figure class="evidence-card"><img src="../../../assets/writeups/volt-typhoon/09-cleanup-wevtutil.png" alt="PowerShell log showing wevtutil cl clearing event logs" /><figcaption><code>wevtutil cl</code> used to clear Windows event logs.</figcaption></figure>
+              <figure class="evidence-card"><img src="../../../assets/writeups/volt-typhoon/10-room-completed.png" alt="TryHackMe Volt Typhoon room completed at 100 percent" /><figcaption>Room completion proof after finishing the investigation.</figcaption></figure>
             </div>
 
             <h2 id="iocs">Indicators</h2>

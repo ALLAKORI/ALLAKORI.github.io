@@ -1,139 +1,88 @@
 \documentclass[10pt,a4paper]{article}
 
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+\usepackage[a4paper,top=1.15cm,bottom=1.15cm,left=1.25cm,right=1.25cm]{geometry}
+\usepackage{fontspec}
 \usepackage[french]{babel}
-\usepackage{lmodern}
-\usepackage{geometry}
-\usepackage[dvipsnames]{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
 \usepackage{titlesec}
 \usepackage{enumitem}
-\usepackage{hyperref}
-\usepackage{tabularx}
-\usepackage{array}
-\usepackage{graphicx}
-\usepackage{tikz}
 
-\geometry{top=0.8cm,bottom=0.85cm,left=1.2cm,right=1.2cm}
+\setmainfont{Arial}
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
-\setlist[itemize]{leftmargin=1.0em,itemsep=0pt,topsep=1pt,parsep=0pt,partopsep=0pt}
+\setlist[itemize]{leftmargin=1.1em,itemsep=1pt,topsep=2pt,parsep=0pt}
 
-\definecolor{cvblue}{RGB}{18,56,103}
-\definecolor{cvgray}{RGB}{88,88,88}
-\definecolor{cvlink}{RGB}{32,94,160}
+\definecolor{heading}{HTML}{123867}
+\titleformat{\section}{\large\bfseries\color{heading}}{}{0pt}{}[\vspace{-5pt}\rule{\linewidth}{0.5pt}]
+\titlespacing{\section}{0pt}{7pt}{4pt}
 
-\hypersetup{colorlinks=true,urlcolor=cvlink,linkcolor=cvlink}
-
-\titleformat{\section}
-  {\color{cvblue}\large\bfseries}
-  {}{0em}{}
-  [\vspace{-6pt}\textcolor{cvblue}{\rule{\linewidth}{0.7pt}}\vspace{0pt}]
-\titlespacing{\section}{0pt}{4pt}{2pt}
-
-\newcommand{\cventry}[4]{%
-  \begin{tabular*}{\linewidth}{@{}p{0.74\linewidth}@{\extracolsep{\fill}}r@{}}
-    \textbf{#1} \textcolor{cvgray}{|} \textit{#2} & \small\textcolor{cvgray}{#3}
-  \end{tabular*}\\[-2pt]
-  \small\textcolor{cvgray}{#4}\par\vspace{0pt}
-}
-
-\newcommand{\cvproject}[4]{%
-  \begin{tabular*}{\linewidth}{@{}p{0.78\linewidth}@{\extracolsep{\fill}}r@{}}
-    \textbf{#1} & \small\href{#2}{#3}
-  \end{tabular*}\\[-2pt]
-  \small #4\par\vspace{1pt}
+\newcommand{\role}[3]{%
+  \textbf{#1} \hfill #3\\
+  \textit{#2}\vspace{1pt}
 }
 
 \begin{document}
 
-\noindent
-\begin{minipage}[c]{0.73\linewidth}
-{\LARGE\bfseries\color{cvblue} Kossi Richard Allado}\\[3pt]
-{\large\color{cvgray} Étudiant ingénieur -- Intelligence Artificielle \& Cybersécurité}\\[6pt]
-\small
-Béni Mellal, Maroc \quad \textbullet \quad
-\href{tel:+212621074305}{+212 621 074 305} \quad \textbullet \quad
-\href{mailto:alladokossirichard2025@gmail.com}{alladokossirichard2025@gmail.com}\\[2pt]
-\href{https://github.com/ALLAKORI}{github.com/ALLAKORI} \quad \textbullet \quad
-\href{https://www.linkedin.com/in/kossi-richard-allado-50177b2a5}{linkedin.com/in/kossi-richard-allado} \quad \textbullet \quad
-\href{https://allakori.github.io/}{allakori.github.io}
-\end{minipage}
-\hfill
-\begin{minipage}[c]{0.24\linewidth}
-\raggedleft
-\begin{tikzpicture}
-  \node[draw=black, line width=0.45pt, rounded corners=2pt]
-  {\includegraphics[width=2.25cm]{image.png}};
-\end{tikzpicture}
-\end{minipage}
-
-\vspace{4pt}
+{\LARGE \textbf{Kossi Richard Allado}}\\
+\textbf{Etudiant ingenieur en Intelligence Artificielle et Cybersecurite | Machine Learning, Data, LLM}\\
+Beni Mellal, Maroc | +212 621 074 305 | \href{mailto:alladokossirichard2025@gmail.com}{alladokossirichard2025@gmail.com}\\
+\href{https://allakori.github.io/}{allakori.github.io} | \href{https://github.com/ALLAKORI}{github.com/ALLAKORI} | \href{https://www.linkedin.com/in/kossi-richard-allado-50177b2a5}{linkedin.com/in/kossi-richard-allado}
 
 \section{Profil}
-Étudiant ingénieur \textbf{Cybersécurité \& IA} à l'ENSA Béni Mellal, orienté \textbf{machine learning appliqué}, analyse de données, prototypage Python, LLM/chatbots et automatisation. Sensibilité cybersécurité utile pour IA fiable, logs, détection et outillage. Recherche un \textbf{stage PFA IA/Data à partir de juillet 2026}, démarrage anticipé possible.
+Etudiant ingenieur en IA et cybersecurite a l'ENSA Beni Mellal, oriente machine learning applique, analyse de donnees, prototypage Python, IA generative et chatbots. Experience pratique en preparation de donnees, classification supervisee, Random Forest, Scikit-learn, LangChain/Chainlit et documentation technique. Recherche un stage PFA IA/Data a partir de juillet 2026.
+
+\section{Competences techniques}
+\textbf{Machine Learning / Data :} classification supervisee, Random Forest, preparation de donnees, feature engineering, evaluation, visualisation, Jupyter.\\
+\textbf{Python / Data Stack :} Python, Pandas, NumPy basics, Scikit-learn, Matplotlib, SQL, Tkinter, Git/GitHub.\\
+\textbf{IA generative :} prompting, Chainlit, LangChain basics, CTransformers, modeles locaux, memoire conversationnelle, chatbot prototyping.\\
+\textbf{Cybersecurite utile :} logs Linux/Windows, Splunk basics, IAM, Keycloak, cryptographie, reseau, CTF, Linux.
+
+\section{Projets selectionnes}
+\textbf{High-Pressure Pump Fault Prediction} \hfill ONEE / Projet IA\\
+\href{https://github.com/ALLAKORI/Defaut-Pompe-Prediction}{github.com/ALLAKORI/Defaut-Pompe-Prediction}
+\begin{itemize}
+  \item Prediction de defauts de pompes haute pression a partir de variables capteurs.
+  \item Nettoyage de donnees, classification Random Forest, evaluation et interface utilisateur de test.
+\end{itemize}
+
+\textbf{Local LLM and Chatbot Experiments} \hfill IA generative\\
+\href{https://github.com/ALLAKORI/MY-FIRST-AI-CHATBOT}{github.com/ALLAKORI/MY-FIRST-AI-CHATBOT}
+\begin{itemize}
+  \item Prototypage de chatbot avec modeles locaux, prompting, streaming et memoire conversationnelle.
+  \item Utilisation de Chainlit, LangChain basics et CTransformers pour experimenter des workflows LLM.
+\end{itemize}
+
+\textbf{USMS Chatbot Work} \hfill Application conversationnelle\\
+\href{https://github.com/ALLAKORI}{github.com/ALLAKORI}
+\begin{itemize}
+  \item Travail sur la logique conversationnelle, structuration des messages, integration backend et documentation.
+\end{itemize}
+
+\textbf{Cybersecurity Labs as Data/Detection Practice} \hfill Portfolio technique\\
+\href{https://allakori.github.io/}{allakori.github.io}
+\begin{itemize}
+  \item Analyse de logs, investigation Splunk et structuration d'indicateurs dans des write-ups techniques.
+\end{itemize}
+
+\section{Experience}
+\role{Stagiaire IA / Maintenance predictive}{ONEE - Branche Eau, Kasba Tadla}{Aout 2025}
+\begin{itemize}
+  \item Preparation et analyse de donnees capteurs pour anticiper des defauts de pompes.
+  \item Entrainement d'un modele Random Forest avec Python, Pandas et Scikit-learn.
+  \item Creation d'une interface Tkinter pour tester les predictions et rendre le prototype utilisable.
+\end{itemize}
 
 \section{Formation}
-\cventry{Cycle ingénieur -- Cybersécurité \& Intelligence Artificielle}{ENSA Béni Mellal}{2024 -- Présent}{}
-\cventry{DEUST -- Mathématiques, Informatique, Physique}{FST Fès}{2022 -- 2024}{Mention : Bien}
-\cventry{Baccalauréat scientifique (Série D)}{Lycée de Djagblé, Togo}{2022}{Mention : Très bien}
+\role{Cycle ingenieur - Cybersecurite et Intelligence Artificielle}{ENSA Beni Mellal}{2024 - Present}
+\role{DEUST - Mathematiques, Informatique, Physique}{FST Fes, Mention Bien}{2022 - 2024}
+\role{Baccalaureat scientifique, Serie D}{Lycee de Djagble, Togo, Mention Tres Bien}{2022}
 
-\section{Expérience}
-\cventry{Stagiaire IA / Maintenance prédictive}{ONEE -- Branche Eau, Kasba Tadla}{Août 2025}{}
-\vspace{-7pt}
-\begin{itemize}
-  \item Prédiction de défauts de pompes haute pression à partir de variables capteurs.
-  \item Préparation/analyse des données, modèle \textbf{Random Forest} avec Python, Pandas et Scikit-learn.
-  \item Évaluation et interface \textbf{Tkinter} pour tester les prédictions.
-\end{itemize}
-
-\section{Projets IA \& data}
-\cvproject
-  {High-Pressure Pump Fault Prediction}
-  {https://github.com/ALLAKORI/Defaut-Pompe-Prediction}
-  {GitHub}
-  {Maintenance prédictive : analyse de données capteurs, classification supervisée, retour lisible et interface utilisateur de test.}
-
-\cvproject
-  {Local LLM \& Chatbot Experiments}
-  {https://github.com/ALLAKORI/MY-FIRST-AI-CHATBOT}
-  {GitHub}
-  {Prompting, streaming, modèles locaux, mémoire conversationnelle, Chainlit, LangChain et CTransformers.}
-
-\cvproject
-  {USMS Chatbot Work}
-  {https://github.com/ALLAKORI}
-  {GitHub}
-  {Travail applicatif autour de la logique conversationnelle, intégration backend, gestion des messages et documentation publique.}
-
-\section{Compétences techniques}
-\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{cvblue}}p{3.7cm}X@{}}
-Machine learning & Classification supervisée, Random Forest, préparation de données, évaluation, visualisation, prototypes \\[1pt]
-Python / Data & Python, Pandas, NumPy (bases), Scikit-learn, Matplotlib, Jupyter, Tkinter, SQL \\[1pt]
-IA générative & Prompting, Chainlit, LangChain (bases), CTransformers, modèles locaux, mémoire conversationnelle \\[1pt]
-Cybersécurité utile & Logs Linux, auditd, IAM, Keycloak, cryptographie, réseau, CTF, Git/GitHub, Linux \\
-\end{tabularx}
-
-\section{Réalisations complémentaires}
-\begin{itemize}
-  \item \textbf{1\textsuperscript{re} place -- CSIA CTF 2026} avec l'équipe GHOSTSHELL : esprit analytique, résolution de problèmes et travail en équipe.
-  \item Labs bilingues utiles IA/cyber : \href{https://github.com/ALLAKORI/linux-security-labs}{Linux Security}, \href{https://github.com/ALLAKORI/cybersecurity-iam-labs}{Cybersecurity/IAM}, \href{https://github.com/ALLAKORI/cryptography-labs}{Cryptography}.
-  \item Portfolio technique : \href{https://allakori.github.io/}{allakori.github.io}
-\end{itemize}
-
-\section{Certifications}
-\begin{itemize}
-  \item \textbf{Introduction to Data Engineering} -- IBM / Coursera \hfill 2026
-  \item \textbf{Cryptography \& Hashing in Python and Java} -- Udemy \hfill 2026
-  \item \textbf{Foundations of Cybersecurity} -- Google / Coursera ; \textbf{Ethical Hacker} -- Cisco \hfill 2025
-\end{itemize}
+\section{Certifications et realisations}
+IBM Introduction to Data Engineering | Udemy Cryptography and Hashing in Python and Java | Google Foundations of Cybersecurity | Cisco Ethical Hacker | 1ere place CSIA CTF 2026 avec Team GHOSTSHELL
 
 \section{Langues}
-\begin{tabularx}{\linewidth}{@{}>{\bfseries}p{2.8cm}X@{}}
-Français & Courant \\[1pt]
-Anglais & Professionnel -- documentation technique, lecture, compréhension orale et écrite \\[1pt]
-Ewe & Langue maternelle \\
-\end{tabularx}
+Francais : courant | Anglais : professionnel technique | Ewe : langue maternelle
 
 \end{document}

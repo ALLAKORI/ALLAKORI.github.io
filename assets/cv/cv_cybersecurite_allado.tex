@@ -1,131 +1,88 @@
 \documentclass[10pt,a4paper]{article}
 
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+\usepackage[a4paper,top=1.15cm,bottom=1.15cm,left=1.25cm,right=1.25cm]{geometry}
+\usepackage{fontspec}
 \usepackage[french]{babel}
-\usepackage{lmodern}
-\usepackage{geometry}
-\usepackage[dvipsnames]{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
 \usepackage{titlesec}
 \usepackage{enumitem}
-\usepackage{hyperref}
-\usepackage{tabularx}
-\usepackage{array}
-\usepackage{graphicx}
-\usepackage{tikz}
 
-\geometry{top=0.8cm,bottom=0.85cm,left=1.2cm,right=1.2cm}
+\setmainfont{Arial}
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
-\setlist[itemize]{leftmargin=1.0em,itemsep=0pt,topsep=1pt,parsep=0pt,partopsep=0pt}
+\setlist[itemize]{leftmargin=1.1em,itemsep=1pt,topsep=2pt,parsep=0pt}
 
-\definecolor{cvblue}{RGB}{18,56,103}
-\definecolor{cvgray}{RGB}{88,88,88}
-\definecolor{cvlink}{RGB}{32,94,160}
+\definecolor{heading}{HTML}{123867}
+\titleformat{\section}{\large\bfseries\color{heading}}{}{0pt}{}[\vspace{-5pt}\rule{\linewidth}{0.5pt}]
+\titlespacing{\section}{0pt}{7pt}{4pt}
 
-\hypersetup{colorlinks=true,urlcolor=cvlink,linkcolor=cvlink}
-
-\titleformat{\section}
-  {\color{cvblue}\large\bfseries}
-  {}{0em}{}
-  [\vspace{-6pt}\textcolor{cvblue}{\rule{\linewidth}{0.7pt}}\vspace{0pt}]
-\titlespacing{\section}{0pt}{4pt}{2pt}
-
-\newcommand{\cventry}[4]{%
-  \begin{tabular*}{\linewidth}{@{}p{0.74\linewidth}@{\extracolsep{\fill}}r@{}}
-    \textbf{#1} \textcolor{cvgray}{|} \textit{#2} & \small\textcolor{cvgray}{#3}
-  \end{tabular*}\\[-2pt]
-  \small\textcolor{cvgray}{#4}\par\vspace{0pt}
-}
-
-\newcommand{\cvproject}[4]{%
-  \begin{tabular*}{\linewidth}{@{}p{0.78\linewidth}@{\extracolsep{\fill}}r@{}}
-    \textbf{#1} & \small\href{#2}{#3}
-  \end{tabular*}\\[-2pt]
-  \small #4\par\vspace{1pt}
+\newcommand{\role}[3]{%
+  \textbf{#1} \hfill #3\\
+  \textit{#2}\vspace{1pt}
 }
 
 \begin{document}
 
-\noindent
-\begin{minipage}[c]{0.73\linewidth}
-{\LARGE\bfseries\color{cvblue} Kossi Richard Allado}\\[3pt]
-{\large\color{cvgray} Étudiant ingénieur -- Cybersécurité \& Intelligence Artificielle}\\[6pt]
-\small
-Béni Mellal, Maroc \quad \textbullet \quad
-\href{tel:+212621074305}{+212 621 074 305} \quad \textbullet \quad
-\href{mailto:alladokossirichard2025@gmail.com}{alladokossirichard2025@gmail.com}\\[2pt]
-\href{https://github.com/ALLAKORI}{github.com/ALLAKORI} \quad \textbullet \quad
-\href{https://www.linkedin.com/in/kossi-richard-allado-50177b2a5}{linkedin.com/in/kossi-richard-allado} \quad \textbullet \quad
-\href{https://allakori.github.io/}{allakori.github.io}
-\end{minipage}
-\hfill
-\begin{minipage}[c]{0.24\linewidth}
-\raggedleft
-\begin{tikzpicture}
-  \node[draw=black, line width=0.45pt, rounded corners=2pt]
-  {\includegraphics[width=2.25cm]{../../../richard.png}};
-\end{tikzpicture}
-\end{minipage}
-
-\vspace{4pt}
+{\LARGE \textbf{Kossi Richard Allado}}\\
+\textbf{Etudiant ingenieur en Cybersecurite et Intelligence Artificielle | SOC, DFIR, IAM}\\
+Beni Mellal, Maroc | +212 621 074 305 | \href{mailto:alladokossirichard2025@gmail.com}{alladokossirichard2025@gmail.com}\\
+\href{https://allakori.github.io/}{allakori.github.io} | \href{https://github.com/ALLAKORI}{github.com/ALLAKORI} | \href{https://www.linkedin.com/in/kossi-richard-allado-50177b2a5}{linkedin.com/in/kossi-richard-allado}
 
 \section{Profil}
-Étudiant ingénieur en cybersécurité à l'ENSA Béni Mellal, spécialisé \textbf{SOC/DFIR}, offensive security et gestion des identités. Recherche un \textbf{stage PFA cybersécurité à partir de juillet 2026} avec démarrage possible avant l'été. Portfolio, preuves et travaux techniques disponibles en ligne.
+Etudiant ingenieur en cybersecurite et IA a l'ENSA Beni Mellal, oriente SOC, DFIR, threat hunting, IAM et securite offensive. Experience pratique en Splunk, analyse de logs, investigation forensic, Linux hardening, Keycloak, PKI, web security et CTF. Recherche un stage PFA cybersecurite a partir de juillet 2026.
+
+\section{Competences techniques}
+\textbf{SOC / Detection / DFIR :} Splunk, Windows logs, Linux logs, auditd, IOC, timeline, incident response, threat hunting, Volatility, WinPMEM, Autopsy, FTK Imager.\\
+\textbf{Securite offensive :} Kali Linux, Nmap, Wireshark, Burp Suite, Hydra, reconnaissance, SQL injection, XSS, CTF, privilege escalation basics.\\
+\textbf{IAM / Systemes / Reseaux :} Keycloak, MFA/TOTP, RBAC, OpenSSL, PKI, Linux, SELinux, AppArmor, Lynis, SSH, firewall basics.\\
+\textbf{Programmation :} Python, Bash, C, SQL, Git/GitHub, Pandas, Scikit-learn, Jupyter.
+
+\section{Projets selectionnes}
+\textbf{TryHackMe - Volt Typhoon Investigation} \hfill 2026\\
+\href{https://allakori.github.io/writeups/tryhackme/volt-typhoon/}{Write-up portfolio}
+\begin{itemize}
+  \item Investigation Splunk d'une intrusion APT-style : ADSelfService Plus, WMIC, PowerShell, web shell, Mimikatz, netsh proxy et cleanup.
+  \item Production d'une timeline, extraction d'IOC, mapping MITRE ATT\&CK et idees de detection.
+\end{itemize}
+
+\textbf{Forensic Investigation and Incident Response} \hfill Linux Security Labs\\
+\href{https://github.com/ALLAKORI/linux-security-labs}{github.com/ALLAKORI/linux-security-labs}
+\begin{itemize}
+  \item Acquisition disque/memoire, analyse WinPMEM avec Volatility, reconstruction de timeline et documentation DFIR.
+  \item Recherche d'indicateurs dans logs Linux et synthese exploitable pour reponse a incident.
+\end{itemize}
+
+\textbf{Cybersecurity and IAM Labs} \hfill Keycloak, PKI, Web Security\\
+\href{https://github.com/ALLAKORI/cybersecurity-iam-labs}{github.com/ALLAKORI/cybersecurity-iam-labs}
+\begin{itemize}
+  \item Labs Keycloak MFA/TOTP/RBAC, OpenSSL/PKI, ARP poisoning, audit reseau et securite Linux.
+  \item Tests DVWA SQL injection et XSS avec recommandations de durcissement.
+\end{itemize}
+
+\textbf{CSIA CTF 2026 - Team GHOSTSHELL} \hfill 1ere place\\
+\href{https://github.com/ALLAKORI/csia-ctf-2026-writeups}{github.com/ALLAKORI/csia-ctf-2026-writeups}
+\begin{itemize}
+  \item Resolution et documentation de challenges web, steganographie, OSINT et misc.
+\end{itemize}
+
+\section{Experience}
+\role{Stagiaire IA / Maintenance predictive}{ONEE - Branche Eau, Kasba Tadla}{Aout 2025}
+\begin{itemize}
+  \item Preparation de donnees capteurs et prediction de defauts de pompes haute pression.
+  \item Prototype Python avec Random Forest, Pandas, Scikit-learn et interface de test.
+\end{itemize}
 
 \section{Formation}
-\cventry{Cycle ingénieur -- Cybersécurité \& Intelligence Artificielle}{ENSA Béni Mellal}{2024 -- Présent}{}
-\cventry{DEUST -- Mathématiques, Informatique, Physique}{FST Fès}{2022 -- 2024}{Mention : Bien}
-\cventry{Baccalauréat scientifique (Série D)}{Lycée de Djagblé, Togo}{2022}{Mention : Très bien}
-
-\section{Expérience}
-\cventry{Stagiaire IA / Maintenance prédictive}{ONEE -- Branche Eau, Kasba Tadla}{Août 2025}{}
-\vspace{-7pt}
-\begin{itemize}
-  \item Prédiction de défauts de pompes haute pression à partir de données capteurs.
-  \item Préparation de données, classification \textbf{Random Forest} en Python et interface de test.
-\end{itemize}
-
-\section{Projets}
-\cvproject
-  {Forensic Investigation \& Incident Response}
-  {https://github.com/ALLAKORI/linux-security-labs/blob/main/labs/tp4-forensic-investigation-and-incident-response/README.fr.md}
-  {GitHub}
-  {Acquisition forensic disque/mémoire, analyse d'images WinPMEM avec Volatility, reconstruction de timeline d'incident, IOC hunting sur logs Linux, et documentation d'un processus DFIR complet.}
-
-\cvproject
-  {Web Security SQLi / XSS}
-  {https://github.com/ALLAKORI/cybersecurity-iam-labs/blob/main/cybersecurity-labs/tp4-web-security-sqli-xss/README.fr.md}
-  {GitHub}
-  {Test de sécurité applicative, détection et exploitation de vulnérabilités SQL injection et XSS sur DVWA, avec approche offensive et recommandations de durcissement.}
-
-\section{CTF \& preuves}
-\begin{itemize}
-  \item \textbf{1\textsuperscript{re} place -- CSIA CTF 2026} avec l'équipe GHOSTSHELL, ENSA Béni Mellal, 29 avril 2026.
-  \item Writeups : ENSET Challenge Pwn, CITEFLAG Web, Active Directory. Preuves : \href{https://allakori.github.io/proof.html}{allakori.github.io/proof.html}
-\end{itemize}
-
-\section{Compétences techniques}
-\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{cvblue}}p{3.7cm}X@{}}
-Blue Team / DFIR & Logs Linux/Windows, auditd, IOC, Autopsy, FTK Imager, WinPMEM, Volatility, Splunk (bases) \\[1pt]
-IAM / Sécurité & Keycloak, MFA/TOTP, RBAC, OpenSSL, PKI, SELinux, AppArmor, Lynis \\[1pt]
-Offensive security & Kali Linux, Nmap, Wireshark, Burp Suite, Hydra, reconnaissance réseau, web security (bases), CTF \\[1pt]
-Programmation & Python, C, SQL, Bash (bases), Pandas, Scikit-learn, Git/GitHub, Linux, virtualisation \\
-\end{tabularx}
+\role{Cycle ingenieur - Cybersecurite et Intelligence Artificielle}{ENSA Beni Mellal}{2024 - Present}
+\role{DEUST - Mathematiques, Informatique, Physique}{FST Fes, Mention Bien}{2022 - 2024}
+\role{Baccalaureat scientifique, Serie D}{Lycee de Djagble, Togo, Mention Tres Bien}{2022}
 
 \section{Certifications}
-\begin{itemize}
-  \item \textbf{Ethical Hacker} -- Cisco Networking Academy \hfill 2025
-  \item \textbf{Foundations of Cybersecurity} \& \textbf{Play It Safe} -- Google / Coursera \hfill 2025--2026
-  \item \textbf{TryHackMe Pre Security} \& \textbf{Advent of Cyber 2025} \hfill 2025
-\end{itemize}
+Cisco Ethical Hacker | Google Foundations of Cybersecurity | Google Play It Safe | TryHackMe Pre Security | TryHackMe Advent of Cyber 2025 | Udemy Linux Command Line | Udemy Cryptography and Hashing | IBM Introduction to Data Engineering
 
 \section{Langues}
-\begin{tabularx}{\linewidth}{@{}>{\bfseries}p{2.8cm}X@{}}
-Français & Courant \\[1pt]
-Anglais & Professionnel -- documentation technique, lecture, compréhension orale et écrite \\[1pt]
-Ewe & Langue maternelle \\
-\end{tabularx}
+Francais : courant | Anglais : professionnel technique | Ewe : langue maternelle
 
 \end{document}

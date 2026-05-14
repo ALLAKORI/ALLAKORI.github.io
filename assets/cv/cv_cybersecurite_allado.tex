@@ -5,6 +5,7 @@
 \usepackage[french]{babel}
 \usepackage[hidelinks]{hyperref}
 \usepackage{xcolor}
+\usepackage{graphicx}
 \usepackage{titlesec}
 \usepackage{enumitem}
 
@@ -18,17 +19,38 @@
 \titleformat{\section}{\large\bfseries\color{heading}}{}{0pt}{}[\vspace{-5pt}\rule{\linewidth}{0.5pt}]
 \titlespacing{\section}{0pt}{7pt}{4pt}
 
+\newif\ifwithphoto
+\withphotofalse
+\IfFileExists{with_photo.flag}{\withphototrue}{}
+
 \newcommand{\role}[3]{%
   \textbf{#1} \hfill #3\\
   \textit{#2}\vspace{1pt}
 }
 
+\newcommand{\edu}[4]{%
+  \textbf{#1} -- #2 \hfill #3 #4\\[-1pt]
+}
+
 \begin{document}
 
+\ifwithphoto
+\begin{minipage}[c]{0.76\linewidth}
 {\LARGE \textbf{Kossi Richard Allado}}\\
 \textbf{Etudiant ingenieur en Cybersecurite et Intelligence Artificielle | SOC, DFIR, IAM}\\
 Beni Mellal, Maroc | +212 621 074 305 | \href{mailto:alladokossirichard2025@gmail.com}{alladokossirichard2025@gmail.com}\\
 \href{https://allakori.github.io/}{allakori.github.io} | \href{https://github.com/ALLAKORI}{github.com/ALLAKORI} | \href{https://www.linkedin.com/in/kossi-richard-allado-50177b2a5}{linkedin.com/in/kossi-richard-allado}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.18\linewidth}
+\raggedleft\includegraphics[width=2.35cm]{photo_richard.png}
+\end{minipage}
+\else
+{\LARGE \textbf{Kossi Richard Allado}}\\
+\textbf{Etudiant ingenieur en Cybersecurite et Intelligence Artificielle | SOC, DFIR, IAM}\\
+Beni Mellal, Maroc | +212 621 074 305 | \href{mailto:alladokossirichard2025@gmail.com}{alladokossirichard2025@gmail.com}\\
+\href{https://allakori.github.io/}{allakori.github.io} | \href{https://github.com/ALLAKORI}{github.com/ALLAKORI} | \href{https://www.linkedin.com/in/kossi-richard-allado-50177b2a5}{linkedin.com/in/kossi-richard-allado}
+\fi
 
 \section{Profil}
 Etudiant ingenieur en cybersecurite et IA a l'ENSA Beni Mellal, interesse par le SOC, la reponse a incident, l'IAM et la securite applicative. Experience pratique a travers des labs et CTF : Splunk, analyse de logs, investigation forensic, Linux hardening, Keycloak, PKI, web security et documentation technique. Recherche un stage PFA cybersecurite a partir de juillet 2026.
@@ -75,9 +97,9 @@ Etudiant ingenieur en cybersecurite et IA a l'ENSA Beni Mellal, interesse par le
 \end{itemize}
 
 \section{Formation}
-\role{Cycle ingenieur - Cybersecurite et Intelligence Artificielle}{ENSA Beni Mellal}{2024 - Present}
-\role{DEUST - Mathematiques, Informatique, Physique}{FST Fes, Mention Bien}{2022 - 2024}
-\role{Baccalaureat scientifique, Serie D}{Lycee de Djagble, Togo, Mention Tres Bien}{2022}
+\edu{Cycle ingenieur}{Cybersecurite et Intelligence Artificielle, ENSA Beni Mellal}{2024 - Present}{}
+\edu{DEUST}{Mathematiques, Informatique, Physique, FST Fes}{2022 - 2024}{-- Mention Bien}
+\edu{Baccalaureat scientifique}{Serie D, Lycee de Djagble, Togo}{2022}{-- Mention Tres Bien}
 
 \section{Certifications}
 Cisco Ethical Hacker | Google Foundations of Cybersecurity | Google Play It Safe | TryHackMe Pre Security | TryHackMe Advent of Cyber 2025 | Udemy Linux Command Line | Udemy Cryptography and Hashing | IBM Introduction to Data Engineering

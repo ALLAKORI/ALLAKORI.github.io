@@ -1070,6 +1070,72 @@ a.card:hover {
   color: var(--text);
 }
 
+.writeup-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.writeup-filters a {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #20252d;
+  color: var(--muted);
+  padding: 0 11px;
+  text-decoration: none;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.writeup-filters a:hover {
+  border-color: rgba(88, 213, 255, 0.6);
+  color: var(--text);
+}
+
+.writeup-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+.writeup-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 340px;
+}
+
+.writeup-card h3 {
+  font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+  line-height: 1.22;
+}
+
+.writeup-card .actions {
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.featured-writeup {
+  grid-column: span 2;
+  min-height: 0;
+  background:
+    linear-gradient(135deg, rgba(88, 213, 255, 0.08), transparent 48%),
+    var(--panel);
+}
+
+.blog-card {
+  border-color: rgba(112, 213, 139, 0.25);
+  background:
+    linear-gradient(135deg, rgba(112, 213, 139, 0.07), transparent 46%),
+    var(--panel);
+}
+
 .writeup-date {
   margin-top: 8px;
   margin-bottom: 6px;
@@ -1314,10 +1380,15 @@ tr:last-child td {
   .stats,
   .skills-grid,
   .blog-board,
+  .writeup-grid,
   .evidence-grid,
   .timeline.compact-timeline,
   .writeup-layout {
     grid-template-columns: 1fr;
+  }
+
+  .featured-writeup {
+    grid-column: span 1;
   }
 
   .writeup-toc {

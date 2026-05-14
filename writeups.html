@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Technical writeup previews by Kossi Richard Allado covering TryHackMe DFIR, CSIA CTF 2026, pwn, PHP parser logic and Active Directory labs." />
+  <meta property="og:title" content="Writeups | Kossi Richard Allado" />
+  <meta property="og:description" content="CTF, DFIR, web, pwn and Active Directory writeup previews with links to full technical notes and the dedicated Chirpy blog." />
+  <meta property="og:image" content="https://allakori.github.io/richard.jpg" />
+  <meta property="og:url" content="https://allakori.github.io/writeups.html" />
   <title>Writeups | Kossi Richard Allado</title>
+  <link rel="icon" type="image/jpeg" href="/richard.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -22,6 +28,12 @@
       <div class="topline"><div class="crumb"><a href="index.html">Portfolio</a> / <strong>Writeups</strong></div><div class="mono">CTF - AD - Web - Pwn</div></div>
       <section class="hero compact"><p class="meta">Technical writeups</p><h1>Readable previews before <span class="accent">the full GitHub notes</span>.</h1><p>Short summaries help reviewers understand the method quickly, then jump into the full writeup when needed.</p></section>
       <section class="section">
+        <div class="callout blog-callout">
+          <strong><a href="https://allakori.github.io/writeups/">Full detailed writeups with syntax highlighting are available on the dedicated blog &rarr;</a></strong>
+          <span>Chirpy blog for longer notes, code blocks, categories and tags.</span>
+        </div>
+      </section>
+      <section class="section">
         <div class="blog-board">
           <aside class="blog-panel">
             <p class="meta">Categories</p>
@@ -33,12 +45,53 @@
           <div class="post-feed">
             <article class="post-row" id="tryhackme">
               <div>
-                <p class="meta">May 14, 2026 / TryHackMe</p>
+                <p class="meta">TryHackMe / DFIR</p>
                 <h2><a href="writeups/tryhackme/volt-typhoon/index.html">Volt Typhoon Intrusion Investigation</a></h2>
-                <p>Splunk-based reconstruction of an APT-style intrusion: account takeover, WMIC execution, web shell persistence, credential access, C2 proxy and cleanup.</p>
+                <p class="writeup-date">14 May 2026</p>
+                <p>TryHackMe room focused on reconstructing a Volt Typhoon-style intrusion from Windows and application logs. The investigation followed ADSelfService Plus account takeover, WMIC execution, PowerShell staging, web shell persistence, Mimikatz credential access, netsh proxying and log cleanup. Splunk searches, base64 decoding and MITRE ATT&amp;CK mapping were used to connect the events into one timeline. The writeup demonstrates practical threat hunting through attacker behavior instead of isolated keyword matching.</p>
                 <div class="tags"><span class="tag blue">Splunk</span><span class="tag blue">PowerShell</span><span class="tag violet">DFIR</span><span class="tag amber">MITRE ATT&amp;CK</span></div>
               </div>
               <a class="btn primary" href="writeups/tryhackme/volt-typhoon/index.html">Open</a>
+            </article>
+            <article class="post-row" id="ctf">
+              <div>
+                <p class="meta">CTF / Team GHOSTSHELL</p>
+                <h2><a href="https://github.com/ALLAKORI/csia-ctf-2026-writeups" target="_blank" rel="noreferrer">CSIA CTF 2026 first-place writeups</a></h2>
+                <p class="writeup-date">29 April 2026</p>
+                <p>Collection of CSIA CTF 2026 solutions covering web exploitation, forensics, reverse engineering, steganography, misc decoding and OSINT. The key techniques included JWT alg=none abuse, prototype pollution, Apache 2.4.49 traversal and RCE, LSB extraction with zsteg, signal decoding from JSON and social-archive pivots. Tools included curl, ffuf, Python, zsteg, grep and browser source inspection. The notes show how the team converted small clues into reproducible solve paths.</p>
+                <div class="tags"><span class="tag green">1st place</span><span class="tag green">Web</span><span class="tag green">Stego</span><span class="tag green">OSINT</span></div>
+              </div>
+              <a class="btn primary" href="https://github.com/ALLAKORI/csia-ctf-2026-writeups" target="_blank" rel="noreferrer">Open</a>
+            </article>
+            <article class="post-row" id="pwn">
+              <div>
+                <p class="meta">ENSET Challenge 2026 / Pwn</p>
+                <h2><a href="https://github.com/ALLAKORI/Enset_Challenge_2026/blob/main/Pwn/browsi.md" target="_blank" rel="noreferrer">Browzi MiniBrowser heap exploitation</a></h2>
+                <p class="writeup-date">20 April 2026</p>
+                <p>Pwn challenge based on a minimal browser engine that parsed HTML into heap-allocated Node and RenderOps structures. The vulnerability was an unchecked img src copy into data[128], allowing an adjacent function pointer to be overwritten. GDB was used to map the heap layout, calculate the 144-byte offset and validate the partial overwrite constraint. pwntools completed the exploit by leaking render_div, computing win and overwriting ops-&gt;render with a 6-byte pointer.</p>
+                <div class="tags"><span class="tag violet">Pwn</span><span class="tag violet">Heap</span><span class="tag violet">GDB</span><span class="tag violet">pwntools</span></div>
+              </div>
+              <a class="btn primary" href="https://github.com/ALLAKORI/Enset_Challenge_2026/blob/main/Pwn/browsi.md" target="_blank" rel="noreferrer">Open</a>
+            </article>
+            <article class="post-row">
+              <div>
+                <p class="meta">CITEFLAG Qualifiers 2026 / Web</p>
+                <h2><a href="https://github.com/ALLAKORI/CITEFLAG_QUALS_2026/blob/main/deepwash.md" target="_blank" rel="noreferrer">deepwash PHP DateTime parser logic</a></h2>
+                <p class="writeup-date">15 March 2026</p>
+                <p>Web challenge built around PHP DateTimeImmutable::createFromFormat and strict hash checks over parsed values. The weakness was silent date normalization: invalid days, day-of-year overflow and hour overflow were accepted and normalized instead of rejected. The solution used source review, PHP parser behavior and curl to construct a three-line payload that satisfied md5 and sha256 constraints. The writeup demonstrates why parser edge cases matter when validation depends on formatted output.</p>
+                <div class="tags"><span class="tag blue">Web</span><span class="tag blue">PHP</span><span class="tag blue">Parser logic</span></div>
+              </div>
+              <a class="btn primary" href="https://github.com/ALLAKORI/CITEFLAG_QUALS_2026/blob/main/deepwash.md" target="_blank" rel="noreferrer">Open</a>
+            </article>
+            <article class="post-row" id="active-directory">
+              <div>
+                <p class="meta">Academia Cyber / Active Directory</p>
+                <h2><a href="https://github.com/ALLAKORI/Academia_Cyber/blob/main/AD105_lab_progress.md" target="_blank" rel="noreferrer">SOKOLO AD lab attack chain</a></h2>
+                <p class="writeup-date">1 February 2026</p>
+                <p>Active Directory lab progress note following an attack chain from provided user credentials to workstation administrator access. The work covered RDP access, SMB enumeration, SAM hash extraction, pass-the-hash with Impacket, DPAPI credential discovery, BloodHound review and Kerberos ticket attempts. The main techniques were local privilege pivoting, machine-account analysis and Resource-Based Constrained Delegation reasoning. The note documents both successful steps and the Kerberos/SPN issues that still needed correction.</p>
+                <div class="tags"><span class="tag green">Active Directory</span><span class="tag green">BloodHound</span><span class="tag green">Impacket</span></div>
+              </div>
+              <a class="btn primary" href="https://github.com/ALLAKORI/Academia_Cyber/blob/main/AD105_lab_progress.md" target="_blank" rel="noreferrer">Open</a>
             </article>
           </div>
           <aside class="blog-panel">
@@ -50,7 +103,7 @@
       <section class="section">
         <div class="grid">
           <article class="feature">
-            <div class="feature-body"><p class="meta">TryHackMe / Threat Hunting</p><h2>Volt Typhoon Intrusion Investigation</h2><p>Reconstructed an APT-style intrusion through Splunk logs: ADSelfService Plus takeover, WMIC execution, web shell persistence, credential access, financial data collection, C2 proxying and event log cleanup.</p><div class="tags"><span class="tag green">Completed</span><span class="tag blue">Splunk</span><span class="tag blue">PowerShell</span><span class="tag violet">DFIR</span><span class="tag amber">MITRE ATT&amp;CK</span></div><div class="actions"><a class="btn primary" href="writeups/tryhackme/volt-typhoon/index.html">Read writeup</a><a class="btn" href="https://github.com/ALLAKORI/ALLAKORI.github.io/blob/main/writeups/tryhackme/volt-typhoon/README.md" target="_blank" rel="noreferrer">GitHub note</a></div></div>
+            <div class="feature-body"><p class="meta">TryHackMe / Threat Hunting</p><h2>Volt Typhoon Intrusion Investigation</h2><p class="writeup-date">14 May 2026</p><p>TryHackMe DFIR room about reconstructing an APT-style intrusion from Splunk evidence. The chain included ADSelfService Plus takeover, WMIC execution, web shell persistence, credential access, financial data staging, C2 proxying and event log cleanup. Splunk searches, PowerShell log review and base64 decoding were used to pivot between phases. The writeup demonstrates how individual Windows events become a defensible incident timeline.</p><div class="tags"><span class="tag green">Completed</span><span class="tag blue">Splunk</span><span class="tag blue">PowerShell</span><span class="tag violet">DFIR</span><span class="tag amber">MITRE ATT&amp;CK</span></div><div class="actions"><a class="btn primary" href="writeups/tryhackme/volt-typhoon/index.html">Read writeup</a><a class="btn" href="https://github.com/ALLAKORI/ALLAKORI.github.io/blob/main/writeups/tryhackme/volt-typhoon/README.md" target="_blank" rel="noreferrer">GitHub note</a></div></div>
             <div class="feature-media">
               <div class="code-panel" aria-label="Volt Typhoon writeup summary">
                 <strong>TRYHACKME / VOLT TYPHOON</strong>
@@ -62,7 +115,7 @@
             </div>
           </article>
           <article class="feature">
-            <div class="feature-body"><p class="meta">CSIA CTF 2026 / Team GHOSTSHELL</p><h2>First-place challenge writeups</h2><p>Repository of solved CSIA CTF 2026 challenges organized by category: web exploitation, steganography, misc signal decoding and OSINT reconstruction.</p><div class="tags"><span class="tag green">1st place</span><span class="tag green">Web</span><span class="tag green">Stego</span><span class="tag green">OSINT</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/csia-ctf-2026-writeups" target="_blank" rel="noreferrer">Open CSIA repo</a></div></div>
+            <div class="feature-body"><p class="meta">CSIA CTF 2026 / Team GHOSTSHELL</p><h2>First-place challenge writeups</h2><p class="writeup-date">29 April 2026</p><p>Repository of solved CSIA CTF 2026 challenges organized by web, forensics, reverse, steganography, misc and OSINT. The main techniques included JWT alg=none bypasses, prototype pollution, Apache traversal with RCE, LSB extraction, JSON signal decoding and archive-based OSINT reconstruction. Tools included curl, ffuf, Python, zsteg, grep and browser source inspection. The notes show the reasoning used by GHOSTSHELL to turn challenge clues into reproducible solves.</p><div class="tags"><span class="tag green">1st place</span><span class="tag green">Web</span><span class="tag green">Stego</span><span class="tag green">OSINT</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/csia-ctf-2026-writeups" target="_blank" rel="noreferrer">Open CSIA repo</a></div></div>
             <div class="feature-media">
               <div class="code-panel" aria-label="CSIA CTF 2026 writeups summary">
                 <strong>CSIA CTF 2026 / WRITEUPS</strong>
@@ -75,7 +128,7 @@
             </div>
           </article>
           <article class="feature">
-            <div class="feature-body"><p class="meta">ENSET Challenge 2026 / Pwn</p><h2>Browzi MiniBrowser Heap Exploitation</h2><p>Mapped Node and RenderOps structures, found an unchecked img src copy into heap memory, calculated the overwrite offset, and used a partial function-pointer overwrite under null-byte constraints.</p><div class="tags"><span class="tag violet">Pwn</span><span class="tag violet">Heap</span><span class="tag violet">GDB</span><span class="tag violet">pwntools</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Enset_Challenge_2026/blob/main/Pwn/browsi.md" target="_blank" rel="noreferrer">Read full writeup</a></div></div>
+            <div class="feature-body"><p class="meta">ENSET Challenge 2026 / Pwn</p><h2>Browzi MiniBrowser Heap Exploitation</h2><p class="writeup-date">20 April 2026</p><p>Pwn challenge against a small browser-like parser that allocated Node and RenderOps structures on the heap. The vulnerable path was an unchecked img src copy into data[128], which could overwrite the adjacent render function pointer. GDB was used to inspect layout and calculate a 144-byte offset, while pwntools handled the remote leak and payload delivery. The exploit demonstrated a partial function-pointer overwrite under null-byte constraints.</p><div class="tags"><span class="tag violet">Pwn</span><span class="tag violet">Heap</span><span class="tag violet">GDB</span><span class="tag violet">pwntools</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Enset_Challenge_2026/blob/main/Pwn/browsi.md" target="_blank" rel="noreferrer">Read full writeup</a></div></div>
             <div class="feature-media">
               <div class="code-panel" aria-label="ENSET Challenge pwn writeup summary">
                 <strong>ENSET Challenge 2026 / PWN</strong>
@@ -86,12 +139,12 @@
               </div>
             </div>
           </article>
-          <article class="card"><p class="meta">CITEFLAG Qualifiers 2026 / Web</p><h3>deepwash: PHP DateTime Parser Logic</h3><p>Studied source constraints, identified DateTimeImmutable normalization behavior, reasoned about overflow cases, and built a valid payload logically.</p><div class="tags"><span class="tag blue">Web</span><span class="tag blue">PHP</span><span class="tag blue">Parser logic</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/CITEFLAG_QUALS_2026/blob/main/deepwash.md" target="_blank" rel="noreferrer">Read writeup</a></div></article>
-          <article class="card"><p class="meta">Academia Cyber / Active Directory</p><h3>SOKOLO AD Lab Progress</h3><p>Initial access, SMB enumeration, SAM hash extraction, pass-the-hash, DPAPI investigation, BloodHound review, Kerberos ticket attempts and RBCD next steps.</p><div class="tags"><span class="tag green">Active Directory</span><span class="tag green">BloodHound</span><span class="tag green">Impacket</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Academia_Cyber/blob/main/AD105_lab_progress.md" target="_blank" rel="noreferrer">Read progress note</a></div></article>
+          <article class="card"><p class="meta">CITEFLAG Qualifiers 2026 / Web</p><h3>deepwash: PHP DateTime Parser Logic</h3><p class="writeup-date">15 March 2026</p><p>Web challenge centered on PHP DateTimeImmutable parsing and strict hashes over normalized date output. The key issue was that invalid days, day-of-year overflow and hour overflow were normalized instead of rejected. Source review, PHP date-format reasoning and curl were used to build the exact three-line payload. The writeup demonstrates how parser behavior can become the vulnerability when validation trusts formatted output.</p><div class="tags"><span class="tag blue">Web</span><span class="tag blue">PHP</span><span class="tag blue">Parser logic</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/CITEFLAG_QUALS_2026/blob/main/deepwash.md" target="_blank" rel="noreferrer">Read writeup</a></div></article>
+          <article class="card"><p class="meta">Academia Cyber / Active Directory</p><h3>SOKOLO AD Lab Progress</h3><p class="writeup-date">1 February 2026</p><p>Active Directory lab note following access from provided credentials to local administrator control on a workstation. The chain included SMB enumeration, SAM hash extraction, pass-the-hash with Impacket, DPAPI credential discovery, BloodHound path review, Kerberos ticket generation and RBCD attempts. Tools included CrackMapExec, Impacket, Mimikatz, SharpHound and BloodHound. The note records both progress and unresolved Kerberos/SPN issues for the next exploitation step.</p><div class="tags"><span class="tag green">Active Directory</span><span class="tag green">BloodHound</span><span class="tag green">Impacket</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Academia_Cyber/blob/main/AD105_lab_progress.md" target="_blank" rel="noreferrer">Read progress note</a></div></article>
         </div>
       </section>
       <section class="section"><div class="contact-panel"><div><p class="meta">Contact</p><h2>Want to discuss the writeups?</h2><p>I can explain the reasoning, reproduce the approach and share what I learned from each challenge.</p></div><div class="contact-actions"><a class="btn primary" href="mailto:alladokossirichard2025@gmail.com">Email</a><a class="btn" href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noreferrer">LinkedIn</a><a class="btn" href="https://github.com/ALLAKORI" target="_blank" rel="noreferrer">GitHub</a></div></div></section>
-      <footer class="footer mono">Writeups page - method, evidence and links to full notes.</footer>
+      <footer class="footer mono">Writeups page - method, evidence and links to full notes.<small>Last updated: May 2026</small></footer>
     </main>
   </div>
   <script src="assets/lang.js?v=20260506-portfolio"></script>

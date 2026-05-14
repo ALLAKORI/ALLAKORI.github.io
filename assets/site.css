@@ -1057,6 +1057,29 @@ a.card:hover {
   line-height: 1.55;
 }
 
+.blog-callout {
+  margin-top: 0;
+}
+
+.blog-callout a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+.blog-callout a:hover {
+  color: var(--text);
+}
+
+.writeup-date {
+  margin-top: 8px;
+  margin-bottom: 6px;
+  color: var(--soft);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
 .table-wrap {
   overflow-x: auto;
   margin-top: 14px;
@@ -1159,6 +1182,13 @@ tr:last-child td {
   padding-top: 24px;
   color: var(--soft);
   font-size: 0.78rem;
+}
+
+.footer small {
+  display: block;
+  margin-top: 8px;
+  color: var(--soft);
+  font-size: 0.72rem;
 }
 
 @media (max-width: 1160px) {

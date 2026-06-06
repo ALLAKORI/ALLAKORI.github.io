@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Cybersecurity projects by Kossi Richard Allado: Linux hardening, incident investigation, IAM, PKI, web security, cryptography and SOC workflows." />
+  <meta name="description" content="Cybersecurity and AI/Data projects by Kossi Richard Allado: log investigation, machine learning classification and web security testing." />
   <meta property="og:title" content="Projects | Kossi Richard Allado" />
-  <meta property="og:description" content="Hands-on cybersecurity projects and case studies covering SOC, DFIR, offensive security, IAM and practical lab workflows." />
+  <meta property="og:description" content="Concrete cybersecurity and AI/Data case studies for PFA internship review: investigation, ML classification and web security." />
   <meta property="og:image" content="https://allakori.github.io/richard.jpg" />
   <meta property="og:url" content="https://allakori.github.io/projects.html" />
   <title>Projects | Kossi Richard Allado</title>
@@ -13,40 +13,72 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/site.css?v=20260506-portfolio" />
+  <link rel="stylesheet" href="assets/site.css?v=20260606-cmrpi" />
 </head>
 <body>
   <div class="shell">
     <aside class="sidebar">
       <div>
-        <div class="profile"><img class="avatar" src="richard.jpg" alt="Kossi Richard Allado" /><div><div class="name">Kossi Richard Allado</div><p class="role">Cybersecurity labs, offensive research and SOC/DFIR investigation projects.</p></div></div>
+        <div class="profile"><img class="avatar" src="richard.jpg" alt="Kossi Richard Allado" /><div><div class="name">Kossi Richard Allado</div><p class="role">Cybersecurity and AI/Data projects focused on useful, explainable evidence.</p></div></div>
         <nav class="nav"><a href="index.html"><span>01</span> Home</a><a href="proof.html"><span>02</span> Proof</a><a href="labs.html"><span>03</span> Labs</a><a href="writeups.html"><span>04</span> Writeups</a><a class="active" href="projects.html"><span>05</span> Projects</a></nav>
       </div>
       <div class="social"><a href="https://github.com/ALLAKORI" target="_blank" rel="noreferrer">Gh</a><a href="mailto:alladokossirichard2025@gmail.com">@</a></div>
     </aside>
     <main class="page">
-      <div class="topline"><div class="crumb"><a href="index.html">Portfolio</a> / <strong>Projects</strong></div><div class="mono">Cybersecurity • SOC • Offensive</div></div>
-      <section class="hero compact"><p class="meta">Projects & Labs</p><h1>Hands-on cybersecurity shown as <span class="accent">case studies</span>.</h1><p>Lab automation, incident investigation workflows, offensive security research and defensive implementations from academic exercises to production-ready thinking.</p></section>
+      <div class="topline"><div class="crumb"><a href="index.html">Portfolio</a> / <strong>Projects</strong></div><div class="mono">Investigation - ML classification - Web security</div></div>
+      <section class="hero compact"><p class="meta">Selected projects</p><h1>Three projects that show <span class="accent">PFA readiness</span>.</h1><p>Each case is presented by problem, method and relevance: cyber investigation, machine-learning classification and security testing for user-facing platforms.</p></section>
+
       <section class="section">
-        <div class="section-head">
-          <div>
-            <p class="meta">Cybersecurity Projects</p>
-            <h2>Applied learning from labs to production.</h2>
-          </div>
-          <p class="section-note">Each project demonstrates specific security concepts with documentation and reproducible workflows.</p>
-        </div>
         <div class="grid">
-          <article class="feature">
-            <div class="feature-body"><p class="meta">Linux Security & Forensics / Lab Series</p><h2>Hardening & Incident Investigation Lab</h2><p>Complete workflow for Linux security hardening, audit log analysis, intrusion detection, forensic acquisition and incident timeline reconstruction using auditd and memory analysis.</p><ul class="list"><li>Implemented and documented Linux hardening best practices across kernel, services and user access.</li><li>Built auditd audit rules for detecting security events and anomalous system behavior.</li><li>Performed forensic investigation with memory dumps and log correlation for incident response.</li><li>Bilingual French/English documentation for reproducible lab environment setup.</li></ul><div class="tags"><span class="tag green">Linux</span><span class="tag green">Forensics</span><span class="tag green">DFIR</span><span class="tag green">auditd</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/linux-security-labs" target="_blank" rel="noreferrer">Open repository</a></div></div>
+          <article class="card">
+              <p class="meta">Log investigation / Splunk</p>
+              <h2>Intrusion reconstruction from security logs</h2>
+              <p>Reconstructed a Volt Typhoon-style intrusion from Windows and application logs, then organized the result into a readable timeline with indicators and detection queries.</p>
+              <ul class="list">
+                <li>Mapped attacker behavior across account takeover, command execution, persistence, credential access and cleanup.</li>
+                <li>Used Splunk searches and event correlation to move from raw logs to an incident narrative.</li>
+                <li>Relevant to cyber reporting, signal triage and clear technical restitution.</li>
+              </ul>
+              <div class="tags"><span class="tag green">Splunk</span><span class="tag green">IOC</span><span class="tag green">Timeline</span></div>
+              <div class="actions"><a class="btn primary" href="https://allakori.github.io/writeups/tryhackme/volt-typhoon/" target="_blank" rel="noreferrer">Read writeup</a></div>
           </article>
-          <article class="card"><p class="meta">IAM & PKI / Security Engineering</p><h3>Keycloak & Identity Management Labs</h3><p>Production-focused identity and access management using Keycloak, OpenSSL/PKI, MFA with TOTP, SSH hardening and RBAC authorization patterns for enterprise security.</p><div class="tags"><span class="tag blue">Keycloak</span><span class="tag blue">PKI</span><span class="tag blue">MFA/TOTP</span><span class="tag blue">RBAC</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/cybersecurity-iam-labs" target="_blank" rel="noreferrer">Open repository</a></div></article>
-          <article class="card"><p class="meta">Web Security & Cryptography / Offensive Focus</p><h3>Web Security & Crypto Labs</h3><p>Hands-on exploration of web vulnerabilities (SQL injection, XSS), cryptographic implementations, symmetric/asymmetric encryption and hashing algorithms with attack/defense perspective.</p><div class="tags"><span class="tag amber">Web Security</span><span class="tag amber">Cryptography</span><span class="tag amber">AES</span><span class="tag amber">SHA</span></div><div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/cryptography-labs" target="_blank" rel="noreferrer">Open repository</a></div></article>
+
+          <article class="card">
+            <p class="meta">Applied ML / Risk classification</p>
+            <h3>Fault classification prototype from sensor data</h3>
+            <p>Built a Python prototype that classifies pump fault risk from sensor values and presents the result through a simple desktop interface.</p>
+            <ul class="list">
+              <li>Prepared data with Pandas and trained a Random Forest classifier with Scikit-learn.</li>
+              <li>Translated model output into a readable risk level for the user.</li>
+              <li>Useful pattern for AI/Data internships: data preparation, classification workflow and explainable output.</li>
+            </ul>
+            <div class="tags"><span class="tag blue">Python</span><span class="tag blue">Scikit-learn</span><span class="tag blue">Risk</span></div>
+            <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Defaut-Pompe-Prediction" target="_blank" rel="noreferrer">Open repository</a></div>
+          </article>
+
+          <article class="card">
+            <p class="meta">Web security / User input</p>
+            <h3>SQL injection and XSS testing in DVWA</h3>
+            <p>Tested common web vulnerabilities in a controlled vulnerable application to understand how unsafe input handling becomes a platform risk.</p>
+            <ul class="list">
+              <li>Observed SQL injection and XSS behavior in forms and browser-based workflows.</li>
+              <li>Connected the findings to practical mitigations and safer input handling.</li>
+                <li>Relevant to reporting modules, portals, assistance chatbots and public forms.</li>
+            </ul>
+            <div class="tags"><span class="tag amber">DVWA</span><span class="tag amber">SQLi</span><span class="tag amber">XSS</span></div>
+            <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/cybersecurity-iam-labs" target="_blank" rel="noreferrer">Open repository</a></div>
+          </article>
         </div>
       </section>
-      <section class="section"><div class="contact-panel"><div><p class="meta">Contact</p><h2>Open to PFA internship discussions.</h2><p>Cybersecurity student seeking offensive security or SOC analyst internship. I can discuss the labs, lab automation, investigation workflows and how they align with your team's security needs.</p></div><div class="contact-actions"><a class="btn primary" href="mailto:alladokossirichard2025@gmail.com">Email</a><a class="btn" href="assets/cv/cv_cybersecurite_allado.pdf?v=20260514-cyber" target="_blank" rel="noreferrer">Cybersecurity CV</a><a class="btn" href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noreferrer">LinkedIn</a></div></div></section>
-      <footer class="footer mono">Projects page - cybersecurity labs, SOC/DFIR workflows and offensive security research.<small>Last updated: May 2026</small></footer>
+
+      <section class="section">
+        <div class="contact-panel">
+            <div><p class="meta">Contact</p><h2>Open to PFA internship discussions.</h2><p>I can walk through these projects for cybersecurity offers or AI/Data offers. I am available now for a 2-month PFA internship.</p></div>
+          <div class="contact-actions"><a class="btn primary" href="mailto:alladokossirichard2025@gmail.com">Email</a><a class="btn" href="assets/cv/cv_cybersecurite_allado_sans_photo.pdf?v=20260606-portfolio" target="_blank" rel="noreferrer">Cyber CV</a><a class="btn" href="assets/cv/cv_ia_allado_sans_photo.pdf?v=20260606-portfolio" target="_blank" rel="noreferrer">AI/Data CV</a><a class="btn" href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noreferrer">LinkedIn</a></div>
+        </div>
+      </section>
+      <footer class="footer mono">Projects page - cybersecurity and AI/Data case studies for PFA review.<small>Last updated: June 2026</small></footer>
     </main>
   </div>
-  <script src="assets/lang.js?v=20260506-portfolio"></script>
 </body>
 </html>

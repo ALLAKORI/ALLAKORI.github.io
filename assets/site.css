@@ -35,6 +35,7 @@ body {
     radial-gradient(circle at 78% 0%, rgba(112, 213, 139, 0.08), transparent 30%),
     var(--bg);
   background-size: 38px 38px, 38px 38px, auto, auto;
+  overflow-x: hidden;
 }
 
 a {
@@ -105,6 +106,7 @@ img {
   color: var(--muted);
   line-height: 1.55;
   font-size: 0.82rem;
+  overflow-wrap: anywhere;
 }
 
 .sidebar-status {
@@ -225,6 +227,7 @@ img {
 .page {
   min-width: 0;
   padding: 22px clamp(18px, 3.4vw, 46px) 48px;
+  overflow-x: hidden;
 }
 
 .topline {
@@ -292,6 +295,7 @@ h1 {
   font-size: clamp(2rem, 3.65vw, 3.7rem);
   line-height: 1.04;
   font-weight: 800;
+  overflow-wrap: anywhere;
 }
 
 .hero.compact h1 {
@@ -1356,6 +1360,8 @@ tr:last-child td {
 @media (max-width: 840px) {
   .shell {
     display: block;
+    width: 100%;
+    max-width: 100vw;
   }
 
   .sidebar {
@@ -1363,6 +1369,8 @@ tr:last-child td {
     height: auto;
     border-right: 0;
     border-bottom: 1px solid var(--line);
+    width: 100%;
+    max-width: 100vw;
   }
 
   .nav {
@@ -1372,6 +1380,53 @@ tr:last-child td {
   .topline,
   .section-head {
     display: grid;
+  }
+
+  .page {
+    padding-left: 18px;
+    padding-right: 18px;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .hero {
+    padding: 20px 22px;
+    width: 100%;
+    max-width: calc(100vw - 36px);
+  }
+
+  .profile,
+  .sidebar-status,
+  .hero-copy,
+  .hero-terminal,
+  .card,
+  .about-panel,
+  .skill-box {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .hero p,
+  .card p,
+  .role,
+  .sidebar-status span,
+  .terminal-lines {
+    overflow-wrap: anywhere;
+  }
+
+  h1,
+  .hero.compact h1 {
+    font-size: 2rem;
+    line-height: 1.08;
+    max-width: 300px;
+  }
+
+  h2 {
+    font-size: 1.55rem;
+  }
+
+  .hero p {
+    max-width: 300px;
   }
 
   .grid-2,

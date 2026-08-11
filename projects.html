@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Cybersecurity and AI/Data projects by Kossi Richard Allado: log investigation, machine learning classification and web security testing." />
   <meta property="og:title" content="Projects | Kossi Richard Allado" />
-  <meta property="og:description" content="Concrete cybersecurity and AI/Data case studies for PFA internship review: investigation, ML classification and web security." />
+  <meta property="og:description" content="Concrete software, AI and cybersecurity case studies for PFE review: RAG/backend product work, threat intelligence, DFIR and applied ML." />
   <meta property="og:image" content="https://allakori.github.io/richard.jpg" />
   <meta property="og:url" content="https://allakori.github.io/projects.html" />
   <title>Projects | Kossi Richard Allado</title>
@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/site.css?v=20260606-cmrpi" />
+  <link rel="stylesheet" href="assets/site.css?v=20260811-pfe-portfolio" />
 </head>
 <body>
   <div class="shell">
@@ -26,10 +26,35 @@
     </aside>
     <main class="page">
       <div class="topline"><div class="crumb"><a href="index.html">Portfolio</a> / <strong>Projects</strong></div><div class="mono">Investigation - ML classification - Web security</div></div>
-      <section class="hero compact"><p class="meta">Selected projects</p><h1>Three projects that show <span class="accent">PFA readiness</span>.</h1><p>Each case is presented by problem, method and relevance: cyber investigation, machine-learning classification and security testing for user-facing platforms.</p></section>
+      <section class="hero compact"><p class="meta">Selected projects</p><h1>Case studies that show <span class="accent">PFE readiness</span>.</h1><p>Each project is presented by context, method and evidence: product engineering, AI/RAG, threat intelligence, investigation, secure systems and applied machine learning.</p></section>
 
       <section class="section">
         <div class="grid">
+          <article class="card">
+              <p class="meta">RAG / Backend / Product engineering</p>
+              <h2>Chatbot USMS academic assistant</h2>
+              <p>Built a multilingual academic assistant for university FAQs, timetables and administrative information, using a RAG architecture and a full-stack application structure.</p>
+              <ul class="list">
+                <li>Designed a document-processing pipeline for PDF, JSON, TXT and Markdown sources with chunking and semantic retrieval.</li>
+                <li>Combined FastAPI, Next.js, PostgreSQL, Redis, Qdrant, Docker Compose and SSE streaming.</li>
+                <li>Added security-oriented controls such as JWT, RBAC, rate limiting, audit logs and privacy workflows.</li>
+              </ul>
+              <div class="tags"><span class="tag blue">FastAPI</span><span class="tag blue">RAG</span><span class="tag blue">PostgreSQL</span><span class="tag green">Security</span></div>
+              <div class="actions"><a class="btn primary" href="mailto:alladokossirichard2025@gmail.com?subject=Chatbot%20USMS%20case%20study">Discuss case study</a></div>
+          </article>
+
+          <article class="card">
+              <p class="meta">Threat intelligence / Current PFA</p>
+              <h2>Early warning system for SME cyber threats</h2>
+              <p>Current PFA project with CMRPI - Espace Maroc Cyberconfiance, focused on cyber threat monitoring and early warning for small and medium-sized businesses.</p>
+              <ul class="list">
+                <li>Work in progress around threat intelligence monitoring, AI-assisted analysis, alerting workflows and practical response sheets.</li>
+                <li>Positioned for PFE continuity: detection logic, usable security reporting, documentation and SME-oriented remediation.</li>
+                <li>Public details stay limited because project documents and internal data are confidential.</li>
+              </ul>
+              <div class="tags"><span class="tag green">Threat intelligence</span><span class="tag green">SME security</span><span class="tag amber">In progress</span></div>
+          </article>
+
           <article class="card">
               <p class="meta">Log investigation / Splunk</p>
               <h2>Intrusion reconstruction from security logs</h2>
@@ -57,27 +82,27 @@
           </article>
 
           <article class="card">
-            <p class="meta">Web security / User input</p>
-            <h3>SQL injection and XSS testing in DVWA</h3>
-            <p>Tested common web vulnerabilities in a controlled vulnerable application to understand how unsafe input handling becomes a platform risk.</p>
+            <p class="meta">Offensive Security / Web and Linux labs</p>
+            <h3>Controlled vulnerability testing and remediation</h3>
+            <p>Worked on controlled labs that connect attack paths to evidence collection and remediation, instead of stopping at exploitation.</p>
             <ul class="list">
-              <li>Observed SQL injection and XSS behavior in forms and browser-based workflows.</li>
-              <li>Connected the findings to practical mitigations and safer input handling.</li>
-                <li>Relevant to reporting modules, portals, assistance chatbots and public forms.</li>
+              <li>Tested SQL injection and XSS in DVWA, then connected the findings to safer input handling.</li>
+              <li>Documented a Linux compromise and DFIR lab with Kali attacker, Ubuntu target, SSH, UFW, auditd and Fail2ban.</li>
+              <li>Tracked evidence, IOCs, containment actions and remediation steps for a complete security narrative.</li>
             </ul>
-            <div class="tags"><span class="tag amber">DVWA</span><span class="tag amber">SQLi</span><span class="tag amber">XSS</span></div>
-            <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/cybersecurity-iam-labs" target="_blank" rel="noreferrer">Open repository</a></div>
+            <div class="tags"><span class="tag amber">Offensive Security</span><span class="tag amber">Linux</span><span class="tag green">Remediation</span></div>
+            <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Linux-Server-Compromise-Forensic-Investigation-Lab" target="_blank" rel="noreferrer">Linux lab</a><a class="btn" href="https://github.com/ALLAKORI/cybersecurity-iam-labs" target="_blank" rel="noreferrer">IAM/Web labs</a></div>
           </article>
         </div>
       </section>
 
       <section class="section">
         <div class="contact-panel">
-            <div><p class="meta">Contact</p><h2>Open to PFA internship discussions.</h2><p>I can walk through these projects for cybersecurity offers or AI/Data offers. I am available now for a 2-month PFA internship.</p></div>
-          <div class="contact-actions"><a class="btn primary" href="mailto:alladokossirichard2025@gmail.com">Email</a><a class="btn" href="assets/cv/cv_pfa_cybersecurite_kossi_richard_allado.pdf?v=20260702-main-cv" target="_blank" rel="noreferrer">Cyber CV</a><a class="btn" href="assets/cv/cv_pfa_ia_data_kossi_richard_allado.pdf?v=20260702-main-cv" target="_blank" rel="noreferrer">AI/Data CV</a><a class="btn" href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noreferrer">LinkedIn</a></div>
+            <div><p class="meta">Contact</p><h2>Open to PFE 2027 discussions.</h2><p>I can walk through these projects for software engineering, AI or cybersecurity opportunities.</p></div>
+          <div class="contact-actions"><a class="btn primary" href="mailto:alladokossirichard2025@gmail.com">Email</a><a class="btn" href="assets/cv/cv_pfe_2027_software_ai_cybersecurity_allado.pdf?v=20260811-pfe" target="_blank" rel="noreferrer">PFE CV</a><a class="btn" href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noreferrer">LinkedIn</a></div>
         </div>
       </section>
-      <footer class="footer mono">Projects page - cybersecurity and AI/Data case studies for PFA review.<small>Last updated: June 2026</small></footer>
+      <footer class="footer mono">Projects page - software, AI and cybersecurity case studies for PFE review.<small>Last updated: August 2026</small></footer>
     </main>
   </div>
 </body>

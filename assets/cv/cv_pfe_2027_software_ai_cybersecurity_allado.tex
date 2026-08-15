@@ -1,0 +1,122 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[a4paper,top=1.15cm,bottom=1.15cm,left=1.25cm,right=1.25cm]{geometry}
+\usepackage{fontspec}
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\setmainfont{Arial}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\linespread{1.02}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\sloppy
+\setlist[itemize]{leftmargin=1.2em,itemsep=2.2pt,topsep=2.5pt,parsep=0pt,label=-}
+\urlstyle{same}
+
+\definecolor{heading}{HTML}{123867}
+\definecolor{linkblue}{HTML}{005EB8}
+\hypersetup{colorlinks=true,urlcolor=linkblue,linkcolor=linkblue}
+\titleformat{\section}{\large\bfseries\color{heading}}{}{0pt}{}[\vspace{-4pt}\rule{\linewidth}{0.45pt}]
+\titlespacing{\section}{0pt}{8pt}{5pt}
+
+\newcommand{\entry}[3]{\textbf{#1} \hfill #3\\\textit{#2}\vspace{1pt}}
+\newcommand{\project}[3]{\textbf{#1} \hfill #3\\\textit{#2}\vspace{1pt}}
+
+\begin{document}
+\fontsize{10}{11.7}\selectfont
+
+\begin{minipage}[t]{0.60\textwidth}
+{\LARGE \textbf{Kossi Richard Allado}}\\[2pt]
+\textbf{Engineering Student in Cybersecurity and Artificial Intelligence}\\[1pt]
+Software Engineering \textbar{} AI \textbar{} Cybersecurity
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.36\textwidth}
+\raggedleft
+Casablanca, Morocco\\
++212 621 074 305\\
+alladokossirichard2025@gmail.com
+\end{minipage}
+
+\vspace{4pt}
+\footnotesize
+\href{https://github.com/ALLAKORI}{GitHub} \quad | \quad
+\href{https://allakori.github.io/}{Portfolio} \quad | \quad
+\href{https://www.linkedin.com/in/kossi-richard-allado-50177b2a5}{LinkedIn}
+\normalsize
+
+\section{Profile}
+Engineering student in Cybersecurity and Artificial Intelligence at ENSA Beni Mellal, applying for the Oracle Morocco R\&D PFE 2027 internship program. I am interested in software engineering, AI systems, backend services, data pipelines, and secure cloud-ready applications. Earliest available date for PFE: February 1, 2027.
+
+My profile combines product-oriented engineering and cybersecurity practice: full-stack RAG development, API and database integration, security controls, automated tests, threat intelligence monitoring, incident investigation, and technical documentation.
+
+\section{Technical Skills}
+\textbf{Software engineering and backend:} REST APIs, service integration, database-backed features, streaming responses, documentation, Git workflows -- FastAPI, Next.js 15, PostgreSQL, Redis, Docker, Git/GitHub.\\
+\textbf{AI, RAG and data:} document parsing, embeddings, vector search, retrieval confidence, supervised ML evaluation, data preparation -- FastEmbed, Qdrant, LLaMA-3.3-70B via GroqCloud, Pandas, Scikit-learn, SQL.\\
+\textbf{Application and platform security:} authentication, RBAC, rate limiting, account lockout, PII masking, audit logs, secure configuration review -- JWT, Docker Compose, Linux, OpenSSL basics.\\
+\textbf{Cybersecurity research:} threat intelligence monitoring, alert triage, IOC extraction, incident timelines, MITRE ATT\&CK mapping -- Splunk, Sysmon, Event Viewer, Linux logs.
+
+\section{Experience}
+\entry{Current PFA Intern -- Early Warning System for Cyber Threats Targeting SMEs}{CMRPI - Espace Maroc Cyberconfiance}{July 2026 -- Present}
+\begin{itemize}
+  \item Working on a PFA project focused on threat intelligence monitoring, early cyber threat detection for SMEs, AI-assisted analysis, alerting workflows, and practical response sheets.
+  \item Current scope includes studying threat intelligence sources, collection and analysis workflows, detection-model design options, notification logic, validation planning, and practical security documentation.
+  \item Project context: cybersecurity support for SMEs, with attention to confidentiality, usable reporting, and turning threat information into actionable detection and response guidance.
+\end{itemize}
+
+\entry{Artificial Intelligence / Predictive Maintenance Intern}{ONEE - Branche Eau, Kasba Tadla}{August 2025}
+\begin{itemize}
+  \item Prepared and analyzed high-pressure pump sensor data to identify potential fault signals.
+  \item Trained a Random Forest model with Python, Pandas, and Scikit-learn to classify fault risk.
+  \item Documented model evaluation with classification report, confusion matrix, feature importance, ROC, and precision-recall curves.
+  \item Built a desktop test interface and documented the predictive-maintenance prototype.
+\end{itemize}
+
+\section{Projects}
+\project{Chatbot USMS v2.0.0}{Academic product, ENSA Beni Mellal / Sultan Moulay Slimane University}{AI Product / Backend / Security}
+\href{https://github.com/ALLAKORI}{GitHub}
+\begin{itemize}
+  \item Built a multilingual academic assistant providing natural-language access to university FAQs, timetables, and administrative information in French, English, and Arabic.
+  \item Designed a RAG pipeline over PDF/JSON/TXT/MD sources using FastEmbed embeddings, Qdrant vector search, retrieval confidence, and LLaMA-3.3-70B generation through GroqCloud.
+  \item Integrated FastAPI, Next.js 15, PostgreSQL, Redis, Docker Compose, SSE streaming, JWT/RBAC, rate limiting, account lockout, PII masking, audit logs, and automated tests.
+\end{itemize}
+
+\section{Cybersecurity Projects}
+\project{Linux Server Compromise \& Forensic Investigation Lab}{Kali Linux attacker / Ubuntu target, SSH, UFW, auditd, Fail2ban}{Offensive Security / DFIR}
+\href{https://github.com/ALLAKORI/Linux-Server-Compromise-Forensic-Investigation-Lab}{GitHub}
+\begin{itemize}
+  \item Built and documented a controlled scenario: reconnaissance, SSH brute force, initial access, malicious user creation, GTFOBins privilege escalation, persistence, and reverse shell.
+  \item Collected defensive evidence: SSH connections, executed commands, sudo activity, created accounts, network flows, auditd artifacts, reverse shell port, and attack timeline.
+  \item Validated remediation steps: UFW blocking, account removal, password reset, sudo/SSH review, and Fail2ban activation.
+\end{itemize}
+
+\project{Volt Typhoon Intrusion Investigation}{TryHackMe, Splunk, simulated Windows and application logs}{SOC / Threat Intelligence}
+\href{https://allakori.github.io/writeups/tryhackme/volt-typhoon/}{Write-up}
+\begin{itemize}
+  \item Investigated a simulated intrusion involving compromised account activity, PowerShell/WMIC, web shell usage, Mimikatz, C2 communication, and log clearing.
+  \item Reconstructed incident phases, extracted IOCs, built a timeline, and mapped observed activity to MITRE ATT\&CK tactics and techniques.
+  \item Proposed detection and remediation ideas to improve monitoring and incident response.
+\end{itemize}
+
+\section{Education}
+\textbf{Engineering Cycle -- Cybersecurity and Artificial Intelligence} \hfill 2024 -- Present\\
+Sultan Moulay Slimane University -- National School of Applied Sciences, Beni Mellal\\
+\textbf{DEUST -- Mathematics, Computer Science and Physics, with honors} \hfill 2022 -- 2024\\
+Sidi Mohamed Ben Abdellah University -- Faculty of Sciences and Technologies, Fes\\
+\textbf{Scientific Baccalaureate, Series D, high honors} \hfill 2022\\
+Lycee de Djagble, Togo
+
+\section{Certifications and Achievements}
+Cisco Ethical Hacker \textbar{} IBM Introduction to Data Engineering \textbar{} Google Cybersecurity Foundations \textbar{} Google Play It Safe: Manage Security Risks \textbar{} Junior Penetration Tester Learning Path.\\
+CSIA CTF 2026: 1st place, Team GHOSTSHELL \textbar{} CiteFlag 2026: finalist, 6th place with Team CHILA \textbar{} MACC 2026: participant.
+
+\section{Languages}
+French: fluent \textbar{} English: professional technical level \textbar{} Ewe: native
+
+\end{document}

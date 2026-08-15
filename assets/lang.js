@@ -1,5 +1,5 @@
 const translations = {
-  "Cybersecurity & AI engineering student preparing for PFE 2027 opportunities in software engineering, AI and cybersecurity.": "Etudiant ingenieur en cybersecurite et IA, en preparation de candidatures PFE 2027 en software engineering, IA et cybersecurite.",
+  "Cybersecurity & AI engineering student preparing for PFE 2027 opportunities focused on cybersecurity.": "Etudiant ingenieur en cybersecurite et IA, en preparation de candidatures PFE 2027 orientees cybersecurite.",
   "Certificates, transcripts, CTF results and verification links.": "Certificats, releves, resultats CTF et liens de verification.",
   "Academic labs reorganized into bilingual recruiter-friendly repositories.": "TP academiques reorganises en repositories bilingues, lisibles pour recruteurs.",
   "CTF and lab notes focused on reasoning and reproducible method.": "Notes CTF et labs centrees sur le raisonnement et la methode reproductible.",
@@ -48,7 +48,7 @@ const translations = {
   "Review the strongest evidence first.": "Verifier les preuves fortes en premier.",
   "Inspired by strong cybersecurity portfolios: a concise identity, proof up front, then deeper technical pages.": "Inspire de bons portfolios cybersecurite: identite concise, preuves visibles, puis pages techniques plus profondes.",
   "Start with the profile": "Commencer par le profil",
-  "English PFE CV for software engineering, AI and cybersecurity opportunities, with older Cyber and AI/Data CVs kept as targeted backups.": "CV PFE anglais pour opportunites software engineering, IA et cybersecurite, avec les anciens CV Cyber et IA/Data gardes comme versions ciblees.",
+  "English PFE CV for cybersecurity opportunities, with AI Security used as supporting evidence.": "CV PFE anglais pour opportunites cybersecurite, avec AI Security comme preuve complementaire.",
   "Verify the signal": "Verifier le signal",
   "CSIA CTF first place, certificates, transcripts, badges and platform evidence.": "Premiere place CSIA CTF, certificats, releves, badges et preuves de plateformes.",
   "Inspect the method": "Inspecter la methode",
@@ -180,7 +180,7 @@ const translations = {
   "Projects page - applied ML, local LLMs and chatbot experiments.": "Page Projets - ML applique, LLM locaux et experimentations chatbot."
   ,
   "Open to PFE 2027 discussions.": "Ouvert aux discussions PFE 2027.",
-  "Cybersecurity & AI engineering student based in Beni Mellal, preparing for final-year internship opportunities in software engineering, AI and cybersecurity.": "Etudiant ingenieur en cybersecurite & IA base a Beni Mellal, en preparation de stages PFE en software engineering, IA et cybersecurite.",
+  "Cybersecurity & AI engineering student based in Beni Mellal, preparing for final-year internship opportunities focused on cybersecurity.": "Etudiant ingenieur en cybersecurite & IA base a Beni Mellal, en preparation de stages PFE orientes cybersecurite.",
   "Need verification or a short introduction?": "Besoin d'une verification ou d'une presentation rapide ?",
   "I can share additional context about certificates, labs, CTF work and PFE 2027 availability.": "Je peux partager plus de contexte sur les certificats, les labs, les travaux CTF et ma disponibilite PFE 2027.",
   "Discuss the lab work.": "Discuter des travaux de lab.",

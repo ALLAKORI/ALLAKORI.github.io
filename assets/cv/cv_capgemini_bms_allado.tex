@@ -1,0 +1,89 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[a4paper,top=0.82cm,bottom=0.82cm,left=1.05cm,right=1.05cm]{geometry}
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\setmainfont{Arial}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\linespread{0.95}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\sloppy
+\setlist[itemize]{leftmargin=1.05em,itemsep=0pt,topsep=1pt,parsep=0pt,label=-}
+\urlstyle{same}
+
+\definecolor{heading}{HTML}{123867}
+\titleformat{\section}{\large\bfseries\color{heading}}{}{0pt}{}[\vspace{-5pt}\rule{\linewidth}{0.5pt}]
+\titlespacing{\section}{0pt}{4pt}{3pt}
+
+\newcommand{\role}[3]{%
+  \textbf{#1} \hfill #3\\
+  \textit{#2}\vspace{1pt}
+}
+
+\newcommand{\edu}[4]{%
+  \textbf{#1} -- #2 \hfill #3 #4\\[-1pt]
+}
+
+\begin{document}
+
+{\LARGE \textbf{Kossi Richard Allado}}\\
+\textbf{Étudiant ingénieur IA et cybersécurité | Python, IA générative, analyse de données}\\
+Beni Mellal, Maroc | +212 621 074 305 | \href{mailto:alladokossirichard2025@gmail.com}{alladokossirichard2025@gmail.com}\\
+\href{https://allakori.github.io/}{allakori.github.io} | \href{https://github.com/ALLAKORI}{github.com/ALLAKORI} | \href{https://www.linkedin.com/in/kossi-richard-allado-50177b2a5}{linkedin.com/in/kossi-richard-allado}
+
+\section{Profil}
+Étudiant ingénieur en cybersécurité et intelligence artificielle à l'ENSA Beni Mellal. Profil orienté IA appliquée, Python, IA générative, analyse de données et prototypage. Projets récents en chatbot universitaire RAG, analyse d'images médicales et maintenance prédictive sur données capteurs. Intéressé par un stage PFA où l'IA sert à diagnostiquer, prédire et améliorer la performance d'un système réel.
+
+\section{Compétences techniques}
+\textbf{IA / Machine Learning :} classification supervisée, Random Forest, préparation de données, évaluation de modèles.\\
+\textbf{IA générative / RAG :} LLM, RAG, embeddings, Qdrant, GroqCloud, LLaMA, streaming SSE, prompt design.\\
+\textbf{Python / Data :} Python, Pandas, Scikit-learn, NumPy, Jupyter, SQL, nettoyage et analyse de données.\\
+\textbf{Web / Backend :} FastAPI, Next.js, TypeScript, PostgreSQL, Redis, Docker, Git/GitHub, tests pytest.\\
+\textbf{Computer Vision :} OpenCV, scikit-image, filtrage, segmentation, détection de contours.
+
+\section{Projets techniques}
+\textbf{Projet de fin d'année : Chatbot USMS} \hfill IA générative / RAG / Full-stack\\
+\href{https://github.com/ALLAKORI/Chatbot-USMS}{github.com/ALLAKORI/Chatbot-USMS}
+\begin{itemize}
+  \item Développé un assistant académique intelligent pour l'ENSA Béni Mellal donnant accès aux FAQ, emplois du temps et informations administratives en langage naturel.
+  \item Mis en place une architecture RAG avec FastAPI, Next.js, PostgreSQL, Redis, Qdrant, embeddings FastEmbed et génération de réponses via GroqCloud / LLaMA-3.3-70B.
+  \item Intégré routage des questions, streaming SSE, détection de langue, ton adaptatif selon l'état utilisateur, support FR/EN/AR et tableau de bord administrateur.
+  \item Ajouté des contrôles de sécurité et confidentialité : authentification JWT, RBAC, rate limiting, masquage PII, audit logs, conformité RGPD et tests backend.
+\end{itemize}
+
+\textbf{Medical Images Analysis} \hfill Computer Vision / Python\\
+\href{https://github.com/ALLAKORI/medical-images-analysis}{github.com/ALLAKORI/medical-images-analysis}
+\begin{itemize}
+  \item Réalisé un projet académique d'analyse d'images médicales avec Python, OpenCV, NumPy, Matplotlib et scikit-image.
+  \item Appliqué des traitements sur images de poumons, IRM et échographies : égalisation d'histogramme, filtrage gaussien, segmentation par Otsu et détection de contours Canny.
+  \item Structuré le travail sous forme de notebook et script Python pour visualiser les étapes de prétraitement et comparer les résultats.
+\end{itemize}
+
+\section{Expérience}
+\role{Stagiaire IA / Maintenance prédictive}{ONEE - Branche Eau, Kasba Tadla}{Août 2025}
+\begin{itemize}
+  \item Préparé et analysé des données capteurs de pompe haute pression pour prédire des défauts potentiels.
+  \item Construit un prototype Python combinant modèle Random Forest, pipeline de préparation de données et interface de test.
+  \item Développé une démarche de diagnostic prédictif à partir de mesures physiques, proche des besoins d'un BMS intelligent.
+\end{itemize}
+
+\section{Formation}
+\edu{Cycle ingénieur}{Cybersécurité et Intelligence Artificielle, ENSA Beni Mellal}{2024 -- Présent}{}
+\edu{DEUST}{Mathématiques, Informatique, Physique, FST Fès}{2022 -- 2024}{-- Mention Bien}
+\edu{Baccalauréat scientifique}{Série D, Lycée de Djagblé, Togo}{2022}{-- Mention Très Bien}
+
+\section{Certification utile pour le stage IA}
+IBM Introduction to Data Engineering -- Coursera
+
+\section{Langues}
+Français : courant | Anglais : professionnel technique | Éwé : langue maternelle
+
+\end{document}

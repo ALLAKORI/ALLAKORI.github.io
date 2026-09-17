@@ -1,0 +1,100 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[a4paper,top=0.65cm,bottom=0.65cm,left=0.9cm,right=0.9cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\input{glyphtounicode}
+\pdfgentounicode=1
+\usepackage[french]{babel}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\linespread{0.92}
+\setlist[itemize]{leftmargin=1.05em,itemsep=0pt,topsep=1pt,parsep=0pt,label=-}
+\urlstyle{same}
+
+\definecolor{heading}{HTML}{123867}
+\titleformat{\section}{\normalsize\bfseries\color{heading}}{}{0pt}{}[\vspace{-5pt}\rule{\linewidth}{0.5pt}]
+\titlespacing{\section}{0pt}{4pt}{2pt}
+
+\newcommand{\role}[3]{%
+  \textbf{#1} \hfill #3\\
+  \textit{#2}\vspace{1pt}
+}
+
+\newcommand{\edu}[4]{%
+  \textbf{#1} -- #2 \hfill #3 #4\\[-1pt]
+}
+
+\begin{document}
+
+{\Large \textbf{Kossi Richard Allado}}\\
+\textbf{Étudiant ingénieur IA et cybersécurité | IA générative, RAG, génie logiciel}\\
+Beni Mellal, Maroc | +212 621 074 305 | \href{mailto:alladokossirichard2025@gmail.com}{alladokossirichard2025@gmail.com}\\
+\href{https://allakori.github.io/}{allakori.github.io} | \href{https://github.com/ALLAKORI}{github.com/ALLAKORI} | \href{https://www.linkedin.com/in/kossi-richard-allado-50177b2a5}{linkedin.com/in/kossi-richard-allado}
+
+\section{Profil}
+Étudiant ingénieur en cybersécurité et intelligence artificielle à l'ENSA Beni Mellal, intéressé par un PFA en \textbf{IA appliquée à l'ingénierie logicielle}. Expérience pratique en Python, IA générative, RAG, analyse de données, modélisation fonctionnelle, documentation technique et prototypage full-stack. Motivé par les cas d'usage concrets : structuration de besoins, assistance IA, amélioration de prompts, classification d'informations, intégration de modèles et qualité logicielle.
+
+\section{Compétences clés pour Univade}
+\textbf{IA générative / RAG :} LLMs, prompt engineering, embeddings, Qdrant, FastEmbed, GroqCloud, LLaMA, Chainlit, LangChain basics, streaming SSE.\\
+\textbf{Analyse et modélisation :} analyse de besoins, structuration d'informations métier, UML, modélisation de données, documentation fonctionnelle et technique.\\
+\textbf{Data / Classification :} Python, Pandas, Scikit-learn, préparation de données, classification supervisée, Random Forest, évaluation de modèles.\\
+\textbf{Génie logiciel :} FastAPI, Next.js, TypeScript, SQL, PostgreSQL, Redis, Docker, Git/GitHub, tests backend, API REST.\\
+\textbf{Qualité et sécurité :} JWT, RBAC, rate limiting, masquage PII, audit logs, revue structurée, sens du détail et rigueur.
+
+\section{Projets pertinents}
+\textbf{USMS Chatbot - Assistant académique RAG} \hfill IA générative / RAG / Full-stack\\
+\href{https://github.com/ALLAKORI/Chatbot-USMS}{github.com/ALLAKORI/Chatbot-USMS}
+\begin{itemize}
+  \item Conçu un assistant intelligent permettant l'accès en langage naturel à des FAQ, emplois du temps et informations administratives.
+  \item Mis en place une architecture RAG avec FastAPI, Next.js, PostgreSQL, Redis, Qdrant, FastEmbed embeddings et génération de réponses via GroqCloud / LLaMA.
+  \item Ajouté support multilingue, adaptation du ton, streaming SSE, tableau d'administration, authentification JWT, RBAC, limitation de requêtes, masquage PII, audit logs et tests backend.
+\end{itemize}
+
+\textbf{Expérimentations LLM local et chatbot} \hfill Prompting / Agents conversationnels\\
+\href{https://github.com/ALLAKORI/MY-FIRST-AI-CHATBOT}{github.com/ALLAKORI/MY-FIRST-AI-CHATBOT}
+\begin{itemize}
+  \item Prototypé un chatbot local avec Python, Chainlit, LangChain basics, CTransformers et modèles GGUF.
+  \item Testé la formulation de prompts, la logique conversationnelle et les limites des modèles locaux pour améliorer la qualité des réponses.
+\end{itemize}
+
+\textbf{High-Pressure Pump Fault Prediction} \hfill Machine Learning / Classification\\
+\href{https://github.com/ALLAKORI/Defaut-Pompe-Prediction}{github.com/ALLAKORI/Defaut-Pompe-Prediction}
+\begin{itemize}
+  \item Développé un prototype de maintenance prédictive à partir de mesures capteurs : tension, puissance, vitesse, températures, pression et débit.
+  \item Entraîné un modèle Random Forest avec Python, Pandas et Scikit-learn, puis créé une interface Tkinter pour tester le niveau de risque.
+\end{itemize}
+
+\textbf{Portfolio technique IA et cybersécurité} \hfill Documentation / Travail structuré\\
+\href{https://allakori.github.io/}{allakori.github.io}
+\begin{itemize}
+  \item Organisé des projets sous forme de cas d'étude : objectif, architecture, outils, méthode, résultats, limites et pistes d'amélioration.
+  \item Rédigé des write-ups techniques avec preuves, requêtes, chronologies et explications orientées qualité.
+\end{itemize}
+
+\section{Expérience}
+\role{Stagiaire IA - Maintenance prédictive}{ONEE - Branche Eau, Kasba Tadla}{Août 2025}
+\begin{itemize}
+  \item Préparé et analysé des données capteurs de pompe haute pression pour prédire des défauts potentiels.
+  \item Construit un prototype Python combinant modèle Random Forest, pipeline de préparation de données et interface de test.
+\end{itemize}
+
+\section{Formation}
+\edu{Cycle ingénieur}{Cybersécurité et Intelligence Artificielle, ENSA Beni Mellal}{2024 - Présent}{}
+\edu{DEUST}{Mathématiques, Informatique, Physique, FST Fès}{2022 - 2024}{-- Mention Bien}
+\edu{Baccalauréat scientifique}{Série D, Lycée de Djagblé, Togo}{2022}{-- Mention Très Bien}
+
+\section{Certifications et réalisations}
+IBM Introduction to Data Engineering | Cisco Ethical Hacker | Google Cybersecurity: Foundations and Play It Safe | TryHackMe Junior Penetration Tester Path | CSIA CTF 2026 : 1ère place avec Team GHOSTSHELL
+
+\section{Langues}
+Français : courant | Anglais : professionnel technique | Éwé : langue maternelle
+
+\end{document}

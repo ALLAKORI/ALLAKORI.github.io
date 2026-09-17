@@ -1,0 +1,96 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[a4paper,top=0.82cm,bottom=0.82cm,left=1.05cm,right=1.05cm]{geometry}
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\setmainfont{Arial}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\linespread{0.95}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\sloppy
+\setlist[itemize]{leftmargin=1.05em,itemsep=0pt,topsep=1pt,parsep=0pt,label=-}
+\urlstyle{same}
+
+\definecolor{heading}{HTML}{123867}
+\titleformat{\section}{\large\bfseries\color{heading}}{}{0pt}{}[\vspace{-5pt}\rule{\linewidth}{0.5pt}]
+\titlespacing{\section}{0pt}{5pt}{3pt}
+
+\newcommand{\role}[3]{%
+  \textbf{#1} \hfill #3\\
+  \textit{#2}\vspace{1pt}
+}
+
+\newcommand{\edu}[4]{%
+  \textbf{#1} -- #2 \hfill #3 #4\\[5pt]
+}
+
+\begin{document}
+
+\begin{center}
+{\LARGE \textbf{Kossi Richard Allado}}\\[2pt]
+{\large \textbf{Stage PFA / Observation | Support IT, Réseaux \& Systèmes}}\\[4pt]
+Beni Mellal / Casablanca \quad | \quad +212 621 074 305 \quad | \quad \href{mailto:alladokossirichard2025@gmail.com}{alladokossirichard2025@gmail.com}\\[2pt]
+\href{https://allakori.github.io/}{allakori.github.io} \quad | \quad \href{https://github.com/ALLAKORI}{github.com/ALLAKORI} \quad | \quad \href{https://www.linkedin.com/in/kossi-richard-allado-50177b2a5}{linkedin.com/in/kossi-richard-allado}\\[3pt]
+\textit{Disponible à partir du lundi 8 juin 2026 -- Stage de 1 à 2 mois}
+\end{center}
+\vspace{-3pt}
+
+\section{Profil}
+Étudiant ingénieur en cybersécurité et intelligence artificielle à l'ENSA Béni Mellal, avec de bonnes bases en support informatique, réseaux, systèmes et diagnostic technique. Intéressé par un stage PFA / observation chez Intelcia pour assister les techniciens IT, participer à l'installation/configuration des postes, contribuer au traitement des incidents de premier niveau et documenter les interventions.
+
+\section{Compétences techniques}
+\textbf{Support IT :} assistance utilisateur, troubleshooting, suivi d'incidents, documentation, installation/configuration.\\
+\textbf{Réseaux :} adressage IP, DNS/DHCP, SSH, analyse de trafic, Nmap, Wireshark, diagnostic de connectivité.\\
+\textbf{Systèmes :} Linux, notions Windows, comptes utilisateurs, services, journaux système, hardening de base.\\
+\textbf{Outils / automatisation :} Bash, Python, SQL, Git/GitHub, rapports techniques, tests et validation.
+
+\section{Projets techniques}
+\textbf{Linux Security Labs : administration, audit et diagnostic système} \hfill Linux / Systèmes\\
+\href{https://github.com/ALLAKORI/linux-security-labs}{github.com/ALLAKORI/linux-security-labs}
+\begin{itemize}
+  \item Mis en pratique des tâches Linux : configuration, audit système, analyse de logs et vérification de services.
+  \item Utilisé auditd, Lynis, commandes Linux et documentation technique pour détecter des problèmes et proposer des corrections.
+\end{itemize}
+
+\textbf{Cybersecurity \& IAM Labs} \hfill Comptes / Accès / Sécurité\\
+\href{https://github.com/ALLAKORI/cybersecurity-iam-labs}{github.com/ALLAKORI/cybersecurity-iam-labs}
+\begin{itemize}
+  \item Déployé un environnement IAM avec Keycloak : utilisateurs, rôles, MFA/TOTP, RBAC et tests de contrôle d'accès.
+  \item Manipulé SSH, OpenSSL/PKI, notions de sécurité réseau et tests d'accès dans un environnement de laboratoire.
+\end{itemize}
+
+\textbf{Investigation de logs et diagnostic d'incident} \hfill Logs / Support technique\\
+\href{https://allakori.github.io/writeups/tryhackme/volt-typhoon/}{allakori.github.io/writeups/tryhackme/volt-typhoon}
+\begin{itemize}
+  \item Analysé des journaux Windows/applicatifs avec Splunk pour reconstruire une chronologie d'incident.
+  \item Produit un rapport clair avec événements importants, indicateurs, hypothèses et actions de remédiation.
+\end{itemize}
+
+\section{Expérience}
+\role{Stagiaire IA / Maintenance prédictive}{ONEE - Branche Eau, Kasba Tadla}{Août 2025}
+\begin{itemize}
+  \item Préparé et analysé des données capteurs de pompe haute pression pour prédire des défauts potentiels.
+  \item Construit un prototype Python avec pipeline de préparation de données, modèle Random Forest et interface de test.
+  \item Développé une méthode de diagnostic et de présentation des résultats exploitable par un utilisateur technique.
+\end{itemize}
+
+\section{Formation}
+\edu{Cycle ingénieur}{Cybersécurité et Intelligence Artificielle, ENSA Béni Mellal}{2024 -- Présent}{}
+\edu{DEUST}{Mathématiques, Informatique, Physique, FST Fès}{2022 -- 2024}{-- Mention Bien}
+\edu{Baccalauréat scientifique}{Sciences expérimentales, Lycée de Djagblé, Togo}{2022}{-- Mention Très Bien}
+
+\section{Certifications}
+TryHackMe Junior Penetration Tester Learning Path (en cours) | Udemy Linux Command Line | Google Cybersecurity: Foundations | Cisco Ethical Hacker
+
+\section{Langues}
+Français : courant | Anglais : professionnel technique | Éwé : langue maternelle
+
+\end{document}

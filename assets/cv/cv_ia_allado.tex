@@ -1,6 +1,6 @@
 \documentclass[10pt,a4paper]{article}
 
-\usepackage[a4paper,top=1.15cm,bottom=1.15cm,left=1.25cm,right=1.25cm]{geometry}
+\usepackage[a4paper,top=0.85cm,bottom=0.85cm,left=1.05cm,right=1.05cm]{geometry}
 \usepackage{fontspec}
 \usepackage[french]{babel}
 \usepackage[hidelinks]{hyperref}
@@ -13,11 +13,16 @@
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
-\setlist[itemize]{leftmargin=1.1em,itemsep=1pt,topsep=2pt,parsep=0pt}
+\linespread{0.96}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\sloppy
+\setlist[itemize]{leftmargin=1.05em,itemsep=0pt,topsep=1pt,parsep=0pt,label=-}
+\urlstyle{same}
 
 \definecolor{heading}{HTML}{123867}
 \titleformat{\section}{\large\bfseries\color{heading}}{}{0pt}{}[\vspace{-5pt}\rule{\linewidth}{0.5pt}]
-\titlespacing{\section}{0pt}{7pt}{4pt}
+\titlespacing{\section}{0pt}{5pt}{3pt}
 
 \newif\ifwithphoto
 \withphotofalse
@@ -37,7 +42,7 @@
 \ifwithphoto
 \begin{minipage}[c]{0.76\linewidth}
 {\LARGE \textbf{Kossi Richard Allado}}\\
-\textbf{Etudiant ingenieur en Intelligence Artificielle et Cybersecurite | Machine Learning, Python, Data}\\
+\textbf{Étudiant ingénieur en IA et cybersécurité | Machine Learning, Python, Data}\\
 Beni Mellal, Maroc | +212 621 074 305 | \href{mailto:alladokossirichard2025@gmail.com}{alladokossirichard2025@gmail.com}\\
 \href{https://allakori.github.io/}{allakori.github.io} | \href{https://github.com/ALLAKORI}{github.com/ALLAKORI} | \href{https://www.linkedin.com/in/kossi-richard-allado-50177b2a5}{linkedin.com/in/kossi-richard-allado}
 \end{minipage}
@@ -47,52 +52,65 @@ Beni Mellal, Maroc | +212 621 074 305 | \href{mailto:alladokossirichard2025@gmai
 \end{minipage}
 \else
 {\LARGE \textbf{Kossi Richard Allado}}\\
-\textbf{Etudiant ingenieur en Intelligence Artificielle et Cybersecurite | Machine Learning, Python, Data}\\
+\textbf{Étudiant ingénieur en IA et cybersécurité | Machine Learning, Python, Data}\\
 Beni Mellal, Maroc | +212 621 074 305 | \href{mailto:alladokossirichard2025@gmail.com}{alladokossirichard2025@gmail.com}\\
 \href{https://allakori.github.io/}{allakori.github.io} | \href{https://github.com/ALLAKORI}{github.com/ALLAKORI} | \href{https://www.linkedin.com/in/kossi-richard-allado-50177b2a5}{linkedin.com/in/kossi-richard-allado}
 \fi
 
 \section{Profil}
-Etudiant ingenieur en IA et cybersecurite a l'ENSA Beni Mellal, interesse par le machine learning applique, l'analyse de donnees, le prototypage Python et les chatbots. Experience pratique en preparation de donnees, classification supervisee, Random Forest, Scikit-learn, Chainlit/LangChain basics et documentation technique. Recherche un stage PFA IA/Data a partir de juillet 2026.
+Étudiant ingénieur en IA et cybersécurité à l'ENSA Beni Mellal, orienté machine learning appliqué, analyse de données, prototypage Python et IA générative locale. Portfolio GitHub avec maintenance prédictive, chatbot local, notebooks, interface desktop et documentation technique. Recherche un stage PFA IA/Data à partir de juillet 2026.
 
-\section{Competences techniques}
-\textbf{Machine Learning / Data :} classification supervisee, Random Forest, preparation de donnees, evaluation, Jupyter.\\
-\textbf{Python / Data Stack :} Python, Pandas, Scikit-learn, SQL, Tkinter, Git/GitHub.\\
-\textbf{IA generative :} prompting, Chainlit, LangChain basics, CTransformers, modeles locaux, chatbot prototyping.\\
-\textbf{Cybersecurite utile :} logs Linux/Windows, Splunk basics, IAM, Keycloak, cryptographie, reseau, CTF, Linux.
+\section{Compétences techniques}
+\textbf{Machine Learning / Data :} classification supervisée, Random Forest, préparation de données, évaluation, Jupyter.\\
+\textbf{Python / Data stack :} Python, Pandas, Scikit-learn, SQL, Tkinter, ttkbootstrap, Git/GitHub.\\
+\textbf{IA générative :} prompting, Chainlit, LangChain basics, CTransformers, modèles locaux, chatbot prototyping.\\
+\textbf{Cybersécurité utile :} logs Linux/Windows, Splunk basics, IAM, Keycloak, cryptographie, réseau, CTF, Linux.
 
 \section{Projets techniques}
-\textbf{Local LLM and Chatbot Experiments} \hfill Chatbot / IA generative\\
+\textbf{High-Pressure Pump Fault Prediction} \hfill Machine Learning / Maintenance prédictive\\
+\href{https://github.com/ALLAKORI/Defaut-Pompe-Prediction}{github.com/ALLAKORI/Defaut-Pompe-Prediction}
+\begin{itemize}
+  \item Développé un prototype de maintenance prédictive pour pompe haute pression à partir de mesures capteurs : tension, puissance, vitesse, températures, pression et débit.
+  \item Entraîné un modèle Random Forest avec Python, Pandas et Scikit-learn, puis créé une interface Tkinter/ttkbootstrap pour tester le niveau de risque.
+\end{itemize}
+
+\textbf{Local LLM and Chatbot Experiments} \hfill IA générative / Python\\
 \href{https://github.com/ALLAKORI/MY-FIRST-AI-CHATBOT}{github.com/ALLAKORI/MY-FIRST-AI-CHATBOT}
 \begin{itemize}
-  \item Prototypage d'un chatbot local avec Python, Chainlit, LangChain basics et CTransformers.
-  \item Tests de prompts et de logique conversationnelle avec un modele local.
+  \item Prototypé un chatbot local avec Python, Chainlit, LangChain basics, CTransformers et modèles GGUF.
+  \item Testé prompting, logique conversationnelle et streaming pour mieux comprendre les limites des modèles locaux.
 \end{itemize}
 
-\textbf{Volt Typhoon Log Investigation} \hfill Splunk / Analyse de logs\\
-\href{https://allakori.github.io/}{allakori.github.io}
+\textbf{Volt Typhoon Log Investigation} \hfill Data security / Analyse de logs\\
+\href{https://allakori.github.io/writeups/tryhackme/volt-typhoon/}{allakori.github.io/writeups/tryhackme/volt-typhoon}
 \begin{itemize}
-  \item Analyse de logs Splunk pour reconstruire une attaque et extraire des indicateurs.
-  \item Structuration des observations dans un write-up technique avec captures.
+  \item Analysé des logs Splunk pour reconstruire une intrusion sur 9 phases MITRE ATT\&CK et extraire 10+ indicateurs.
+  \item Structuré les résultats dans un write-up technique avec requêtes, timeline, preuves et idées de détection.
 \end{itemize}
 
-\section{Experience}
-\role{Stagiaire IA / Maintenance predictive}{ONEE - Branche Eau, Kasba Tadla}{Aout 2025}
+\textbf{Portfolio GitHub IA et cybersécurité} \hfill Documentation / Preuve technique\\
+\href{https://github.com/ALLAKORI}{github.com/ALLAKORI}
 \begin{itemize}
-  \item Preparation et analyse de donnees capteurs pour predire des defauts de pompes haute pression.
-  \item Entrainement d'un modele Random Forest avec Python, Pandas et Scikit-learn.
-  \item Creation d'une interface Tkinter pour tester les predictions.
+  \item Organisé 22 dépôts GitHub autour de l'IA appliquée, des labs cybersécurité, des CTF et de la documentation technique.
+  \item Présenté les projets sous forme de cas d'étude : objectif, outils, méthode, résultats, limites et prochaines améliorations.
+\end{itemize}
+
+\section{Expérience}
+\role{Stagiaire IA / Maintenance prédictive}{ONEE - Branche Eau, Kasba Tadla}{Août 2025}
+\begin{itemize}
+  \item Préparé et analysé des données capteurs de pompe haute pression pour prédire des défauts potentiels.
+  \item Construit un prototype Python combinant modèle Random Forest, pipeline de préparation de données et interface de test.
 \end{itemize}
 
 \section{Formation}
-\edu{Cycle ingenieur}{Cybersecurite et Intelligence Artificielle, ENSA Beni Mellal}{2024 - Present}{}
-\edu{DEUST}{Mathematiques, Informatique, Physique, FST Fes}{2022 - 2024}{-- Mention Bien}
-\edu{Baccalaureat scientifique}{Serie D, Lycee de Djagble, Togo}{2022}{-- Mention Tres Bien}
+\edu{Cycle ingénieur}{Cybersécurité et Intelligence Artificielle, ENSA Beni Mellal}{2024 - Présent}{}
+\edu{DEUST}{Mathématiques, Informatique, Physique, FST Fès}{2022 - 2024}{-- Mention Bien}
+\edu{Baccalauréat scientifique}{Série D, Lycée de Djagblé, Togo}{2022}{-- Mention Très Bien}
 
-\section{Certifications et realisations}
-IBM Introduction to Data Engineering | Udemy Cryptography and Hashing in Python and Java | Google Foundations of Cybersecurity | Cisco Ethical Hacker | 1ere place CSIA CTF 2026 avec Team GHOSTSHELL
+\section{Certifications et réalisations}
+IBM Introduction to Data Engineering | Cisco Ethical Hacker | Google Cybersecurity : Foundations et Play It Safe | Udemy Cryptography and Hashing | CSIA CTF 2026 : 1ère place
 
 \section{Langues}
-Francais : courant | Anglais : professionnel technique | Ewe : langue maternelle
+Français : courant | Anglais : professionnel technique | Éwé : langue maternelle
 
 \end{document}

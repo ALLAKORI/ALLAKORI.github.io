@@ -1,0 +1,91 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[a4paper,top=0.65cm,bottom=0.65cm,left=0.9cm,right=0.9cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\input{glyphtounicode}
+\pdfgentounicode=1
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\linespread{0.92}
+\setlist[itemize]{leftmargin=1.05em,itemsep=0pt,topsep=1pt,parsep=0pt,label=-}
+\urlstyle{same}
+
+\definecolor{heading}{HTML}{F16E00}
+\titleformat{\section}{\normalsize\bfseries\color{heading}}{}{0pt}{}[\vspace{-5pt}\rule{\linewidth}{0.5pt}]
+\titlespacing{\section}{0pt}{4pt}{2pt}
+
+\newcommand{\role}[3]{%
+  \textbf{#1} \hfill #3\\
+  \textit{#2}\vspace{1pt}
+}
+
+\newcommand{\edu}[4]{%
+  \textbf{#1} -- #2 \hfill #3 #4\\[-1pt]
+}
+
+\begin{document}
+
+{\Large \textbf{Kossi Richard Allado}}\\
+\textbf{AI and Cybersecurity Engineering Student | Generative AI, SOC/DFIR, Secure Digital Solutions}\\
+Beni Mellal, Morocco | +212 621 074 305 | \href{mailto:alladokossirichard2025@gmail.com}{alladokossirichard2025@gmail.com}\\
+\href{https://allakori.github.io/}{allakori.github.io} | \href{https://github.com/ALLAKORI}{github.com/ALLAKORI} | \href{https://www.linkedin.com/in/kossi-richard-allado-50177b2a5}{linkedin.com/in/kossi-richard-allado}
+
+\section{Profile}
+AI and Cybersecurity engineering student at ENSA Beni Mellal, looking to join \textbf{Orange Digital Summer} to contribute to innovative, secure and data-driven digital solutions. Hands-on with Python, machine learning, generative AI, RAG systems, SOC investigation, Linux security and full-stack prototyping. Comfortable turning ideas into working demos and clear technical documentation.
+
+\section{Technical Skills}
+\textbf{AI / Data:} supervised classification, Random Forest, data preprocessing, model evaluation, Jupyter, Scikit-learn.\\
+\textbf{Generative AI / RAG:} LLMs, embeddings, Qdrant, FastEmbed, GroqCloud, LLaMA, prompt design, SSE streaming.\\
+\textbf{Cybersecurity:} SOC analysis, Splunk, Windows/Linux logs, MITRE ATT\&CK, IOC extraction, DFIR basics, IAM, RBAC, MFA.\\
+\textbf{Programming / Web:} Python, FastAPI, Next.js, TypeScript, SQL, PostgreSQL, Redis, Docker, Git/GitHub, Linux.\\
+\textbf{Security Tools:} Wireshark, Nmap, Burp Suite, Volatility, FTK Imager, Autopsy, Keycloak, OpenSSL.
+
+\section{Selected Projects}
+\textbf{USMS Chatbot - Academic RAG Assistant} \hfill Generative AI / Full-stack / Security\\
+\href{https://github.com/ALLAKORI/Chatbot-USMS}{github.com/ALLAKORI/Chatbot-USMS}
+\begin{itemize}
+  \item Built an intelligent academic assistant for ENSA Beni Mellal, enabling natural-language access to FAQs, schedules and administrative information.
+  \item Designed a RAG architecture using FastAPI, Next.js, PostgreSQL, Redis, Qdrant, FastEmbed embeddings and GroqCloud / LLaMA response generation.
+  \item Added multilingual support, adaptive tone, SSE streaming, admin dashboard, JWT authentication, RBAC, rate limiting, PII masking, audit logs and backend tests.
+\end{itemize}
+
+\textbf{Volt Typhoon Intrusion Investigation} \hfill SOC / DFIR / Threat Analysis\\
+\href{https://allakori.github.io/writeups/tryhackme/volt-typhoon/}{allakori.github.io/writeups/tryhackme/volt-typhoon}
+\begin{itemize}
+  \item Investigated Splunk logs to reconstruct an APT-style intrusion across 9 MITRE ATT\&CK phases and extract 10+ indicators.
+  \item Built a technical timeline connecting WMIC, PowerShell, certutil, netsh, wevtutil and credential-dumping activity to the attack path.
+\end{itemize}
+
+\textbf{High-Pressure Pump Fault Prediction} \hfill Machine Learning / Predictive Maintenance\\
+\href{https://github.com/ALLAKORI/Defaut-Pompe-Prediction}{github.com/ALLAKORI/Defaut-Pompe-Prediction}
+\begin{itemize}
+  \item Developed a predictive-maintenance prototype using pump sensor data such as voltage, power, speed, temperature, pressure and flow.
+  \item Trained a Random Forest model with Python, Pandas and Scikit-learn, then built a Tkinter interface to test risk predictions.
+\end{itemize}
+
+\section{Experience}
+\role{AI Intern - Predictive Maintenance}{ONEE - Water Branch, Kasba Tadla}{Aug. 2025}
+\begin{itemize}
+  \item Prepared and analyzed pump sensor data, then built a Python prototype combining Random Forest, data preparation and a testing interface.
+\end{itemize}
+
+\section{Education}
+\edu{Engineering Degree}{Cybersecurity and Artificial Intelligence, ENSA Beni Mellal}{2024 - Present}{}
+\edu{DEUST}{Mathematics, Computer Science and Physics, FST Fez}{2022 - 2024}{-- With Honors}
+\edu{Scientific Baccalaureate}{Series D, Lycee de Djagble, Togo}{2022}{-- High Honors}
+
+\section{Certifications and Achievements}
+IBM Introduction to Data Engineering | Cisco Ethical Hacker | Google Cybersecurity: Foundations and Play It Safe | TryHackMe Junior Penetration Tester Path | CSIA CTF 2026: 1st place with Team GHOSTSHELL
+
+\section{Languages}
+French: fluent | English: technical professional proficiency | Ewe: native
+
+\end{document}

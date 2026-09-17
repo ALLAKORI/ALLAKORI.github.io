@@ -474,6 +474,33 @@ h3 {
   transform: translateY(-1px);
 }
 
+.btn.secondary-link {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--muted);
+}
+
+.btn.secondary-link:hover {
+  border-color: rgba(88, 213, 255, 0.5);
+  color: var(--text);
+}
+
+.feature-media-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-left: 1px solid var(--line);
+  background: #101318;
+}
+
+.feature-media-grid .feature-media {
+  border-left: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.feature-media-grid .feature-media:last-child {
+  border-bottom: 0;
+}
+
 .section {
   padding: 28px 0 0;
 }
@@ -1457,5 +1484,100 @@ tr:last-child td {
 
   .contact-actions {
     justify-content: flex-start;
+  }
+
+  .feature-media-grid {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Terminal typing cursor */
+.terminal-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--cyan);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Card hover micro-interaction */
+.card, .proof-card {
+  transition: border-color 0.2s, transform 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.card:hover, .proof-card:hover {
+  box-shadow: 0 8px 32px rgba(88, 213, 255, 0.08);
+}
+
+/* Stat counter animation */
+.stat strong {
+  transition: color 0.3s ease;
+}
+
+.stat:hover strong {
+  color: var(--cyan);
+}
+
+/* Smooth nav link underline effect */
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  bottom: 6px;
+  width: 0;
+  height: 1px;
+  background: var(--cyan);
+  transition: width 0.2s ease;
+}
+
+.nav a {
+  position: relative;
+}
+
+.nav a:hover::after,
+.nav a.active::after {
+  width: calc(100% - 24px);
+}
+
+/* RAG Architecture SVG */
+.rag-architecture {
+  margin-top: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #0f1217;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.rag-architecture svg {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 840px) {
+  .rag-architecture {
+    padding: 10px;
   }
 }

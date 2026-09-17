@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/site.css?v=20260811-pfe-portfolio" />
+  <link rel="stylesheet" href="assets/site.css?v=20260917-animations" />
 </head>
 <body>
   <div class="shell">
@@ -51,6 +51,79 @@
                 <li>Combined FastAPI, Next.js, PostgreSQL, Redis, Qdrant, Docker Compose and SSE streaming.</li>
                 <li>Added security-oriented controls such as JWT, RBAC, rate limiting, audit logs and privacy workflows.</li>
               </ul>
+              <div class="rag-architecture">
+                <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chatbot USMS RAG architecture diagram">
+                  <style>
+                    .rag-box { fill: #1d232b; stroke: #2a313b; stroke-width: 1; rx: 6; }
+                    .rag-box-accent { fill: #1d232b; stroke: #58d5ff; stroke-width: 1; rx: 6; }
+                    .rag-label { fill: #a9b0bc; font-family: 'JetBrains Mono', monospace; font-size: 10px; }
+                    .rag-label-strong { fill: #f2f4f8; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; }
+                    .rag-arrow { stroke: #58d5ff; stroke-width: 1.2; fill: none; marker-end: url(#arrowhead); }
+                    .rag-arrow-green { stroke: #70d58b; stroke-width: 1.2; fill: none; marker-end: url(#arrowhead-green); }
+                    .rag-zone { fill: rgba(88,213,255,0.04); stroke: #2a313b; stroke-width: 1; stroke-dasharray: 4 3; rx: 8; }
+                  </style>
+                  <defs>
+                    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#58d5ff"/></marker>
+                    <marker id="arrowhead-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#70d58b"/></marker>
+                  </defs>
+                  <!-- Input zone -->
+                  <rect class="rag-zone" x="8" y="10" width="130" height="240"/>
+                  <text class="rag-label" x="73" y="28" text-anchor="middle" fill="#58d5ff" font-size="8" font-weight="700">INPUT</text>
+                  <rect class="rag-box" x="18" y="40" width="110" height="32"/>
+                  <text class="rag-label-strong" x="73" y="60" text-anchor="middle">Documents</text>
+                  <text class="rag-label" x="73" y="51" text-anchor="middle" fill="#747c89" font-size="8">PDF / JSON / TXT / MD</text>
+                  <rect class="rag-box" x="18" y="82" width="110" height="32"/>
+                  <text class="rag-label-strong" x="73" y="102" text-anchor="middle">Chunking</text>
+                  <rect class="rag-box" x="18" y="124" width="110" height="32"/>
+                  <text class="rag-label-strong" x="73" y="144" text-anchor="middle">FastEmbed</text>
+                  <text class="rag-label" x="73" y="155" text-anchor="middle" fill="#747c89" font-size="8">Embeddings</text>
+                  <!-- Processing zone -->
+                  <rect class="rag-zone" x="168" y="10" width="220" height="240"/>
+                  <text class="rag-label" x="278" y="28" text-anchor="middle" fill="#58d5ff" font-size="8" font-weight="700">PROCESSING</text>
+                  <rect class="rag-box-accent" x="183" y="42" width="190" height="40"/>
+                  <text class="rag-label-strong" x="278" y="60" text-anchor="middle">Qdrant Vector Store</text>
+                  <text class="rag-label" x="278" y="72" text-anchor="middle" fill="#747c89" font-size="8">Semantic search</text>
+                  <rect class="rag-box-accent" x="183" y="98" width="190" height="40"/>
+                  <text class="rag-label-strong" x="278" y="116" text-anchor="middle">LLaMA 3.3-70B (Groq)</text>
+                  <text class="rag-label" x="278" y="128" text-anchor="middle" fill="#747c89" font-size="8">Generation + SSE streaming</text>
+                  <rect class="rag-box" x="183" y="154" width="190" height="32"/>
+                  <text class="rag-label-strong" x="278" y="174" text-anchor="middle">FastAPI Backend</text>
+                  <rect class="rag-box" x="183" y="196" width="90" height="32"/>
+                  <text class="rag-label-strong" x="228" y="216" text-anchor="middle">PostgreSQL</text>
+                  <rect class="rag-box" x="283" y="196" width="90" height="32"/>
+                  <text class="rag-label-strong" x="328" y="216" text-anchor="middle">Redis</text>
+                  <!-- Output zone -->
+                  <rect class="rag-zone" x="418" y="10" width="140" height="240"/>
+                  <text class="rag-label" x="488" y="28" text-anchor="middle" fill="#58d5ff" font-size="8" font-weight="700">OUTPUT</text>
+                  <rect class="rag-box" x="433" y="42" width="110" height="40"/>
+                  <text class="rag-label-strong" x="488" y="60" text-anchor="middle">Next.js Frontend</text>
+                  <text class="rag-label" x="488" y="72" text-anchor="middle" fill="#747c89" font-size="8">Chat UI</text>
+                  <rect class="rag-box" x="433" y="98" width="110" height="32"/>
+                  <text class="rag-label-strong" x="488" y="118" text-anchor="middle">SSE Streaming</text>
+                  <!-- Security zone -->
+                  <rect class="rag-zone" x="578" y="10" width="130" height="240"/>
+                  <text class="rag-label" x="643" y="28" text-anchor="middle" fill="#70d58b" font-size="8" font-weight="700">SECURITY</text>
+                  <rect class="rag-box" x="588" y="42" width="110" height="28"/>
+                  <text class="rag-label" x="643" y="60" text-anchor="middle" fill="#70d58b" font-size="9">JWT Auth</text>
+                  <rect class="rag-box" x="588" y="78" width="110" height="28"/>
+                  <text class="rag-label" x="643" y="96" text-anchor="middle" fill="#70d58b" font-size="9">RBAC</text>
+                  <rect class="rag-box" x="588" y="114" width="110" height="28"/>
+                  <text class="rag-label" x="643" y="132" text-anchor="middle" fill="#70d58b" font-size="9">PII Masking</text>
+                  <rect class="rag-box" x="588" y="150" width="110" height="28"/>
+                  <text class="rag-label" x="643" y="168" text-anchor="middle" fill="#70d58b" font-size="9">Audit Logs</text>
+                  <rect class="rag-box" x="588" y="186" width="110" height="28"/>
+                  <text class="rag-label" x="643" y="204" text-anchor="middle" fill="#70d58b" font-size="9">Rate Limiting</text>
+                  <!-- Arrows -->
+                  <line class="rag-arrow" x1="128" y1="56" x2="183" y2="62"/>
+                  <line class="rag-arrow" x1="73" y1="72" x2="73" y2="82"/>
+                  <line class="rag-arrow" x1="73" y1="114" x2="73" y2="124"/>
+                  <line class="rag-arrow" x1="128" y1="140" x2="183" y2="118"/>
+                  <line class="rag-arrow" x1="278" y1="82" x2="278" y2="98"/>
+                  <line class="rag-arrow" x1="278" y1="138" x2="278" y2="154"/>
+                  <line class="rag-arrow" x1="373" y1="170" x2="433" y2="62"/>
+                  <line class="rag-arrow-green" x1="588" y1="56" x2="533" y2="56"/>
+                </svg>
+              </div>
               <div class="tags"><span class="tag blue">FastAPI</span><span class="tag blue">RAG</span><span class="tag blue">PostgreSQL</span><span class="tag green">Security</span></div>
               <div class="actions"><a class="btn primary" href="mailto:alladokossirichard2025@gmail.com?subject=Chatbot%20USMS%20case%20study">Discuss case study</a></div>
           </article>
@@ -102,8 +175,9 @@
           <div class="contact-actions"><a class="btn primary" href="mailto:alladokossirichard2025@gmail.com">Email</a><a class="btn" href="assets/cv/cv_pfe_2027_software_ai_cybersecurity_allado.pdf?v=20260828-pfe" target="_blank" rel="noreferrer">PFE CV</a><a class="btn" href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noreferrer">LinkedIn</a></div>
         </div>
       </section>
-      <footer class="footer mono">Projects page - software, AI and cybersecurity case studies for PFE review.<small>Last updated: August 2026</small></footer>
+      <footer class="footer mono">Projects page - software, AI and cybersecurity case studies for PFE review.<small>Last updated: September 2026</small></footer>
     </main>
   </div>
+  <script src="assets/main.js?v=20260917-animations" defer></script>
 </body>
 </html>

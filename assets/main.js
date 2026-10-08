@@ -8,6 +8,14 @@
   var isTouch = window.matchMedia && window.matchMedia("(hover: none)").matches;
   var isMobile = window.innerWidth < 840;
 
+  /* Current site language (set by lang.js, defaults to English) */
+  function currentLang() {
+    try { return localStorage.getItem("portfolio-lang") === "fr" ? "fr" : "en"; } catch (e) { return "en"; }
+  }
+  var CV_EN_URL = "assets/cv/cv_pfe_2027_software_ai_cybersecurity_allado.pdf?v=20260917-pfe";
+  var CV_FR_URL = "assets/cv/cv_pfa_cybersecurite_kossi_richard_allado.pdf?v=20260702-main-cv";
+  function cvUrl() { return currentLang() === "fr" ? CV_FR_URL : CV_EN_URL; }
+
   /* ---------- Boot preloader ---------- */
   function initBoot() {
     if (document.getElementById("boot")) return;
@@ -130,18 +138,54 @@
     });
   }
 
-  /* ---------- Real terminal typing ---------- */
-  function initTyping() {
-    var box = $(".terminal-lines");
-    if (!box || reducedMotion) return;
-    var seq = [
+  /* ---------- Live looping terminal (never static) ---------- */
+  var SCREENS = [
+    [
       { cmd: "$ whoami", out: "Kossi Richard Allado", cls: "t-strong" },
       { cmd: "$ focus --pfe", out: "Cybersecurity, AI Security and secure software", cls: "ok" },
       { cmd: "$ evidence --show", out: "PFA CyberVeille PME, Chatbot USMS RAG, CSIA CTF 1st, Splunk DFIR, Linux hardening, HTB x11.", cls: "" }
-    ];
+    ],
+    [
+      { cmd: "$ thm --rank", out: "Top 1% globally — Jr Pentester, SOC L1, AI Security", cls: "ok" },
+      { cmd: "$ htb --season 11", out: "11 machines documented: AD, Kerberos, CVE mapping, DFIR", cls: "" },
+      { cmd: "$ ctf --last", out: "CSIA CTF 2026 — 1st place with GHOSTSHELL", cls: "t-strong" }
+    ],
+    [
+      { cmd: "$ cat contact.txt", out: "Beni Mellal, MA — FR/EN — PFE 2027", cls: "" },
+      { cmd: "$ ./hire_me --dry-run", out: "SOC/DFIR • Offensive Security • AI Security [ready]", cls: "ok" }
+    ]
+  ];
+  function initTyping() {
+    var box = $(".terminal-lines");
+    if (!box) return;
+    if (reducedMotion) {
+      // Static fallback: first screen, no animation
+      box.innerHTML = "";
+      SCREENS[0].forEach(function (s) {
+        var div = document.createElement("div");
+        div.className = "t-line";
+        var p = document.createElement("span");
+        p.className = "cmd";
+        p.textContent = "$ ";
+        var r = document.createElement("span");
+        r.textContent = s.cmd.replace(/^\$\s*/, "");
+        div.appendChild(p); div.appendChild(r);
+        box.appendChild(div);
+        var out = document.createElement("div");
+        out.className = "t-line";
+        if (s.cls === "t-strong") { var b = document.createElement("strong"); b.textContent = s.out; out.appendChild(b); }
+        else { var o = document.createElement("span"); if (s.cls) o.className = s.cls; o.textContent = s.out; out.appendChild(o); }
+        box.appendChild(out);
+      });
+      return;
+    }
     box.innerHTML = "";
     var cursor = document.createElement("span");
     cursor.className = "terminal-cursor";
+    var screenIdx = 0, alive = true;
+    document.addEventListener("visibilitychange", function () {
+      alive = !document.hidden;
+    });
     function lineEl(text, isCmd, cls) {
       var div = document.createElement("div");
       div.className = "t-line";
@@ -168,34 +212,82 @@
       div.appendChild(out);
       return { el: div, typeTarget: out, full: text };
     }
-    var queue = [];
-    seq.forEach(function (s) {
-      queue.push({ text: s.cmd, isCmd: true, cls: "" });
-      queue.push({ text: s.out, isCmd: false, cls: s.cls });
-    });
-    var li = 0;
-    function typeNext() {
-      if (li >= queue.length) { box.appendChild(cursor); return; }
-      var item = queue[li];
-      var built = lineEl(item.text, item.isCmd, item.cls);
-      box.appendChild(built.el);
-      built.el.appendChild(cursor);
-      var full = built.full;
-      built.typeTarget.textContent = "";
-      var ci = 0;
-      var speed = item.isCmd ? 34 : 12;
-      (function tick() {
-        ci++;
-        built.typeTarget.textContent = full.slice(0, ci);
-        if (ci < full.length) {
-          setTimeout(tick, speed + Math.random() * 18);
-        } else {
-          li++;
-          setTimeout(typeNext, item.isCmd ? 160 : 320);
+    function playScreen(si) {
+      var seq = SCREENS[si % SCREENS.length];
+      // wipe with quick clear effect
+      box.innerHTML = "";
+      var queue = [];
+      seq.forEach(function (s) {
+        queue.push({ text: s.cmd, isCmd: true, cls: "" });
+        queue.push({ text: s.out, isCmd: false, cls: s.cls });
+      });
+      var li = 0;
+      function typeNext() {
+        if (!alive) { setTimeout(typeNext, 800); return; }
+        if (li >= queue.length) {
+          box.appendChild(cursor);
+          // hold screen, then next
+          setTimeout(function () { playScreen(si + 1); }, 3400);
+          return;
         }
-      })();
+        var item = queue[li];
+        var built = lineEl(item.text, item.isCmd, item.cls);
+        box.appendChild(built.el);
+        built.el.appendChild(cursor);
+        var full = built.full;
+        built.typeTarget.textContent = "";
+        var ci = 0;
+        var speed = item.isCmd ? 38 : 13;
+        (function tick() {
+          if (!alive) { setTimeout(tick, 500); return; }
+          ci++;
+          built.typeTarget.textContent = full.slice(0, ci);
+          if (ci < full.length) {
+            setTimeout(tick, speed + Math.random() * 20);
+          } else {
+            li++;
+            setTimeout(typeNext, item.isCmd ? 170 : 330);
+          }
+        })();
+      }
+      typeNext();
     }
-    setTimeout(typeNext, 1100);
+    setTimeout(function () { playScreen(0); }, 1100);
+  }
+
+  /* ---------- Rotating availability badge (always moving) ---------- */
+  function initRotator() {
+    if (reducedMotion) return;
+    var badge = $(".availability");
+    if (!badge) return;
+    var msgsEN = [
+      "Preparing for PFE 2027 opportunities",
+      "Open to SOC / DFIR discussions",
+      "HTB Season 11 documented — THM Top 1%",
+      "CSIA CTF 2026 — 1st place GHOSTSHELL"
+    ];
+    var msgsFR = [
+      "Préparation des candidatures PFE 2027",
+      "Ouvert aux discussions SOC / DFIR",
+      "HTB Season 11 documentée — THM Top 1%",
+      "CSIA CTF 2026 — 1re place GHOSTSHELL"
+    ];
+    // Rotator follows the site language, even mid-cycle
+    if (currentLang() === "fr") badge.textContent = msgsFR[0];
+    var i = 0;
+    setInterval(function () {
+      if (document.hidden) return;
+      var msgs = currentLang() === "fr" ? msgsFR : msgsEN;
+      i = (i + 1) % msgs.length;
+      badge.style.opacity = "0";
+      badge.style.transform = "translateY(4px)";
+      setTimeout(function () {
+        badge.textContent = msgs[i];
+        badge.style.transition = "opacity .3s, transform .3s";
+        badge.style.opacity = "1";
+        badge.style.transform = "none";
+      }, 220);
+    }, 4200);
   }
 
   /* ---------- Animated counters ---------- */
@@ -336,7 +428,7 @@
       { name: "Go Labs", hint: "03", run: function () { go("labs.html"); } },
       { name: "Go Writeups", hint: "04", run: function () { go("writeups.html"); } },
       { name: "Go Projects", hint: "05", run: function () { go("projects.html"); } },
-      { name: "Download CV (PFE 2027)", hint: "cv", run: function () { window.open("assets/cv/cv_pfe_2027_software_ai_cybersecurity_allado.pdf?v=20260917-pfe", "_blank"); } },
+      { name: "Download CV (PFE 2027)", hint: "cv", run: function () { window.open(cvUrl(), "_blank"); } },
       { name: "Copy email", hint: "mail", run: function () { copyEmail(); } },
       { name: "Open TryHackMe profile", hint: "thm", run: function () { window.open("https://tryhackme.com/p/allakori", "_blank"); } },
       { name: "Open HackTheBox profile", hint: "htb", run: function () { window.open("https://profile.hackthebox.com/profile/019d03a0-4529-7233-b8f5-6fe1e7a7e02b", "_blank"); } },
@@ -347,7 +439,7 @@
     function copyEmail() {
       var mail = "alladokossirichard2025@gmail.com";
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(mail).then(function () { toast("email copied"); }, function () { prompt("Copy email:", mail); });
+        navigator.clipboard.writeText(mail).then(function () { toast(currentLang() === "fr" ? "email copié" : "email copied"); }, function () { prompt("Copy email:", mail); });
       } else { prompt("Copy email:", mail); }
     }
     function toast(msg) {
@@ -437,8 +529,16 @@
     if (!links.length) return;
     var overlay = document.createElement("div");
     overlay.id = "lightbox";
-    overlay.innerHTML = '<div class="lightbox-box"><img id="lightbox-img" alt="" /><div class="lightbox-bar"><span id="lightbox-cap"></span><span><button type="button" id="lightbox-prev">&larr; prev</button> <button type="button" id="lightbox-next">next &rarr;</button> <button type="button" id="lightbox-close">esc ×</button></span></div></div>';
+    overlay.innerHTML = '<div class="lightbox-box"><img id="lightbox-img" alt="" /><div class="lightbox-bar"><span id="lightbox-cap"></span><span><button type="button" id="lightbox-prev"></button> <button type="button" id="lightbox-next"></button> <button type="button" id="lightbox-close"></button></span></div></div>';
     document.body.appendChild(overlay);
+    function lightboxLang() {
+      var fr = currentLang() === "fr";
+      $("#lightbox-prev", overlay).textContent = fr ? "← préc" : "← prev";
+      $("#lightbox-next", overlay).textContent = fr ? "suiv →" : "next →";
+      $("#lightbox-close", overlay).textContent = "esc ×";
+    }
+    lightboxLang();
+    document.addEventListener("portfolio-lang-changed", lightboxLang);
     var img = $("#lightbox-img", overlay);
     var cap = $("#lightbox-cap", overlay);
     var idx = 0;
@@ -501,7 +601,7 @@
     searchWrap.innerHTML = "<span>$</span>";
     var input = document.createElement("input");
     input.type = "search";
-    input.placeholder = grid ? "filter writeups...  (try: ad, kerberos, pwn)" : "filter proof...  (try: cisco, ctf, thm)";
+    input.placeholder = "";
     input.setAttribute("aria-label", "Filter items");
     searchWrap.appendChild(input);
     var btns = document.createElement("div");
@@ -533,12 +633,13 @@
     var empty = document.createElement("div");
     empty.className = "filter-empty";
     empty.style.display = "none";
-    empty.textContent = "> no match — try another keyword [0 result]";
+    empty.textContent = "";
     target.appendChild(empty);
 
     var norm = function (s) {
       return (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     };
+    var lastN = cards.length;
     function apply() {
       var q = norm(input.value.trim());
       var n = 0;
@@ -553,7 +654,8 @@
         if (show) n++;
       });
       empty.style.display = n ? "none" : "block";
-      count.textContent = n + "/" + cards.length + " shown";
+      lastN = n;
+      count.textContent = n + "/" + cards.length + (currentLang() === "fr" ? " affichés" : " shown");
       // Re-trigger reveal for newly shown
       cards.forEach(function (c) { if (!c.classList.contains("hidden-by-filter")) c.classList.add("visible"); });
     }
@@ -574,6 +676,22 @@
       }
     } catch (e) {}
     apply();
+    // Toolbar follows the site language
+    function filterLang() {
+      var fr = currentLang() === "fr";
+      input.placeholder = grid
+        ? (fr ? "filtrer les writeups...  (essaie : ad, kerberos, pwn)" : "filter writeups...  (try: ad, kerberos, pwn)")
+        : (fr ? "filtrer les preuves...  (essaie : cisco, ctf, thm)" : "filter proof...  (try: cisco, ctf, thm)");
+      empty.textContent = fr ? "> aucun résultat — essaie un autre mot-clé [0 résultat]" : "> no match — try another keyword [0 result]";
+      var labels = { all: fr ? "tout" : "all", certif: fr ? "certifs" : "certif", verify: fr ? "vérifier" : "verify" };
+      $$(".filter-btn", btns).forEach(function (x) {
+        var c = x.dataset.filter;
+        x.textContent = c === "ad" ? "AD" : (labels[c] || c);
+      });
+      count.textContent = lastN + "/" + cards.length + (fr ? " affichés" : " shown");
+    }
+    filterLang();
+    document.addEventListener("portfolio-lang-changed", filterLang);
   }
 
   /* ---------- Copy email buttons ---------- */
@@ -585,18 +703,171 @@
       var b = document.createElement("button");
       b.type = "button";
       b.className = "copy-btn";
-      b.textContent = "copy";
+      b.textContent = currentLang() === "fr" ? "copier" : "copy";
       b.setAttribute("aria-label", "Copy email " + mail);
       b.addEventListener("click", function () {
         function done() {
-          b.textContent = "copied [ok]";
-          setTimeout(function () { b.textContent = "copy"; }, 1500);
+          b.textContent = currentLang() === "fr" ? "copié [ok]" : "copied [ok]";
+          setTimeout(function () { b.textContent = currentLang() === "fr" ? "copier" : "copy"; }, 1500);
         }
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(mail).then(done, function () { window.prompt("Copy email:", mail); });
         } else window.prompt("Copy email:", mail);
       });
       a.parentNode.insertBefore(b, a.nextSibling);
+    });
+    // Idle copy buttons follow the site language
+    document.addEventListener("portfolio-lang-changed", function () {
+      var fr = currentLang() === "fr";
+      $$(".copy-btn").forEach(function (x) {
+        if (x.textContent === "copy" || x.textContent === "copier") x.textContent = fr ? "copier" : "copy";
+      });
+    });
+  }
+
+  /* ---------- Magnetic buttons + per-card cursor glow ---------- */
+  function initMagnetic() {
+    if (reducedMotion || isTouch) return;
+    $$(".btn, .filter-btn, .palette-hint, .copy-btn, .social a").forEach(function (el) {
+      var raf = null;
+      el.addEventListener("mousemove", function (e) {
+        if (raf) return;
+        raf = requestAnimationFrame(function () {
+          raf = null;
+          var r = el.getBoundingClientRect();
+          var dx = e.clientX - (r.left + r.width / 2);
+          var dy = e.clientY - (r.top + r.height / 2);
+          el.style.transform = "translate(" + (dx * 0.12).toFixed(1) + "px," + (dy * 0.16).toFixed(1) + "px)";
+        });
+      });
+      el.addEventListener("mouseleave", function () { el.style.transform = ""; });
+    });
+    // Card glow follows cursor inside each card
+    $$(".card, .skill-box, .stat, .about-panel, .feature, .contact-panel").forEach(function (card) {
+      card.addEventListener("mousemove", function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty("--glx", (e.clientX - r.left) + "px");
+        card.style.setProperty("--gly", (e.clientY - r.top) + "px");
+      });
+    });
+  }
+
+  /* ---------- Scramble headings on scroll into view ---------- */
+  function initScrambleView() {
+    if (reducedMotion) return;
+    var heads = $$("h1, h2").filter(function (h) { return !h.dataset.scrambled; });
+    if (!heads.length || !("IntersectionObserver" in window)) return;
+    var glyphs = "!<>-_\\/[]{}=+*^?#01";
+    function scramble(h) {
+      if (h.dataset.scrambled) return;
+      h.dataset.scrambled = "1";
+      var original = h.textContent;
+      if (original.length > 90) return;
+      var iter = 0, total = 10;
+      var iv = setInterval(function () {
+        h.textContent = original.split("").map(function (ch, i) {
+          if (ch === " " || ch === "\n") return ch;
+          if (i < (iter / total) * original.length) return original[i];
+          return glyphs[Math.floor(Math.random() * glyphs.length)];
+        }).join("");
+        iter++;
+        if (iter > total) { clearInterval(iv); h.textContent = original; }
+      }, 28);
+    }
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { scramble(en.target); obs.unobserve(en.target); }
+      });
+    }, { threshold: 0.5 });
+    heads.forEach(function (h) { obs.observe(h); });
+  }
+
+  /* ---------- Skills ticker injected after hero ---------- */
+  function initTicker() {
+    if (reducedMotion) return;
+    var hero = $(".hero");
+    if (!hero || $(".ticker")) return;
+    var items = ["SOC / DFIR", "Splunk", "TryHackMe Top 1%", "HTB Season 11", "CSIA CTF 1st", "Linux Hardening", "IAM • Keycloak", "AI Security", "PFE 2027"];
+    var ticker = document.createElement("div");
+    ticker.className = "ticker";
+    ticker.setAttribute("aria-hidden", "true");
+    var track = document.createElement("div");
+    track.className = "ticker-track";
+    var half = items.map(function (s) { return "<span class='ticker-item'><i>$</i> " + s + "</span>"; }).join("");
+    track.innerHTML = half + half; // loop seamlessly
+    ticker.appendChild(track);
+    hero.parentNode.insertBefore(ticker, hero.nextSibling);
+  }
+
+  /* ---------- Live clock + session uptime in topline ---------- */
+  function initLiveClock() {
+    var mono = $(".topline .mono");
+    if (!mono || $("#live-clock")) return;
+    var span = document.createElement("span");
+    span.id = "live-clock";
+    span.className = "live-clock";
+    mono.appendChild(document.createTextNode("  •  "));
+    mono.appendChild(span);
+    var t0 = Date.now();
+    function pad(n) { return (n < 10 ? "0" : "") + n; }
+    function tick() {
+      var d = new Date();
+      var up = Math.floor((Date.now() - t0) / 1000);
+      var uh = Math.floor(up / 3600), um = Math.floor((up % 3600) / 60), us = up % 60;
+      var tag = currentLang() === "fr" ? "T+" : "up";
+      span.innerHTML = "<span class='live-dot'></span> " + pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds()) +
+        " <span class='live-up'>" + tag + " " + pad(uh) + ":" + pad(um) + ":" + pad(us) + "</span>";
+    }
+    tick();
+    setInterval(function () { if (!document.hidden) tick(); }, 1000);
+  }
+
+  /* ---------- Recruiter-path auto-cycle (screenshot section) ---------- */
+  function initCycleSteps() {
+    if (reducedMotion) return;
+    var items = $$(".compact-timeline .timeline-item");
+    if (items.length < 2) return;
+    var i = 0, paused = false;
+    items.forEach(function (it) {
+      it.addEventListener("mouseenter", function () {
+        paused = true;
+        items.forEach(function (x) { x.classList.remove("cycle-active"); });
+        it.classList.add("cycle-active");
+      });
+      it.addEventListener("mouseleave", function () { paused = false; });
+    });
+    setInterval(function () {
+      if (paused || document.hidden) return;
+      items.forEach(function (x) { x.classList.remove("cycle-active"); });
+      items[i % items.length].classList.add("cycle-active");
+      i++;
+    }, 3000);
+  }
+
+  /* ---------- Custom crosshair cursor (desktop) ---------- */
+  function initCursor() {
+    if (reducedMotion || isTouch || isMobile) return;
+    var dot = document.createElement("div");
+    dot.id = "cursor-dot";
+    var ring = document.createElement("div");
+    ring.id = "cursor-ring";
+    document.body.appendChild(dot);
+    document.body.appendChild(ring);
+    var mx = -100, my = -100, rx = -100, ry = -100;
+    document.addEventListener("mousemove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = "translate(" + mx + "px," + my + "px)";
+    }, { passive: true });
+    (function follow() {
+      rx += (mx - rx) * 0.16;
+      ry += (my - ry) * 0.16;
+      ring.style.transform = "translate(" + rx + "px," + ry + "px)";
+      requestAnimationFrame(follow);
+    })();
+    // Grow on interactive hover
+    document.addEventListener("mouseover", function (e) {
+      var t = e.target.closest ? e.target.closest("a, button, .card, input") : null;
+      document.body.classList.toggle("cursor-hot", !!t);
     });
   }
 
@@ -606,10 +877,17 @@
     initSpotlight();
     initReveal();
     initTyping();
+    initRotator();
     initCounters();
     initProgress();
     initTilt();
+    initMagnetic();
     initScramble();
+    initScrambleView();
+    initTicker();
+    initLiveClock();
+    initCycleSteps();
+    initCursor();
     initPalette();
     initLightbox();
     initFilters();

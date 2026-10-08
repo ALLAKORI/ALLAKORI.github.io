@@ -2200,6 +2200,7 @@ body.cursor-hot #cursor-ring { width: 46px; height: 46px; margin: -23px 0 0 -23p
 @media (prefers-reduced-motion: reduce) {
   .ticker-track, .hero::before, .live-dot, .availability::before { animation: none !important; }
   #cursor-dot, #cursor-ring { display: none; }
+  .term-box { animation: none; }
 }
 
 /* ============ INTERACTIVE TERMINAL v20261008-term ============ */
@@ -2225,6 +2226,36 @@ body.cursor-hot #cursor-ring { width: 46px; height: 46px; margin: -23px 0 0 -23p
   background: #0a0d12;
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65), 0 0 40px rgba(88, 213, 255, 0.08);
   overflow: hidden;
+}
+/* Lightning frame: electric arc circling the border + breathing halo */
+@property --bolt {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@supports (background: conic-gradient(from 0deg, red, blue)) {
+  .term-box {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(#0a0d12, #0a0d12) padding-box,
+      conic-gradient(from var(--bolt),
+        rgba(88, 213, 255, 0.12) 0%,
+        rgba(88, 213, 255, 0.9) 8%,
+        rgba(185, 167, 255, 0.55) 12%,
+        rgba(88, 213, 255, 0.12) 20%,
+        rgba(88, 213, 255, 0.10) 55%,
+        rgba(112, 213, 139, 0.85) 63%,
+        rgba(112, 213, 139, 0.35) 67%,
+        rgba(88, 213, 255, 0.12) 75%) border-box;
+    animation: boltspin 6s linear infinite, boltbreathe 3.2s ease-in-out infinite;
+  }
+}
+@keyframes boltspin {
+  to { --bolt: 360deg; }
+}
+@keyframes boltbreathe {
+  0%, 100% { box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65), 0 0 22px rgba(88, 213, 255, 0.10); }
+  50% { box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65), 0 0 60px rgba(88, 213, 255, 0.30); }
 }
 .term-head {
   display: flex;

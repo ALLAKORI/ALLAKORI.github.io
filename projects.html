@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/site.css?v=20261008-term" />
+  <link rel="stylesheet" href="assets/site.css?v=20261008-archi" />
 </head>
 <body>
   <div class="shell">
@@ -41,6 +41,81 @@
                 <li>Implemented SQLite analysis history, CSV bulk analysis, configurable SMTP alerts, optional AbuseIPDB checks and SME reflex sheets.</li>
                 <li>Validated invalid inputs, URLHaus behavior, CSV processing, SQLite storage, disabled alerts and SMTP failure cases with automated tests.</li>
               </ul>
+              <div class="rag-architecture">
+                <svg viewBox="0 0 760 264" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CyberVeille PME URL analysis architecture diagram">
+                  <style>
+                    .rag-box { fill: #1d232b; stroke: #2a313b; stroke-width: 1; rx: 6; }
+                    .rag-box-accent { fill: #1d232b; stroke: #58d5ff; stroke-width: 1; rx: 6; }
+                    .rag-label { fill: #a9b0bc; font-family: 'JetBrains Mono', monospace; font-size: 10px; }
+                    .rag-label-strong { fill: #f2f4f8; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; }
+                    .rag-label-small { fill: #747c89; font-family: 'JetBrains Mono', monospace; font-size: 8.5px; }
+                    .rag-arrow { stroke: #58d5ff; stroke-width: 1.2; fill: none; marker-end: url(#arrowhead); }
+                    .rag-arrow-green { stroke: #70d58b; stroke-width: 1.2; fill: none; marker-end: url(#arrowhead-green); }
+                    .rag-zone { fill: rgba(88,213,255,0.04); stroke: #2a313b; stroke-width: 1; stroke-dasharray: 4 3; rx: 8; }
+                  </style>
+                  <defs>
+                    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#58d5ff"/></marker>
+                    <marker id="arrowhead-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#70d58b"/></marker>
+                  </defs>
+                  <!-- Input zone -->
+                  <rect class="rag-zone" x="8" y="10" width="140" height="244"/>
+                  <text class="rag-label" x="78" y="30" text-anchor="middle" fill="#58d5ff" font-size="8" font-weight="700">INPUT</text>
+                  <rect class="rag-box" x="20" y="44" width="116" height="44"/>
+                  <text class="rag-label-strong" x="78" y="62" text-anchor="middle">Manual URL</text>
+                  <text class="rag-label-small" x="78" y="78" text-anchor="middle">paste + submit</text>
+                  <rect class="rag-box" x="20" y="100" width="116" height="44"/>
+                  <text class="rag-label-strong" x="78" y="118" text-anchor="middle">CSV Bulk</text>
+                  <text class="rag-label-small" x="78" y="134" text-anchor="middle">bulk URLs</text>
+                  <!-- Analysis zone -->
+                  <rect class="rag-zone" x="160" y="10" width="240" height="244"/>
+                  <text class="rag-label" x="280" y="30" text-anchor="middle" fill="#58d5ff" font-size="8" font-weight="700">ANALYSIS</text>
+                  <rect class="rag-box-accent" x="174" y="44" width="212" height="44"/>
+                  <text class="rag-label-strong" x="280" y="62" text-anchor="middle">URLHaus Lookup</text>
+                  <text class="rag-label-small" x="280" y="78" text-anchor="middle">local database</text>
+                  <rect class="rag-box" x="174" y="100" width="212" height="44"/>
+                  <text class="rag-label-strong" x="280" y="118" text-anchor="middle">21 URL Features</text>
+                  <text class="rag-label-small" x="280" y="134" text-anchor="middle">lexical + host</text>
+                  <rect class="rag-box-accent" x="174" y="156" width="212" height="44"/>
+                  <text class="rag-label-strong" x="280" y="174" text-anchor="middle">Logistic Regression</text>
+                  <text class="rag-label-small" x="280" y="190" text-anchor="middle">scikit-learn</text>
+                  <rect class="rag-box" x="174" y="212" width="102" height="34"/>
+                  <text class="rag-label" x="225" y="234" text-anchor="middle" font-size="9" font-weight="700">Risk Levels</text>
+                  <rect class="rag-box" x="284" y="212" width="102" height="34"/>
+                  <text class="rag-label" x="335" y="234" text-anchor="middle" font-size="9" font-weight="700">Reasons + Advice</text>
+                  <!-- Output zone -->
+                  <rect class="rag-zone" x="412" y="10" width="150" height="244"/>
+                  <text class="rag-label" x="487" y="30" text-anchor="middle" fill="#58d5ff" font-size="8" font-weight="700">OUTPUT</text>
+                  <rect class="rag-box" x="424" y="44" width="126" height="44"/>
+                  <text class="rag-label-strong" x="487" y="62" text-anchor="middle">Streamlit UI</text>
+                  <text class="rag-label-small" x="487" y="78" text-anchor="middle">verdict + details</text>
+                  <rect class="rag-box" x="424" y="100" width="126" height="44"/>
+                  <text class="rag-label-strong" x="487" y="118" text-anchor="middle">CSV Export</text>
+                  <text class="rag-label-small" x="487" y="134" text-anchor="middle">annotated results</text>
+                  <!-- Ops zone -->
+                  <rect class="rag-zone" x="574" y="10" width="178" height="244"/>
+                  <text class="rag-label" x="663" y="30" text-anchor="middle" fill="#70d58b" font-size="8" font-weight="700">OPS &amp; ALERTS</text>
+                  <rect class="rag-box" x="586" y="44" width="154" height="30"/>
+                  <text class="rag-label" x="663" y="63" text-anchor="middle" fill="#70d58b" font-size="9">SQLite History</text>
+                  <rect class="rag-box" x="586" y="84" width="154" height="30"/>
+                  <text class="rag-label" x="663" y="103" text-anchor="middle" fill="#70d58b" font-size="9">SMTP Alerts</text>
+                  <rect class="rag-box" x="586" y="124" width="154" height="30"/>
+                  <text class="rag-label" x="663" y="143" text-anchor="middle" fill="#70d58b" font-size="9">AbuseIPDB Check</text>
+                  <rect class="rag-box" x="586" y="164" width="154" height="30"/>
+                  <text class="rag-label" x="663" y="183" text-anchor="middle" fill="#70d58b" font-size="9">Reflex Sheets</text>
+                  <rect class="rag-box" x="586" y="204" width="154" height="30"/>
+                  <text class="rag-label" x="663" y="223" text-anchor="middle" fill="#70d58b" font-size="9">Auto Tests</text>
+                  <!-- Arrows -->
+                  <line class="rag-arrow" x1="136" y1="66" x2="174" y2="66"/>
+                  <line class="rag-arrow" x1="78" y1="88" x2="78" y2="100"/>
+                  <line class="rag-arrow" x1="136" y1="122" x2="174" y2="122"/>
+                  <line class="rag-arrow" x1="280" y1="88" x2="280" y2="100"/>
+                  <line class="rag-arrow" x1="280" y1="144" x2="280" y2="156"/>
+                  <line class="rag-arrow" x1="225" y1="200" x2="225" y2="212"/>
+                  <line class="rag-arrow" x1="335" y1="200" x2="335" y2="212"/>
+                  <line class="rag-arrow" x1="386" y1="178" x2="424" y2="80"/>
+                  <line class="rag-arrow-green" x1="586" y1="99" x2="550" y2="70"/>
+                </svg>
+              </div>
               <div class="tags"><span class="tag green">Threat intelligence</span><span class="tag green">Phishing detection</span><span class="tag blue">Streamlit</span><span class="tag amber">SME security</span></div>
           </article>
 
@@ -54,12 +129,13 @@
                 <li>Added security-oriented controls such as JWT, RBAC, rate limiting, audit logs and privacy workflows.</li>
               </ul>
               <div class="rag-architecture">
-                <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chatbot USMS RAG architecture diagram">
+                <svg viewBox="0 0 760 264" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chatbot USMS RAG architecture diagram">
                   <style>
                     .rag-box { fill: #1d232b; stroke: #2a313b; stroke-width: 1; rx: 6; }
                     .rag-box-accent { fill: #1d232b; stroke: #58d5ff; stroke-width: 1; rx: 6; }
                     .rag-label { fill: #a9b0bc; font-family: 'JetBrains Mono', monospace; font-size: 10px; }
                     .rag-label-strong { fill: #f2f4f8; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; }
+                    .rag-label-small { fill: #747c89; font-family: 'JetBrains Mono', monospace; font-size: 8.5px; }
                     .rag-arrow { stroke: #58d5ff; stroke-width: 1.2; fill: none; marker-end: url(#arrowhead); }
                     .rag-arrow-green { stroke: #70d58b; stroke-width: 1.2; fill: none; marker-end: url(#arrowhead-green); }
                     .rag-zone { fill: rgba(88,213,255,0.04); stroke: #2a313b; stroke-width: 1; stroke-dasharray: 4 3; rx: 8; }
@@ -69,61 +145,61 @@
                     <marker id="arrowhead-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#70d58b"/></marker>
                   </defs>
                   <!-- Input zone -->
-                  <rect class="rag-zone" x="8" y="10" width="130" height="240"/>
-                  <text class="rag-label" x="73" y="28" text-anchor="middle" fill="#58d5ff" font-size="8" font-weight="700">INPUT</text>
-                  <rect class="rag-box" x="18" y="40" width="110" height="32"/>
-                  <text class="rag-label-strong" x="73" y="60" text-anchor="middle">Documents</text>
-                  <text class="rag-label" x="73" y="51" text-anchor="middle" fill="#747c89" font-size="8">PDF / JSON / TXT / MD</text>
-                  <rect class="rag-box" x="18" y="82" width="110" height="32"/>
-                  <text class="rag-label-strong" x="73" y="102" text-anchor="middle">Chunking</text>
-                  <rect class="rag-box" x="18" y="124" width="110" height="32"/>
-                  <text class="rag-label-strong" x="73" y="144" text-anchor="middle">FastEmbed</text>
-                  <text class="rag-label" x="73" y="155" text-anchor="middle" fill="#747c89" font-size="8">Embeddings</text>
+                  <rect class="rag-zone" x="8" y="10" width="140" height="244"/>
+                  <text class="rag-label" x="78" y="30" text-anchor="middle" fill="#58d5ff" font-size="8" font-weight="700">INPUT</text>
+                  <rect class="rag-box" x="18" y="44" width="120" height="46"/>
+                  <text class="rag-label-small" x="78" y="60" text-anchor="middle">PDF / JSON / TXT / MD</text>
+                  <text class="rag-label-strong" x="78" y="78" text-anchor="middle">Documents</text>
+                  <rect class="rag-box" x="20" y="100" width="116" height="36"/>
+                  <text class="rag-label-strong" x="78" y="123" text-anchor="middle">Chunking</text>
+                  <rect class="rag-box" x="20" y="146" width="116" height="46"/>
+                  <text class="rag-label-strong" x="78" y="164" text-anchor="middle">FastEmbed</text>
+                  <text class="rag-label-small" x="78" y="180" text-anchor="middle">Embeddings</text>
                   <!-- Processing zone -->
-                  <rect class="rag-zone" x="168" y="10" width="220" height="240"/>
-                  <text class="rag-label" x="278" y="28" text-anchor="middle" fill="#58d5ff" font-size="8" font-weight="700">PROCESSING</text>
-                  <rect class="rag-box-accent" x="183" y="42" width="190" height="40"/>
-                  <text class="rag-label-strong" x="278" y="60" text-anchor="middle">Qdrant Vector Store</text>
-                  <text class="rag-label" x="278" y="72" text-anchor="middle" fill="#747c89" font-size="8">Semantic search</text>
-                  <rect class="rag-box-accent" x="183" y="98" width="190" height="40"/>
-                  <text class="rag-label-strong" x="278" y="116" text-anchor="middle">LLaMA 3.3-70B (Groq)</text>
-                  <text class="rag-label" x="278" y="128" text-anchor="middle" fill="#747c89" font-size="8">Generation + SSE streaming</text>
-                  <rect class="rag-box" x="183" y="154" width="190" height="32"/>
-                  <text class="rag-label-strong" x="278" y="174" text-anchor="middle">FastAPI Backend</text>
-                  <rect class="rag-box" x="183" y="196" width="90" height="32"/>
-                  <text class="rag-label-strong" x="228" y="216" text-anchor="middle">PostgreSQL</text>
-                  <rect class="rag-box" x="283" y="196" width="90" height="32"/>
-                  <text class="rag-label-strong" x="328" y="216" text-anchor="middle">Redis</text>
+                  <rect class="rag-zone" x="160" y="10" width="240" height="244"/>
+                  <text class="rag-label" x="280" y="30" text-anchor="middle" fill="#58d5ff" font-size="8" font-weight="700">PROCESSING</text>
+                  <rect class="rag-box-accent" x="174" y="44" width="212" height="48"/>
+                  <text class="rag-label-strong" x="280" y="65" text-anchor="middle">Qdrant Vector Store</text>
+                  <text class="rag-label-small" x="280" y="81" text-anchor="middle">Semantic search</text>
+                  <rect class="rag-box-accent" x="174" y="104" width="212" height="48"/>
+                  <text class="rag-label-strong" x="280" y="125" text-anchor="middle">LLaMA 3.3-70B (Groq)</text>
+                  <text class="rag-label-small" x="280" y="141" text-anchor="middle">Generation + SSE streaming</text>
+                  <rect class="rag-box" x="174" y="164" width="212" height="36"/>
+                  <text class="rag-label-strong" x="280" y="187" text-anchor="middle">FastAPI Backend</text>
+                  <rect class="rag-box" x="174" y="210" width="102" height="36"/>
+                  <text class="rag-label-strong" x="225" y="233" text-anchor="middle">PostgreSQL</text>
+                  <rect class="rag-box" x="284" y="210" width="102" height="36"/>
+                  <text class="rag-label-strong" x="335" y="233" text-anchor="middle">Redis</text>
                   <!-- Output zone -->
-                  <rect class="rag-zone" x="418" y="10" width="140" height="240"/>
-                  <text class="rag-label" x="488" y="28" text-anchor="middle" fill="#58d5ff" font-size="8" font-weight="700">OUTPUT</text>
-                  <rect class="rag-box" x="433" y="42" width="110" height="40"/>
-                  <text class="rag-label-strong" x="488" y="60" text-anchor="middle">Next.js Frontend</text>
-                  <text class="rag-label" x="488" y="72" text-anchor="middle" fill="#747c89" font-size="8">Chat UI</text>
-                  <rect class="rag-box" x="433" y="98" width="110" height="32"/>
-                  <text class="rag-label-strong" x="488" y="118" text-anchor="middle">SSE Streaming</text>
+                  <rect class="rag-zone" x="412" y="10" width="150" height="244"/>
+                  <text class="rag-label" x="487" y="30" text-anchor="middle" fill="#58d5ff" font-size="8" font-weight="700">OUTPUT</text>
+                  <rect class="rag-box" x="424" y="44" width="126" height="48"/>
+                  <text class="rag-label-strong" x="487" y="65" text-anchor="middle">Next.js Frontend</text>
+                  <text class="rag-label-small" x="487" y="81" text-anchor="middle">Chat UI</text>
+                  <rect class="rag-box" x="424" y="104" width="126" height="36"/>
+                  <text class="rag-label-strong" x="487" y="127" text-anchor="middle">SSE Streaming</text>
                   <!-- Security zone -->
-                  <rect class="rag-zone" x="578" y="10" width="130" height="240"/>
-                  <text class="rag-label" x="643" y="28" text-anchor="middle" fill="#70d58b" font-size="8" font-weight="700">SECURITY</text>
-                  <rect class="rag-box" x="588" y="42" width="110" height="28"/>
-                  <text class="rag-label" x="643" y="60" text-anchor="middle" fill="#70d58b" font-size="9">JWT Auth</text>
-                  <rect class="rag-box" x="588" y="78" width="110" height="28"/>
-                  <text class="rag-label" x="643" y="96" text-anchor="middle" fill="#70d58b" font-size="9">RBAC</text>
-                  <rect class="rag-box" x="588" y="114" width="110" height="28"/>
-                  <text class="rag-label" x="643" y="132" text-anchor="middle" fill="#70d58b" font-size="9">PII Masking</text>
-                  <rect class="rag-box" x="588" y="150" width="110" height="28"/>
-                  <text class="rag-label" x="643" y="168" text-anchor="middle" fill="#70d58b" font-size="9">Audit Logs</text>
-                  <rect class="rag-box" x="588" y="186" width="110" height="28"/>
-                  <text class="rag-label" x="643" y="204" text-anchor="middle" fill="#70d58b" font-size="9">Rate Limiting</text>
+                  <rect class="rag-zone" x="574" y="10" width="178" height="244"/>
+                  <text class="rag-label" x="663" y="30" text-anchor="middle" fill="#70d58b" font-size="8" font-weight="700">SECURITY</text>
+                  <rect class="rag-box" x="586" y="44" width="154" height="30"/>
+                  <text class="rag-label" x="663" y="63" text-anchor="middle" fill="#70d58b" font-size="9">JWT Auth</text>
+                  <rect class="rag-box" x="586" y="84" width="154" height="30"/>
+                  <text class="rag-label" x="663" y="103" text-anchor="middle" fill="#70d58b" font-size="9">RBAC</text>
+                  <rect class="rag-box" x="586" y="124" width="154" height="30"/>
+                  <text class="rag-label" x="663" y="143" text-anchor="middle" fill="#70d58b" font-size="9">PII Masking</text>
+                  <rect class="rag-box" x="586" y="164" width="154" height="30"/>
+                  <text class="rag-label" x="663" y="183" text-anchor="middle" fill="#70d58b" font-size="9">Audit Logs</text>
+                  <rect class="rag-box" x="586" y="204" width="154" height="30"/>
+                  <text class="rag-label" x="663" y="223" text-anchor="middle" fill="#70d58b" font-size="9">Rate Limiting</text>
                   <!-- Arrows -->
-                  <line class="rag-arrow" x1="128" y1="56" x2="183" y2="62"/>
-                  <line class="rag-arrow" x1="73" y1="72" x2="73" y2="82"/>
-                  <line class="rag-arrow" x1="73" y1="114" x2="73" y2="124"/>
-                  <line class="rag-arrow" x1="128" y1="140" x2="183" y2="118"/>
-                  <line class="rag-arrow" x1="278" y1="82" x2="278" y2="98"/>
-                  <line class="rag-arrow" x1="278" y1="138" x2="278" y2="154"/>
-                  <line class="rag-arrow" x1="373" y1="170" x2="433" y2="62"/>
-                  <line class="rag-arrow-green" x1="588" y1="56" x2="533" y2="56"/>
+                  <line class="rag-arrow" x1="138" y1="67" x2="174" y2="68"/>
+                  <line class="rag-arrow" x1="78" y1="90" x2="78" y2="100"/>
+                  <line class="rag-arrow" x1="78" y1="136" x2="78" y2="146"/>
+                  <line class="rag-arrow" x1="136" y1="169" x2="174" y2="128"/>
+                  <line class="rag-arrow" x1="280" y1="92" x2="280" y2="104"/>
+                  <line class="rag-arrow" x1="280" y1="152" x2="280" y2="164"/>
+                  <line class="rag-arrow" x1="386" y1="182" x2="424" y2="88"/>
+                  <line class="rag-arrow-green" x1="586" y1="59" x2="550" y2="66"/>
                 </svg>
               </div>
               <div class="tags"><span class="tag blue">FastAPI</span><span class="tag blue">RAG</span><span class="tag blue">PostgreSQL</span><span class="tag green">Security</span></div>
@@ -180,7 +256,7 @@
       <footer class="footer mono">Projects page - software, AI and cybersecurity case studies for PFE review.<small>Last updated: September 2026</small></footer>
     </main>
   </div>
-  <script src="assets/lang.js?v=20261008-term" defer></script>
-  <script src="assets/main.js?v=20261008-term" defer></script>
+  <script src="assets/lang.js?v=20261008-archi" defer></script>
+  <script src="assets/main.js?v=20261008-archi" defer></script>
 </body>
 </html>

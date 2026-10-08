@@ -16,36 +16,60 @@
   var CV_FR_URL = "assets/cv/cv_pfa_cybersecurite_kossi_richard_allado.pdf?v=20260702-main-cv";
   function cvUrl() { return currentLang() === "fr" ? CV_FR_URL : CV_EN_URL; }
 
-  /* ---------- Boot preloader ---------- */
+  /* ---------- Staged boot terminal (fast, tied to real load) ---------- */
   function initBoot() {
     if (document.getElementById("boot")) return;
     var seen = false;
     try { seen = sessionStorage.getItem("ak-boot-seen") === "1"; } catch (e) {}
+    document.body.classList.add("loaded");
+    if (reducedMotion) {
+      try { sessionStorage.setItem("ak-boot-seen", "1"); } catch (e) {}
+      return;
+    }
     var boot = document.createElement("div");
     boot.id = "boot";
     boot.setAttribute("aria-hidden", "true");
-    boot.innerHTML =
-      '<div class="boot-box">' +
-      '<div class="b-line"><span class="b-prompt">root@allakori:~$</span><span>./init_portfolio.sh</span></div>' +
-      '<div class="b-line"><span class="b-ok">[ok]</span><span>loading proof, labs, writeups...</span></div>' +
-      '<div class="b-line"><span class="b-ok">[ok]</span><span>access granted</span></div>' +
-      '<div class="boot-bar"><i></i></div></div>';
+    boot.innerHTML = '<div class="boot-box"><div class="boot-lines"></div><div class="boot-bar"><i></i></div></div>';
     document.body.appendChild(boot);
-    requestAnimationFrame(function () { document.body.classList.add("loaded"); });
-    var ms = reducedMotion ? 60 : (seen ? 380 : 950);
-    setTimeout(function () {
+    var linesBox = boot.querySelector(".boot-lines");
+    var steps = [
+      ["./init_portfolio.sh --pfe-2027", "prompt"],
+      ["mounting proof / labs / writeups ...", "ok"],
+      ["linking htb + thm profiles ...", "ok"],
+      ["compiling hacker effects ...", "ok"],
+      ["access granted — welcome, recruiter", "ok"]
+    ];
+    var seq = seen ? [steps[0], steps[steps.length - 1]] : steps;
+    var li = 0, fast = seen, finished = false;
+    window.addEventListener("load", function () { fast = true; });
+    function finish() {
+      if (finished) return;
+      finished = true;
       boot.classList.add("done");
-      document.body.classList.add("loaded");
       try { sessionStorage.setItem("ak-boot-seen", "1"); } catch (e) {}
       setTimeout(function () { if (boot.parentNode) boot.parentNode.removeChild(boot); }, 350);
-    }, ms);
-    // Safety: never block page
-    setTimeout(function () {
-      if (document.getElementById("boot")) {
-        boot.classList.add("done");
-        document.body.classList.add("loaded");
-      }
-    }, 2200);
+    }
+    function addLine() {
+      if (finished) return;
+      if (li >= seq.length) { finish(); return; }
+      var s = seq[li];
+      var div = document.createElement("div");
+      div.className = "b-line";
+      if (s[1] === "prompt") div.innerHTML = '<span class="b-prompt">root@allakori:~$</span><span></span>';
+      else div.innerHTML = '<span class="b-ok">[ok]</span><span></span>';
+      linesBox.appendChild(div);
+      var target = div.querySelector("span:last-child");
+      var full = s[0], ci = 0;
+      (function tick() {
+        if (finished) return;
+        ci += fast ? 6 : 3;
+        target.textContent = full.slice(0, ci);
+        if (ci < full.length) setTimeout(tick, fast ? 4 : 11);
+        else { li++; setTimeout(addLine, fast ? 40 : 110); }
+      })();
+    }
+    addLine();
+    setTimeout(finish, 2600); // absolute safety: never trap the visitor
   }
 
   /* ---------- Matrix rain (very subtle) ---------- */
@@ -411,6 +435,143 @@
     });
   }
 
+  /* ---------- Interactive terminal (real input, simulated shell) ---------- */
+  var TERM_FILES = {
+    "about.txt": "Kossi Richard Allado — Cybersecurity & AI engineering student (ENSA Beni Mellal).\nPFE 2027 target: SOC/DFIR, Offensive Security, AI Security, secure software.\nMethod: reproduce, document, explain, connect to real security operations.",
+    "skills.txt": "[blue]  Splunk, auditd, Volatility, IOC reasoning, timelines\n[red]   SQLi/XSS, CTF, enumeration, MITM understanding\n[id]    Keycloak, MFA/TOTP, PKI, SSH hardening, RBAC\n[ai]    RAG (FastAPI/Next.js/Postgres), scikit-learn, local LLMs",
+    "contact.txt": "mail:  alladokossirichard2025@gmail.com\nlinkedin: /in/kossi-richard-allado-50177b2a5\ngithub: @ALLAKORI\nbase:  Beni Mellal, Morocco (FR/EN)",
+    "pfe.txt": "Seeking: final-year internship (PFE 2027), cybersecurity focus.\nCompleted PFA: CyberVeille PME with CMRPI (URL threat intel MVP).\nOpen to: SOC/DFIR, offensive security, AI security, secure software.",
+    "ctf.txt": "CSIA CTF 2026 ....... 1st place (GHOSTSHELL)\nTryHackMe ............ Top 1% globally\nHTB Season 11 ........ 11 machines documented (see writeups page)\nCiteFlag 2026 ........ finalist, 6th place"
+  };
+  function initTerminal() {
+    if (document.getElementById("term")) return;
+    var overlay = document.createElement("div");
+    overlay.id = "term";
+    overlay.innerHTML =
+      '<div class="term-box" role="dialog" aria-label="Interactive terminal">' +
+      '<div class="term-head"><span class="terminal-top"><span></span><span></span><span></span></span><span class="term-title">allakori — zsh</span><button type="button" id="term-close" aria-label="Close terminal">×</button></div>' +
+      '<div class="term-out" id="term-out"></div>' +
+      '<div class="term-row"><span class="b-prompt">visitor@allakori:~$</span><input id="term-in" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal input" placeholder="try: help" /></div></div>';
+    document.body.appendChild(overlay);
+    var out = $("#term-out", overlay);
+    var input = $("#term-in", overlay);
+    var hist = [], hi = -1;
+
+    function print(text, cls) {
+      var div = document.createElement("div");
+      div.className = "term-line" + (cls ? " " + cls : "");
+      div.textContent = text;
+      out.appendChild(div);
+      while (out.children.length > 200) out.removeChild(out.firstChild);
+      out.scrollTop = out.scrollHeight;
+    }
+    function printCmd(cmd) {
+      var div = document.createElement("div");
+      div.className = "term-line term-echo";
+      div.textContent = "visitor@allakori:~$ " + cmd;
+      out.appendChild(div);
+    }
+    var CMDS = {
+      help: function () {
+        print("available commands:", "t-dim");
+        print("  help        this message");
+        print("  whoami      who is this guy?");
+        print("  ls          list ~/ files");
+        print("  cat <file>  read a file (try: cat about.txt)");
+        print("  skills      stack overview");
+        print("  ctf         CTF record");
+        print("  contact     how to reach me");
+        print("  cv          download the CV (follows site language)");
+        print("  htb/thm/gh/in  open profiles");
+        print("  date        current date");
+        print("  echo <txt>  say something");
+        print("  clear       wipe the screen");
+        print("  exit        close the terminal");
+      },
+      whoami: function () { print("Kossi Richard Allado — future PFE 2027 intern, hired soon (hopefully by you).", "t-ok"); },
+      ls: function () { print("about.txt  skills.txt  contact.txt  pfe.txt  ctf.txt  cv.pdf"); },
+      skills: function () { print(TERM_FILES["skills.txt"]); },
+      contact: function () { print(TERM_FILES["contact.txt"]); },
+      pfe: function () { print(TERM_FILES["pfe.txt"]); },
+      ctf: function () { print(TERM_FILES["ctf.txt"]); },
+      date: function () { print(new Date().toString()); },
+      clear: function () { out.innerHTML = ""; },
+      exit: function () { close(); },
+      cv: function () { print("opening CV... (" + cvUrl() + ")", "t-ok"); window.open(cvUrl(), "_blank"); },
+      htb: function () { print("opening HackTheBox profile @allakori ...", "t-ok"); window.open("https://profile.hackthebox.com/profile/019d03a0-4529-7233-b8f5-6fe1e7a7e02b", "_blank"); },
+      thm: function () { print("opening TryHackMe profile (Top 1%) ...", "t-ok"); window.open("https://tryhackme.com/p/allakori", "_blank"); },
+      gh: function () { print("opening GitHub @ALLAKORI ...", "t-ok"); window.open("https://github.com/ALLAKORI", "_blank"); },
+      in: function () { print("opening LinkedIn ...", "t-ok"); window.open("https://www.linkedin.com/in/kossi-richard-allado-50177b2a5", "_blank"); },
+      github: function () { CMDS.gh(); },
+      linkedin: function () { CMDS.in(); },
+      email: function () {
+        var mail = "alladokossirichard2025@gmail.com";
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(mail);
+        print(mail + "  (copied to clipboard)", "t-ok");
+      },
+      sudo: function () { print("[sudo] allakori is already root. Nice try.", "t-err"); },
+      banner: function () { print("  ___  _    _      _              _", "t-ok"); print(" / _ || |  | |    | |   __ _  | |__   ___  _ __  _", "t-ok"); print(" |(_)|| |  | |__  | |  / _` | | '_ \\ / _ \\| '__|(_)", "t-ok"); print("  __ _| |__|____| | |_| (_| | | |_) | (_) | |    _", "t-ok"); print(" |___|____|      |_|\\__,_| |_.__/ \\___/|_|   (_)", "t-ok"); }
+    };
+    function run(raw) {
+      var cmd = (raw || "").trim();
+      if (!cmd) return;
+      printCmd(cmd);
+      hist.push(cmd); hi = hist.length;
+      var parts = cmd.split(/\s+/);
+      var base = parts[0].toLowerCase();
+      if (base === "cat") {
+        var f = (parts[1] || "").toLowerCase();
+        if (!f) print("usage: cat <file>   (try: ls first)", "t-err");
+        else if (f === "cv.pdf" || f === "cv") CMDS.cv();
+        else if (TERM_FILES[f]) print(TERM_FILES[f]);
+        else print("cat: " + parts[1] + ": no such file — try 'ls'", "t-err");
+        return;
+      }
+      if (base === "echo") { print(parts.slice(1).join(" ")); return; }
+      if (CMDS[base]) { CMDS[base](); return; }
+      print(cmd.split(/\s+/)[0] + ": command not found — try 'help'", "t-err");
+    }
+    function open() {
+      overlay.classList.add("open");
+      if (!out.children.length) {
+        print("connected to allakori-secure-shell v2.6 — type 'help' to start.", "t-dim");
+        print("tip: 'cat ctf.txt' is worth it.", "t-dim");
+      }
+      setTimeout(function () { input.focus(); }, 60);
+    }
+    function close() { overlay.classList.remove("open"); input.blur(); }
+    function isOpen() { return overlay.classList.contains("open"); }
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { run(input.value); input.value = ""; }
+      else if (e.key === "ArrowUp") { e.preventDefault(); if (hist.length) { hi = Math.max(0, hi - 1); input.value = hist[hi] || ""; } }
+      else if (e.key === "ArrowDown") { e.preventDefault(); if (hist.length) { hi = Math.min(hist.length, hi + 1); input.value = hist[hi] || ""; } }
+    });
+    overlay.addEventListener("click", function (e) {
+      if (e.target === overlay) close();
+      else if (e.target !== input) input.focus();
+    });
+    $("#term-close", overlay).addEventListener("click", close);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && isOpen()) close();
+      else if ((e.ctrlKey || e.metaKey) && e.key === "`") { e.preventDefault(); isOpen() ? close() : open(); }
+    });
+    // Entry points: topline chip + palette action
+    var topline = $(".topline");
+    if (topline) {
+      var chip = document.createElement("button");
+      chip.className = "palette-hint term-hint";
+      chip.type = "button";
+      chip.innerHTML = '<span class="b-prompt">&gt;_</span> terminal';
+      chip.addEventListener("click", open);
+      topline.appendChild(chip);
+    }
+    try {
+      document.addEventListener("portfolio-term-open", open);
+    } catch (e) {}
+    // Expose opener for the palette (registered when palette builds its list)
+    window.__openTerminal = open;
+  }
+
   /* ---------- Command palette Ctrl+K ---------- */
   function initPalette() {
     var overlay = document.createElement("div");
@@ -429,6 +590,7 @@
       { name: "Go Writeups", hint: "04", run: function () { go("writeups.html"); } },
       { name: "Go Projects", hint: "05", run: function () { go("projects.html"); } },
       { name: "Download CV (PFE 2027)", hint: "cv", run: function () { window.open(cvUrl(), "_blank"); } },
+      { name: "Open interactive terminal", hint: "term", run: function () { if (window.__openTerminal) window.__openTerminal(); } },
       { name: "Copy email", hint: "mail", run: function () { copyEmail(); } },
       { name: "Open TryHackMe profile", hint: "thm", run: function () { window.open("https://tryhackme.com/p/allakori", "_blank"); } },
       { name: "Open HackTheBox profile", hint: "htb", run: function () { window.open("https://profile.hackthebox.com/profile/019d03a0-4529-7233-b8f5-6fe1e7a7e02b", "_blank"); } },
@@ -889,6 +1051,7 @@
     initCycleSteps();
     initCursor();
     initPalette();
+    initTerminal();
     initLightbox();
     initFilters();
     initCopyEmail();

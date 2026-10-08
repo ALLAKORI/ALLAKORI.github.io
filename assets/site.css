@@ -2200,7 +2200,7 @@ body.cursor-hot #cursor-ring { width: 46px; height: 46px; margin: -23px 0 0 -23p
 @media (prefers-reduced-motion: reduce) {
   .ticker-track, .hero::before, .live-dot, .availability::before { animation: none !important; }
   #cursor-dot, #cursor-ring { display: none; }
-  .term-box { animation: none; }
+  .term-box, .hero-terminal { animation: none; }
 }
 
 /* ============ INTERACTIVE TERMINAL v20261008-term ============ */
@@ -2234,7 +2234,8 @@ body.cursor-hot #cursor-ring { width: 46px; height: 46px; margin: -23px 0 0 -23p
   inherits: false;
 }
 @supports (background: conic-gradient(from 0deg, red, blue)) {
-  .term-box {
+  .term-box,
+  .hero-terminal {
     border: 1px solid transparent;
     background:
       linear-gradient(#0a0d12, #0a0d12) padding-box,
@@ -2248,6 +2249,9 @@ body.cursor-hot #cursor-ring { width: 46px; height: 46px; margin: -23px 0 0 -23p
         rgba(112, 213, 139, 0.35) 67%,
         rgba(88, 213, 255, 0.12) 75%) border-box;
     animation: boltspin 6s linear infinite, boltbreathe 3.2s ease-in-out infinite;
+  }
+  .hero-terminal {
+    position: relative;
   }
 }
 @keyframes boltspin {

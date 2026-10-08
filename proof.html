@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0d1014" />
+  <meta property="og:type" content="website" />
   <meta name="description" content="Verification hub for Kossi Richard Allado: certificates, CTF results, transcripts, badges and platform proof." />
   <meta property="og:title" content="Proof | Kossi Richard Allado" />
   <meta property="og:description" content="Certificates, transcripts, CTF achievements and verification links for Kossi Richard Allado's cybersecurity portfolio." />
@@ -13,14 +15,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/site.css?v=20260917-animations" />
+  <link rel="stylesheet" href="assets/site.css?v=20261008-htb" />
 </head>
 <body>
   <div class="shell">
     <aside class="sidebar">
       <div>
         <div class="profile">
-          <img class="avatar" src="richard.jpg" alt="Kossi Richard Allado" />
+          <img class="avatar" src="richard.jpg" alt="Kossi Richard Allado" fetchpriority="high" decoding="async" />
           <div>
             <div class="name">Kossi Richard Allado</div>
             <p class="role">Certificates, transcripts, CTF results and verification links.</p>
@@ -39,6 +41,7 @@
         <a href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noreferrer">In</a>
         <a href="mailto:alladokossirichard2025@gmail.com">@</a>
         <a href="https://tryhackme.com/p/allakori" target="_blank" rel="noreferrer">THM</a>
+        <a href="https://profile.hackthebox.com/profile/019d03a0-4529-7233-b8f5-6fe1e7a7e02b" target="_blank" rel="noreferrer">HTB</a>
       </div>
     </aside>
 
@@ -68,7 +71,7 @@
             </div>
           </div>
           <a class="feature-media achievement-media" href="assets/ctf/csia-ctf-2026-team-photo.jpg?v=20260505-team" target="_blank" rel="noreferrer">
-            <img src="assets/ctf/csia-ctf-2026-team-photo.jpg?v=20260505-team" alt="GHOSTSHELL team holding CSIA CTF 2026 certificates" />
+            <img src="assets/ctf/csia-ctf-2026-team-photo.jpg?v=20260505-team" loading="lazy" decoding="async" alt="GHOSTSHELL team holding CSIA CTF 2026 certificates" />
           </a>
         </div>
       </section>
@@ -81,6 +84,10 @@
           </div>
         </div>
         <div class="grid grid-3">
+          <article class="card proof-card">
+            <div><div class="proof-top"><p class="meta">HackTheBox</p><span class="mark">HTB</span></div><h3>@allakori profile</h3><p>Public HTB profile — Kossi Richard Allado, Morocco. Badges and Season 11 active-machine work documented in the writeups repo.</p></div>
+            <div class="proof-links"><a class="btn primary" href="https://profile.hackthebox.com/profile/019d03a0-4529-7233-b8f5-6fe1e7a7e02b" target="_blank" rel="noreferrer">HTB Profile</a><a class="btn" href="https://github.com/ALLAKORI/htb-season-11-writeups" target="_blank" rel="noreferrer">Season 11 repo</a></div>
+          </article>
           <article class="card proof-card">
             <div><div class="proof-top"><p class="meta">Cisco Networking Academy</p><span class="mark">EH</span></div><h3>Ethical Hacker</h3><p>Completed on 15 Nov 2025.</p></div>
             <div class="proof-links"><a class="btn primary" href="assets/certifications/cisco-ethical-hacker.pdf" target="_blank" rel="noreferrer">Certificate</a><a class="btn" href="assets/certifications/cisco-ethical-hacker-badge.png" target="_blank" rel="noreferrer">Badge</a></div>
@@ -171,7 +178,7 @@
       <footer class="footer mono">Proof page - certificates, CTFs, transcripts and verification links.<small>Last updated: September 2026</small></footer>
     </main>
   </div>
-  <script src="assets/lang.js?v=20260506-portfolio"></script>
-  <script src="assets/main.js?v=20260917-animations" defer></script>
+  <script src="assets/lang.js?v=20261008-htb" defer></script>
+  <script src="assets/main.js?v=20261008-htb" defer></script>
 </body>
 </html>

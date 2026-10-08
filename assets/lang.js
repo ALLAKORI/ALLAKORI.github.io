@@ -191,7 +191,12 @@ const translations = {
   "I can share more details about the AI projects, cybersecurity labs and how they fit a PFE internship.": "Je peux partager plus de details sur les projets IA, les labs cybersecurite et leur lien avec un PFE.",
   "Email": "Email",
   "GitHub": "GitHub",
-  "LinkedIn": "LinkedIn"
+  "LinkedIn": "LinkedIn",
+  "HackTheBox": "HackTheBox",
+  "HTB Profile": "Profil HTB",
+  "Season 11 repo": "Repo Season 11",
+  "@allakori profile": "profil @allakori",
+  "Public HTB profile — Kossi Richard Allado, Morocco. Badges and Season 11 active-machine work documented in the writeups repo.": "Profil public HTB — Kossi Richard Allado, Maroc. Badges et travail Season 11 documentes dans le repo writeups."
 };
 
 const hrefs = {
@@ -209,77 +214,124 @@ const navLabels = {
 };
 
 function textKey(element) {
-  return element.innerHTML.replace(/\s+/g, " ").trim();
+  return (element.textContent || "").replace(/\s+/g, " ").trim();
 }
 
-function translateNav() {
-  document.querySelectorAll(".nav a").forEach((link) => {
-    const number = link.querySelector("span")?.outerHTML || "";
-    const label = link.textContent.replace(/\d+/g, "").trim();
-    if (navLabels[label]) link.innerHTML = `${number} ${navLabels[label]}`;
+var SKIP_LANG_SELECTOR = ".terminal-lines, #palette, #boot, #matrix-bg, #lightbox, pre, code, svg, script, style, .boot-box, .palette-box, .filter-toolbar";
+
+function shouldSkip(el) {
+  try {
+    if (el.closest && el.closest(SKIP_LANG_SELECTOR)) return true;
+  } catch (e) {}
+  return false;
+}
+
+function translateNav(lang) {
+  document.querySelectorAll(".nav a").forEach(function (link) {
+    if (shouldSkip(link)) return;
+    var num = link.querySelector("span");
+    var numHtml = num ? num.outerHTML : "";
+    // Recover original EN label if stored
+    var orig = link.getAttribute("data-orig-label");
+    var label;
+    if (!orig) {
+      label = link.textContent.replace(/[0-9]+/g, "").trim();
+      link.setAttribute("data-orig-label", label);
+      orig = label;
+    } else {
+      label = orig;
+    }
+    if (lang === "fr" && navLabels[orig]) {
+      link.innerHTML = numHtml + " " + navLabels[orig];
+    } else if (lang === "en") {
+      link.innerHTML = numHtml + " " + orig;
+    }
   });
 }
 
 function applyLanguage(lang) {
-  localStorage.setItem("portfolio-lang", lang);
-  if (lang === "en") {
-    location.reload();
-    return;
-  }
-
+  try { localStorage.setItem("portfolio-lang", lang); } catch (e) {}
   document.documentElement.lang = lang;
-  document.querySelectorAll("[data-en]").forEach((element) => {
-    element.innerHTML = lang === "fr" ? element.dataset.fr : element.dataset.en;
+
+  // data-en / data-fr explicit attributes first
+  document.querySelectorAll("[data-en]").forEach(function (element) {
+    if (shouldSkip(element)) return;
+    if (!element.getAttribute("data-orig-html")) {
+      element.setAttribute("data-orig-html", element.innerHTML);
+    }
+    if (lang === "fr" && element.dataset.fr) element.innerHTML = element.dataset.fr;
+    else if (lang === "en") element.innerHTML = element.dataset.en || element.getAttribute("data-orig-html");
   });
 
-  if (lang === "fr") {
-    document.querySelectorAll("body *:not(script):not(style)").forEach((element) => {
-      if (element.children.length === 0) {
-        const key = textKey(element);
-        if (translations[key]) element.innerHTML = translations[key];
-      } else {
-        const key = textKey(element);
-        if (translations[key]) element.innerHTML = translations[key];
+  // Dictionary pass: leaf-ish elements only, text-node safe via stored original
+  document.querySelectorAll("p, h1, h2, h3, span, a, li, strong, small, div.crumb, div.mono").forEach(function (element) {
+    if (shouldSkip(element)) return;
+    // Skip elements with nested cards/lists to avoid clobbering markup
+    if (element.children.length > 3) return;
+    // Skip nav links (handled separately) and buttons with handlers content
+    if (element.closest && element.closest(".nav")) return;
+    if (element.classList && (element.classList.contains("filter-btn") || element.classList.contains("copy-btn"))) return;
+    var key = element.getAttribute("data-orig-key");
+    var current = textKey(element);
+    if (!key) {
+      // First pass: current should be EN
+      if (!translations[current]) return;
+      element.setAttribute("data-orig-key", current);
+      element.setAttribute("data-orig-html", element.innerHTML);
+      key = current;
+    }
+    if (lang === "fr") {
+      if (translations[key]) {
+        // Preserve leading number span if present (e.g. nav handled elsewhere, but safe)
+        element.innerHTML = translations[key];
       }
-    });
-    document.querySelectorAll("a[href]").forEach((link) => {
-      if (hrefs[link.href]) link.href = hrefs[link.href];
-    });
-    translateNav();
-  }
+    } else {
+      var origHtml = element.getAttribute("data-orig-html");
+      if (origHtml) element.innerHTML = origHtml;
+    }
+  });
 
-  document.querySelectorAll("[data-lang-choice]").forEach((button) => {
+  // Hrefs FR variants (labs READMEs)
+  document.querySelectorAll("a[href]").forEach(function (link) {
+    if (shouldSkip(link)) return;
+    if (!link.getAttribute("data-orig-href")) link.setAttribute("data-orig-href", link.getAttribute("href"));
+    var origHref = link.getAttribute("data-orig-href");
+    if (lang === "fr" && hrefs[origHref]) link.setAttribute("href", hrefs[origHref]);
+    else if (lang === "en" && origHref) link.setAttribute("href", origHref);
+  });
+
+  translateNav(lang);
+
+  document.querySelectorAll("[data-lang-choice]").forEach(function (button) {
     button.classList.toggle("active", button.dataset.langChoice === lang);
     button.setAttribute("aria-pressed", button.dataset.langChoice === lang ? "true" : "false");
   });
 
+  try { document.dispatchEvent(new CustomEvent("portfolio-lang-changed", { detail: { lang: lang } })); } catch (e) {}
 }
 
 function initLanguageSwitch() {
-  document.querySelectorAll(".sidebar > div:first-child").forEach((container) => {
-    const switcher = document.createElement("div");
+  document.querySelectorAll(".sidebar > div:first-child").forEach(function (container) {
+    if (container.querySelector(".lang-switch")) return;
+    var switcher = document.createElement("div");
     switcher.className = "lang-switch";
     switcher.setAttribute("aria-label", "Language switcher");
     switcher.innerHTML = '<button type="button" data-lang-choice="en">EN</button><button type="button" data-lang-choice="fr">FR</button>';
     container.appendChild(switcher);
   });
 
-  document.querySelectorAll("[data-lang-choice]").forEach((button) => {
-    button.addEventListener("click", () => applyLanguage(button.dataset.langChoice));
+  document.querySelectorAll("[data-lang-choice]").forEach(function (button) {
+    button.addEventListener("click", function () { applyLanguage(button.dataset.langChoice); });
   });
 
-  const params = new URLSearchParams(window.location.search);
-  const requested = params.get("lang");
-  const saved = localStorage.getItem("portfolio-lang");
-  const lang = requested === "fr" || saved === "fr" ? "fr" : "en";
-  if (lang === "fr") applyLanguage("fr");
-  else {
-    document.querySelectorAll("[data-lang-choice='en']").forEach((button) => {
-      button.classList.add("active");
-      button.setAttribute("aria-pressed", "true");
-    });
-  }
-
+  var lang = "en";
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var requested = params.get("lang");
+    var saved = localStorage.getItem("portfolio-lang");
+    lang = requested === "fr" || saved === "fr" ? "fr" : "en";
+  } catch (e) {}
+  applyLanguage(lang);
 }
 
 document.addEventListener("DOMContentLoaded", initLanguageSwitch);

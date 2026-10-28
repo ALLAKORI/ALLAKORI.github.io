@@ -916,32 +916,10 @@
 
   /* ---------- Scramble headings on scroll into view ---------- */
   function initScrambleView() {
-    if (reducedMotion) return;
-    var heads = $$("h1, h2").filter(function (h) { return !h.dataset.scrambled; });
-    if (!heads.length || !("IntersectionObserver" in window)) return;
-    var glyphs = "!<>-_\\/[]{}=+*^?#01";
-    function scramble(h) {
-      if (h.dataset.scrambled) return;
-      h.dataset.scrambled = "1";
-      var original = h.textContent;
-      if (original.length > 90) return;
-      var iter = 0, total = 10;
-      var iv = setInterval(function () {
-        h.textContent = original.split("").map(function (ch, i) {
-          if (ch === " " || ch === "\n") return ch;
-          if (i < (iter / total) * original.length) return original[i];
-          return glyphs[Math.floor(Math.random() * glyphs.length)];
-        }).join("");
-        iter++;
-        if (iter > total) { clearInterval(iv); h.textContent = original; }
-      }, 28);
-    }
-    var obs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { scramble(en.target); obs.unobserve(en.target); }
-      });
-    }, { threshold: 0.5 });
-    heads.forEach(function (h) { obs.observe(h); });
+    // Keep headings stable for accessibility, SEO and text extraction.
+    // The former scroll scramble briefly replaced real headings with random
+    // glyphs and could leave crawlers with corrupted text.
+    return;
   }
 
   /* ---------- Skills ticker injected after hero ---------- */

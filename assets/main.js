@@ -1012,27 +1012,14 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    initBoot();
-    initMatrix();
-    initSpotlight();
-    initReveal();
+    // Keep the portfolio immediately readable: decorative motion stays off by default.
     initTyping();
-    initRotator();
-    initCounters();
     initProgress();
-    initTilt();
-    initMagnetic();
-    initScramble();
     initScrambleView();
-    initTicker();
-    initLiveClock();
-    initCycleSteps();
-    initCursor();
     initPalette();
     initTerminal();
     initLightbox();
     initFilters();
     initCopyEmail();
-    initTransitions();
   });
 })();

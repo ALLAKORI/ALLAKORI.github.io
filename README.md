@@ -16,6 +16,17 @@ The portfolio presents a concise professional profile for PFE 2027 internship an
 - `writeups.html`: selected CTF and Active Directory writeup previews
 - `projects.html`: AI, machine learning, and chatbot case studies
 
+## Public Project Architecture
+
+The GitHub account keeps one repository per autonomous project and groups only closely related academic labs:
+
+- Module collections: `linux-security-labs`, `cybersecurity-iam-labs`, and `cryptography-labs`.
+- Standalone projects: the Linux compromise/forensics lab, pump fault prediction, NLP classification, and chatbot work.
+- Event collections: one repository per CTF or competition.
+- Portfolio-only case studies: sanitized summaries for work that should not expose source data or internal documents.
+
+The portfolio is the navigation layer. It links recruiters to the strongest evidence without turning every academic file into one large repository.
+
 The work is grouped around:
 
 - Cybersecurity writeup previews
@@ -43,6 +54,13 @@ The work is grouped around:
 - `linux-security-labs`
 - `cybersecurity-iam-labs`
 - `cryptography-labs`
+- `ALLAKORI-profile`
+
+## Publication Boundaries
+
+- Public pages contain sanitized summaries, reproducible academic work and authorized or retired writeups.
+- Internal internship documents, supplied datasets, supervisor information and confidential reports are not part of this portfolio repository.
+- Active Hack The Box notes remain private until publication is allowed.
 
 ## Stack
 

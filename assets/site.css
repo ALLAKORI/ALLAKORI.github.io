@@ -2358,3 +2358,46 @@ body.cursor-hot #cursor-ring { width: 46px; height: 46px; margin: -23px 0 0 -23p
 .term-hint .b-prompt { color: var(--green); font-weight: 800; }
 /* Boot lines container */
 .boot-lines { display: grid; gap: 6px; min-height: 110px; }
+
+/* Recruiter evidence and current printable CV */
+.recruiter-work .evidence-card { display:flex; flex-direction:column; border-color:rgba(88,213,255,.2); }
+.recruiter-work .evidence-card h3 { margin-bottom:8px; }
+.recruiter-work .evidence-card .actions { margin-top:auto; padding-top:16px; }
+a:focus-visible,button:focus-visible { outline:2px solid var(--cyan);outline-offset:3px; }
+.cv-sheet{max-width:940px;margin:18px auto 0;padding:clamp(20px,3vw,36px);background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.cv-sheet h1{font-size:clamp(1.9rem,3vw,2.6rem)}
+.cv-head{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:12px}
+.cv-head p,.cv-section p{color:var(--muted);line-height:1.6;margin:5px 0}
+.cv-head a,.cv-section a{color:var(--cyan)}
+.cv-links{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px}
+.cv-section{padding:13px 0;border-bottom:1px solid var(--line-soft)}
+.cv-section:last-child{border:0}
+.cv-section h2{font-size:1.16rem;color:var(--cyan);margin-bottom:8px}
+.cv-row{margin:10px 0}.cv-row strong{display:block}.cv-meta{color:var(--soft);font-size:.82rem}
+.cv-print-button{cursor:pointer;font-family:inherit}
+.cv-list{padding-left:20px;color:var(--muted)}.cv-list li{margin:5px 0;line-height:1.48}
+@media(max-width:840px){.recruiter-work{grid-template-columns:1fr}.cv-sheet{padding:18px}}
+@media print{
+ @page{size:A4;margin:12mm}
+ body,html{background:white!important;color:#172332!important}
+ .sidebar,.topline,.footer,.cv-toolbar,#boot,#term,#cursor-ring,#cursor-dot{display:none!important}
+ .shell{display:block!important}.page{padding:0!important}
+ .cv-sheet{margin:0;padding:0;max-width:none;border:0;background:white!important}
+ .cv-head,.cv-section{border-color:#cbd4de}
+ .cv-head p,.cv-section p,.cv-list{color:#293b4a!important}
+ .cv-section h2,.cv-head a,.cv-section a{color:#173d6d!important}
+ .cv-section,.cv-row{break-inside:avoid}
+}
+
+/* Compact print-only layout to keep the recruiter CV within two A4 pages. */
+@media print {
+  body { font-size: 9pt !important; }
+  .cv-sheet { zoom: .91; }
+  .cv-section { padding: 8px 0 !important; }
+  .cv-section h2 { font-size: 11pt !important; margin-bottom: 3px !important; }
+  .cv-head { padding-bottom: 9px !important; margin-bottom: 5px !important; }
+  .cv-head p, .cv-section p { font-size: 9pt !important; line-height: 1.32 !important; margin: 3px 0 !important; }
+  .cv-list li { font-size: 9pt !important; line-height: 1.32 !important; margin: 2px 0 !important; }
+  .cv-row { margin: 5px 0 !important; }
+  .cv-links { margin-top: 6px !important; }
+}

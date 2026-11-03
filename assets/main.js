@@ -12,8 +12,8 @@
   function currentLang() {
     try { return localStorage.getItem("portfolio-lang") === "fr" ? "fr" : "en"; } catch (e) { return "en"; }
   }
-  var CV_EN_URL = "assets/cv/cv_pfe_2027_software_ai_cybersecurity_allado.pdf?v=20260917-pfe";
-  var CV_FR_URL = "assets/cv/cv_pfa_cybersecurite_kossi_richard_allado.pdf?v=20260702-main-cv";
+  var CV_EN_URL = "cv.html?lang=en";
+  var CV_FR_URL = "cv.html?lang=fr";
   function cvUrl() { return currentLang() === "fr" ? CV_FR_URL : CV_EN_URL; }
 
   /* ---------- Staged boot terminal (fast, tied to real load) ---------- */
@@ -589,7 +589,7 @@
       { name: "Go Labs", hint: "03", run: function () { go("labs.html"); } },
       { name: "Go Writeups", hint: "04", run: function () { go("writeups.html"); } },
       { name: "Go Projects", hint: "05", run: function () { go("projects.html"); } },
-      { name: "Download CV (PFE 2027)", hint: "cv", run: function () { window.open(cvUrl(), "_blank"); } },
+      { name: "View current CV (printable)", hint: "cv", run: function () { window.open(cvUrl(), "_blank"); } },
       { name: "Open interactive terminal", hint: "term", run: function () { if (window.__openTerminal) window.__openTerminal(); } },
       { name: "Copy email", hint: "mail", run: function () { copyEmail(); } },
       { name: "Open TryHackMe profile", hint: "thm", run: function () { window.open("https://tryhackme.com/p/allakori", "_blank"); } },
@@ -1013,7 +1013,8 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     // Keep the portfolio immediately readable: decorative motion stays off by default.
-    initTyping();
+    // Static recruiter profile: avoid clearing the terminal on initial page load.
+    // initTyping();
     initProgress();
     initScrambleView();
     initPalette();

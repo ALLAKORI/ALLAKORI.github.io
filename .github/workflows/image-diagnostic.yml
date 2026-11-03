@@ -1,0 +1,39 @@
+name: Verify CTF images
+on:
+  push:
+    branches:
+      - fix-ctf-team-image-2026-11-03
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect CTF photo and public site
+        run: |
+          python -m pip -q install pillow requests
+          python - <<'PY'
+          import os,requests,io
+          from PIL import Image
+          root="assets/ctf/"
+          for f in ["csia-ctf-2026-team-photo.jpg","csia-ctf-2026-photo.jpg","csia-scoreboard.png","ghostshell-first-place.png"]:
+            p=root+f
+            print("LOCAL",p,os.path.getsize(p),open(p,'rb').read(16).hex(),flush=True)
+            try:
+              im=Image.open(p); im.load()
+              print("PIL_OK",p, im.format,im.size,im.mode, flush=True)
+            except Exception as e:print("PIL_FAIL",p,str(e),flush=True)
+          for f in ["csia-ctf-2026-team-photo.jpg","csia-ctf-2026-photo.jpg","csia-scoreboard.png"]:
+            for host in ["https://allakori.github.io/assets/ctf/","https://raw.githubusercontent.com/ALLAKORI/ALLAKORI.github.io/main/assets/ctf/"]:
+              u=host+f
+              try:
+                r=requests.get(u,timeout=18)
+                print("LIVE",u,"STATUS",r.status_code,"TYPE",r.headers.get("content-type"),"LENGTH",len(r.content),"HEADER",r.content[:16].hex(),flush=True)
+                if r.status_code==200:
+                  try:
+                    im=Image.open(io.BytesIO(r.content));im.load()
+                    print("LIVE_PIL_OK", f, im.size,im.mode,flush=True)
+                  except Exception as e:print("LIVE_PIL_FAIL",f,str(e),flush=True)
+              except Exception as e: print("LIVE_FAIL",u,str(e),flush=True)
+          PY

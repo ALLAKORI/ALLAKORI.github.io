@@ -2388,3 +2388,16 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--cyan);outline-off
  .cv-section h2,.cv-head a,.cv-section a{color:#173d6d!important}
  .cv-section,.cv-row{break-inside:avoid}
 }
+
+/* Compact print-only layout to keep the recruiter CV within two A4 pages. */
+@media print {
+  body { font-size: 9pt !important; }
+  .cv-sheet { zoom: .79; }
+  .cv-section { padding: 8px 0 !important; }
+  .cv-section h2 { font-size: 11pt !important; margin-bottom: 3px !important; }
+  .cv-head { padding-bottom: 9px !important; margin-bottom: 5px !important; }
+  .cv-head p, .cv-section p { font-size: 9pt !important; line-height: 1.32 !important; margin: 3px 0 !important; }
+  .cv-list li { font-size: 9pt !important; line-height: 1.32 !important; margin: 2px 0 !important; }
+  .cv-row { margin: 5px 0 !important; }
+  .cv-links { margin-top: 6px !important; }
+}

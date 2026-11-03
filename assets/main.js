@@ -1013,7 +1013,8 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     // Keep the portfolio immediately readable: decorative motion stays off by default.
-    initTyping();
+    // Static recruiter profile: avoid clearing the terminal on initial page load.
+    // initTyping();
     initProgress();
     initScrambleView();
     initPalette();

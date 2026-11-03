@@ -72,3 +72,10 @@ The work is grouped around:
 ## Local Preview
 
 Open `index.html` directly in a browser.
+
+
+## Public CV and recruiter navigation (November 2026)
+
+The primary **CV** link leads to `cv.html`, a current bilingual résumé with an explicit Print / Save as PDF action. Old PDF variants remain archived under `assets/cv/` but are no longer served by the main navigation or command palette. Public project links lead to reproducible write-ups, documentation or repositories; Chatbot USMS remains private.
+
+Preview `index.html`, `projects.html`, `proof.html`, `labs.html`, `writeups.html` and `cv.html` at desktop and mobile widths and check EN/FR language switching before merging.

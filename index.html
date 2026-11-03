@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/site.css?v=20261029-calm-nav" />
+  <link rel="stylesheet" href="assets/site.css?v=20261103-recruiter" />
 </head>
 <body>
   <div class="shell">
@@ -34,7 +34,7 @@
           <a href="proof.html"><span>02</span> Proof</a>
           <a href="labs.html"><span>03</span> Labs</a>
           <a href="writeups.html"><span>04</span> Writeups</a>
-          <a href="projects.html"><span>05</span> Projects</a>
+          <a href="projects.html"><span>05</span> Projects</a><a href="cv.html"><span>06</span> CV</a>
         </nav>
         <div class="sidebar-status">
           <strong>PFE 2027 target</strong>
@@ -59,19 +59,19 @@
       <section class="hero">
         <div class="hero-grid">
           <div class="hero-copy">
-            <div class="availability">Preparing for PFE 2027 opportunities</div>
+            <div class="availability">Available for a cybersecurity PFE from February 2027</div>
             <h1>Cybersecurity<br>built on <span class="accent">proof</span><br>projects and labs.</h1>
             <p>
-              Cybersecurity & AI engineering student. My work connects SOC/DFIR investigation, Offensive Security labs, Linux security, IAM, AI Security, secure RAG applications and practical documentation.
+              Final-year Cybersecurity & AI engineering student at ENSA Beni Mellal. I work on application security, threat detection and incident investigation, with public technical reports and a completed Threat Intelligence internship.
             </p>
             <div class="stats">
               <div class="stat"><strong>1st</strong><span>CSIA CTF 2026 with GHOSTSHELL</span></div>
               <div class="stat"><strong>Top 1%</strong><span>TryHackMe globally</span></div>
-              <div class="stat"><strong>11</strong><span>HTB Season 11 writeups documented</span></div>
-              <div class="stat"><strong>5+</strong><span>Certifications verified</span></div>
+              <div class="stat"><strong>4</strong><span>Featured security case studies</span></div>
+              <div class="stat"><strong>2027</strong><span>Expected engineering degree</span></div>
             </div>
             <div class="actions">
-              <a class="btn primary" href="assets/cv/cv_pfe_2027_software_ai_cybersecurity_allado.pdf?v=20260917-pfe" target="_blank" rel="noreferrer">Download CV</a>
+              <a class="btn primary" href="cv.html" target="_blank" rel="noreferrer">View current CV</a>
               <a class="btn secondary-link" href="proof.html">View proof</a>
               <a class="btn secondary-link" href="projects.html">Projects</a>
               <a class="btn secondary-link" href="https://tryhackme.com/p/allakori" target="_blank" rel="noreferrer">TryHackMe</a>
@@ -100,7 +100,42 @@
         </div>
       </section>
 
-      <section class="section">
+      
+<section class="section" id="selected-work">
+  <div class="section-head"><div><p class="meta" data-en="Selected work" data-fr="Réalisations sélectionnées">Selected work</p><h2 data-en="Start with four technical case studies." data-fr="Quatre réalisations techniques à consulter en priorité.">Start with four technical case studies.</h2></div><p class="section-note" data-en="Public evidence, technical methodology, results and limitations — no login needed." data-fr="Preuves publiques, méthodologie, résultats et limites — sans connexion.">Public evidence, technical methodology, results and limitations — no login needed.</p></div>
+  <div class="grid grid-2 recruiter-work">
+    <article class="card evidence-card">
+      <p class="meta" data-en="01 / Application Security" data-fr="01 / Sécurité applicative">01 / Application Security</p>
+      <h3>AltoroJ Banking Security Assessment</h3>
+      <p data-en="Academic black-box audit of a deliberately vulnerable banking demo: 9 assets, 12 prioritized risks, manual SQLi, XSS and broken-access-control validation." data-fr="Audit académique en boîte noire d'une application bancaire de démonstration : 9 actifs, 12 risques priorisés, validation manuelle SQLi, XSS et contrôle d'accès défaillant.">Academic black-box audit of a deliberately vulnerable banking demo: 9 assets, 12 prioritized risks, manual SQLi, XSS and broken-access-control validation.</p>
+      <div class="tags"><span class="tag">OWASP</span><span class="tag">CVSS v3.1</span><span class="tag">Risk</span></div>
+      <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/ALLAKORI.github.io/blob/main/case-studies/altoroj-banking-risk-assessment/README.md" target="_blank" rel="noopener noreferrer">Read case study</a></div>
+    </article>
+    <article class="card evidence-card">
+      <p class="meta" data-en="02 / Threat Intelligence · PFA" data-fr="02 / Threat Intelligence · PFA">02 / Threat Intelligence · PFA</p>
+      <h3>CyberVeille PME</h3>
+      <p data-en="Python MVP for suspicious URL analysis, combining URLhaus, ML scoring, SQLite history, configurable SMTP alerts and automated tests." data-fr="MVP Python d'analyse d'URL suspectes : URLhaus, scoring ML, historique SQLite, alertes SMTP configurables et tests automatisés.">Python MVP for suspicious URL analysis, combining URLhaus, ML scoring, SQLite history, configurable SMTP alerts and automated tests.</p>
+      <div class="tags"><span class="tag">Python</span><span class="tag">Scikit-learn</span><span class="tag">Streamlit</span></div>
+      <div class="actions"><a class="btn" href="https://github.com/ALLAKORI/STAGE_PFA_CMRPI" target="_blank" rel="noopener noreferrer">Code &amp; tests</a></div>
+    </article>
+    <article class="card evidence-card">
+      <p class="meta" data-en="03 / SOC · Incident investigation" data-fr="03 / SOC · Investigation d'incident">03 / SOC · Incident investigation</p>
+      <h3>Volt Typhoon Intrusion Investigation</h3>
+      <p data-en="Reconstructed a simulated intrusion from Splunk logs, with timeline, IOC extraction, MITRE ATT&amp;CK mapping and detection ideas." data-fr="Reconstitution d'une intrusion simulée dans Splunk : chronologie, IOC, mapping MITRE ATT&amp;CK et pistes de détection.">Reconstructed a simulated intrusion from Splunk logs, with timeline, IOC extraction, MITRE ATT&CK mapping and detection ideas.</p>
+      <div class="tags"><span class="tag">Splunk</span><span class="tag">IOC</span><span class="tag">MITRE ATT&amp;CK</span></div>
+      <div class="actions"><a class="btn" href="writeups/tryhackme/volt-typhoon/index.html">Read investigation</a></div>
+    </article>
+    <article class="card evidence-card">
+      <p class="meta" data-en="04 / Linux · Red Team / Blue Team" data-fr="04 / Linux · Red Team / Blue Team">04 / Linux · Red Team / Blue Team</p>
+      <h3>Linux Compromise &amp; Forensic Lab</h3>
+      <p data-en="Controlled compromise, SSH/sudo/auditd evidence, incident timeline, remediation and retests with UFW and Fail2ban." data-fr="Compromission contrôlée, preuves SSH/sudo/auditd, chronologie, remédiation et retests avec UFW et Fail2ban.">Controlled compromise, SSH/sudo/auditd evidence, incident timeline, remediation and retests with UFW and Fail2ban.</p>
+      <div class="tags"><span class="tag">Linux</span><span class="tag">DFIR</span><span class="tag">Hardening</span></div>
+      <div class="actions"><a class="btn" href="https://github.com/ALLAKORI/Linux-Server-Compromise-Forensic-Investigation-Lab" target="_blank" rel="noopener noreferrer">GitHub evidence</a></div>
+    </article>
+  </div>
+  <div class="actions"><a class="btn" href="projects.html">Explore all projects</a><a class="btn secondary-link" href="writeups.html">Technical write-ups</a></div>
+</section>
+<section class="section">
         <div class="section-head">
           <div>
             <p class="meta">whoami</p>
@@ -127,8 +162,7 @@
           </div>
         </div>
       </section>
-
-      <section class="section">
+<section class="section">
         <div class="section-head">
           <div>
             <p class="meta">Education</p>
@@ -138,7 +172,7 @@
         </div>
         <div class="timeline education-timeline">
           <div class="timeline-item">
-            <span class="date">2024 - Present</span>
+            <span class="date">2024 - 2027 (expected)</span>
             <strong>Engineering Cycle - Cybersecurity and Artificial Intelligence</strong>
             <p>Sultan Moulay Slimane University - National School of Applied Sciences, Beni Mellal.</p>
           </div>
@@ -154,125 +188,7 @@
           </div>
         </div>
       </section>
-
-      <section class="section">
-        <div class="section-head">
-          <div>
-            <p class="meta">Recruiter path</p>
-            <h2>Review the strongest evidence first.</h2>
-          </div>
-          <p class="section-note">Inspired by strong cybersecurity portfolios: a concise identity, proof up front, then deeper technical pages.</p>
-        </div>
-        <div class="timeline compact-timeline">
-          <div class="timeline-item"><span class="date">01 / CV</span><strong>Start with the PFE profile</strong><p>English PFE CV for cybersecurity opportunities, with CMRPI shown as a completed PFA experience and AI Security used as supporting evidence.</p><div class="actions"><a class="btn primary" href="assets/cv/cv_pfe_2027_software_ai_cybersecurity_allado.pdf?v=20260828-pfe" target="_blank" rel="noreferrer">PFE CV</a><a class="btn" href="assets/cv/cv_pfa_cybersecurite_kossi_richard_allado.pdf?v=20260702-main-cv" target="_blank" rel="noreferrer">Cyber CV</a></div></div>
-          <div class="timeline-item"><span class="date">02 / Projects</span><strong>Check the fit</strong><p>Projects aligned with threat intelligence, SOC/DFIR, Offensive Security, AI Security and secure backend engineering.</p><div class="actions"><a class="btn" href="projects.html">View projects</a></div></div>
-          <div class="timeline-item"><span class="date">03 / Proof</span><strong>Verify the signal</strong><p>Selected certifications, CSIA CTF first place, lab repositories and writeups.</p><div class="actions"><a class="btn" href="proof.html">View proof</a></div></div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <div>
-            <p class="meta">Services mindset</p>
-            <h2>What I can contribute during a PFE.</h2>
-          </div>
-        </div>
-        <div class="grid grid-3">
-          <article class="card">
-            <p class="meta">Cybersecurity</p>
-            <h3>Investigation and security reporting</h3>
-            <p>Log review, timeline reconstruction, IOC extraction and clear incident summaries.</p>
-            <div class="tags"><span class="tag green">Splunk</span><span class="tag green">Timeline</span><span class="tag green">IOC</span></div>
-          </article>
-          <article class="card">
-            <p class="meta">AI / Data</p>
-            <h3>AI and backend product work</h3>
-            <p>RAG pipelines, API design, database-backed applications, data preparation and readable technical documentation.</p>
-            <div class="tags"><span class="tag blue">FastAPI</span><span class="tag blue">RAG</span><span class="tag blue">PostgreSQL</span></div>
-          </article>
-          <article class="card">
-            <p class="meta">PFE mindset</p>
-            <h3>Longer technical ownership</h3>
-            <p>Prepared to work on a final-year topic with implementation, testing, reporting and a clear handover.</p>
-            <div class="tags"><span class="tag amber">PFE 2027</span><span class="tag amber">Documentation</span><span class="tag amber">Deliverables</span></div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <div>
-            <p class="meta">Technical strengths</p>
-            <h2>Where my profile is strongest.</h2>
-          </div>
-          <p class="section-note">The homepage gives the signal. Dedicated pages carry the evidence.</p>
-        </div>
-        <div class="grid grid-3">
-          <article class="card">
-            <p class="meta">SOC / DFIR / BLUE TEAM</p>
-            <h3>Investigation & forensics</h3>
-            <p>Linux logs, auditd, forensic acquisition, memory analysis, IOC reasoning, incident timeline reconstruction and evidence handling.</p>
-            <div class="tags">
-              <span class="tag green">DFIR</span>
-              <span class="tag green">auditd</span>
-              <span class="tag green">Volatility</span>
-            </div>
-          </article>
-          <article class="card">
-            <p class="meta">OFFENSE & VULNERABILITY</p>
-            <h3>Penetration testing mindset</h3>
-            <p>Web security, vulnerability analysis, controlled exploitation, ARP poisoning and MITM attack understanding with defensive context.</p>
-            <div class="tags">
-              <span class="tag amber">Web Security</span>
-              <span class="tag amber">CTF</span>
-              <span class="tag amber">Offensive Security</span>
-            </div>
-          </article>
-          <article class="card">
-            <p class="meta">IAM / SECURITY ENGINEERING</p>
-            <h3>Identity & access control</h3>
-            <p>Keycloak, MFA, TOTP, OpenSSL/PKI, SSH hardening, RBAC and identity federation organized into bilingual documentation.</p>
-            <div class="tags">
-              <span class="tag blue">Keycloak</span>
-              <span class="tag blue">PKI</span>
-              <span class="tag blue">SSH</span>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <div>
-            <p class="meta">Portfolio map</p>
-            <h2>Choose the evidence you need.</h2>
-          </div>
-        </div>
-        <div class="grid grid-4">
-          <a class="card" href="proof.html">
-            <p class="meta">Proof</p>
-            <h3>Certificates & CTF results</h3>
-            <p>Verified learning, transcripts, certificates, first-place proof and CTF participation.</p>
-          </a>
-          <a class="card" href="labs.html">
-            <p class="meta">Labs</p>
-            <h3>Academic labs turned portfolio</h3>
-            <p>Linux security, IAM, cybersecurity and cryptography repositories with FR/EN documentation.</p>
-          </a>
-          <a class="card" href="writeups.html">
-            <p class="meta">Writeups</p>
-            <h3>CTF reasoning</h3>
-            <p>Moroccan CTF, DFIR and Hack The Box notes with links to full GitHub writeups.</p>
-          </a>
-          <a class="card" href="projects.html">
-            <p class="meta">Projects</p>
-            <h3>Cybersecurity & practical labs</h3>
-            <p>Cybersecurity, AI Security and secure RAG/backend projects presented as concrete case studies for PFE review.</p>
-          </a>
-        </div>
-      </section>
-
-      <section class="section">
+<section class="section">
         <div class="feature">
           <div class="feature-body">
             <p class="meta">Featured proof</p>
@@ -293,8 +209,7 @@
           </div>
         </div>
       </section>
-
-      <section class="section">
+<section class="section">
         <div class="contact-panel">
           <div>
             <p class="meta">Contact</p>
@@ -303,7 +218,7 @@
           </div>
           <div class="contact-actions">
             <a class="btn primary" href="mailto:alladokossirichard2025@gmail.com">Email</a>
-            <a class="btn" href="assets/cv/cv_pfe_2027_software_ai_cybersecurity_allado.pdf?v=20260917-pfe" target="_blank" rel="noreferrer">CV</a>
+            <a class="btn" href="cv.html" target="_blank" rel="noreferrer">Current CV</a>
             <a class="btn" href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noreferrer">LinkedIn</a>
             <a class="btn" href="https://github.com/ALLAKORI" target="_blank" rel="noreferrer">GitHub</a>
           </div>
@@ -314,6 +229,6 @@
     </main>
   </div>
   <script src="assets/lang.js?v=20261028-edu-soc" defer></script>
-  <script src="assets/main.js?v=20261029-calm-nav" defer></script>
+  <script src="assets/main.js?v=20261103-recruiter" defer></script>
 </body>
 </html>

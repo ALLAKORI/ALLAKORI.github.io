@@ -15,24 +15,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/site.css?v=20261029-calm-nav" />
+  <link rel="stylesheet" href="assets/site.css?v=20261103-recruiter" />
 </head>
 <body>
   <div class="shell">
     <aside class="sidebar">
       <div>
         <div class="profile"><img class="avatar" src="richard.jpg" alt="Kossi Richard Allado" fetchpriority="high" decoding="async" /><div><div class="name">Kossi Richard Allado</div><p class="role">Cybersecurity projects with AI Security and secure software evidence.</p></div></div>
-        <nav class="nav"><a href="index.html"><span>01</span> Home</a><a href="proof.html"><span>02</span> Proof</a><a href="labs.html"><span>03</span> Labs</a><a href="writeups.html"><span>04</span> Writeups</a><a class="active" href="projects.html"><span>05</span> Projects</a></nav>
+        <nav class="nav"><a href="index.html"><span>01</span> Home</a><a href="proof.html"><span>02</span> Proof</a><a href="labs.html"><span>03</span> Labs</a><a href="writeups.html"><span>04</span> Writeups</a><a class="active" href="projects.html"><span>05</span> Projects</a><a href="cv.html"><span>06</span> CV</a></nav>
       </div>
       <div class="social"><a href="https://github.com/ALLAKORI" target="_blank" rel="noreferrer">Gh</a><a href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noreferrer">In</a><a href="mailto:alladokossirichard2025@gmail.com">@</a><a href="https://tryhackme.com/p/allakori" target="_blank" rel="noreferrer">THM</a><a href="https://profile.hackthebox.com/profile/019d03a0-4529-7233-b8f5-6fe1e7a7e02b" target="_blank" rel="noreferrer">HTB</a></div>
     </aside>
     <main class="page">
       <div class="topline"><div class="crumb"><a href="index.html">Portfolio</a> / <strong>Projects</strong></div><div class="mono">Threat intelligence - DFIR - Offensive Security - AI Security</div></div>
-      <section class="hero compact"><p class="meta">Selected projects</p><h1>Case studies that show <span class="accent">PFE readiness</span>.</h1><p>Each project is presented by context, method and evidence: cybersecurity objective, implementation, testing, documentation and limits.</p></section>
+      <section class="hero compact"><p class="meta">Selected projects</p><h1>Cybersecurity projects with <span class="accent">technical evidence</span>.</h1><p>Projects are ordered for security recruiters: web application security, threat intelligence, SOC investigation, Linux/IAM labs, and secure AI.</p></section>
 
       <section class="section">
         <div class="grid">
-          <article class="card">
+          <article class="card" id="cyberveille">
               <p class="meta">Threat intelligence / PFA completed / July-August 2026</p>
               <h2>CyberVeille PME - suspicious URL detection MVP</h2>
               <p>Completed PFA project with CMRPI - Espace Maroc Cyberconfiance: an SME-oriented MVP for analyzing suspicious URLs without opening them.</p>
@@ -117,10 +117,49 @@
                 </svg>
               </div>
               <div class="tags"><span class="tag green">Threat intelligence</span><span class="tag green">Phishing detection</span><span class="tag blue">Streamlit</span><span class="tag amber">SME security</span></div>
-              <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/ALLAKORI.github.io/tree/main/case-studies/cyberveille-pme" target="_blank" rel="noreferrer">Public overview</a></div>
+              <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/STAGE_PFA_CMRPI" target="_blank" rel="noreferrer">Code and tests</a></div>
           </article>
 
-          <article class="card">
+          <article class="card" id="altoroj">
+              <p class="meta">Application security / Banking lab</p>
+              <h2>AltoroJ Banking Web Application Risk Assessment</h2>
+              <p>Concrete black-box assessment of the IBM/OWASP banking demo, combining automated scanning with manual validation of business-logic flaws.</p>
+              <ul class="list">
+                <li>Recorded 26 scan observations and mapped 9 assets into a 12-risk register.</li>
+                <li>Manually confirmed authentication-bypass SQL injection (CVSS 9.8), reflected XSS (6.1) and broken access control (7.5).</li>
+                <li>Translated the findings into immediate, short-term and medium-term remediation actions.</li>
+              </ul>
+              <div class="tags"><span class="tag green">Banking security</span><span class="tag green">Risk assessment</span><span class="tag blue">CVSS v3.1</span><span class="tag amber">Web application</span></div>
+              <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/ALLAKORI.github.io/blob/main/case-studies/altoroj-banking-risk-assessment/README.md" target="_blank" rel="noreferrer">Read case study</a></div>
+          </article>
+
+          <article class="card" id="volt-typhoon">
+              <p class="meta">Log investigation / Splunk</p>
+              <h2>Intrusion reconstruction from security logs</h2>
+              <p>Reconstructed a Volt Typhoon-style intrusion from Windows and application logs, then organized the result into a readable timeline with indicators and detection queries.</p>
+              <ul class="list">
+                <li>Mapped attacker behavior across account takeover, command execution, persistence, credential access and cleanup.</li>
+                <li>Used Splunk searches and event correlation to move from raw logs to an incident narrative.</li>
+                <li>Relevant to cyber reporting, signal triage and clear technical restitution.</li>
+              </ul>
+              <div class="tags"><span class="tag green">Splunk</span><span class="tag green">IOC</span><span class="tag green">Timeline</span></div>
+              <div class="actions"><a class="btn primary" href="writeups/tryhackme/volt-typhoon/index.html" target="_blank" rel="noreferrer">Read writeup</a></div>
+          </article>
+
+          <article class="card" id="linux-labs">
+            <p class="meta">Offensive Security / Web and Linux labs</p>
+            <h3>Linux compromise, forensic investigation and IAM labs</h3>
+            <p>Worked on controlled labs that connect attack paths to evidence collection and remediation, instead of stopping at exploitation.</p>
+            <ul class="list">
+              <li>Tested SQL injection and XSS in DVWA, then connected the findings to safer input handling.</li>
+              <li>Documented a Linux compromise and DFIR lab with Kali attacker, Ubuntu target, SSH, UFW, auditd and Fail2ban.</li>
+              <li>Tracked evidence, IOCs, containment actions and remediation steps for a complete security narrative.</li>
+            </ul>
+            <div class="tags"><span class="tag amber">Offensive Security</span><span class="tag amber">Linux</span><span class="tag green">Remediation</span></div>
+            <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Linux-Server-Compromise-Forensic-Investigation-Lab" target="_blank" rel="noreferrer">Linux lab</a><a class="btn" href="https://github.com/ALLAKORI/cybersecurity-iam-labs" target="_blank" rel="noreferrer">IAM/Web labs</a></div>
+          </article>
+
+          <article class="card" id="chatbot-usms">
               <p class="meta">RAG / Secure backend / AI Security</p>
               <h2>Chatbot USMS academic assistant</h2>
               <p>Built a multilingual academic assistant for university FAQs, timetables and administrative information, using a RAG architecture and a full-stack application structure.</p>
@@ -204,36 +243,10 @@
                 </svg>
               </div>
               <div class="tags"><span class="tag blue">FastAPI</span><span class="tag blue">RAG</span><span class="tag blue">PostgreSQL</span><span class="tag green">Security</span></div>
-              <div class="actions"><a class="btn primary" href="mailto:alladokossirichard2025@gmail.com?subject=Chatbot%20USMS%20case%20study">Discuss case study</a></div>
+              <div class="actions"><a class="btn primary" href="mailto:alladokossirichard2025@gmail.com?subject=Chatbot%20USMS%20case%20study">Request a walkthrough</a></div>
           </article>
 
-          <article class="card">
-              <p class="meta">Log investigation / Splunk</p>
-              <h2>Intrusion reconstruction from security logs</h2>
-              <p>Reconstructed a Volt Typhoon-style intrusion from Windows and application logs, then organized the result into a readable timeline with indicators and detection queries.</p>
-              <ul class="list">
-                <li>Mapped attacker behavior across account takeover, command execution, persistence, credential access and cleanup.</li>
-                <li>Used Splunk searches and event correlation to move from raw logs to an incident narrative.</li>
-                <li>Relevant to cyber reporting, signal triage and clear technical restitution.</li>
-              </ul>
-              <div class="tags"><span class="tag green">Splunk</span><span class="tag green">IOC</span><span class="tag green">Timeline</span></div>
-              <div class="actions"><a class="btn primary" href="https://allakori.github.io/writeups/tryhackme/volt-typhoon/" target="_blank" rel="noreferrer">Read writeup</a></div>
-          </article>
-
-          <article class="card">
-              <p class="meta">Application security / Banking lab</p>
-              <h2>AltoroJ Banking Web Application Risk Assessment</h2>
-              <p>Concrete black-box assessment of the IBM/OWASP banking demo, combining automated scanning with manual validation of business-logic flaws.</p>
-              <ul class="list">
-                <li>Recorded 26 scan observations and mapped 9 assets into a 12-risk register.</li>
-                <li>Manually confirmed authentication-bypass SQL injection (CVSS 9.8), reflected XSS (6.1) and broken access control (7.5).</li>
-                <li>Translated the findings into immediate, short-term and medium-term remediation actions.</li>
-              </ul>
-              <div class="tags"><span class="tag green">Banking security</span><span class="tag green">Risk assessment</span><span class="tag blue">CVSS v3.1</span><span class="tag amber">Web application</span></div>
-              <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/ALLAKORI.github.io/tree/main/case-studies/altoroj-banking-risk-assessment" target="_blank" rel="noreferrer">Read case study</a></div>
-          </article>
-
-          <article class="card">
+          <article class="card" id="onee">
             <p class="meta">Applied ML / Risk classification</p>
             <h3>Fault classification prototype from sensor data</h3>
             <p>Built a Python prototype that classifies pump fault risk from sensor values and presents the result through a simple desktop interface.</p>
@@ -245,32 +258,19 @@
             <div class="tags"><span class="tag blue">Python</span><span class="tag blue">Scikit-learn</span><span class="tag blue">Risk</span></div>
             <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Defaut-Pompe-Prediction" target="_blank" rel="noreferrer">Open repository</a></div>
           </article>
-
-          <article class="card">
-            <p class="meta">Offensive Security / Web and Linux labs</p>
-            <h3>Controlled vulnerability testing and remediation</h3>
-            <p>Worked on controlled labs that connect attack paths to evidence collection and remediation, instead of stopping at exploitation.</p>
-            <ul class="list">
-              <li>Tested SQL injection and XSS in DVWA, then connected the findings to safer input handling.</li>
-              <li>Documented a Linux compromise and DFIR lab with Kali attacker, Ubuntu target, SSH, UFW, auditd and Fail2ban.</li>
-              <li>Tracked evidence, IOCs, containment actions and remediation steps for a complete security narrative.</li>
-            </ul>
-            <div class="tags"><span class="tag amber">Offensive Security</span><span class="tag amber">Linux</span><span class="tag green">Remediation</span></div>
-            <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Linux-Server-Compromise-Forensic-Investigation-Lab" target="_blank" rel="noreferrer">Linux lab</a><a class="btn" href="https://github.com/ALLAKORI/cybersecurity-iam-labs" target="_blank" rel="noreferrer">IAM/Web labs</a></div>
-          </article>
         </div>
       </section>
 
       <section class="section">
         <div class="contact-panel">
             <div><p class="meta">Contact</p><h2>Open to PFE 2027 discussions.</h2><p>I can walk through these projects for cybersecurity, AI Security, SOC/DFIR, Offensive Security or secure software opportunities.</p></div>
-          <div class="contact-actions"><a class="btn primary" href="mailto:alladokossirichard2025@gmail.com">Email</a><a class="btn" href="assets/cv/cv_pfe_2027_software_ai_cybersecurity_allado.pdf?v=20260828-pfe" target="_blank" rel="noreferrer">PFE CV</a><a class="btn" href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noreferrer">LinkedIn</a></div>
+          <div class="contact-actions"><a class="btn primary" href="mailto:alladokossirichard2025@gmail.com">Email</a><a class="btn" href="cv.html" target="_blank" rel="noreferrer">Current CV</a><a class="btn" href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noreferrer">LinkedIn</a></div>
         </div>
       </section>
       <footer class="footer mono">Projects page - software, AI and cybersecurity case studies for PFE review.<small>Last updated: October 2026</small></footer>
     </main>
   </div>
   <script src="assets/lang.js?v=20261028-edu-soc" defer></script>
-  <script src="assets/main.js?v=20261029-calm-nav" defer></script>
+  <script src="assets/main.js?v=20261103-recruiter" defer></script>
 </body>
 </html>

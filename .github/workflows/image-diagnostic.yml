@@ -37,3 +37,28 @@ jobs:
                   except Exception as e:print("LIVE_PIL_FAIL",f,str(e),flush=True)
               except Exception as e: print("LIVE_FAIL",u,str(e),flush=True)
           PY
+
+      - name: Check image in Chromium on the live site
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+          node <<'JS'
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser=await chromium.launch({headless:true});
+            for(const url of ['https://allakori.github.io/','https://allakori.github.io/proof.html']) {
+              const page=await browser.newPage({viewport:{width:1440,height:900}});
+              page.on('requestfailed',q=>console.log('FAILED_REQUEST',q.url(),q.failure()));
+              page.on('response',r=>{if(r.url().includes('csia-ctf-2026-team-photo'))console.log('IMG_RESPONSE',r.status(),r.url())});
+              await page.goto(url,{waitUntil:'networkidle'});
+              await page.evaluate(()=>window.scrollTo(0,document.body.scrollHeight));
+              await page.waitForTimeout(1500);
+              const out=await page.evaluate(()=>{
+                return Array.from(document.querySelectorAll('img')).filter(i=>i.src.includes('csia-ctf-2026-team-photo')).map(i=>({src:i.src,currentSrc:i.currentSrc,complete:i.complete,naturalWidth:i.naturalWidth,naturalHeight:i.naturalHeight,loading:i.loading,outerHTML:i.outerHTML.slice(0,600),rect:i.getBoundingClientRect().toJSON()}));
+              });
+              console.log('PAGE_IMAGE_STATUS',url,JSON.stringify(out));
+              await page.close();
+            }
+            await browser.close();
+          })().catch(err=>{console.error(err);process.exit(1)});
+          JS

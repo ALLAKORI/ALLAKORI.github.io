@@ -28,10 +28,10 @@
         ? '<span class="control-icon" aria-hidden="true">☾</span><span class="control-label">Dark mode</span>'
         : '<span class="control-icon" aria-hidden="true">☼</span><span class="control-label">Light mode</span>';
       theme.setAttribute("aria-pressed", light ? "true" : "false");
-      try { localStorage.setItem("portfolio-theme", mode); } catch (e) {}
+      try { localStorage.setItem("portfolio-theme-v2", mode); } catch (e) {}
     }
-    var savedTheme = "dark";
-    try { savedTheme = localStorage.getItem("portfolio-theme") || "dark"; } catch (e) {}
+    var savedTheme = "light";
+    try { savedTheme = localStorage.getItem("portfolio-theme-v2") || "light"; } catch (e) {}
     setTheme(savedTheme);
     theme.addEventListener("click", function () {
       setTheme(document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light");

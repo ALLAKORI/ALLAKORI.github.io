@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/site.css?v=20261103-recruiter" />
-  <link rel="stylesheet" href="assets/portfolio-refresh.css?v=20261112" />
+  <link rel="stylesheet" href="assets/portfolio-refresh.css?v=20261112-v2" />
 </head>
 <body>
   <div class="shell">
@@ -60,17 +60,10 @@
       <section class="hero">
         <div class="hero-grid">
           <div class="hero-copy">
+            <p class="intro-kicker">KOSSI RICHARD ALLADO / CYBERSECURITY &amp; AI</p>
+            <h1 data-en="Understanding attacks.<br>Building <span class='accent'>defenses.</span>" data-fr="Comprendre les attaques.<br>Construire des <span class='accent'>défenses.</span>">Understanding attacks.<br>Building <span class="accent">defenses.</span></h1>
+            <p data-en="Final-year Cybersecurity &amp; AI engineering student at ENSA Beni Mellal. I turn offensive security research, incident investigations and AI projects into documented, verifiable work." data-fr="Élève ingénieur en dernière année à l'ENSA Béni Mellal, en Intelligence Artificielle et Cybersécurité. Je transforme mes recherches en sécurité offensive, investigations et projets IA en réalisations documentées et vérifiables.">Final-year Cybersecurity &amp; AI engineering student at ENSA Beni Mellal. I turn offensive security research, incident investigations and AI projects into documented, verifiable work.</p>
             <div class="availability">Available for a cybersecurity PFE from February 2027</div>
-            <h1>Cybersecurity<br>built on <span class="accent">proof</span><br>projects and labs.</h1>
-            <p>
-              Final-year Cybersecurity & AI engineering student at ENSA Beni Mellal. I work on application security, threat detection and incident investigation, with public technical reports and a completed Threat Intelligence internship.
-            </p>
-            <div class="stats">
-              <div class="stat"><strong>1st</strong><span>CSIA CTF 2026 with GHOSTSHELL</span></div>
-              <div class="stat"><strong>Top 1%</strong><span>TryHackMe globally</span></div>
-              <div class="stat"><strong>4</strong><span>Featured security case studies</span></div>
-              <div class="stat"><strong>2027</strong><span>Expected engineering degree</span></div>
-            </div>
             <div class="actions">
               <a class="btn primary" href="cv.html" target="_blank" rel="noreferrer">View current CV</a>
               <a class="btn secondary-link" href="proof.html">View proof</a>
@@ -79,20 +72,20 @@
               <a class="btn secondary-link" href="https://profile.hackthebox.com/profile/019d03a0-4529-7233-b8f5-6fe1e7a7e02b" target="_blank" rel="noreferrer">HackTheBox</a>
             </div>
           </div>
-          <aside class="hero-visual" aria-label="Portrait and professional profile">
+          <aside class="hero-visual" aria-label="Professional portrait">
             <div class="portrait-frame">
-              <img src="richard.jpg" alt="Portrait of Kossi Richard Allado" loading="eager" decoding="async" />
-              <span class="visual-label">CYBERSECURITY · AI · ENGINEERING</span>
-              <div class="portrait-caption">
-                <strong>Kossi Richard Allado</strong>
-                <span>Security engineering, practical research, and verifiable work.</span>
-              </div>
+              <img src="richard.jpg" alt="Kossi Richard Allado" fetchpriority="high" decoding="async" />
+              <span class="visual-label">OPEN TO OPPORTUNITIES</span>
+              <div class="portrait-caption"><strong>Kossi Richard Allado</strong><span>Security research · Engineering · Investigation</span></div>
             </div>
-            <div class="visual-bottom">
-              <span>BENI MELLAL · MOROCCO</span>
-              <strong>OPEN TO PFE 2027</strong>
-            </div>
+            <div class="visual-bottom"><span>BENI MELLAL · MOROCCO</span><strong>PFE 2027</strong></div>
           </aside>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>1st</strong><span>CSIA CTF 2026 with GHOSTSHELL</span></div>
+          <div class="stat"><strong>Top 1%</strong><span>TryHackMe globally</span></div>
+          <div class="stat"><strong>4</strong><span>Featured security case studies</span></div>
+          <div class="stat"><strong>2027</strong><span>Expected engineering degree</span></div>
         </div>
       </section>
 
@@ -101,6 +94,7 @@
   <div class="section-head"><div><p class="meta" data-en="Selected work" data-fr="Réalisations sélectionnées">Selected work</p><h2 data-en="Start with four technical case studies." data-fr="Quatre réalisations techniques à consulter en priorité.">Start with four technical case studies.</h2></div><p class="section-note" data-en="Public evidence, technical methodology, results and limitations — no login needed." data-fr="Preuves publiques, méthodologie, résultats et limites — sans connexion.">Public evidence, technical methodology, results and limitations — no login needed.</p></div>
   <div class="grid grid-2 recruiter-work">
     <article class="card evidence-card">
+      <div class="project-art art-audit" aria-hidden="true"><span class="art-symbol">⌁</span><span class="art-caption">APPSEC / RISK</span></div>
       <p class="meta" data-en="01 / Application Security" data-fr="01 / Sécurité applicative">01 / Application Security</p>
       <h3>AltoroJ Banking Security Assessment</h3>
       <p data-en="Academic black-box audit of a deliberately vulnerable banking demo: 9 assets, 12 prioritized risks, manual SQLi, XSS and broken-access-control validation." data-fr="Audit académique en boîte noire d'une application bancaire de démonstration : 9 actifs, 12 risques priorisés, validation manuelle SQLi, XSS et contrôle d'accès défaillant.">Academic black-box audit of a deliberately vulnerable banking demo: 9 assets, 12 prioritized risks, manual SQLi, XSS and broken-access-control validation.</p>
@@ -108,6 +102,7 @@
       <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/ALLAKORI.github.io/blob/main/case-studies/altoroj-banking-risk-assessment/README.md" target="_blank" rel="noopener noreferrer">Read case study</a></div>
     </article>
     <article class="card evidence-card">
+      <div class="project-art art-intel" aria-hidden="true"><span class="art-symbol">◎</span><span class="art-caption">THREAT INTELLIGENCE</span></div>
       <p class="meta" data-en="02 / Threat Intelligence · PFA" data-fr="02 / Threat Intelligence · PFA">02 / Threat Intelligence · PFA</p>
       <h3>CyberVeille PME</h3>
       <p data-en="Python MVP for suspicious URL analysis, combining URLhaus, ML scoring, SQLite history, configurable SMTP alerts and automated tests." data-fr="MVP Python d'analyse d'URL suspectes : URLhaus, scoring ML, historique SQLite, alertes SMTP configurables et tests automatisés.">Python MVP for suspicious URL analysis, combining URLhaus, ML scoring, SQLite history, configurable SMTP alerts and automated tests.</p>
@@ -115,6 +110,7 @@
       <div class="actions"><a class="btn" href="https://github.com/ALLAKORI/STAGE_PFA_CMRPI" target="_blank" rel="noopener noreferrer">Code &amp; tests</a></div>
     </article>
     <article class="card evidence-card">
+      <div class="project-art art-soc" aria-hidden="true"><span class="art-symbol">◈</span><span class="art-caption">SOC / DFIR</span></div>
       <p class="meta" data-en="03 / SOC · Incident investigation" data-fr="03 / SOC · Investigation d'incident">03 / SOC · Incident investigation</p>
       <h3>Volt Typhoon Intrusion Investigation</h3>
       <p data-en="Reconstructed a simulated intrusion from Splunk logs, with timeline, IOC extraction, MITRE ATT&amp;CK mapping and detection ideas." data-fr="Reconstitution d'une intrusion simulée dans Splunk : chronologie, IOC, mapping MITRE ATT&amp;CK et pistes de détection.">Reconstructed a simulated intrusion from Splunk logs, with timeline, IOC extraction, MITRE ATT&CK mapping and detection ideas.</p>
@@ -122,6 +118,7 @@
       <div class="actions"><a class="btn" href="writeups/tryhackme/volt-typhoon/index.html">Read investigation</a></div>
     </article>
     <article class="card evidence-card">
+      <div class="project-art art-linux" aria-hidden="true"><span class="art-symbol">⌘</span><span class="art-caption">LINUX / SECURITY</span></div>
       <p class="meta" data-en="04 / Linux · Red Team / Blue Team" data-fr="04 / Linux · Red Team / Blue Team">04 / Linux · Red Team / Blue Team</p>
       <h3>Linux Compromise &amp; Forensic Lab</h3>
       <p data-en="Controlled compromise, SSH/sudo/auditd evidence, incident timeline, remediation and retests with UFW and Fail2ban." data-fr="Compromission contrôlée, preuves SSH/sudo/auditd, chronologie, remédiation et retests avec UFW et Fail2ban.">Controlled compromise, SSH/sudo/auditd evidence, incident timeline, remediation and retests with UFW and Fail2ban.</p>
@@ -226,6 +223,6 @@
   </div>
   <script src="assets/lang.js?v=20261028-edu-soc" defer></script>
   <script src="assets/main.js?v=20261103-recruiter" defer></script>
-  <script src="assets/portfolio-ui.js?v=20261112" defer></script>
+  <script src="assets/portfolio-ui.js?v=20261112-v2" defer></script>
 </body>
 </html>

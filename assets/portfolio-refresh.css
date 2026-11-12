@@ -1568,3 +1568,72 @@ html[data-theme="light"] #scroll-progress { background: #347cc6; }
 html[data-theme="light"] .portfolio-crosslinks .legacy-evidence-links a,
 html[data-theme="light"] .lab-certification-note a { color: #286fbe; }
 @media(max-width: 840px) { .legacy-anchor { scroll-margin-top: 90px; } }
+
+/* Header action ordering: profiles | email + copy | appearance | language. */
+.sidebar .social {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: nowrap;
+  padding-right: 15px;
+  border-right: 1px solid var(--line);
+}
+.sidebar .social-divider {
+  display: block;
+  flex: 0 0 1px;
+  align-self: center;
+  height: 23px;
+  margin: 0 5px;
+  background: var(--line);
+}
+.sidebar .social .copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-height: 34px;
+  height: 34px;
+  padding: 0 10px;
+  font: 650 .68rem Inter, system-ui, sans-serif;
+  border: 1px solid #3b5677;
+  border-radius: 8px;
+  background: #16263e;
+  color: #c9d9ef;
+  text-transform: none;
+  letter-spacing: 0;
+  box-shadow: none;
+}
+.sidebar .social .copy-btn:hover {
+  background: #233d5e;
+  color: #fff;
+  border-color: #6295d7;
+}
+.sidebar .site-controls {
+  padding-right: 14px;
+  border-right: 1px solid var(--line);
+}
+html[data-theme="light"] .sidebar .social .copy-btn {
+  background: #f0f6fd;
+  border-color: #d7e3f2;
+  color: #365d89;
+}
+html[data-theme="light"] .sidebar .social .copy-btn:hover {
+  background: #e2effe;
+  border-color: #b6cfee;
+  color: #1f508d;
+}
+@media (max-width: 1200px) {
+  .sidebar .site-controls { padding-right: 0; border-right: 0; }
+  .sidebar .social {
+    border-right: 0;
+    padding-right: 0;
+    flex-wrap: wrap;
+  }
+  .sidebar .social-divider { margin: 0 8px; }
+}
+
+/* Respect the collapsed header on tablet/mobile; profile controls remain in the drawer. */
+@media (max-width: 1200px) {
+  .sidebar .social { display: none; }
+  .sidebar.is-open .social { display: flex; }
+}

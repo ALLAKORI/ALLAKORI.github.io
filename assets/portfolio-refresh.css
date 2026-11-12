@@ -1558,3 +1558,13 @@ html[data-theme="light"] #scroll-progress { background: #347cc6; }
     color: #173d6d !important;
   }
 }
+/* Portfolio taxonomy: compact related-work links and stable legacy deep links. */
+.portfolio-crosslinks .grid .card { min-height: 0; }
+.portfolio-crosslinks .grid .card .actions { margin-top: 15px; }
+.portfolio-crosslinks .legacy-evidence-links { display: flex; flex-wrap: wrap; gap: 9px 17px; padding: 16px 1px 0; }
+.portfolio-crosslinks .legacy-evidence-links a, .lab-certification-note a { color: var(--cyan); text-underline-offset: 3px; font-size: .77rem; }
+.legacy-anchor { display: block; height: 0; scroll-margin-top: 145px; }
+.lab-certification-note { margin: 30px 0 0; color: var(--muted); font-size: .8rem; line-height: 1.6; }
+html[data-theme="light"] .portfolio-crosslinks .legacy-evidence-links a,
+html[data-theme="light"] .lab-certification-note a { color: #286fbe; }
+@media(max-width: 840px) { .legacy-anchor { scroll-margin-top: 90px; } }

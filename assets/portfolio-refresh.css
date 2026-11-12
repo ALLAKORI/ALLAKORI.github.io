@@ -1637,3 +1637,26 @@ html[data-theme="light"] .sidebar .social .copy-btn:hover {
   .sidebar .social { display: none; }
   .sidebar.is-open .social { display: flex; }
 }
+
+/* Low-priority academic work: compact entry below the primary projects. */
+.academic-projects { padding-top: 32px; }
+.academic-projects .section-head { margin-bottom: 13px; }
+.academic-projects .section-head h2 { font-size: clamp(1.3rem, 1.7vw, 1.75rem); }
+.academic-project-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 26px;
+  padding: 19px 22px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 12px;
+}
+.academic-project-row > div { min-width: 0; max-width: 800px; }
+.academic-project-row .meta { margin-bottom: 5px; }
+.academic-project-row h3 { font-size: 1.02rem; line-height: 1.35; margin: 0 0 7px; }
+.academic-project-row p:not(.meta) { color: var(--muted); line-height: 1.65; font-size: .8rem; }
+.academic-project-row .btn { flex: 0 0 auto; min-height: 35px; }
+@media (max-width: 720px) {
+  .academic-project-row { align-items: flex-start; flex-direction: column; padding: 18px; gap: 14px; }
+}

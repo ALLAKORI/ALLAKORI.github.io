@@ -1631,3 +1631,9 @@ html[data-theme="light"] .sidebar .social .copy-btn:hover {
   }
   .sidebar .social-divider { margin: 0 8px; }
 }
+
+/* Respect the collapsed header on tablet/mobile; profile controls remain in the drawer. */
+@media (max-width: 1200px) {
+  .sidebar .social { display: none; }
+  .sidebar.is-open .social { display: flex; }
+}

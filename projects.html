@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/site.css?v=20261103-recruiter" />
-  <link rel="stylesheet" href="assets/portfolio-refresh.css?v=20261112-academic" />
+  <link rel="stylesheet" href="assets/portfolio-refresh.css?v=20261113-flows" />
 </head>
 <body>
   <div class="shell">
@@ -234,6 +234,28 @@
               <li>Translated model output into a readable risk level for the user.</li>
               <li>Useful supporting evidence for cybersecurity contexts involving operational data, risk classification and explainable output.</li>
             </ul>
+            <figure class="rag-architecture project-flow" aria-label="ONEE predictive maintenance workflow">
+              <svg viewBox="0 0 742 222" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="onee-flow-title onee-flow-desc">
+                <title id="onee-flow-title">Predictive maintenance: from sensor measurements to risk feedback</title>
+                <desc id="onee-flow-desc">Sensor readings enter a Pandas preparation step, a scikit-learn Random Forest model predicts the fault or risk result, and the Tkinter desktop interface displays feedback to the user.</desc>
+                <defs>
+                  <marker id="pf-arrow-onee" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7bb6ff"/></marker>
+                </defs>
+                <text x="24" y="30" class="pf-kicker">PREDICTIVE MAINTENANCE · ML WORKFLOW</text>
+                <g><rect x="24" y="63" width="126" height="99" rx="10" class="pf-node"/><text x="87" y="102" text-anchor="middle" class="pf-label">Sensor data</text><text x="87" y="123" text-anchor="middle" class="pf-sub">Voltage · flow</text></g>
+<g><rect x="166" y="63" width="126" height="99" rx="10" class="pf-node"/><text x="229" y="102" text-anchor="middle" class="pf-label">Preparation</text><text x="229" y="123" text-anchor="middle" class="pf-sub">Pandas</text></g>
+<g><rect x="308" y="63" width="126" height="99" rx="10" class="pf-node-accent"/><text x="371" y="102" text-anchor="middle" class="pf-label">Random Forest</text><text x="371" y="123" text-anchor="middle" class="pf-sub">Scikit-learn</text></g>
+<g><rect x="450" y="63" width="126" height="99" rx="10" class="pf-node-accent"/><text x="513" y="102" text-anchor="middle" class="pf-label">Fault / risk</text><text x="513" y="123" text-anchor="middle" class="pf-sub">Model output</text></g>
+<g><rect x="592" y="63" width="126" height="99" rx="10" class="pf-node"/><text x="655" y="102" text-anchor="middle" class="pf-label">Desktop UI</text><text x="655" y="123" text-anchor="middle" class="pf-sub">User feedback</text></g>
+                <line x1="154" y1="112" x2="163" y2="112" class="pf-arrow" marker-end="url(#pf-arrow-onee)"/>
+<line x1="296" y1="112" x2="305" y2="112" class="pf-arrow" marker-end="url(#pf-arrow-onee)"/>
+<line x1="438" y1="112" x2="447" y2="112" class="pf-arrow" marker-end="url(#pf-arrow-onee)"/>
+<line x1="580" y1="112" x2="589" y2="112" class="pf-arrow" marker-end="url(#pf-arrow-onee)"/>
+                <rect x="24" y="178" width="694" height="27" rx="7" fill="#172842" stroke="#2f4766"/>
+                <text x="371" y="196" text-anchor="middle" class="pf-note">Sensor inputs also include speed, temperature, pressure and power</text>
+              </svg>
+              <figcaption>ONEE · Operational measurements → classification → desktop feedback</figcaption>
+            </figure>
             <div class="tags"><span class="tag blue">Python</span><span class="tag blue">Scikit-learn</span><span class="tag blue">Risk</span></div>
             <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Defaut-Pompe-Prediction" target="_blank" rel="noreferrer">Open repository</a></div>
           </article>
@@ -246,6 +268,37 @@
               <li>Converts messages into visual point matrices.</li>
               <li>Imports and exports coded data as PNG images or JSON files.</li>
             </ul>
+            <figure class="rag-architecture project-flow" aria-label="DotCodeApp encode and decode visual workflow">
+              <svg viewBox="0 0 742 274" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="dotcode-flow-title dotcode-flow-desc">
+                <title id="dotcode-flow-title">DotCodeApp visual point coding: encode and decode</title>
+                <desc id="dotcode-flow-desc">A message and key are used to encode a 3 by 3 colored dot matrix and export PNG or JSON. The encoded file can be imported and decoded with the same key to recover the original message.</desc>
+                <defs>
+                  <marker id="pf-arrow-dot" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7bb6ff"/></marker>
+                </defs>
+                <text x="22" y="23" class="pf-kicker">ENCODING</text>
+                <rect x="22" y="39" width="163" height="90" rx="10" class="pf-node"/>
+<rect x="200" y="39" width="163" height="90" rx="10" class="pf-node"/>
+<rect x="378" y="39" width="163" height="90" rx="10" class="pf-node-accent"/>
+<rect x="556" y="39" width="163" height="90" rx="10" class="pf-node"/>
+                <text x="103" y="77" text-anchor="middle" class="pf-label">Text message</text><text x="103" y="97" text-anchor="middle" class="pf-sub">+ encoding key</text>
+                <text x="281" y="77" text-anchor="middle" class="pf-label">Encode</text><text x="281" y="97" text-anchor="middle" class="pf-sub">Python / Tkinter</text>
+                <circle cx="453" cy="65" r="4.7" fill="#f36b77"/><circle cx="466" cy="65" r="4.7" fill="#6babff"/><circle cx="479" cy="65" r="4.7" fill="#eff6ff"/><circle cx="453" cy="78" r="4.7" fill="#6babff"/><circle cx="466" cy="78" r="4.7" fill="#f36b77"/><circle cx="479" cy="78" r="4.7" fill="#80d8ac"/><circle cx="453" cy="91" r="4.7" fill="#eff6ff"/><circle cx="466" cy="91" r="4.7" fill="#80d8ac"/><circle cx="479" cy="91" r="4.7" fill="#f36b77"/><text x="459" y="113" text-anchor="middle" class="pf-sub">3×3 colored dots</text>
+                <text x="637" y="77" text-anchor="middle" class="pf-label">Export</text><text x="637" y="97" text-anchor="middle" class="pf-sub">PNG / JSON</text>
+                <line x1="189" y1="84" x2="194" y2="84" class="pf-arrow" marker-end="url(#pf-arrow-dot)"/><line x1="367" y1="84" x2="372" y2="84" class="pf-arrow" marker-end="url(#pf-arrow-dot)"/><line x1="545" y1="84" x2="550" y2="84" class="pf-arrow" marker-end="url(#pf-arrow-dot)"/>
+                <line x1="22" y1="147" x2="719" y2="147" stroke="#314865" stroke-dasharray="5 6"/>
+                <text x="22" y="166" class="pf-kicker">DECODING</text>
+                <rect x="22" y="175" width="163" height="75" rx="10" class="pf-node"/>
+<rect x="200" y="175" width="163" height="75" rx="10" class="pf-node"/>
+<rect x="378" y="175" width="163" height="75" rx="10" class="pf-node"/>
+<rect x="556" y="175" width="163" height="75" rx="10" class="pf-node-accent"/>
+                <text x="103" y="203" text-anchor="middle" class="pf-label">Import file</text><text x="103" y="223" text-anchor="middle" class="pf-sub">PNG / JSON</text>
+                <text x="281" y="203" text-anchor="middle" class="pf-label">Read matrix</text><text x="281" y="223" text-anchor="middle" class="pf-sub">Colored points</text>
+                <text x="459" y="203" text-anchor="middle" class="pf-label">Decode</text><text x="459" y="223" text-anchor="middle" class="pf-sub">With matching key</text>
+                <text x="637" y="203" text-anchor="middle" class="pf-label">Recovered text</text><text x="637" y="223" text-anchor="middle" class="pf-sub">Original message</text>
+                <line x1="189" y1="210" x2="194" y2="210" class="pf-arrow" marker-end="url(#pf-arrow-dot)"/><line x1="367" y1="210" x2="372" y2="210" class="pf-arrow" marker-end="url(#pf-arrow-dot)"/><line x1="545" y1="210" x2="550" y2="210" class="pf-arrow" marker-end="url(#pf-arrow-dot)"/>
+              </svg>
+              <figcaption>DotCodeApp · Visual encoding and decoding (not a cryptographic security claim)</figcaption>
+            </figure>
             <div class="tags"><span class="tag blue">Python</span><span class="tag blue">Tkinter</span><span class="tag">Pillow</span><span class="tag">JSON</span></div>
             <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/DOT-Code-" target="_blank" rel="noopener noreferrer">Open repository</a></div>
           </article>

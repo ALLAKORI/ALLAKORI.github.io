@@ -47,9 +47,9 @@
         <div class="section-head">
           <div>
             <p class="meta">Writeup index</p>
-            <h2>Technical notes, sorted by date.</h2>
+            <h2>Published blog writeups first.</h2>
           </div>
-          <p class="section-note">This portfolio page keeps the summaries short. The dedicated blog carries the long-form versions with categories, tags and syntax highlighting.</p>
+          <p class="section-note">Start with the writeups already published on the blog, followed by additional GitHub-only notes.</p>
         </div>
         <div class="writeup-filters" aria-label="Writeup categories">
           <a href="#hackthebox">Hack The Box</a>
@@ -60,29 +60,13 @@
           <a href="#active-directory">Active Directory</a>
         </div>
         <div class="writeup-grid">
-          <article class="card writeup-card featured-writeup" id="hackthebox">
-            <p class="meta">Hack The Box / Season 11</p>
-            <h3>Season 11 active-machine writeups</h3>
-            <p class="writeup-date">5 August 2026</p>
-            <p>Season 11 writeup repository covering Reactor, DevHub, Connected, Checkpoint, Enigma, Paperwork, MakeSense, Bedside, DarkZeroReturns, Cohort and DanglingTree with a consistent professional format: machine information, official difficulty, CVE/vulnerability mapping, executive summary, reproducible exploitation steps, attack-chain summary, lessons learned, remediation guidance and redacted flags. Full notes are available in the public repository.</p>
-            <div class="tags"><span class="tag green">HTB</span><span class="tag green">Season 11</span><span class="tag amber">CVE mapping</span><span class="tag violet">Windows AD</span><span class="tag violet">Kerberos</span></div>
-            <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/htb-season-11-writeups" target="_blank" rel="noreferrer">GitHub repository</a><a class="btn" href="https://profile.hackthebox.com/profile/019d03a0-4529-7233-b8f5-6fe1e7a7e02b" target="_blank" rel="noreferrer">HTB Profile</a></div>
-          </article>
-          <article class="card writeup-card">
-            <p class="meta">Hack The Box / Season 11 / Active Directory</p>
-            <h3>DarkZeroReturns writeup</h3>
-            <p class="writeup-date">29 July 2026</p>
-            <p>Hard Windows/Active Directory machine documented as a full cross-forest compromise chain. Highlights: Handlebars AST injection research, Kerberos and SSPI pivoting, Gitea workflow abuse, AD ACL reasoning, trust-key analysis, DCSync methodology and defensive lessons around cross-forest boundaries.</p>
-            <div class="tags"><span class="tag amber">Hard</span><span class="tag violet">Active Directory</span><span class="tag violet">Kerberos</span><span class="tag green">CVE mapping</span></div>
-            <div class="actions"><a class="btn" href="https://github.com/ALLAKORI/htb-season-11-writeups" target="_blank" rel="noreferrer">GitHub repo</a></div>
-          </article>
-          <article class="card writeup-card">
-            <p class="meta">Hack The Box / Season 11 / Linux</p>
-            <h3>Cohort writeup</h3>
-            <p class="writeup-date">5 August 2026</p>
-            <p>Easy Linux machine documented as the final Season 11 writeup. Key steps: SSRF validation bypass, localhost and vhost discovery, Marimo pre-auth Terminal WebSocket RCE via CVE-2026-39987, and PackageKit TOCTOU privilege escalation via CVE-2026-41651.</p>
-            <div class="tags"><span class="tag green">Easy</span><span class="tag blue">Linux</span><span class="tag amber">SSRF</span><span class="tag violet">CVE mapping</span></div>
-            <div class="actions"><a class="btn" href="https://github.com/ALLAKORI/htb-season-11-writeups" target="_blank" rel="noreferrer">GitHub repo</a></div>
+          <article class="card writeup-card featured-writeup" id="tryhackme">
+            <p class="meta">TryHackMe / DFIR</p>
+            <h3>Volt Typhoon Intrusion Investigation</h3>
+            <p class="writeup-date">14 May 2026</p>
+            <p>TryHackMe room focused on reconstructing a Volt Typhoon-style intrusion from Windows and application logs. The investigation followed ADSelfService Plus account takeover, WMIC execution, PowerShell staging, web shell persistence, Mimikatz credential access, netsh proxying and log cleanup. Splunk searches, base64 decoding and MITRE ATT&amp;CK mapping were used to connect the events into one timeline. The writeup demonstrates practical threat hunting through attacker behavior instead of isolated keyword matching.</p>
+            <div class="tags"><span class="tag blue">Splunk</span><span class="tag blue">PowerShell</span><span class="tag violet">DFIR</span><span class="tag amber">MITRE ATT&amp;CK</span></div>
+            <div class="actions"><a class="btn primary" href="https://allakori.github.io/writeups/posts/volt-typhoon-intrusion/">Read canonical writeup</a><a class="btn" href="https://github.com/ALLAKORI/ALLAKORI.github.io/tree/main/writeups/tryhackme/volt-typhoon" target="_blank" rel="noreferrer">Source files</a></div>
           </article>
           <article class="card writeup-card">
             <p class="meta">Hack The Box / Season 11 / Active Directory</p>
@@ -92,13 +76,13 @@
             <div class="tags"><span class="tag amber">Medium</span><span class="tag violet">Active Directory</span><span class="tag violet">AD CS</span><span class="tag green">CVE mapping</span></div>
             <div class="actions"><a class="btn primary" href="https://allakori.github.io/writeups/posts/htb-danglingtree-active-directory/">Published case study</a><a class="btn" href="https://github.com/ALLAKORI/htb-season-11-writeups" target="_blank" rel="noreferrer">GitHub repo</a></div>
           </article>
-          <article class="card writeup-card featured-writeup" id="tryhackme">
-            <p class="meta">TryHackMe / DFIR</p>
-            <h3>Volt Typhoon Intrusion Investigation</h3>
-            <p class="writeup-date">14 May 2026</p>
-            <p>TryHackMe room focused on reconstructing a Volt Typhoon-style intrusion from Windows and application logs. The investigation followed ADSelfService Plus account takeover, WMIC execution, PowerShell staging, web shell persistence, Mimikatz credential access, netsh proxying and log cleanup. Splunk searches, base64 decoding and MITRE ATT&amp;CK mapping were used to connect the events into one timeline. The writeup demonstrates practical threat hunting through attacker behavior instead of isolated keyword matching.</p>
-            <div class="tags"><span class="tag blue">Splunk</span><span class="tag blue">PowerShell</span><span class="tag violet">DFIR</span><span class="tag amber">MITRE ATT&amp;CK</span></div>
-            <div class="actions"><a class="btn primary" href="https://allakori.github.io/writeups/posts/volt-typhoon-intrusion/">Read canonical writeup</a><a class="btn" href="https://github.com/ALLAKORI/ALLAKORI.github.io/tree/main/writeups/tryhackme/volt-typhoon" target="_blank" rel="noreferrer">Source files</a></div>
+          <article class="card writeup-card" id="active-directory">
+            <p class="meta">TryHackMe / Active Directory</p>
+            <h3>VulnNet-RST — Active Directory attack chain</h3>
+            <p class="writeup-date">10 November 2026</p>
+            <p>A documented assessment of the VulnNet-RST Windows domain lab: enumeration, AS-REP Roasting, SMB access validation, WinRM and DRSUAPI-based credential extraction, with evidence, sanitized commands and technical lessons.</p>
+            <div class="tags"><span class="tag green">Active Directory</span><span class="tag blue">Kerberos</span><span class="tag green">Impacket</span></div>
+            <div class="actions"><a class="btn primary" href="https://allakori.github.io/writeups/posts/tryhackme-vulnnet-rst-active-directory/">Read published writeup</a><a class="btn" href="https://github.com/ALLAKORI/writeups/blob/main/_posts/2026-11-10-tryhackme-vulnnet-rst-active-directory.md" target="_blank" rel="noreferrer">Source note</a></div>
           </article>
           <article class="card writeup-card" id="ctf">
             <p class="meta">CTF / Team GHOSTSHELL</p>
@@ -124,13 +108,29 @@
             <div class="tags"><span class="tag blue">Web</span><span class="tag blue">PHP</span><span class="tag blue">Parser logic</span></div>
             <div class="actions"><a class="btn primary" href="https://allakori.github.io/writeups/posts/deepwash-php-datetime/">Blog version</a><a class="btn" href="https://github.com/ALLAKORI/CITEFLAG_QUALS_2026/blob/main/deepwash.md" target="_blank" rel="noreferrer">Source note</a></div>
           </article>
-          <article class="card writeup-card" id="active-directory">
-            <p class="meta">TryHackMe / Active Directory</p>
-            <h3>VulnNet-RST — Active Directory attack chain</h3>
-            <p class="writeup-date">10 November 2026</p>
-            <p>A documented assessment of the VulnNet-RST Windows domain lab: enumeration, AS-REP Roasting, SMB access validation, WinRM and DRSUAPI-based credential extraction, with evidence, sanitized commands and technical lessons.</p>
-            <div class="tags"><span class="tag green">Active Directory</span><span class="tag blue">Kerberos</span><span class="tag green">Impacket</span></div>
-            <div class="actions"><a class="btn primary" href="https://allakori.github.io/writeups/posts/tryhackme-vulnnet-rst-active-directory/">Read published writeup</a><a class="btn" href="https://github.com/ALLAKORI/writeups/blob/main/_posts/2026-11-10-tryhackme-vulnnet-rst-active-directory.md" target="_blank" rel="noreferrer">Source note</a></div>
+          <article class="card writeup-card" id="hackthebox">
+            <p class="meta">Hack The Box / Season 11</p>
+            <h3>Season 11 active-machine writeups</h3>
+            <p class="writeup-date">5 August 2026</p>
+            <p>Season 11 writeup repository covering Reactor, DevHub, Connected, Checkpoint, Enigma, Paperwork, MakeSense, Bedside, DarkZeroReturns, Cohort and DanglingTree with a consistent professional format: machine information, official difficulty, CVE/vulnerability mapping, executive summary, reproducible exploitation steps, attack-chain summary, lessons learned, remediation guidance and redacted flags. Full notes are available in the public repository.</p>
+            <div class="tags"><span class="tag green">HTB</span><span class="tag green">Season 11</span><span class="tag amber">CVE mapping</span><span class="tag violet">Windows AD</span><span class="tag violet">Kerberos</span></div>
+            <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/htb-season-11-writeups" target="_blank" rel="noreferrer">GitHub repository</a><a class="btn" href="https://profile.hackthebox.com/profile/019d03a0-4529-7233-b8f5-6fe1e7a7e02b" target="_blank" rel="noreferrer">HTB Profile</a></div>
+          </article>
+          <article class="card writeup-card">
+            <p class="meta">Hack The Box / Season 11 / Active Directory</p>
+            <h3>DarkZeroReturns writeup</h3>
+            <p class="writeup-date">29 July 2026</p>
+            <p>Hard Windows/Active Directory machine documented as a full cross-forest compromise chain. Highlights: Handlebars AST injection research, Kerberos and SSPI pivoting, Gitea workflow abuse, AD ACL reasoning, trust-key analysis, DCSync methodology and defensive lessons around cross-forest boundaries.</p>
+            <div class="tags"><span class="tag amber">Hard</span><span class="tag violet">Active Directory</span><span class="tag violet">Kerberos</span><span class="tag green">CVE mapping</span></div>
+            <div class="actions"><a class="btn" href="https://github.com/ALLAKORI/htb-season-11-writeups" target="_blank" rel="noreferrer">GitHub repo</a></div>
+          </article>
+          <article class="card writeup-card">
+            <p class="meta">Hack The Box / Season 11 / Linux</p>
+            <h3>Cohort writeup</h3>
+            <p class="writeup-date">5 August 2026</p>
+            <p>Easy Linux machine documented as the final Season 11 writeup. Key steps: SSRF validation bypass, localhost and vhost discovery, Marimo pre-auth Terminal WebSocket RCE via CVE-2026-39987, and PackageKit TOCTOU privilege escalation via CVE-2026-41651.</p>
+            <div class="tags"><span class="tag green">Easy</span><span class="tag blue">Linux</span><span class="tag amber">SSRF</span><span class="tag violet">CVE mapping</span></div>
+            <div class="actions"><a class="btn" href="https://github.com/ALLAKORI/htb-season-11-writeups" target="_blank" rel="noreferrer">GitHub repo</a></div>
           </article>
           <article class="card writeup-card blog-card">
             <p class="meta">Dedicated blog</p>

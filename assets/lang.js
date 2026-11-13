@@ -194,7 +194,6 @@ const translations = {
   "LinkedIn": "LinkedIn",
   "HackTheBox": "HackTheBox",
   "HTB Profile": "Profil HTB",
-  "Season 11 repo": "Repo Season 11",
   "@allakori profile": "profil @allakori",
   "Contact": "Contact",
   "Cyber CV": "CV Cyber",
@@ -239,7 +238,6 @@ const translations = {
   "Cybersecurity PFE 2027": "PFE cybersécurité 2027",
   "Proof-first portfolio": "Portfolio orienté preuves",
   "TryHackMe globally": "TryHackMe, niveau mondial",
-  "HTB Season 11 writeups documented": "Writeups HTB Season 11 documentés",
   "Certifications verified": "Certifications vérifiées",
   "Check the fit": "Vérifier la compatibilité",
   "Start with the PFE profile": "Commencer par le profil PFE",
@@ -320,10 +318,7 @@ const translations = {
   "Writeup index": "Index des writeups",
   "Technical notes, sorted by date.": "Notes techniques, triées par date.",
   "This portfolio page keeps the summaries short. The dedicated blog carries the long-form versions with categories, tags and syntax highlighting.": "Cette page garde des résumés courts. Le blog dédié porte les versions longues avec catégories, tags et coloration syntaxique.",
-  "Season 11 active-machine writeups": "Writeups Season 11 des machines actives",
-  "Season 11 writeup repository covering Reactor, DevHub, Connected, Checkpoint, Enigma, Paperwork, MakeSense, Bedside, DarkZeroReturns, Cohort and DanglingTree with a consistent professional format: machine information, official difficulty, CVE/vulnerability mapping, executive summary, reproducible exploitation steps, attack-chain summary, lessons learned, remediation guidance and redacted flags. Full notes are available in the public repository.": "Dépôt de writeups Season 11 couvrant Reactor, DevHub, Connected, Checkpoint, Enigma, Paperwork, MakeSense, Bedside, DarkZeroReturns, Cohort et DanglingTree, avec un format professionnel constant : infos machine, difficulté officielle, mapping CVE, résumé exécutif, étapes reproductibles, chaîne d'attaque, leçons apprises, remédiation et flags expurgés. Notes complètes dans le dépôt public.",
   "Hard Windows/Active Directory machine documented as a full cross-forest compromise chain. Highlights: Handlebars AST injection research, Kerberos and SSPI pivoting, Gitea workflow abuse, AD ACL reasoning, trust-key analysis, DCSync methodology and defensive lessons around cross-forest boundaries.": "Machine Windows/Active Directory difficile : chaîne complète de compromission cross-forest. Points forts : injection AST Handlebars, pivots Kerberos et SSPI, abus de workflows Gitea, ACL AD, clés de trust, méthodologie DCSync et leçons défensives cross-forest.",
-  "Easy Linux machine documented as the final Season 11 writeup. Key steps: SSRF validation bypass, localhost and vhost discovery, Marimo pre-auth Terminal WebSocket RCE via CVE-2026-39987, and PackageKit TOCTOU privilege escalation via CVE-2026-41651.": "Machine Linux facile, dernier writeup Season 11. Étapes clés : contournement de validation SSRF, découverte localhost et vhosts, RCE WebSocket Terminal Marimo pré-auth via CVE-2026-39987, et élévation PackageKit TOCTOU via CVE-2026-41651.",
   "Medium Windows/Active Directory machine documented as a layered enterprise-style chain. Key steps: guest SMB exposure, Windows Admin Center pivoting, SmarterMail takeover and RCE via CVE-2026-23760/CVE-2026-24423, DPAPI credential recovery, AD ACL abuse and AD CS ESC1 certificate impersonation.": "Machine Windows/Active Directory moyenne, chaîne complète de style entreprise. Étapes clés : SMB invité exposé, pivot Windows Admin Center, prise SmarterMail et RCE via CVE-2026-23760/CVE-2026-24423, identifiants DPAPI, abus d'ACL AD et impersonation par certificat AD CS ESC1.",
   "TryHackMe room focused on reconstructing a Volt Typhoon-style intrusion from Windows and application logs. The investigation followed ADSelfService Plus account takeover, WMIC execution, PowerShell staging, web shell persistence, Mimikatz credential access, netsh proxying and log cleanup. Splunk searches, base64 decoding and MITRE ATT&CK mapping were used to connect the events into one timeline. The writeup demonstrates practical threat hunting through attacker behavior instead of isolated keyword matching.": "Room TryHackMe de reconstruction d'une intrusion style Volt Typhoon depuis les logs Windows et applicatifs. Enquête : prise de compte ADSelfService Plus, WMIC, staging PowerShell, persistance web shell, Mimikatz, proxying netsh et nettoyage de logs. Recherches Splunk, décodage base64 et mapping MITRE ATT&CK reliés en une seule timeline. Du threat hunting pratique basé sur le comportement attaquant.",
   "CSIA CTF 2026 first-place writeups": "Writeups CSIA CTF 2026 de la première place",
@@ -380,7 +375,6 @@ const translations = {
   "Back Home": "Retour",
   "error - route not found": "erreur - route introuvable",
   "route not found — redirecting to safe shell...": "route introuvable — redirection vers un shell sûr...",
-  "Public HTB profile — Kossi Richard Allado, Morocco. Badges and Season 11 active-machine work documented in the writeups repo.": "Profil public HTB — Kossi Richard Allado, Maroc. Badges et travail Season 11 documentes dans le repo writeups."
 };
 
 const hrefs = {

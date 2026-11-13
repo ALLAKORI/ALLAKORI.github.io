@@ -1660,3 +1660,81 @@ html[data-theme="light"] .sidebar .social .copy-btn:hover {
 @media (max-width: 720px) {
   .academic-project-row { align-items: flex-start; flex-direction: column; padding: 18px; gap: 14px; }
 }
+
+/* Visual technical diagrams — ONEE predictive maintenance and DotCodeApp */
+.project-flow {
+  margin: 22px 0 19px;
+  padding: 14px;
+  background: #0e192b;
+  border: 1px solid #304661;
+  border-radius: 11px;
+  overflow-x: auto;
+}
+.project-flow svg {
+  display: block;
+  width: 100%;
+  min-width: 580px;
+  max-width: 742px;
+  height: auto;
+  margin: 0 auto;
+}
+.project-flow .pf-node {
+  fill: #1a2c46;
+  stroke: #385472;
+  stroke-width: 1.2px;
+}
+.project-flow .pf-node-accent {
+  fill: #203c5d;
+  stroke: #76b4f6;
+  stroke-width: 1.4px;
+}
+.project-flow .pf-label {
+  fill: #eaf3ff;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+.project-flow .pf-sub {
+  fill: #a9bfd9;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 10.3px;
+}
+.project-flow .pf-kicker {
+  fill: #9dcaff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+}
+.project-flow .pf-note {
+  fill: #aec5df;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 10.6px;
+}
+.project-flow .pf-arrow { stroke: #7bb6ff; stroke-width: 1.7; fill: none; }
+.project-flow figcaption {
+  color: #a9c0dd;
+  font-size: .77rem;
+  line-height: 1.55;
+  padding-top: 7px;
+  text-align: center;
+}
+html[data-theme="light"] .project-flow {
+  background: #ecf4fd;
+  border-color: #cfdeef;
+}
+html[data-theme="light"] .project-flow .pf-node {
+  fill: #fff; stroke: #b9d1ed;
+}
+html[data-theme="light"] .project-flow .pf-node-accent {
+  fill: #daebff; stroke: #619fe1;
+}
+html[data-theme="light"] .project-flow .pf-label { fill: #183a62; }
+html[data-theme="light"] .project-flow .pf-sub { fill: #527297; }
+html[data-theme="light"] .project-flow .pf-kicker { fill: #3175b7; }
+html[data-theme="light"] .project-flow .pf-note { fill: #cfe1f8; }
+html[data-theme="light"] .project-flow figcaption { color: #4f7198; }
+@media (max-width: 720px) {
+  .project-flow { padding: 9px; }
+  .project-flow svg { min-width: 580px; }
+}

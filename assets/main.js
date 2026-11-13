@@ -167,11 +167,11 @@
     [
       { cmd: "$ whoami", out: "Kossi Richard Allado", cls: "t-strong" },
       { cmd: "$ focus --pfe", out: "Cybersecurity, AI Security and secure software", cls: "ok" },
-      { cmd: "$ evidence --show", out: "PFA CyberVeille PME, Chatbot USMS RAG, CSIA CTF 1st, Splunk DFIR, Linux hardening, HTB x11.", cls: "" }
+      { cmd: "$ evidence --show", out: "PFA CyberVeille PME, Chatbot USMS RAG, CSIA CTF 1st, Splunk DFIR, Linux hardening.", cls: "" }
     ],
     [
       { cmd: "$ thm --rank", out: "Top 1% globally — Jr Pentester, SOC L1, AI Security", cls: "ok" },
-      { cmd: "$ htb --season 11", out: "11 machines documented: AD, Kerberos, CVE mapping, DFIR", cls: "" },
+      { cmd: "$ htb --profile", out: "Hack The Box training and hands-on security labs", cls: "" },
       { cmd: "$ ctf --last", out: "CSIA CTF 2026 — 1st place with GHOSTSHELL", cls: "t-strong" }
     ],
     [
@@ -287,13 +287,13 @@
     var msgsEN = [
       "Preparing for PFE 2027 opportunities",
       "Open to SOC / DFIR discussions",
-      "HTB Season 11 documented — THM Top 1%",
+      "TryHackMe Top 1% — Security training",
       "CSIA CTF 2026 — 1st place GHOSTSHELL"
     ];
     var msgsFR = [
       "Préparation des candidatures PFE 2027",
       "Ouvert aux discussions SOC / DFIR",
-      "HTB Season 11 documentée — THM Top 1%",
+      "TryHackMe Top 1 % — entraînement en sécurité",
       "CSIA CTF 2026 — 1re place GHOSTSHELL"
     ];
     // Rotator follows the site language, even mid-cycle
@@ -441,7 +441,7 @@
     "skills.txt": "[blue]  Splunk, auditd, Volatility, IOC reasoning, timelines\n[red]   SQLi/XSS, CTF, enumeration, MITM understanding\n[id]    Keycloak, MFA/TOTP, PKI, SSH hardening, RBAC\n[ai]    RAG (FastAPI/Next.js/Postgres), scikit-learn, local LLMs",
     "contact.txt": "mail:  alladokossirichard2025@gmail.com\nlinkedin: /in/kossi-richard-allado-50177b2a5\ngithub: @ALLAKORI\nbase:  Beni Mellal, Morocco (FR/EN)",
     "pfe.txt": "Seeking: final-year internship (PFE 2027), cybersecurity focus.\nCompleted PFA: CyberVeille PME with CMRPI (URL threat intel MVP).\nOpen to: SOC/DFIR, offensive security, AI security, secure software.",
-    "ctf.txt": "CSIA CTF 2026 ....... 1st place (GHOSTSHELL)\nTryHackMe ............ Top 1% globally\nHTB Season 11 ........ 11 machines documented (see writeups page)\nCiteFlag 2026 ........ finalist, 6th place"
+    "ctf.txt": "CSIA CTF 2026 ....... 1st place (GHOSTSHELL)\nTryHackMe ............ Top 1% globally\nHack The Box ........ Profile and platform achievements\nCiteFlag 2026 ........ finalist, 6th place"
   };
   function initTerminal() {
     if (document.getElementById("term")) return;
@@ -927,7 +927,7 @@
     if (reducedMotion) return;
     var hero = $(".hero");
     if (!hero || $(".ticker")) return;
-    var items = ["SOC / DFIR", "Splunk", "TryHackMe Top 1%", "HTB Season 11", "CSIA CTF 1st", "Linux Hardening", "IAM • Keycloak", "AI Security", "PFE 2027"];
+    var items = ["SOC / DFIR", "Splunk", "TryHackMe Top 1%", "Hack The Box", "CSIA CTF 1st", "Linux Hardening", "IAM • Keycloak", "AI Security", "PFE 2027"];
     var ticker = document.createElement("div");
     ticker.className = "ticker";
     ticker.setAttribute("aria-hidden", "true");

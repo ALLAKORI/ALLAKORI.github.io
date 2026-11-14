@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/site.css?v=20261103-recruiter" />
-  <link rel="stylesheet" href="assets/portfolio-refresh.css?v=20261112-header" />
+  <link rel="stylesheet" href="assets/portfolio-refresh.css?v=20261114-previews" />
 </head>
 <body>
   <div class="shell">
@@ -95,7 +95,22 @@
   <div class="section-head"><div><p class="meta" data-en="Selected work" data-fr="Réalisations sélectionnées">Selected work</p><h2 data-en="Start with four technical case studies." data-fr="Quatre réalisations techniques à consulter en priorité.">Start with four technical case studies.</h2></div><p class="section-note" data-en="Public evidence, technical methodology, results and limitations — no login needed." data-fr="Preuves publiques, méthodologie, résultats et limites — sans connexion.">Public evidence, technical methodology, results and limitations — no login needed.</p></div>
   <div class="grid grid-2 recruiter-work">
     <article class="card evidence-card">
-      <div class="project-art art-audit" aria-hidden="true"><span class="art-symbol">⌁</span><span class="art-caption">APPSEC / RISK</span></div>
+      <div class="case-preview cp-audit" role="img" aria-label="AltoroJ risk review. Nine assets and twelve identified risks, including SQL injection, cross-site scripting and access-control issues.">
+          <div class="cp-top"><span class="cp-top-title">ALTOROJ / SECURITY REVIEW</span><span class="cp-status">RISK REGISTER</span></div>
+          <div class="cp-audit-layout">
+            <div class="cp-audit-metrics">
+              <div class="cp-metric"><strong>09</strong><small>ASSETS</small></div>
+              <div class="cp-metric"><strong>12</strong><small>RISKS</small></div>
+              <div class="cp-risk-bars"><span class="cp-risk-critical" title="1 critical"></span><span class="cp-risk-high" title="7 high"></span><span class="cp-risk-medium" title="4 medium"></span></div>
+              <div class="cp-risk-legend"><span>1 CRITICAL</span><span>7 HIGH</span><span>4 MEDIUM</span></div>
+            </div>
+            <div class="cp-audit-findings">
+              <div class="cp-audit-row"><span>SQL injection</span><b class="cp-critical">CVSS 9.8</b></div>
+              <div class="cp-audit-row"><span>Broken access control</span><b class="cp-high">HIGH</b></div>
+              <div class="cp-audit-row"><span>Reflected XSS</span><b class="cp-medium">MEDIUM</b></div>
+            </div>
+          </div>
+        </div>
       <p class="meta" data-en="01 / Application Security" data-fr="01 / Sécurité applicative">01 / Application Security</p>
       <h3>AltoroJ Banking Security Assessment</h3>
       <p data-en="Academic black-box audit of a deliberately vulnerable banking demo: 9 assets, 12 prioritized risks, manual SQLi, XSS and broken-access-control validation." data-fr="Audit académique en boîte noire d'une application bancaire de démonstration : 9 actifs, 12 risques priorisés, validation manuelle SQLi, XSS et contrôle d'accès défaillant.">Academic black-box audit of a deliberately vulnerable banking demo: 9 assets, 12 prioritized risks, manual SQLi, XSS and broken-access-control validation.</p>
@@ -103,7 +118,18 @@
       <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/ALLAKORI.github.io/blob/main/case-studies/altoroj-banking-risk-assessment/README.md" target="_blank" rel="noopener noreferrer">Read case study</a></div>
     </article>
     <article class="card evidence-card">
-      <div class="project-art art-intel" aria-hidden="true"><span class="art-symbol">◎</span><span class="art-caption">THREAT INTELLIGENCE</span></div>
+      <div class="case-preview cp-url" role="img" aria-label="CyberVeille PME URL-analysis workflow: validate a URL, check URLhaus, extract features, estimate risk with a machine-learning model, and record or alert. The displayed URL is illustrative.">
+          <div class="cp-top"><span class="cp-top-title">CYBERVEILLE / URL ANALYSIS</span><span class="cp-status">DEFENSIVE MVP</span></div>
+          <div class="cp-url-input"><span class="cp-url-lock" aria-hidden="true">⌕</span><span>https://example.test/</span><b>ANALYZE</b></div>
+          <div class="cp-flow">
+            <div class="cp-flow-step"><span>01</span><strong>URLhaus</strong><small>Threat intel</small></div>
+            <div class="cp-flow-arrow" aria-hidden="true">›</div>
+            <div class="cp-flow-step"><span>02</span><strong>Features</strong><small>Lexical</small></div>
+            <div class="cp-flow-arrow" aria-hidden="true">›</div>
+            <div class="cp-flow-step"><span>03</span><strong>ML score</strong><small>Risk estimate</small></div>
+          </div>
+          <div class="cp-url-footer"><span>SQLite history</span><span>SMTP alerts when configured</span></div>
+        </div>
       <p class="meta" data-en="02 / Threat Intelligence · PFA" data-fr="02 / Threat Intelligence · PFA">02 / Threat Intelligence · PFA</p>
       <h3>CyberVeille PME</h3>
       <p data-en="Python MVP for suspicious URL analysis, combining URLhaus, ML scoring, SQLite history, configurable SMTP alerts and automated tests." data-fr="MVP Python d'analyse d'URL suspectes : URLhaus, scoring ML, historique SQLite, alertes SMTP configurables et tests automatisés.">Python MVP for suspicious URL analysis, combining URLhaus, ML scoring, SQLite history, configurable SMTP alerts and automated tests.</p>
@@ -111,7 +137,17 @@
       <div class="actions"><a class="btn" href="https://github.com/ALLAKORI/STAGE_PFA_CMRPI" target="_blank" rel="noopener noreferrer">Code &amp; tests</a></div>
     </article>
     <article class="card evidence-card">
-      <div class="project-art art-soc" aria-hidden="true"><span class="art-symbol">◈</span><span class="art-caption">SOC / DFIR</span></div>
+      <div class="case-preview cp-investigation" role="img" aria-label="Volt Typhoon Splunk investigation: correlating account takeover, WMIC execution, web-shell persistence and log cleanup into an incident timeline, with IOC and MITRE ATTACK mapping.">
+          <div class="cp-top"><span class="cp-top-title">SPLUNK / INCIDENT TIMELINE</span><span class="cp-status">DFIR</span></div>
+          <div class="cp-searchline"><span class="cp-search-prompt">›</span><code>index=* | correlate events</code><span class="cp-search-indicator">●</span></div>
+          <div class="cp-incident-flow">
+            <div class="cp-incident-event"><span class="cp-incident-dot"></span><strong>Account</strong><small>ADSelfService</small></div>
+            <div class="cp-incident-event"><span class="cp-incident-dot"></span><strong>Execution</strong><small>WMIC</small></div>
+            <div class="cp-incident-event"><span class="cp-incident-dot"></span><strong>Persistence</strong><small>Web shell</small></div>
+            <div class="cp-incident-event"><span class="cp-incident-dot"></span><strong>Cleanup</strong><small>Event logs</small></div>
+          </div>
+          <div class="cp-investigation-footer"><span>IOC extraction</span><span>MITRE ATT&amp;CK mapping</span></div>
+        </div>
       <p class="meta" data-en="03 / SOC · Incident investigation" data-fr="03 / SOC · Investigation d'incident">03 / SOC · Incident investigation</p>
       <h3>Volt Typhoon Intrusion Investigation</h3>
       <p data-en="Reconstructed a simulated intrusion from Splunk logs, with timeline, IOC extraction, MITRE ATT&amp;CK mapping and detection ideas." data-fr="Reconstitution d'une intrusion simulée dans Splunk : chronologie, IOC, mapping MITRE ATT&amp;CK et pistes de détection.">Reconstructed a simulated intrusion from Splunk logs, with timeline, IOC extraction, MITRE ATT&CK mapping and detection ideas.</p>
@@ -119,7 +155,22 @@
       <div class="actions"><a class="btn" href="writeups/tryhackme/volt-typhoon/index.html">Read investigation</a></div>
     </article>
     <article class="card evidence-card">
-      <div class="project-art art-linux" aria-hidden="true"><span class="art-symbol">⌘</span><span class="art-caption">LINUX / SECURITY</span></div>
+      <div class="case-preview cp-forensics" role="img" aria-label="Linux compromise and forensic lab: review SSH authentication evidence, correlate auditd and sudo activity, reconstruct the incident timeline and apply UFW and Fail2ban hardening.">
+          <div class="cp-top"><span class="cp-top-title">LINUX / INCIDENT RESPONSE</span><span class="cp-status">LAB ENVIRONMENT</span></div>
+          <div class="cp-forensics-layout">
+            <div class="cp-terminal">
+              <div class="cp-terminal-head"><span class="cp-terminal-dots">● ● ●</span><span>auth.log + auditd</span></div>
+              <div class="cp-terminal-row"><em>01</em><span>SSH brute-force</span><b>DETECT</b></div>
+              <div class="cp-terminal-row"><em>02</em><span>sudo / useradd</span><b>REVIEW</b></div>
+              <div class="cp-terminal-row"><em>03</em><span>IOC timeline</span><b>CORRELATE</b></div>
+            </div>
+            <div class="cp-response">
+              <span class="cp-response-kicker">RESPONSE</span>
+              <div class="cp-response-path"><span>Contain</span><i></i><span>Harden</span><i></i><span>Retest</span></div>
+              <div class="cp-response-tags"><span>UFW</span><span>Fail2ban</span></div>
+            </div>
+          </div>
+        </div>
       <p class="meta" data-en="04 / Linux · Red Team / Blue Team" data-fr="04 / Linux · Red Team / Blue Team">04 / Linux · Red Team / Blue Team</p>
       <h3>Linux Compromise &amp; Forensic Lab</h3>
       <p data-en="Controlled compromise, SSH/sudo/auditd evidence, incident timeline, remediation and retests with UFW and Fail2ban." data-fr="Compromission contrôlée, preuves SSH/sudo/auditd, chronologie, remédiation et retests avec UFW et Fail2ban.">Controlled compromise, SSH/sudo/auditd evidence, incident timeline, remediation and retests with UFW and Fail2ban.</p>

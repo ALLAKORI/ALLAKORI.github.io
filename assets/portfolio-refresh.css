@@ -1738,3 +1738,227 @@ html[data-theme="light"] .project-flow figcaption { color: #4f7198; }
   .project-flow { padding: 9px; }
   .project-flow svg { min-width: 580px; }
 }
+
+/* Featured-work preview panels (replacing decorative abstract symbols).
+   These are static, schematic mini-interfaces, not live scores or screenshots. */
+.recruiter-work .case-preview {
+  --cp-bg: #12253d;
+  --cp-surface: #182f4c;
+  --cp-surface-2: #213e5e;
+  --cp-line: #315272;
+  --cp-primary: #e7f3ff;
+  --cp-secondary: #adc6df;
+  --cp-subtle: #87a8ca;
+  --cp-accent: #86bcff;
+  width: 100%;
+  height: 206px;
+  margin: 0 0 18px;
+  padding: 13px 15px;
+  border: 1px solid #315170;
+  border-radius: 11px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 95% -25%, #25456a 0%, transparent 67%), #12253d;
+  color: var(--cp-primary);
+  isolation: isolate;
+  font-family: Inter, system-ui, sans-serif;
+}
+.recruiter-work .case-preview *,
+.recruiter-work .case-preview *::before,
+.recruiter-work .case-preview *::after { box-sizing: border-box; }
+.recruiter-work .case-preview .cp-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 13px;
+  min-height: 20px;
+  white-space: nowrap;
+}
+.recruiter-work .case-preview .cp-top-title {
+  color: var(--cp-accent);
+  font: 700 .62rem "JetBrains Mono", monospace;
+  letter-spacing: .055em;
+}
+.recruiter-work .case-preview .cp-status {
+  flex: 0 0 auto;
+  padding: 4px 7px;
+  border: 1px solid #406080;
+  border-radius: 5px;
+  color: #bfd8f5;
+  font: 600 .52rem "JetBrains Mono", monospace;
+  letter-spacing: .01em;
+}
+.recruiter-work .cp-audit-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr);
+  gap: 11px;
+}
+.recruiter-work .cp-audit-metrics,
+.recruiter-work .cp-audit-findings {
+  min-width: 0;
+  height: 142px;
+  border: 1px solid var(--cp-line);
+  border-radius: 8px;
+  padding: 10px 11px;
+  background: rgba(6,17,34,.29);
+}
+.recruiter-work .cp-audit-metrics {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  grid-template-rows: 49px 15px auto;
+  gap: 2px 8px;
+}
+.recruiter-work .cp-metric { display: flex; flex-direction: column; gap: 1px; }
+.recruiter-work .cp-metric strong { color: #f4f9ff; font-size: 1.55rem; font-weight: 800; letter-spacing: -.05em; line-height: 1; }
+.recruiter-work .cp-metric small { color: var(--cp-secondary); font: 650 .54rem "JetBrains Mono",monospace; }
+.recruiter-work .cp-risk-bars { grid-column: 1/-1; display: flex; gap: 3px; height: 9px; }
+.recruiter-work .cp-risk-bars span { display:block; border-radius: 3px; }
+.recruiter-work .cp-risk-critical { background: #fa8c9a; flex: 1; }
+.recruiter-work .cp-risk-high { background: #ffc17e; flex: 7; }
+.recruiter-work .cp-risk-medium { background: #84baff; flex: 4; }
+.recruiter-work .cp-risk-legend {
+  grid-column:1/-1;
+  display:flex; flex-wrap: wrap; gap: 4px 9px;
+  align-items: start;
+  padding-top: 5px;
+  font: 650 .50rem "JetBrains Mono", monospace;
+  color: #9db3cf;
+}
+.recruiter-work .cp-audit-findings { display: flex; flex-direction: column; justify-content: space-evenly; padding: 8px 9px; }
+.recruiter-work .cp-audit-row { display:flex;align-items:center;justify-content:space-between;gap:6px; border-bottom: 1px solid rgba(109,146,185,.16); padding: 8px 0; font-size: .63rem; line-height: 1.25; }
+.recruiter-work .cp-audit-row:last-child {border:0;}
+.recruiter-work .cp-audit-row span {min-width:0; color:#d6e5fa;}
+.recruiter-work .cp-audit-row b {flex:0 0 auto;white-space:nowrap;font:700 .53rem "JetBrains Mono",monospace;}
+.recruiter-work .cp-critical {color:#ff9aa2;}
+.recruiter-work .cp-high {color:#ffc783;}
+.recruiter-work .cp-medium {color:#a5cbff;}
+.recruiter-work .cp-url-input {
+  display:flex;align-items:center;gap:9px;
+  padding: 8px 9px;
+  height:36px;
+  border:1px solid #426184;border-radius:7px;background:#0e1d30;
+  font:600 .67rem "JetBrains Mono",monospace;
+}
+.recruiter-work .cp-url-lock {font-size:1rem;color:#9abfe7;}
+.recruiter-work .cp-url-input > span:nth-child(2) {flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#c7d9ed;}
+.recruiter-work .cp-url-input b {font:700 .55rem Inter,sans-serif;background:#74b4f9;color:#102b49;padding:6px 8px;border-radius:5px;letter-spacing:.015em;}
+.recruiter-work .cp-flow {display:flex;align-items:stretch;justify-content:space-between;gap:4px; margin-top:11px;}
+.recruiter-work .cp-flow-step {
+  min-width:0;flex:1 1 0;
+  padding:10px 3px 8px;
+  background: rgba(38,75,114,.57);
+  border: 1px solid #3c5c7b;
+  border-radius:7px;
+  text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+.recruiter-work .cp-flow-step span {color:#88b8ee;font:700 .55rem "JetBrains Mono",monospace;}
+.recruiter-work .cp-flow-step strong {color:#f0f6ff;font-size:.72rem;}
+.recruiter-work .cp-flow-step small {color:#aac1db;font-size:.56rem;}
+.recruiter-work .cp-flow-arrow {align-self:center;font-size:1.15rem;color:#82b7f9;line-height:1;}
+.recruiter-work .cp-url-footer,
+.recruiter-work .cp-investigation-footer {
+  display:flex;justify-content:space-between;gap:8px;align-items:center;
+  color:#a6c3e3;
+  margin-top:11px;
+  font:600 .57rem "JetBrains Mono",monospace;
+}
+.recruiter-work .cp-url-footer span::before,
+.recruiter-work .cp-investigation-footer span::before {content:"●";font-size:.45rem;color:#78cda8;margin-right:6px;}
+.recruiter-work .cp-searchline { display:flex;align-items:center;gap:8px;background:#0c1b2f;border:1px solid #375574;border-radius:7px;padding:7px 10px;font-size:.71rem; }
+.recruiter-work .cp-searchline code {color:#c8e2ff;font:600 .62rem "JetBrains Mono",monospace;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.recruiter-work .cp-search-prompt,.recruiter-work .cp-search-indicator {color:#8dc1ff;}
+.recruiter-work .cp-search-indicator {margin-left:auto;font-size:.6rem;}
+.recruiter-work .cp-incident-flow {display:grid;grid-template-columns:repeat(4,minmax(0,1fr)); gap:3px;margin-top:15px;position:relative;}
+.recruiter-work .cp-incident-flow::before {content:"";position:absolute;left:10%;right:10%;top:7px;height:2px;background:#46678a;}
+.recruiter-work .cp-incident-event {display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;min-width:0;position:relative;}
+.recruiter-work .cp-incident-dot {width:14px;height:14px;background:#7eb9fa;border:3px solid #274561;box-shadow:0 0 0 1px #80b8f5;border-radius:50%;}
+.recruiter-work .cp-incident-event strong {font-size:.62rem;color:#ebf5ff;}
+.recruiter-work .cp-incident-event small {font-size:.53rem;color:#a7c0dd;}
+.recruiter-work .cp-forensics-layout {display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:10px;}
+.recruiter-work .cp-terminal {height:142px;background:#0c1c2e;border:1px solid #345372;border-radius:8px;overflow:hidden;min-width:0;}
+.recruiter-work .cp-terminal-head {display:flex;align-items:center;justify-content:space-between;gap:8px;height:30px;padding:0 9px;background:#203954;border-bottom:1px solid #345372;color:#b9d4ec;font:650 .55rem "JetBrains Mono",monospace;}
+.recruiter-work .cp-terminal-dots {color:#7ba6d8;letter-spacing:3px;}
+.recruiter-work .cp-terminal-row {display:flex;align-items:center;gap:7px;padding:8px 9px;white-space:nowrap;font:600 .58rem "JetBrains Mono",monospace;}
+.recruiter-work .cp-terminal-row em {font-style:normal;color:#6d98c6;}
+.recruiter-work .cp-terminal-row span {flex:1;min-width:0;color:#d6e8fa;overflow:hidden;text-overflow:ellipsis;}
+.recruiter-work .cp-terminal-row b {font:700 .5rem "JetBrains Mono",monospace;color:#95dcb6;}
+.recruiter-work .cp-response {height:142px;padding:12px 10px;border:1px solid #345372;border-radius:8px;background:#1a3452;display:flex;flex-direction:column;justify-content:space-between;min-width:0;}
+.recruiter-work .cp-response-kicker {font:700 .59rem "JetBrains Mono",monospace;color:#92c4fc;}
+.recruiter-work .cp-response-path {display:flex;flex-direction:column;align-items:flex-start;gap:4px;color:#e2f0ff;font-size:.66rem;font-weight:650;}
+.recruiter-work .cp-response-path i {width:1px;height:5px;margin-left:4px;background:#8cb8e5;}
+.recruiter-work .cp-response-tags {display:flex;flex-wrap:wrap;gap:5px;}
+.recruiter-work .cp-response-tags span {font:700 .54rem "JetBrains Mono",monospace;background:#294c70;border:1px solid #456b92;border-radius:5px;padding:4px 6px;color:#c6e1ff;}
+/* The blue/white theme preserves enough contrast to make mini-interfaces legible. */
+html[data-theme="light"] .recruiter-work .case-preview {
+  --cp-primary:#143554;
+  --cp-secondary:#506f8f;
+  --cp-subtle:#6288ae;
+  --cp-accent:#246cb1;
+  color:#153755;
+  background:radial-gradient(ellipse at 95% -25%,#d5e8fb,transparent 67%),#eaf2fb;
+  border-color:#c4d7ed;
+}
+html[data-theme="light"] .recruiter-work .cp-status {color:#316b9c;border-color:#b7d1e8;}
+html[data-theme="light"] .recruiter-work .cp-audit-metrics,
+html[data-theme="light"] .recruiter-work .cp-audit-findings {background:#f9fcff;border-color:#cfdfef;}
+html[data-theme="light"] .recruiter-work .cp-metric strong {color:#143759;}
+html[data-theme="light"] .recruiter-work .cp-metric small,
+html[data-theme="light"] .recruiter-work .cp-risk-legend {color:#557796;}
+html[data-theme="light"] .recruiter-work .cp-audit-row {border-color:#d9e7f4;}
+html[data-theme="light"] .recruiter-work .cp-audit-row span {color:#345b7d;}
+html[data-theme="light"] .recruiter-work .cp-critical {color:#b52f49;}
+html[data-theme="light"] .recruiter-work .cp-high {color:#a86620;}
+html[data-theme="light"] .recruiter-work .cp-medium {color:#2774bc;}
+html[data-theme="light"] .recruiter-work .cp-url-input,
+html[data-theme="light"] .recruiter-work .cp-searchline {background:#fbfdff;border-color:#c0d6ec;}
+html[data-theme="light"] .recruiter-work .cp-url-input > span:nth-child(2),
+html[data-theme="light"] .recruiter-work .cp-searchline code {color:#41698b;}
+html[data-theme="light"] .recruiter-work .cp-flow-step {background:#fff;border-color:#cfdfef;}
+html[data-theme="light"] .recruiter-work .cp-flow-step strong,
+html[data-theme="light"] .recruiter-work .cp-incident-event strong {color:#224c76;}
+html[data-theme="light"] .recruiter-work .cp-flow-step small,
+html[data-theme="light"] .recruiter-work .cp-incident-event small,
+html[data-theme="light"] .recruiter-work .cp-url-footer,
+html[data-theme="light"] .recruiter-work .cp-investigation-footer {color:#5f7f9e;}
+html[data-theme="light"] .recruiter-work .cp-incident-flow::before {background:#a4c4e6;}
+html[data-theme="light"] .recruiter-work .cp-incident-dot {border-color:#edf5ff;}
+html[data-theme="light"] .recruiter-work .cp-terminal {background:#fcfdff;border-color:#c8dbec;}
+html[data-theme="light"] .recruiter-work .cp-terminal-head {background:#e5effa;border-color:#c8dbec;color:#476e91;}
+html[data-theme="light"] .recruiter-work .cp-terminal-row span {color:#325778;}
+html[data-theme="light"] .recruiter-work .cp-terminal-row b {color:#16825a;}
+html[data-theme="light"] .recruiter-work .cp-response {background:#f4f9ff;border-color:#c8dbec;}
+html[data-theme="light"] .recruiter-work .cp-response-kicker {color:#3374ad;}
+html[data-theme="light"] .recruiter-work .cp-response-path {color:#315c7e;}
+html[data-theme="light"] .recruiter-work .cp-response-path i {background:#7daed7;}
+html[data-theme="light"] .recruiter-work .cp-response-tags span {background:#e3eefb;border-color:#bbd4e9;color:#356486;}
+@media (max-width: 1100px) {
+  .recruiter-work .case-preview {padding:11px; height:200px;}
+  .recruiter-work .cp-audit-metrics,
+  .recruiter-work .cp-audit-findings,
+  .recruiter-work .cp-terminal,
+  .recruiter-work .cp-response {height:137px;}
+  .recruiter-work .cp-audit-row {font-size:.59rem;}
+}
+@media (max-width: 480px) {
+  .recruiter-work .case-preview {height:194px;padding:10px;}
+  .recruiter-work .case-preview .cp-top {margin-bottom:11px;}
+  .recruiter-work .case-preview .cp-top-title {font-size:.54rem;}
+  .recruiter-work .case-preview .cp-status {font-size:.46rem;padding:4px;}
+  .recruiter-work .cp-audit-metrics,
+  .recruiter-work .cp-audit-findings,
+  .recruiter-work .cp-terminal,
+  .recruiter-work .cp-response {height:133px;}
+  .recruiter-work .cp-metric strong {font-size:1.32rem;}
+  .recruiter-work .cp-audit-row {font-size:.54rem;gap:3px;}
+  .recruiter-work .cp-audit-row b {font-size:.47rem;}
+  .recruiter-work .cp-risk-legend {font-size:.45rem;gap:4px;}
+  .recruiter-work .cp-flow-step strong {font-size:.63rem;}
+  .recruiter-work .cp-flow-step small {font-size:.5rem;}
+  .recruiter-work .cp-incident-event strong {font-size:.54rem;}
+  .recruiter-work .cp-incident-event small {font-size:.48rem;}
+  .recruiter-work .cp-response-path {font-size:.58rem;}
+  .recruiter-work .cp-terminal-row {font-size:.5rem;padding:8px 5px;}
+  .recruiter-work .cp-terminal-head {font-size:.47rem;}
+  .recruiter-work .cp-terminal-row b {font-size:.43rem;}
+}

@@ -17,13 +17,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/site.css?v=20261103-recruiter" />
   <link rel="stylesheet" href="assets/portfolio-refresh.css?v=20261113-flows" />
+  <link rel="stylesheet" href="assets/evidence-atlas.css?v=20261115-01" />
 </head>
 <body>
   <div class="shell">
     <aside class="sidebar">
       <div>
         <div class="profile"><img class="avatar" src="richard.jpg" alt="Kossi Richard Allado" fetchpriority="high" decoding="async" /><div><div class="name">Kossi Richard Allado</div><p class="role">Cybersecurity projects with AI Security and secure software evidence.</p></div></div>
-        <nav class="nav"><a href="index.html"><span>01</span> Home</a><a href="proof.html"><span>02</span> Proof</a><a href="labs.html"><span>03</span> Labs</a><a href="writeups.html"><span>04</span> Writeups</a><a class="active" href="projects.html"><span>05</span> Projects</a><a href="cv.html"><span>06</span> CV</a></nav>
+        <nav class="nav"><a href="index.html"><span>01</span> Home</a><a href="proof.html"><span>02</span> Proof</a><a href="labs.html"><span>03</span> Labs</a><a href="writeups.html"><span>04</span> Writeups</a><a class="active" href="projects.html"><span>05</span> Projects</a><a href="cv.html"><span>06</span> CV</a><a href="index.html#evidence-atlas"><span>07</span> Atlas</a></nav>
       </div>
       <div class="social" aria-label="Professional profiles and contact">
         <a href="https://github.com/ALLAKORI" target="_blank" rel="noreferrer">Gh</a>
@@ -57,13 +58,13 @@
                     .rag-label { fill: #a9b0bc; font-family: 'JetBrains Mono', monospace; font-size: 10px; }
                     .rag-label-strong { fill: #f2f4f8; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; }
                     .rag-label-small { fill: #747c89; font-family: 'JetBrains Mono', monospace; font-size: 8.5px; }
-                    .rag-arrow { stroke: #58d5ff; stroke-width: 1.2; fill: none; marker-end: url(#arrowhead); }
-                    .rag-arrow-green { stroke: #70d58b; stroke-width: 1.2; fill: none; marker-end: url(#arrowhead-green); }
+                    .rag-arrow { stroke: #58d5ff; stroke-width: 1.2; fill: none; marker-end: url(#arrowhead-1); }
+                    .rag-arrow-green { stroke: #70d58b; stroke-width: 1.2; fill: none; marker-end: url(#arrowhead-green-1); }
                     .rag-zone { fill: rgba(88,213,255,0.04); stroke: #2a313b; stroke-width: 1; stroke-dasharray: 4 3; rx: 8; }
                   </style>
                   <defs>
-                    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#58d5ff"/></marker>
-                    <marker id="arrowhead-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#70d58b"/></marker>
+                    <marker id="arrowhead-1" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#58d5ff"/></marker>
+                    <marker id="arrowhead-green-1" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#70d58b"/></marker>
                   </defs>
                   <!-- Input zone -->
                   <rect class="rag-zone" x="8" y="10" width="140" height="244"/>
@@ -124,7 +125,16 @@
                   <line class="rag-arrow-green" x1="586" y1="99" x2="550" y2="70"/>
                 </svg>
               </div>
-              <div class="tags"><span class="tag green">Threat intelligence</span><span class="tag green">Phishing detection</span><span class="tag blue">Streamlit</span><span class="tag amber">SME security</span></div>
+              <details class="evidence-case-detail">
+  <summary><span>Engineering case study</span><strong>Scope · Architecture · Validation · Limits</strong></summary>
+  <div class="evidence-case-grid">
+    <div><h4>Challenge</h4><p>Help an SME evaluate suspicious HTTP(S) URLs without automatically visiting potentially malicious websites.</p></div>
+    <div><h4>My contribution</h4><p>Developed the local URL processing flow, URLhaus lookup, lexical feature extraction, risk classification, Streamlit interface and optional operational alerts.</p></div>
+    <div><h4>Validation</h4><p>The public repository includes automated tests for malformed inputs, missing model assets, bulk CSV processing, history persistence and SMTP error paths.</p></div>
+    <div><h4>Honest boundary</h4><p>Local threat-intelligence data and trained model artifacts are not committed. An unavailable component must be reported as unavailable, not as a fabricated safety verdict.</p></div>
+  </div>
+</details>
+            <div class="tags"><span class="tag green">Threat intelligence</span><span class="tag green">Phishing detection</span><span class="tag blue">Streamlit</span><span class="tag amber">SME security</span></div>
               <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/STAGE_PFA_CMRPI" target="_blank" rel="noreferrer">Code and tests</a></div>
           </article>
 
@@ -151,13 +161,13 @@
                     .rag-label { fill: #a9b0bc; font-family: 'JetBrains Mono', monospace; font-size: 10px; }
                     .rag-label-strong { fill: #f2f4f8; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; }
                     .rag-label-small { fill: #747c89; font-family: 'JetBrains Mono', monospace; font-size: 8.5px; }
-                    .rag-arrow { stroke: #58d5ff; stroke-width: 1.2; fill: none; marker-end: url(#arrowhead); }
-                    .rag-arrow-green { stroke: #70d58b; stroke-width: 1.2; fill: none; marker-end: url(#arrowhead-green); }
+                    .rag-arrow { stroke: #58d5ff; stroke-width: 1.2; fill: none; marker-end: url(#arrowhead-2); }
+                    .rag-arrow-green { stroke: #70d58b; stroke-width: 1.2; fill: none; marker-end: url(#arrowhead-green-2); }
                     .rag-zone { fill: rgba(88,213,255,0.04); stroke: #2a313b; stroke-width: 1; stroke-dasharray: 4 3; rx: 8; }
                   </style>
                   <defs>
-                    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#58d5ff"/></marker>
-                    <marker id="arrowhead-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#70d58b"/></marker>
+                    <marker id="arrowhead-2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#58d5ff"/></marker>
+                    <marker id="arrowhead-green-2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#70d58b"/></marker>
                   </defs>
                   <!-- Input zone -->
                   <rect class="rag-zone" x="8" y="10" width="140" height="244"/>
@@ -217,7 +227,16 @@
                   <line class="rag-arrow-green" x1="586" y1="59" x2="550" y2="66"/>
                 </svg>
               </div>
-              <div class="tags"><span class="tag blue">FastAPI</span><span class="tag blue">RAG</span><span class="tag blue">PostgreSQL</span><span class="tag green">Security</span></div>
+              <details class="evidence-case-detail">
+  <summary><span>Engineering case study</span><strong>Retrieval · Security controls · Boundaries</strong></summary>
+  <div class="evidence-case-grid">
+    <div><h4>Challenge</h4><p>Make university reference documents easier to query while preserving access boundaries and providing traceable academic answers.</p></div>
+    <div><h4>My contribution</h4><p>Designed the ingestion and retrieval architecture, application/API separation, and an engineering plan for authentication, access roles, rate limiting and auditability.</p></div>
+    <div><h4>Technical decisions</h4><p>Document chunking and vector search support retrieval; the FastAPI and Next.js architecture separates service logic from the interface.</p></div>
+    <div><h4>Honest boundary</h4><p>The full source repository is not public. The architecture describes the project; request a walkthrough to discuss implementation details and verification.</p></div>
+  </div>
+</details>
+            <div class="tags"><span class="tag blue">FastAPI</span><span class="tag blue">RAG</span><span class="tag blue">PostgreSQL</span><span class="tag green">Security</span></div>
               <div class="actions"><a class="btn primary" href="mailto:alladokossirichard2025@gmail.com?subject=Chatbot%20USMS%20case%20study">Request a walkthrough</a></div>
           </article>
 
@@ -256,6 +275,15 @@
               </svg>
               <figcaption>ONEE · Operational measurements → classification → desktop feedback</figcaption>
             </figure>
+            <details class="evidence-case-detail">
+  <summary><span>Engineering case study</span><strong>Measurements · Model · Interface · Limits</strong></summary>
+  <div class="evidence-case-grid">
+    <div><h4>Challenge</h4><p>Transform pump measurements (temperature, flow, pressure, speed, voltage) into an understandable fault-risk indication.</p></div>
+    <div><h4>My contribution</h4><p>Prepared tabular data with Pandas, trained a Random Forest classifier and integrated its output into a Python desktop prototype.</p></div>
+    <div class="evidence-case-visual"><h4>Application evidence</h4><img src="assets/pump-interface.png" loading="lazy" decoding="async" alt="Screenshot of the pump fault prediction desktop prototype" /><small>Screenshot available in the portfolio repository.</small></div>
+    <div><h4>Honest boundary</h4><p>Academic and internship prototype; the repository does not establish industrial deployment or production-grade predictive accuracy. Future work includes model evaluation and comparison.</p></div>
+  </div>
+</details>
             <div class="tags"><span class="tag blue">Python</span><span class="tag blue">Scikit-learn</span><span class="tag blue">Risk</span></div>
             <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/Defaut-Pompe-Prediction" target="_blank" rel="noreferrer">Open repository</a></div>
           </article>
@@ -299,6 +327,15 @@
               </svg>
               <figcaption>DotCodeApp · Visual encoding and decoding (not a cryptographic security claim)</figcaption>
             </figure>
+            <details class="evidence-case-detail">
+  <summary><span>Engineering case study</span><strong>Encoding · Formats · Reversibility</strong></summary>
+  <div class="evidence-case-grid">
+    <div><h4>Challenge</h4><p>Represent short text as a human-visible pattern of colored points using an encoding key, then recover the text by decoding it.</p></div>
+    <div><h4>My contribution</h4><p>Built the Tkinter desktop application, visual 3×3 point representation and encoding/decoding workflows.</p></div>
+    <div><h4>Outputs</h4><p>Encoded content can be exported as an image or JSON; the repository documents importing encoded information for decoding.</p></div>
+    <div><h4>Honest boundary</h4><p>Visual coding is not equivalent to a reviewed cryptographic primitive and should not be presented as encryption suitable for protecting sensitive information.</p></div>
+  </div>
+</details>
             <div class="tags"><span class="tag blue">Python</span><span class="tag blue">Tkinter</span><span class="tag">Pillow</span><span class="tag">JSON</span></div>
             <div class="actions"><a class="btn primary" href="https://github.com/ALLAKORI/DOT-Code-" target="_blank" rel="noopener noreferrer">Open repository</a></div>
           </article>

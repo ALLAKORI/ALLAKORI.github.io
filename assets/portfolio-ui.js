@@ -31,7 +31,7 @@
       try { localStorage.setItem("portfolio-theme-blue-v1", mode); } catch (e) {}
     }
     var savedTheme = "dark";
-    try { savedTheme = localStorage.getItem("portfolio-theme-v2") || "dark"; } catch (e) {}
+    try { savedTheme = localStorage.getItem("portfolio-theme-blue-v1") || localStorage.getItem("portfolio-theme-v2") || "dark"; } catch (e) {}
     setTheme(savedTheme);
     theme.addEventListener("click", function () {
       setTheme(document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light");
@@ -52,7 +52,7 @@
       }
     });
     window.addEventListener("resize", function () {
-      if (window.innerWidth > 840 && sidebar.classList.contains("is-open")) {
+      if (window.innerWidth > 1200 && sidebar.classList.contains("is-open")) {
         sidebar.classList.remove("is-open");
         menu.setAttribute("aria-expanded", "false");
         menu.setAttribute("aria-label", "Open navigation menu");

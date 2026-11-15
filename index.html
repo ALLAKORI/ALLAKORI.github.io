@@ -18,6 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/site.css?v=20261103-recruiter" />
   <link rel="stylesheet" href="assets/portfolio-refresh.css?v=20261114-previews" />
+  <link rel="stylesheet" href="assets/evidence-atlas.css?v=20261115-01" />
 </head>
 <body>
   <div class="shell">
@@ -36,7 +37,8 @@
           <a href="labs.html"><span>03</span> Labs</a>
           <a href="writeups.html"><span>04</span> Writeups</a>
           <a href="projects.html"><span>05</span> Projects</a><a href="cv.html"><span>06</span> CV</a>
-        </nav>
+        
+          <a href="index.html#evidence-atlas"><span>07</span> Atlas</a></nav>
         <div class="sidebar-status">
           <strong>PFE 2027 target</strong>
           <span>Cybersecurity, AI Security, SOC/DFIR and Offensive Security.</span>
@@ -91,6 +93,14 @@
       </section>
 
       
+<nav class="evidence-jump" aria-label="Explore this portfolio">
+  <span class="evidence-jump-label" data-en="Explore my work" data-fr="Explorer mon travail">Explore my work</span>
+  <a href="#selected-work" data-en="Selected work" data-fr="Réalisations">Selected work</a>
+  <a href="#skills" data-en="Skills &amp; evidence" data-fr="Compétences &amp; preuves">Skills &amp; evidence</a>
+  <a href="#experience" data-en="Experience" data-fr="Expérience">Experience</a>
+  <a href="#evidence-atlas" data-en="Evidence Atlas" data-fr="Atlas des preuves">Evidence Atlas</a>
+  <a href="https://allakori.github.io/writeups/" target="_blank" rel="noreferrer" data-en="Technical blog ↗" data-fr="Blog technique ↗">Technical blog ↗</a>
+</nav>
 <section class="section" id="selected-work">
   <div class="section-head"><div><p class="meta" data-en="Selected work" data-fr="Réalisations sélectionnées">Selected work</p><h2 data-en="Start with four technical case studies." data-fr="Quatre réalisations techniques à consulter en priorité.">Start with four technical case studies.</h2></div><p class="section-note" data-en="Public evidence, technical methodology, results and limitations — no login needed." data-fr="Preuves publiques, méthodologie, résultats et limites — sans connexion.">Public evidence, technical methodology, results and limitations — no login needed.</p></div>
   <div class="grid grid-2 recruiter-work">
@@ -179,6 +189,148 @@
     </article>
   </div>
   <div class="actions"><a class="btn" href="projects.html">Explore all projects</a><a class="btn secondary-link" href="writeups.html">Technical write-ups</a></div>
+</section>
+<section class="section evidence-section" id="skills" aria-labelledby="skills-title">
+  <div class="section-head">
+    <div><p class="meta">Capability map / Evidence-backed</p><h2 id="skills-title" data-en="Skills, with work to back them up." data-fr="Des compétences appuyées par des réalisations.">Skills, with work to back them up.</h2></div>
+    <p class="section-note" data-en="A selected toolkit, not self-rated percentages. Each discipline leads to public evidence." data-fr="Une sélection d'outils, sans pourcentages subjectifs. Chaque domaine mène à une preuve publique.">A selected toolkit, not self-rated percentages. Each discipline leads to public evidence.</p>
+  </div>
+  <div class="evidence-skill-grid">
+  <article class="evidence-skill-card">
+    <span class="evidence-skill-index">01 / FIELD</span>
+    <h3 data-en="01 / Offensive Security" data-fr="01 / Sécurité offensive">01 / Offensive Security</h3>
+    <p data-en="Web application testing, authorization, SQL injection, XSS and risk-based reporting." data-fr="Audit web, autorisations, injections SQL, XSS et analyse des risques.">Web application testing, authorization, SQL injection, XSS and risk-based reporting.</p>
+    <div class="evidence-tech-tags"><span>Burp Suite</span><span>Nmap</span><span>OWASP</span><span>CVSS 3.1</span></div>
+    <a class="evidence-proof-link" href="labs.html#altoroj"  data-en="AltoroJ banking assessment ↗" data-fr="Audit bancaire AltoroJ ↗">AltoroJ banking assessment ↗</a>
+  </article>
+<article class="evidence-skill-card">
+    <span class="evidence-skill-index">02 / FIELD</span>
+    <h3 data-en="02 / Identity &amp; Active Directory" data-fr="02 / Identité et Active Directory">02 / Identity &amp; Active Directory</h3>
+    <p data-en="Kerberos, domain enumeration, authentication flows and access-control reasoning." data-fr="Kerberos, énumération de domaines, authentification et contrôle d'accès.">Kerberos, domain enumeration, authentication flows and access-control reasoning.</p>
+    <div class="evidence-tech-tags"><span>Kerberos</span><span>BloodHound</span><span>Impacket</span><span>IAM</span></div>
+    <a class="evidence-proof-link" href="https://allakori.github.io/writeups/posts/tryhackme-reset-hard-active-directory-case-study/" target="_blank" rel="noreferrer" data-en="Reset (Hard) technical writeup ↗" data-fr="Write-up technique Reset (Hard) ↗">Reset (Hard) technical writeup ↗</a>
+  </article>
+<article class="evidence-skill-card">
+    <span class="evidence-skill-index">03 / FIELD</span>
+    <h3 data-en="03 / SOC &amp; Incident Response" data-fr="03 / SOC et réponse à incident">03 / SOC &amp; Incident Response</h3>
+    <p data-en="Log triage, timeline reconstruction, indicators of compromise and Linux hardening." data-fr="Triage des journaux, chronologies, indicateurs de compromission et durcissement Linux.">Log triage, timeline reconstruction, indicators of compromise and Linux hardening.</p>
+    <div class="evidence-tech-tags"><span>Splunk</span><span>Wireshark</span><span>auditd</span><span>UFW</span></div>
+    <a class="evidence-proof-link" href="writeups/tryhackme/volt-typhoon/index.html"  data-en="Volt Typhoon investigation ↗" data-fr="Investigation Volt Typhoon ↗">Volt Typhoon investigation ↗</a>
+  </article>
+<article class="evidence-skill-card">
+    <span class="evidence-skill-index">04 / FIELD</span>
+    <h3 data-en="04 / AI &amp; Security Engineering" data-fr="04 / IA et ingénierie sécurité">04 / AI &amp; Security Engineering</h3>
+    <p data-en="Python applications, URL threat detection, RAG, API controls and automated testing." data-fr="Applications Python, détection d'URL, RAG, protections API et tests automatisés.">Python applications, URL threat detection, RAG, API controls and automated testing.</p>
+    <div class="evidence-tech-tags"><span>Python</span><span>FastAPI</span><span>Scikit-learn</span><span>Qdrant</span></div>
+    <a class="evidence-proof-link" href="https://github.com/ALLAKORI/STAGE_PFA_CMRPI" target="_blank" rel="noreferrer" data-en="CyberVeille PME: code and tests ↗" data-fr="CyberVeille PME : code et tests ↗">CyberVeille PME: code and tests ↗</a>
+  </article>
+  </div>
+</section>
+<section class="section evidence-section" id="experience" aria-labelledby="experience-title">
+  <div class="section-head">
+    <div><p class="meta">Professional practice / Morocco</p><h2 id="experience-title" data-en="From prototypes to professional practice." data-fr="Des prototypes à la pratique professionnelle.">From prototypes to professional practice.</h2></div>
+    <p class="section-note" data-en="Selected engineering internships, described by scope and deliverable rather than inflated claims." data-fr="Deux stages d'ingénierie présentés par leur périmètre et leur livrable, sans résultats exagérés.">Selected engineering internships, described by scope and deliverable rather than inflated claims.</p>
+  </div>
+  <div class="evidence-experience-list">
+    <article class="evidence-experience-card">
+      <div class="evidence-experience-time"><strong>2026</strong><span>JUL — AUG</span><small data-en="2 months · PFA" data-fr="2 mois · PFA">2 months · PFA</small></div>
+      <div class="evidence-experience-body">
+        <p class="meta">CMRPI · Espace Maroc Cyberconfiance</p>
+        <h3 data-en="Suspicious URL detection for SMEs" data-fr="Détection des URL suspectes pour les PME">Suspicious URL detection for SMEs</h3>
+        <p data-en="Designed a defensive Python prototype combining URLhaus intelligence, lexical features, local classification, incident history and configurable notifications. Public code documents reproducible components and tests; operational internship materials remain private." data-fr="Conception d'un prototype Python défensif réunissant URLhaus, caractéristiques lexicales, classification locale, historique d'incidents et notifications configurables. Le code public présente les composants reproductibles et leurs tests ; les documents internes restent privés.">Designed a defensive Python prototype combining URLhaus intelligence, lexical features, local classification, incident history and configurable notifications. Public code documents reproducible components and tests; operational internship materials remain private.</p>
+        <div class="evidence-experience-links"><a href="projects.html#cyberveille" data-en="Read project case study ↗" data-fr="Voir l'étude de cas ↗">Read project case study ↗</a><a href="https://github.com/ALLAKORI/STAGE_PFA_CMRPI" target="_blank" rel="noreferrer" data-en="Source &amp; tests ↗" data-fr="Code et tests ↗">Source &amp; tests ↗</a></div>
+      </div>
+    </article>
+    <article class="evidence-experience-card">
+      <div class="evidence-experience-time"><strong>2025</strong><span>AUG</span><small data-en="Engineering internship" data-fr="Stage d'ingénierie">Engineering internship</small></div>
+      <div class="evidence-experience-body">
+        <p class="meta">ONEE · Branche Eau</p>
+        <h3 data-en="Pump fault classification prototype" data-fr="Prototype de classification des défauts de pompes">Pump fault classification prototype</h3>
+        <p data-en="Worked on an applied maintenance use case: processing operational measurements, training a Random Forest classifier and presenting predicted risk through a desktop prototype. It is a prototype, not a claim of field deployment." data-fr="Travail sur un cas de maintenance : préparation de mesures opérationnelles, entraînement d'un Random Forest et restitution d'un risque prédit dans un prototype de bureau. Aucun déploiement industriel n'est revendiqué.">Worked on an applied maintenance use case: processing operational measurements, training a Random Forest classifier and presenting predicted risk through a desktop prototype. It is a prototype, not a claim of field deployment.</p>
+        <div class="evidence-experience-links"><a href="projects.html#onee" data-en="View project workflow ↗" data-fr="Voir le schéma du projet ↗">View project workflow ↗</a><a href="https://github.com/ALLAKORI/Defaut-Pompe-Prediction" target="_blank" rel="noreferrer" data-en="Open repository ↗" data-fr="Voir le dépôt ↗">Open repository ↗</a></div>
+      </div>
+    </article>
+  </div>
+</section>
+<section class="section evidence-atlas" id="evidence-atlas" aria-labelledby="atlas-title">
+  <div class="section-head">
+    <div><p class="meta">allakori / Evidence navigation</p><h2 id="atlas-title" data-en="Explore the Security Evidence Atlas." data-fr="Explorer le Security Evidence Atlas.">Explore the Security Evidence Atlas.</h2></div>
+    <p class="section-note" data-en="Select a domain to discover the work behind it. No fictional metrics, no active-machine solutions." data-fr="Sélectionne un domaine pour voir les réalisations qui le démontrent. Sans métriques inventées ni solutions de machines actives.">Select a domain to discover the work behind it. No fictional metrics, no active-machine solutions.</p>
+  </div>
+  <div class="atlas-system" data-evidence-atlas>
+    <div class="atlas-map">
+      <svg class="atlas-map-lines" viewBox="0 0 720 420" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M360 212 Q260 172 145 123 M360 212 Q465 168 575 123 M360 212 Q242 255 145 310 M360 212 Q485 254 575 310 M360 212 Q355 100 360 55" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="5 7"/>
+      </svg>
+      <div class="atlas-core" aria-hidden="true"><span class="atlas-core-mark">a.</span><strong>allakori</strong><small>SECURITY<br>ENGINEERING</small></div>
+      <div class="atlas-topic-list" role="tablist" aria-label="Select a technical domain" aria-orientation="horizontal">
+        <button type="button" id="atlas-tab-appsec" class="atlas-node atlas-pos-appsec is-active" role="tab" aria-controls="atlas-panel-appsec" aria-selected="true" tabindex="0" data-atlas-topic="appsec">
+ <span class="atlas-node-kicker">01 / FIELD</span><strong data-en="Offensive &amp; AppSec" data-fr="Offensive &amp; AppSec">Offensive &amp; AppSec</strong><small data-en="Web assessment" data-fr="Audit web">Web assessment</small>
+</button>
+<button type="button" id="atlas-tab-identity" class="atlas-node atlas-pos-identity" role="tab" aria-controls="atlas-panel-identity" aria-selected="false" tabindex="-1" data-atlas-topic="identity">
+ <span class="atlas-node-kicker">02 / FIELD</span><strong data-en="Identity &amp; AD" data-fr="Identité &amp; AD">Identity &amp; AD</strong><small data-en="Kerberos · Access" data-fr="Kerberos · Accès">Kerberos · Access</small>
+</button>
+<button type="button" id="atlas-tab-dfir" class="atlas-node atlas-pos-dfir" role="tab" aria-controls="atlas-panel-dfir" aria-selected="false" tabindex="-1" data-atlas-topic="dfir">
+ <span class="atlas-node-kicker">03 / FIELD</span><strong data-en="SOC &amp; DFIR" data-fr="SOC &amp; DFIR">SOC &amp; DFIR</strong><small data-en="Evidence · Timeline" data-fr="Preuves · Chronologie">Evidence · Timeline</small>
+</button>
+<button type="button" id="atlas-tab-ai" class="atlas-node atlas-pos-ai" role="tab" aria-controls="atlas-panel-ai" aria-selected="false" tabindex="-1" data-atlas-topic="ai">
+ <span class="atlas-node-kicker">04 / FIELD</span><strong data-en="AI &amp; Detection" data-fr="IA &amp; Détection">AI &amp; Detection</strong><small data-en="Python · RAG" data-fr="Python · RAG">Python · RAG</small>
+</button>
+<button type="button" id="atlas-tab-proof" class="atlas-node atlas-pos-proof" role="tab" aria-controls="atlas-panel-proof" aria-selected="false" tabindex="-1" data-atlas-topic="proof">
+ <span class="atlas-node-kicker">05 / FIELD</span><strong data-en="Achievements" data-fr="Réalisations">Achievements</strong><small data-en="Verified evidence" data-fr="Preuves vérifiées">Verified evidence</small>
+</button>
+      </div>
+    </div>
+    <div class="atlas-panel-shell">
+      <div class="atlas-panel-topline"><span>SELECTED DOMAIN / VERIFIED WORK</span><span class="atlas-panel-light" aria-hidden="true"></span></div>
+      <div class="atlas-evidence-panel" id="atlas-panel-appsec" role="tabpanel" aria-labelledby="atlas-tab-appsec" tabindex="0" data-atlas-panel="appsec">
+  <div class="atlas-panel-heading"><span class="atlas-panel-index">FIELD / 01</span><h3 data-en="Offensive &amp; AppSec" data-fr="Offensive &amp; AppSec">Offensive &amp; AppSec</h3></div>
+  <p data-en="Risk-based application security, with repeatable findings and remediation." data-fr="Sécurité applicative orientée risque, avec constats reproductibles et remédiations.">Risk-based application security, with repeatable findings and remediation.</p>
+  <div class="atlas-panel-method"><strong data-en="Practiced methods" data-fr="Méthodes pratiquées">Practiced methods</strong><span data-en="Threat modeling · SQLi/XSS validation · CVSS" data-fr="Modélisation des risques · validation SQLi/XSS · CVSS">Threat modeling · SQLi/XSS validation · CVSS</span></div>
+  <div class="atlas-evidence-links"><span class="atlas-evidence-label" data-en="EXPLORE THE EVIDENCE" data-fr="EXPLORER LES PREUVES">EXPLORE THE EVIDENCE</span>
+    <a href="labs.html#altoroj"  data-en="AltoroJ · risk assessment ↗" data-fr="AltoroJ · audit de risques ↗">AltoroJ · risk assessment ↗</a>
+<a href="https://allakori.github.io/writeups/posts/tryhackme-reset-hard-active-directory-case-study/" target="_blank" rel="noreferrer" data-en="Reset · AD lab writeup ↗" data-fr="Reset · write-up AD ↗">Reset · AD lab writeup ↗</a>
+  </div>
+</div>
+<div class="atlas-evidence-panel" id="atlas-panel-identity" role="tabpanel" aria-labelledby="atlas-tab-identity" tabindex="0" hidden data-atlas-panel="identity">
+  <div class="atlas-panel-heading"><span class="atlas-panel-index">FIELD / 02</span><h3 data-en="Identity &amp; AD" data-fr="Identité &amp; AD">Identity &amp; AD</h3></div>
+  <p data-en="Understanding how authentication, permissions and delegation change an attack path." data-fr="Comprendre comment l'authentification, les permissions et la délégation influencent un chemin d'attaque.">Understanding how authentication, permissions and delegation change an attack path.</p>
+  <div class="atlas-panel-method"><strong data-en="Practiced methods" data-fr="Méthodes pratiquées">Practiced methods</strong><span data-en="Kerberos · ACL review · Lab reporting" data-fr="Kerberos · analyse ACL · rapport de lab">Kerberos · ACL review · Lab reporting</span></div>
+  <div class="atlas-evidence-links"><span class="atlas-evidence-label" data-en="EXPLORE THE EVIDENCE" data-fr="EXPLORER LES PREUVES">EXPLORE THE EVIDENCE</span>
+    <a href="https://allakori.github.io/writeups/posts/tryhackme-reset-hard-active-directory-case-study/" target="_blank" rel="noreferrer" data-en="Reset (Hard) · writeup ↗" data-fr="Reset (Hard) · write-up ↗">Reset (Hard) · writeup ↗</a>
+<a href="https://allakori.github.io/writeups/posts/tryhackme-vulnnet-rst-active-directory/" target="_blank" rel="noreferrer" data-en="VulnNet-RST · writeup ↗" data-fr="VulnNet-RST · write-up ↗">VulnNet-RST · writeup ↗</a>
+  </div>
+</div>
+<div class="atlas-evidence-panel" id="atlas-panel-dfir" role="tabpanel" aria-labelledby="atlas-tab-dfir" tabindex="0" hidden data-atlas-panel="dfir">
+  <div class="atlas-panel-heading"><span class="atlas-panel-index">FIELD / 03</span><h3 data-en="SOC &amp; DFIR" data-fr="SOC &amp; DFIR">SOC &amp; DFIR</h3></div>
+  <p data-en="Reconstructing incidents from logs, correlating activity and deriving detection ideas." data-fr="Reconstituer des incidents à partir des journaux, corréler les activités et proposer des pistes de détection.">Reconstructing incidents from logs, correlating activity and deriving detection ideas.</p>
+  <div class="atlas-panel-method"><strong data-en="Practiced methods" data-fr="Méthodes pratiquées">Practiced methods</strong><span data-en="Splunk · IOCs · Timeline reconstruction" data-fr="Splunk · IOC · reconstruction de chronologie">Splunk · IOCs · Timeline reconstruction</span></div>
+  <div class="atlas-evidence-links"><span class="atlas-evidence-label" data-en="EXPLORE THE EVIDENCE" data-fr="EXPLORER LES PREUVES">EXPLORE THE EVIDENCE</span>
+    <a href="writeups/tryhackme/volt-typhoon/index.html"  data-en="Volt Typhoon · investigation ↗" data-fr="Volt Typhoon · investigation ↗">Volt Typhoon · investigation ↗</a>
+<a href="labs.html#linux-labs"  data-en="Linux compromise · forensic lab ↗" data-fr="Compromission Linux · lab DFIR ↗">Linux compromise · forensic lab ↗</a>
+  </div>
+</div>
+<div class="atlas-evidence-panel" id="atlas-panel-ai" role="tabpanel" aria-labelledby="atlas-tab-ai" tabindex="0" hidden data-atlas-panel="ai">
+  <div class="atlas-panel-heading"><span class="atlas-panel-index">FIELD / 04</span><h3 data-en="AI &amp; Detection" data-fr="IA &amp; Détection">AI &amp; Detection</h3></div>
+  <p data-en="Building security-oriented applications with testable components and explicit boundaries." data-fr="Concevoir des applications de sécurité avec des composants testables et des limites explicites.">Building security-oriented applications with testable components and explicit boundaries.</p>
+  <div class="atlas-panel-method"><strong data-en="Practiced methods" data-fr="Méthodes pratiquées">Practiced methods</strong><span data-en="Python · Scikit-learn · API security" data-fr="Python · Scikit-learn · sécurité API">Python · Scikit-learn · API security</span></div>
+  <div class="atlas-evidence-links"><span class="atlas-evidence-label" data-en="EXPLORE THE EVIDENCE" data-fr="EXPLORER LES PREUVES">EXPLORE THE EVIDENCE</span>
+    <a href="projects.html#cyberveille"  data-en="CyberVeille PME · source and tests ↗" data-fr="CyberVeille PME · code et tests ↗">CyberVeille PME · source and tests ↗</a>
+<a href="projects.html#chatbot-usms"  data-en="Chatbot USMS · secure RAG architecture ↗" data-fr="Chatbot USMS · architecture RAG ↗">Chatbot USMS · secure RAG architecture ↗</a>
+  </div>
+</div>
+<div class="atlas-evidence-panel" id="atlas-panel-proof" role="tabpanel" aria-labelledby="atlas-tab-proof" tabindex="0" hidden data-atlas-panel="proof">
+  <div class="atlas-panel-heading"><span class="atlas-panel-index">FIELD / 05</span><h3 data-en="Achievements" data-fr="Réalisations">Achievements</h3></div>
+  <p data-en="CTF outcomes and learning paths are linked to documents rather than unsupported rankings." data-fr="Résultats CTF et parcours de formation associés à leurs justificatifs.">CTF outcomes and learning paths are linked to documents rather than unsupported rankings.</p>
+  <div class="atlas-panel-method"><strong data-en="Practiced methods" data-fr="Méthodes pratiquées">Practiced methods</strong><span data-en="Team CTF · Technical documentation" data-fr="CTF en équipe · documentation technique">Team CTF · Technical documentation</span></div>
+  <div class="atlas-evidence-links"><span class="atlas-evidence-label" data-en="EXPLORE THE EVIDENCE" data-fr="EXPLORER LES PREUVES">EXPLORE THE EVIDENCE</span>
+    <a href="proof.html"  data-en="CSIA CTF · first-place proof ↗" data-fr="CSIA CTF · preuve du résultat ↗">CSIA CTF · first-place proof ↗</a>
+<a href="proof.html"  data-en="Certificates &amp; learning paths ↗" data-fr="Certificats et formations ↗">Certificates &amp; learning paths ↗</a>
+  </div>
+</div>
+      <p class="atlas-panel-footnote" data-en="Scope: public demonstrations, controlled labs and authorized reports only." data-fr="Périmètre : démonstrations publiques, labs contrôlés et rapports autorisés uniquement.">Scope: public demonstrations, controlled labs and authorized reports only.</p>
+    </div>
+  </div>
 </section>
 <section class="section">
         <div class="section-head">
@@ -276,5 +428,6 @@
   <script src="assets/lang.js?v=20261028-edu-soc" defer></script>
   <script src="assets/main.js?v=20261103-recruiter" defer></script>
   <script src="assets/portfolio-ui.js?v=20261112-blue" defer></script>
+  <script src="assets/evidence-atlas.js?v=20261115-01" defer></script>
 </body>
 </html>

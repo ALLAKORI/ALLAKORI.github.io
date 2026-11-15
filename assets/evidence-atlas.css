@@ -36,7 +36,7 @@
 .atlas-core-mark{font-size:1.3rem;color:#97cfff;font-weight:900}
 .atlas-core strong{font-size:1.1rem;letter-spacing:-.02em;color:#fff}
 .atlas-core small{font:650 .53rem/1.5 "JetBrains Mono",monospace;letter-spacing:.07em;text-align:center;color:#bbd6f4}
-.atlas-topic-list{display:contents}
+.atlas-topic-list{display:block}
 .atlas-node{appearance:none;position:absolute;z-index:2;min-width:142px;min-height:78px;padding:11px 13px;border:1px solid #476688;border-radius:11px;background:rgba(23,43,68,.97);color:#e8f2ff;font-family:Inter,system-ui,sans-serif;text-align:left;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:3px;box-shadow:0 6px 22px rgba(0,0,0,.09);transition:border-color .18s,background .18s,box-shadow .18s,transform .18s}
 .atlas-node:hover{border-color:#86bcfb;background:#244667}
 .atlas-node.is-active{border-color:#92c8ff;background:#244b72;box-shadow:0 0 0 2px rgba(111,177,245,.16),0 10px 32px rgba(0,0,0,.22)}

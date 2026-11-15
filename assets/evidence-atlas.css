@@ -108,3 +108,20 @@ html[data-theme="light"] .atlas-panel-footnote{color:#6786a5}
 .evidence-case-visual img{width:100%;display:block;max-height:255px;object-fit:contain;object-position:center;border-radius:9px;border:1px solid var(--line);background:var(--panel)}
 .evidence-case-visual small{display:block;margin-top:7px;font-size:.63rem;color:var(--muted);line-height:1.5}
 @media(max-width:660px){.evidence-case-grid{grid-template-columns:1fr;gap:19px;padding:16px}.evidence-case-grid .evidence-case-visual{grid-row:auto}}
+
+/* Home refinement: no redundant portrait; introduce the person before the portfolio evidence. */
+.hero .hero-grid{grid-template-columns:minmax(0,1fr)!important;max-width:100%}
+.hero .hero-copy{max-width:860px}
+.hero .hero-copy h1{max-width:840px}
+.whoami-section{scroll-margin-top:100px;padding-top:clamp(28px,4vw,44px)}
+.whoami-section .section-head{margin-bottom:16px}
+.whoami-section .whoami{display:block;grid-template-columns:1fr}
+.whoami-section .about-panel{border-radius:15px;padding:clamp(22px,3vw,34px);background:linear-gradient(120deg,rgba(60,116,182,.09),transparent 62%),var(--panel)}
+.whoami-section .about-panel h3{font-size:clamp(1.07rem,1.8vw,1.36rem);line-height:1.4;max-width:740px}
+.whoami-section .about-panel>p:not(.meta){max-width:910px;line-height:1.78;font-size:.86rem}
+.whoami-section .signal-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.whoami-section .signal{display:flex;flex-direction:column;gap:7px;min-width:0;padding:15px 17px;border-radius:9px;background:rgba(90,151,226,.065)}
+.whoami-section .signal strong{font-size:.66rem}
+.whoami-section .signal span{font-size:.77rem;line-height:1.58}
+@media(max-width:900px){.whoami-section .signal-list{grid-template-columns:1fr;gap:9px}.whoami-section .signal{display:grid;grid-template-columns:72px minmax(0,1fr);align-items:start}.hero .hero-copy{max-width:100%}}
+@media(max-width:480px){.whoami-section .signal{display:flex;gap:5px}.whoami-section .about-panel{padding:19px}.whoami-section .about-panel>p:not(.meta){font-size:.82rem}}

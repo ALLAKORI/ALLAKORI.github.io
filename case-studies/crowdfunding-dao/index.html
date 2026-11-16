@@ -52,6 +52,17 @@
     .chain-table td{color:var(--muted)}
     .chain-note{border-left:3px solid var(--cyan);background:rgba(71,136,224,.07);padding:15px 18px;border-radius:0 9px 9px 0;font-size:.78rem;line-height:1.75;color:var(--muted);margin:18px 0}
     .chain-note strong{color:var(--text)}
+    .chain-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin:24px 0 20px}
+    .chain-screenshot{min-width:0;margin:0;background:var(--panel);border:1px solid var(--line);border-radius:13px;overflow:hidden}
+    .chain-screenshot>a{display:block;padding:12px;background:rgba(75,127,189,.045);border-bottom:1px solid var(--line)}
+    .chain-screenshot>a:focus-visible{outline:3px solid var(--cyan);outline-offset:-3px}
+    .chain-screenshot img{display:block;width:100%;height:320px;object-fit:contain;object-position:center;border-radius:8px}
+    .chain-screenshot-wide{grid-column:span 2}
+    .chain-screenshot-wide img{height:auto;max-height:440px}
+    .chain-screenshot figcaption{display:flex;flex-direction:column;gap:8px;padding:16px 18px 20px}
+    .chain-screenshot figcaption strong{font-size:.86rem;color:var(--text)}
+    .chain-screenshot figcaption span{font-size:.76rem;line-height:1.7;color:var(--muted)}
+    @media(max-width:760px){.chain-gallery{grid-template-columns:1fr}.chain-screenshot-wide{grid-column:auto}.chain-screenshot img{height:auto;max-height:460px}.chain-screenshot-wide img{max-height:none}}
     .chain-credits{color:var(--muted);font-size:.75rem;line-height:1.7}
     @media(max-width:790px){.chain-grid{grid-template-columns:1fr}.chain-flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media(max-width:470px){.chain-flow{grid-template-columns:1fr}.chain-hero{padding:20px}.chain-table th,.chain-table td{padding:11px 8px}}
@@ -176,15 +187,35 @@
 
       <section class="chain-section" id="demonstration">
         <p class="chain-mini">05 / DEMONSTRATION EVIDENCE</p>
-        <h2>A complete local funding and governance walkthrough.</h2>
-        <p>The following checkpoints are taken from authentic screenshots of the team's Hardhat-local application, supplied for this portfolio update. They document observable user-interface states rather than independent blockchain transaction receipts.</p>
-        <div class="chain-flow">
-          <div class="chain-step"><span class="step-n">01 / METAMASK</span><strong>2 ETH contribution requested</strong><p>A contributor's wallet displays a 2 ETH transaction request on Hardhat Local before confirmation.</p></div>
-          <div class="chain-step"><span class="step-n">02 / CAMPAIGN</span><strong>5 / 5 ETH raised</strong><p>CyberLab ENSA Beni Mellal displays 100% of its funding goal, with 5 ETH available and 0 ETH released.</p></div>
-          <div class="chain-step"><span class="step-n">03 / LIVE VOTE</span><strong>2,000 CFD FOR</strong><p>A confirmed vote for Release shows 0 CFD AGAINST and 40% participation, above the 20% quorum.</p></div>
-          <div class="chain-step"><span class="step-n">04 / APPROVED</span><strong>Release proposal approved</strong><p>The governance view shows proposal #001 approved following execution. Approval does not, by itself, prove an ETH withdrawal.</p></div>
+        <h2>From an ETH contribution to a DAO decision.</h2>
+        <p>Four authentic captures from the team's Hardhat-local demo illustrate the working user journey. Open any image to inspect the interface at full size.</p>
+        <div class="chain-gallery">
+          <figure class="chain-screenshot chain-screenshot-wide">
+            <a href="../../assets/projects/crowdfunding-dao/01-metamask-contribution.webp" target="_blank" rel="noopener noreferrer" aria-label="Open screenshot: 01 — Contribution via MetaMask">
+              <img src="../../assets/projects/crowdfunding-dao/01-metamask-contribution.webp" alt="MetaMask request for a 2 ETH transaction, shown alongside the CyberLab crowdfunding page." loading="lazy" decoding="async" />
+            </a>
+            <figcaption><strong>01 — Contribution via MetaMask</strong><span>A contributor initiates a 2 ETH transaction on Hardhat Local. The wallet request displays the value and the contract interaction before confirmation.</span></figcaption>
+          </figure>
+          <figure class="chain-screenshot">
+            <a href="../../assets/projects/crowdfunding-dao/02-funded-campaign.webp" target="_blank" rel="noopener noreferrer" aria-label="Open screenshot: 02 — Campaign fully funded">
+              <img src="../../assets/projects/crowdfunding-dao/02-funded-campaign.webp" alt="CyberLab campaign page showing five ETH collected, a 100 percent funding progress bar, and zero ETH released." loading="lazy" decoding="async" />
+            </a>
+            <figcaption><strong>02 — Campaign fully funded</strong><span>CyberLab ENSA Beni Mellal shows 5 ETH raised out of a 5 ETH goal, 100% funding progress and 0 ETH released at this point.</span></figcaption>
+          </figure>
+          <figure class="chain-screenshot">
+            <a href="../../assets/projects/crowdfunding-dao/03-dao-vote.webp" target="_blank" rel="noopener noreferrer" aria-label="Open screenshot: 03 — Quorum reached">
+              <img src="../../assets/projects/crowdfunding-dao/03-dao-vote.webp" alt="Governance interface showing a confirmed vote with two thousand CFD FOR and a 40 percent quorum participation." loading="lazy" decoding="async" />
+            </a>
+            <figcaption><strong>03 — Quorum reached</strong><span>A confirmed Release vote records 2,000 CFD FOR, 0 AGAINST and 40% participation versus a 20% quorum.</span></figcaption>
+          </figure>
+          <figure class="chain-screenshot">
+            <a href="../../assets/projects/crowdfunding-dao/04-proposal-approved.webp" target="_blank" rel="noopener noreferrer" aria-label="Open screenshot: 04 — Proposal approved">
+              <img src="../../assets/projects/crowdfunding-dao/04-proposal-approved.webp" alt="DAO governance interface showing a Release proposal with APPROVED status and 2,000 CFD votes FOR." loading="lazy" decoding="async" />
+            </a>
+            <figcaption><strong>04 — Proposal approved</strong><span>After the voting period and execution, the interface marks Release proposal #001 as APPROVED. Approval is distinct from a beneficiary withdrawal.</span></figcaption>
+          </figure>
         </div>
-        <div class="chain-note"><strong>How to interpret these checkpoints:</strong> a wallet confirmation, a funded campaign, a quorum-reaching vote and an approved proposal are separate milestones. The campaign screenshot still shows <strong>0 ETH released</strong>; it must not be mistaken for proof of beneficiary payout.</div>
+        <div class="chain-note"><strong>Evidence boundary:</strong> A MetaMask transaction request is not itself a receipt. The funded campaign, confirmed vote and approved proposal are distinct on-screen checkpoints; the campaign still displays <strong>0 ETH released</strong> in its capture, so approval is not presented as proof of payout.</div>
       </section>
       <section class="chain-section" id="validation">
         <p class="chain-mini">06 / VALIDATION</p>

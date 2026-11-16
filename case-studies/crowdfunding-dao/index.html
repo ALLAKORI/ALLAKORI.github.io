@@ -91,7 +91,7 @@
         <div class="actions"><a class="btn primary" href="#contribution">My engineering contribution</a><a class="btn" href="#architecture">Explore architecture</a><a class="btn secondary-link" href="../../projects.html#crowdfunding-dao">Back to Projects</a></div>
       </section>
       <nav class="chain-jump" aria-label="Case study navigation">
-        <a href="#challenge">Challenge</a><a href="#architecture">Architecture</a><a href="#contribution">My role</a><a href="#governance">Governance</a><a href="#validation">Validation</a><a href="#limits">Boundaries</a>
+        <a href="#challenge">Challenge</a><a href="#architecture">Architecture</a><a href="#contribution">My role</a><a href="#governance">Governance</a><a href="#demonstration">Demo evidence</a><a href="#validation">Validation</a><a href="#limits">Boundaries</a>
       </nav>
       <section class="chain-section" id="challenge">
         <p class="chain-mini">01 / CHALLENGE</p>
@@ -173,8 +173,21 @@
           <div class="chain-block"><h3>DAO versus multisignature</h3><p>The DAO records a collective decision weighted by eligible CFD votes. Three designated guardians provide a separate 2-of-3 approval for the large withdrawals defined by the contract. The two mechanisms serve different purposes.</p></div>
         </div>
       </section>
+
+      <section class="chain-section" id="demonstration">
+        <p class="chain-mini">05 / DEMONSTRATION EVIDENCE</p>
+        <h2>A complete local funding and governance walkthrough.</h2>
+        <p>The following checkpoints are taken from authentic screenshots of the team's Hardhat-local application, supplied for this portfolio update. They document observable user-interface states rather than independent blockchain transaction receipts.</p>
+        <div class="chain-flow">
+          <div class="chain-step"><span class="step-n">01 / METAMASK</span><strong>2 ETH contribution requested</strong><p>A contributor's wallet displays a 2 ETH transaction request on Hardhat Local before confirmation.</p></div>
+          <div class="chain-step"><span class="step-n">02 / CAMPAIGN</span><strong>5 / 5 ETH raised</strong><p>CyberLab ENSA Beni Mellal displays 100% of its funding goal, with 5 ETH available and 0 ETH released.</p></div>
+          <div class="chain-step"><span class="step-n">03 / LIVE VOTE</span><strong>2,000 CFD FOR</strong><p>A confirmed vote for Release shows 0 CFD AGAINST and 40% participation, above the 20% quorum.</p></div>
+          <div class="chain-step"><span class="step-n">04 / APPROVED</span><strong>Release proposal approved</strong><p>The governance view shows proposal #001 approved following execution. Approval does not, by itself, prove an ETH withdrawal.</p></div>
+        </div>
+        <div class="chain-note"><strong>How to interpret these checkpoints:</strong> a wallet confirmation, a funded campaign, a quorum-reaching vote and an approved proposal are separate milestones. The campaign screenshot still shows <strong>0 ETH released</strong>; it must not be mistaken for proof of beneficiary payout.</div>
+      </section>
       <section class="chain-section" id="validation">
-        <p class="chain-mini">05 / VALIDATION</p>
+        <p class="chain-mini">06 / VALIDATION</p>
         <h2>Security checks and evidence boundaries.</h2>
         <table class="chain-table">
           <thead><tr><th>Control / test</th><th>What was checked or reported</th></tr></thead>
@@ -182,15 +195,17 @@
             <tr><td>Reentrancy defense</td><td>Targeted attacker-contract attempt, state-before-transfer accounting, and guarded refund execution.</td></tr>
             <tr><td>Fund accounting</td><td>Historical amount raised separated from remaining balance, withdrawals and refunds, with accounting invariants.</td></tr>
             <tr><td>Voting</td><td>Snapshot-based voting, one-day delay, three-day voting window, quorum and majority rules.</td></tr>
-            <tr><td>Hardhat</td><td>The group presentation reports 20 contract tests, including reentrancy and randomized scenarios.</td></tr>
+            <tr><td>Hardhat</td><td>The supplied verification record (5 November 2026) reports <strong>20 passing contract tests</strong> from <code>npm test</code>.</td></tr>
             <tr><td>Slither</td><td>The group presentation reports 12 low-severity and 5 informational findings, with no medium/high findings in that run.</td></tr>
-            <tr><td>Python / browser</td><td>The group presentation reports eight anomaly-signal tests and a browser walkthrough using mocked wallet/IPFS services.</td></tr>
+            <tr><td>Python</td><td>The supplied record reports <strong>8 passing anomaly-signal tests</strong> from <code>npm run test:analysis</code>.</td></tr>
+            <tr><td>Browser walkthrough</td><td>The supplied Windows browser-check record reports successful image/metadata upload and reading, campaign creation, funding, voting, proposal execution, withdrawal, unlock, finalization and refund.</td></tr>
+            <tr><td>Local services</td><td>Verification record: Hardhat chain ID 31337; frontend responded HTTP 200 on port 5173 and IPFS responded HTTP 200 on port 5001.</td></tr>
           </tbody>
         </table>
-        <div class="chain-note"><strong>Evidence discipline:</strong> The test counts above are taken from the team's presentation, not independently re-run against the latest private repository for this public page. No static-analysis report or passing test suite proves that a smart contract is free from vulnerabilities.</div>
+        <div class="chain-note"><strong>Evidence discipline:</strong> The Hardhat/Python counts and browser journey above come from a technical-verification note dated 5 November 2026 and the team's screenshots. The tests were not re-run independently against the latest private repository for this public page. No static-analysis report or passing test suite proves that a smart contract is free from vulnerabilities.</div>
       </section>
       <section class="chain-section" id="limits">
-        <p class="chain-mini">06 / LIMITATIONS</p>
+        <p class="chain-mini">07 / LIMITATIONS</p>
         <h2>A tested local prototype, not a public fundraising product.</h2>
         <div class="chain-grid">
           <div class="chain-block"><h3>Deployment status</h3><p>The presentation demonstrates a Hardhat local deployment; public Sepolia deployment had not yet been performed. Fast-forwarding local blockchain time makes multi-day DAO votes demonstrable within a classroom session.</p></div>

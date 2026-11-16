@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0d1014" />
+  <meta name="description" content="Academic team project: Ethereum crowdfunding dApp with CFD governance, Solidity contracts, secure ETH accounting, DAO voting, multisignature and Hardhat security tests. Kossi Richard Allado's contributions and project boundaries." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="CrowdFund DAO — Secure Smart Contracts | Kossi Richard Allado" />
+  <meta property="og:description" content="An evidence-led case study of Solidity crowdfunding accounting, CFDToken/ERC20Votes, refunds, reentrancy testing and team-built DAO workflows." />
+  <meta property="og:image" content="https://allakori.github.io/richard.jpg" />
+  <meta property="og:url" content="https://allakori.github.io/case-studies/crowdfunding-dao/" />
+  <link rel="canonical" href="https://allakori.github.io/case-studies/crowdfunding-dao/" />
+  <title>CrowdFund DAO | Smart Contract Security Case Study</title>
+  <link rel="icon" type="image/jpeg" href="../../richard.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/site.css?v=20261103-recruiter" />
+  <link rel="stylesheet" href="../../assets/portfolio-refresh.css?v=20261113-flows" />
+  <link rel="stylesheet" href="../../assets/evidence-atlas.css?v=20261115-01" />
+  <style>
+    .chain-hero{margin:25px 0 30px;padding:clamp(22px,3vw,38px);border:1px solid var(--line);border-radius:16px;background:linear-gradient(135deg,rgba(71,136,224,.12),transparent 55%),var(--panel)}
+    .chain-kicker{font:700 .64rem/1.5 "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);margin:0 0 13px}
+    .chain-hero h1{font-size:clamp(1.9rem,3.5vw,3rem);line-height:1.13;letter-spacing:-.035em;max-width:850px;margin:0 0 16px}
+    .chain-hero>p:not(.chain-kicker){max-width:840px;font-size:.94rem;line-height:1.75;color:var(--muted)}
+    .chain-tags{display:flex;gap:7px;flex-wrap:wrap;margin:22px 0}
+    .chain-tags span{border:1px solid var(--line);background:rgba(83,150,223,.065);padding:6px 10px;border-radius:6px;font:650 .63rem "JetBrains Mono",monospace}
+    .chain-jump{display:flex;gap:8px;flex-wrap:wrap;margin:17px 0 23px}
+    .chain-jump a{border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:.7rem;color:var(--text);text-decoration:none}
+    .chain-jump a:hover{border-color:var(--cyan)}
+    .chain-section{padding:34px 0;border-top:1px solid var(--line);scroll-margin-top:45px}
+    .chain-section h2{font-size:clamp(1.35rem,2.1vw,1.85rem);line-height:1.25;margin:8px 0 13px}
+    .chain-section>p{font-size:.85rem;line-height:1.8;color:var(--muted);max-width:930px}
+    .chain-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}
+    .chain-block{padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+    .chain-block h3{font-size:.94rem;margin:0 0 8px}
+    .chain-block p,.chain-block li{font-size:.78rem;line-height:1.72;color:var(--muted)}
+    .chain-block p{margin:0}
+    .chain-block ul{padding-left:18px;margin:9px 0 0}
+    .chain-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin:18px 0}
+    .chain-step{border:1px solid var(--line);border-radius:11px;padding:16px;background:var(--panel)}
+    .chain-step .step-n{font:800 .62rem "JetBrains Mono",monospace;color:var(--cyan)}
+    .chain-step strong{display:block;font-size:.8rem;margin:9px 0}
+    .chain-step p{font-size:.7rem;line-height:1.6;color:var(--muted);margin:0}
+    .chain-diagram{margin:19px 0;border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--panel);overflow:auto}
+    .chain-diagram svg{max-width:920px;width:100%;height:auto;min-width:550px;display:block;margin:auto}
+    .chain-mini{font:750 .72rem "JetBrains Mono",monospace;color:var(--cyan)}
+    .chain-table{width:100%;border-collapse:collapse;font-size:.78rem;margin:17px 0}
+    .chain-table th,.chain-table td{border-bottom:1px solid var(--line);padding:13px 12px;text-align:left;vertical-align:top;line-height:1.6}
+    .chain-table th{color:var(--text);font-size:.72rem}
+    .chain-table td{color:var(--muted)}
+    .chain-note{border-left:3px solid var(--cyan);background:rgba(71,136,224,.07);padding:15px 18px;border-radius:0 9px 9px 0;font-size:.78rem;line-height:1.75;color:var(--muted);margin:18px 0}
+    .chain-note strong{color:var(--text)}
+    .chain-credits{color:var(--muted);font-size:.75rem;line-height:1.7}
+    @media(max-width:790px){.chain-grid{grid-template-columns:1fr}.chain-flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:470px){.chain-flow{grid-template-columns:1fr}.chain-hero{padding:20px}.chain-table th,.chain-table td{padding:11px 8px}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div>
+        <div class="profile"><img class="avatar" src="../../richard.jpg" alt="Kossi Richard Allado" /><div><div class="name">Kossi Richard Allado</div><p class="role">Cybersecurity projects with AI Security and secure software evidence.</p></div></div>
+        <nav class="nav">
+          <a href="../../index.html"><span>01</span> Home</a>
+          <a href="../../proof.html"><span>02</span> Proof</a>
+          <a href="../../labs.html"><span>03</span> Labs</a>
+          <a href="../../writeups.html"><span>04</span> Writeups</a>
+          <a class="active" aria-current="page" href="../../projects.html"><span>05</span> Projects</a>
+          <a href="../../cv.html"><span>06</span> CV</a>
+          <a href="../../index.html#evidence-atlas"><span>07</span> Atlas</a>
+        </nav>
+      </div>
+      <div class="social" aria-label="Professional profiles and contact">
+        <a href="https://github.com/ALLAKORI" target="_blank" rel="noreferrer">Gh</a>
+        <a href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noreferrer">In</a>
+        <a href="https://tryhackme.com/p/allakori" target="_blank" rel="noreferrer">THM</a>
+        <a href="https://profile.hackthebox.com/profile/019d03a0-4529-7233-b8f5-6fe1e7a7e02b" target="_blank" rel="noreferrer">HTB</a>
+        <span class="social-divider" aria-hidden="true"></span>
+        <a href="mailto:alladokossirichard2025@gmail.com">@</a>
+      </div>
+    </aside>
+    <main class="page">
+      <div class="topline"><div class="crumb"><a href="../../index.html">Portfolio</a> / <a href="../../projects.html">Projects</a> / <strong>CrowdFund DAO</strong></div><div class="mono">SMART CONTRACTS · WEB3 SECURITY</div></div>
+      <section class="chain-hero">
+        <p class="chain-kicker">ACADEMIC TEAM PROJECT · 2026–2027 · BLOCKCHAIN &amp; SECURITY</p>
+        <h1>CrowdFund DAO: <span class="accent">secure crowdfunding and token-weighted governance.</span></h1>
+        <p>A decentralized crowdfunding prototype on an EVM-compatible network: campaign contributions in ETH, CFD governance tokens, voting on sensitive decisions and security controls for refunds and withdrawals. Built by a three-person engineering team at ENSA Beni Mellal.</p>
+        <div class="chain-tags"><span>Solidity</span><span>OpenZeppelin</span><span>Hardhat</span><span>ERC-20 / ERC20Votes</span><span>DAO</span><span>React / Ethers.js</span><span>IPFS</span><span>Security testing</span></div>
+        <div class="actions"><a class="btn primary" href="#contribution">My engineering contribution</a><a class="btn" href="#architecture">Explore architecture</a><a class="btn secondary-link" href="../../projects.html#crowdfunding-dao">Back to Projects</a></div>
+      </section>
+      <nav class="chain-jump" aria-label="Case study navigation">
+        <a href="#challenge">Challenge</a><a href="#architecture">Architecture</a><a href="#contribution">My role</a><a href="#governance">Governance</a><a href="#validation">Validation</a><a href="#limits">Boundaries</a>
+      </nav>
+      <section class="chain-section" id="challenge">
+        <p class="chain-mini">01 / CHALLENGE</p>
+        <h2>Keep funds under auditable rules, not a single operator's discretion.</h2>
+        <p>The team implemented a crowdfunding workflow in which participants create campaigns, contribute ETH and receive CFD tokens used for selected governance decisions. Campaign funds remain managed by smart contracts until the permitted withdrawal or refund conditions are met. This is an academic prototype, not a live fundraising service or an audited financial product.</p>
+        <div class="chain-flow">
+          <div class="chain-step"><span class="step-n">01</span><strong>Create a campaign</strong><p>Goal, deadline, beneficiary and IPFS metadata CID.</p></div>
+          <div class="chain-step"><span class="step-n">02</span><strong>Contribute ETH</strong><p>The crowdfunding contract accounts for funds and contributions.</p></div>
+          <div class="chain-step"><span class="step-n">03</span><strong>Receive CFD</strong><p>The token contract mints 1,000 CFD per ETH contributed.</p></div>
+          <div class="chain-step"><span class="step-n">04</span><strong>Govern &amp; settle</strong><p>Vote on eligible proposals; perform controlled withdrawal or refund.</p></div>
+        </div>
+      </section>
+      <section class="chain-section" id="architecture">
+        <p class="chain-mini">02 / ARCHITECTURE</p>
+        <h2>Two core contracts, a wallet-connected frontend, and off-chain metadata.</h2>
+        <p>React and Ethers.js use the contracts' ABIs to prepare calls; MetaMask signs user transactions. Crowdfunding manages campaigns, ETH accounting and DAO decisions. CFDToken handles ERC-20 supply and voting checkpoints. IPFS stores campaign content; the on-chain contract records a CID reference.</p>
+        <figure class="chain-diagram">
+          <svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture: User and MetaMask connect to React and Ethers.js, then Crowdfunding smart contract. Crowdfunding interacts with CFDToken. The frontend reads and writes IPFS metadata. Governance and multisignature authorize sensitive operations.">
+            <defs><marker id="chainArrow" markerWidth="9" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0,0 9,3.5 0,7" fill="#60b9fc"/></marker></defs>
+            <rect x="6" y="8" width="888" height="364" rx="14" fill="#142133" stroke="#365477"/>
+            <g fill="#21344c" stroke="#6796c0" stroke-width="1.5">
+              <rect x="35" y="65" width="180" height="78" rx="10"/>
+              <rect x="280" y="65" width="205" height="78" rx="10"/>
+              <rect x="554" y="65" width="312" height="95" rx="10"/>
+              <rect x="554" y="215" width="312" height="82" rx="10"/>
+              <rect x="280" y="242" width="205" height="70" rx="10"/>
+            </g>
+            <g fill="#f3f7fc" font-family="Inter,Arial,sans-serif" text-anchor="middle">
+              <text x="125" y="91" font-size="16" font-weight="700">MetaMask</text><text x="125" y="112" font-size="12" fill="#bed4ec">Accounts &amp; signing</text>
+              <text x="382" y="91" font-size="16" font-weight="700">React frontend</text><text x="382" y="112" font-size="12" fill="#bed4ec">Ethers.js + ABI</text>
+              <text x="710" y="91" font-size="16" font-weight="700">Crowdfunding.sol</text><text x="710" y="113" font-size="12" fill="#bed4ec">ETH escrow · campaigns · DAO</text><text x="710" y="135" font-size="11" fill="#bed4ec">Multisig approvals · pause control</text>
+              <text x="710" y="242" font-size="16" font-weight="700">CFDToken.sol</text><text x="710" y="266" font-size="12" fill="#bed4ec">ERC20Votes · mint / burn</text>
+              <text x="382" y="271" font-size="16" font-weight="700">IPFS</text><text x="382" y="293" font-size="12" fill="#bed4ec">Image · metadata · CID</text>
+            </g>
+            <g stroke="#60b9fc" stroke-width="2" fill="none" marker-end="url(#chainArrow)">
+              <line x1="217" y1="104" x2="278" y2="104"/>
+              <line x1="487" y1="104" x2="552" y2="104"/>
+              <path d="M710 162 L710 213"/>
+              <path d="M382 145 L382 240"/>
+            </g>
+            <g fill="#90c7f6" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">
+              <text x="247" y="89">sign</text><text x="520" y="89">calls</text><text x="751" y="191">mint / burn / votes</text><text x="422" y="194">metadata</text>
+              <text x="711" y="334">DAO vote: quorum + majority · High-value withdrawal: 2-of-3 signers</text>
+            </g>
+          </svg>
+        </figure>
+        <div class="chain-note"><strong>Important distinction:</strong> ETH is held by the crowdfunding contract; CFD is a separate governance token. CFD's 1,000:1 issuance rule is not an ETH redemption price. The IPFS CID identifies metadata content, not the money.</div>
+      </section>
+      <section class="chain-section" id="contribution">
+        <p class="chain-mini">03 / CONTRIBUTION &amp; TEAM CREDIT</p>
+        <h2>My focus: token engineering, crowdfunding accounting and refund security.</h2>
+        <div class="chain-grid">
+          <div class="chain-block"><h3>My engineering work — Kossi Richard Allado</h3>
+            <ul>
+              <li>Worked on <strong>CFDToken.sol</strong>: ERC-20 token, role-gated mint/burn, ERC20Permit/ERC20Votes integration and vote delegation behavior.</li>
+              <li>Worked on <strong>Crowdfunding.sol</strong>: campaign creation, contributions, finalization, refund and withdrawal accounting.</li>
+              <li>Strengthened the accounting invariant: <strong>totalRaised = campaignBalances + campaignRefunded + campaignWithdrawn</strong>.</li>
+              <li>Built and exercised targeted tests for refund behavior and a recursive-call reentrancy attempt using an attacker contract.</li>
+            </ul>
+          </div>
+          <div class="chain-block"><h3>Shared team deliverables</h3>
+            <ul>
+              <li>DAO proposals and token-weighted voting, including snapshots, quorum and majority.</li>
+              <li>Multisignature controls, emergency pause, wallet-connected React application and IPFS flow.</li>
+              <li>Hardhat integration and security verification; optional Python-based anomaly-signal checks.</li>
+              <li>Presentation, integration and group demonstration.</li>
+            </ul>
+            <p style="margin-top:12px"><strong>Team:</strong> ADJEVI Kodjo Marius-Ben, ALLADO Kossi Richard, KPADENOU Kossi Roland.</p>
+          </div>
+        </div>
+        <p class="chain-credits">Original source repository is maintained by a teammate and is private. This public case study documents a legitimate team contribution; it does not imply sole authorship or make the private source publicly accessible.</p>
+      </section>
+      <section class="chain-section" id="governance">
+        <p class="chain-mini">04 / GOVERNANCE</p>
+        <h2>Quorum, majority and snapshots — not network Proof of Stake.</h2>
+        <p>CFD voting takes place at the application level. It is distinct from Ethereum's Proof-of-Stake consensus. A proposal waits one day before voting opens, then remains open for three days. The contract uses an historical voting snapshot, a 20% participation quorum and more votes FOR than AGAINST.</p>
+        <div class="chain-grid">
+          <div class="chain-block"><h3>Example: 5,000 eligible CFD</h3><p>At least 1,000 votes must participate to reach the 20% quorum. If 2,000 vote FOR and none AGAINST, quorum and majority conditions are met; execution still waits until the voting period closes.</p></div>
+          <div class="chain-block"><h3>DAO versus multisignature</h3><p>The DAO records a collective decision weighted by eligible CFD votes. Three designated guardians provide a separate 2-of-3 approval for the large withdrawals defined by the contract. The two mechanisms serve different purposes.</p></div>
+        </div>
+      </section>
+      <section class="chain-section" id="validation">
+        <p class="chain-mini">05 / VALIDATION</p>
+        <h2>Security checks and evidence boundaries.</h2>
+        <table class="chain-table">
+          <thead><tr><th>Control / test</th><th>What was checked or reported</th></tr></thead>
+          <tbody>
+            <tr><td>Reentrancy defense</td><td>Targeted attacker-contract attempt, state-before-transfer accounting, and guarded refund execution.</td></tr>
+            <tr><td>Fund accounting</td><td>Historical amount raised separated from remaining balance, withdrawals and refunds, with accounting invariants.</td></tr>
+            <tr><td>Voting</td><td>Snapshot-based voting, one-day delay, three-day voting window, quorum and majority rules.</td></tr>
+            <tr><td>Hardhat</td><td>The group presentation reports 20 contract tests, including reentrancy and randomized scenarios.</td></tr>
+            <tr><td>Slither</td><td>The group presentation reports 12 low-severity and 5 informational findings, with no medium/high findings in that run.</td></tr>
+            <tr><td>Python / browser</td><td>The group presentation reports eight anomaly-signal tests and a browser walkthrough using mocked wallet/IPFS services.</td></tr>
+          </tbody>
+        </table>
+        <div class="chain-note"><strong>Evidence discipline:</strong> The test counts above are taken from the team's presentation, not independently re-run against the latest private repository for this public page. No static-analysis report or passing test suite proves that a smart contract is free from vulnerabilities.</div>
+      </section>
+      <section class="chain-section" id="limits">
+        <p class="chain-mini">06 / LIMITATIONS</p>
+        <h2>A tested local prototype, not a public fundraising product.</h2>
+        <div class="chain-grid">
+          <div class="chain-block"><h3>Deployment status</h3><p>The presentation demonstrates a Hardhat local deployment; public Sepolia deployment had not yet been performed. Fast-forwarding local blockchain time makes multi-day DAO votes demonstrable within a classroom session.</p></div>
+          <div class="chain-block"><h3>Review and maintenance</h3><p>There is no independent external smart contract audit reported. The presentation also identifies manual token-unlocking after campaign payment and the concentration of several responsibilities in the main contract as current limitations.</p></div>
+        </div>
+        <div class="actions"><a class="btn primary" href="../../projects.html#crowdfunding-dao">Return to project summary</a><a class="btn" href="../../index.html#evidence-atlas">Explore the Evidence Atlas</a></div>
+      </section>
+      <footer class="footer mono">CrowdFund DAO — academic team project, Ethereum smart-contract security <small>Case study prepared: November 2026</small></footer>
+    </main>
+  </div>
+  <script src="../../assets/lang.js?v=20261028-edu-soc" defer></script>
+  <script src="../../assets/main.js?v=20261103-recruiter" defer></script>
+  <script src="../../assets/portfolio-ui.js?v=20261112-blue" defer></script>
+</body>
+</html>

@@ -9,4 +9,5 @@
   <url><loc>https://allakori.github.io/cv.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://allakori.github.io/writeups/tryhackme/volt-typhoon/index.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://allakori.github.io/case-studies/llm-red-team-agent/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://allakori.github.io/case-studies/crowdfunding-dao/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>

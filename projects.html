@@ -41,6 +41,28 @@
 
       <section class="section">
         <div class="grid">
+          <article class="card" id="red-team-llm">
+            <p class="meta">AI Security / Red Team Engineering / Project in development</p>
+            <h2>Red Team Agent for LLM Application Auditing</h2>
+            <p>Building a controlled security-auditing toolchain for LLM-powered applications, with repeatable adversarial scenarios, independent evidence checks and explicit limitations.</p>
+            <ul class="list">
+              <li>Created UniAssist, a fictional local FastAPI/Ollama test target using synthetic data; recorded initial manual checks of instruction-following and context disclosure.</li>
+              <li>Developed a separate audit engine for scenario validation, HTTP execution, deterministic verdicts and structured reporting on development branches.</li>
+              <li>Preparing an installable Python CLI, optional attacker-LLM follow-ups and a local dashboard; real integration and final review are still pending.</li>
+            </ul>
+            <details class="evidence-case-detail">
+              <summary><span>Engineering evidence</span><strong>Scope · Experiments · Validation · Limits</strong></summary>
+              <div class="evidence-case-grid">
+                <div><h4>Scope</h4><p>Local or explicitly authorized LLM applications, not public target discovery.</p></div>
+                <div><h4>Experiment</h4><p>One canary intentionally placed in model context was reproduced; this was not private-file access or production exfiltration.</p></div>
+                <div><h4>Validation</h4><p>Deterministic scenario evaluation and offline tests are implemented in development; broader real-model benchmark remains pending.</p></div>
+                <div><h4>Source status</h4><p>Implementation remains private until technical review and release checks are complete.</p></div>
+              </div>
+            </details>
+            <div class="tags"><span class="tag blue">LLM Security</span><span class="tag green">Python · FastAPI</span><span class="tag">Adversarial testing</span><span class="tag amber">In progress</span></div>
+            <div class="actions"><a class="btn primary" href="case-studies/llm-red-team-agent/">Read the technical case study</a></div>
+          </article>
+
           <article class="card" id="cyberveille">
               <p class="meta">Threat intelligence / PFA completed / July-August 2026</p>
               <h2>CyberVeille PME - suspicious URL detection MVP</h2>

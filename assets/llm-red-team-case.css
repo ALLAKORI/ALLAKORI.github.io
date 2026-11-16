@@ -1,0 +1,62 @@
+/* LLM Red Team case study — scoped to its own page. */
+.llm-study{--llm-ink:var(--text);--llm-accent:var(--cyan);min-width:0}
+.llm-study-hero{position:relative;overflow:hidden;padding:clamp(34px,5vw,76px) clamp(23px,5vw,65px) 34px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(115deg,rgba(48,136,145,.10),transparent 55%),var(--panel)}
+.llm-study-hero:after{content:"AI / SECURITY";position:absolute;top:16px;right:22px;color:var(--muted);opacity:.45;font:700 .6rem "JetBrains Mono",monospace;letter-spacing:.14em}
+.llm-study-eyebrow,.llm-study .meta{font:700 .67rem "JetBrains Mono",monospace;letter-spacing:.08em;color:var(--llm-accent)}
+.llm-study-eyebrow span{padding:0 6px;color:var(--soft)}
+.llm-study-hero h1{max-width:900px;font-size:clamp(2.2rem,5.5vw,4.9rem);font-weight:800;line-height:1.09;letter-spacing:-.065em;margin:18px 0 20px;color:var(--text)}
+.llm-study-hero h1 span{color:var(--llm-accent)}
+.llm-study-lede{font-size:clamp(.95rem,1.6vw,1.12rem);max-width:780px;line-height:1.76;color:var(--muted)}
+.llm-study-tags{display:flex;flex-wrap:wrap;gap:8px;margin:25px 0}
+.llm-study-tags span{padding:8px 11px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:600 .68rem "JetBrains Mono",monospace}
+.llm-study-actions{display:flex;flex-wrap:wrap;gap:9px}
+.llm-study-caveat{border-top:1px solid var(--line);padding-top:19px;margin-top:32px;font-size:.77rem;color:var(--muted);line-height:1.65;max-width:780px}
+.llm-study-caveat strong{color:var(--text)}
+.llm-study-jump{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 8px}
+.llm-study-jump a{font:700 .67rem "JetBrains Mono",monospace;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:10px 15px;color:var(--text);background:var(--panel)}
+.llm-study-jump a:hover,.llm-study-jump a:focus-visible{border-color:var(--llm-accent);outline-offset:3px}
+.llm-study-section{padding:clamp(37px,5vw,67px) 0;border-bottom:1px solid var(--line);scroll-margin-top:20px}
+.llm-study-head{margin-bottom:22px}
+.llm-study-head h2{font-size:clamp(1.5rem,3vw,2.35rem);letter-spacing:-.045em;line-height:1.22;margin:10px 0;max-width:850px}
+.llm-study-intro{display:grid;grid-template-columns:1fr 1fr;gap:25px;max-width:1080px}
+.llm-study-intro p,.llm-study-section-copy{font-size:.87rem;line-height:1.86;color:var(--muted);max-width:990px}
+.llm-study-intro strong,.llm-study-section-copy strong{color:var(--text)}
+.llm-study-principles,.llm-study-detail-grid,.llm-study-next-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
+.llm-study-principles>div,.llm-study-detail-grid>article,.llm-study-next-grid>div{background:var(--panel);border:1px solid var(--line);padding:22px;border-radius:12px;min-width:0}
+.llm-study-principles span,.llm-study-next-grid span{font:700 .66rem "JetBrains Mono",monospace;color:var(--llm-accent);display:block;margin-bottom:14px}
+.llm-study-principles strong{display:block;font-size:.89rem}
+.llm-study-principles p,.llm-study-detail-grid p,.llm-study-next-grid p{font-size:.77rem;line-height:1.76;color:var(--muted);margin:10px 0 0}
+.llm-study-detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.llm-study-detail-grid h3,.llm-study-next-grid h3{font-size:.93rem;margin:0}
+.llm-study-diagram{margin:26px 0 14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px;overflow-x:auto}
+.llm-study-diagram svg{width:100%;min-width:630px;display:block}
+.llm-study-diagram .llm-node{fill:var(--panel);stroke:var(--line);stroke-width:1.5}
+.llm-study-diagram .llm-node-accent{fill:rgba(45,146,140,.08);stroke:#207e82;stroke-width:1.5}
+.llm-study-diagram .llm-node-kicker{fill:var(--llm-accent);font:700 10px "JetBrains Mono",monospace}
+.llm-study-diagram .llm-node-title{fill:var(--text);font:700 14px "Inter",sans-serif}
+.llm-study-diagram .llm-node-detail{fill:var(--muted);font:11px "Inter",sans-serif}
+.llm-study-diagram .llm-connector{stroke:#207e82;stroke-width:2;fill:none}
+.llm-study-diagram .llm-connector-back{stroke:var(--muted);stroke-dasharray:5 5;stroke-width:1.3;fill:none;opacity:.7}
+.llm-study-diagram .llm-diagram-note{fill:var(--muted);font:11px "JetBrains Mono",monospace}
+.llm-study-evidence{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:23px 0;overflow:hidden}
+.llm-study-evidence-row{display:grid;grid-template-columns:1.3fr .75fr 2fr;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);font-size:.78rem;line-height:1.5;color:var(--muted)}
+.llm-study-evidence-row:last-child{border-bottom:0}
+.llm-study-evidence-heading{background:rgba(44,139,142,.06);font:700 .65rem "JetBrains Mono",monospace;color:var(--text)}
+.llm-study-evidence-row span:first-child{font-weight:700;color:var(--text)}
+.llm-outcome-pass{color:var(--green)}.llm-outcome-fail{color:var(--red)}
+.llm-study-boundary{padding:24px;border-left:3px solid var(--llm-accent);background:var(--panel);border-radius:0 10px 10px 0}
+.llm-study-boundary strong{font-size:.89rem}
+.llm-study-boundary p{color:var(--muted);font-size:.81rem;line-height:1.8;margin:9px 0 0}
+.llm-study-method{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:25px}
+.llm-study-method h3{font-size:.9rem;margin:0 0 10px}
+.llm-study-method p{font-size:.8rem;line-height:1.75;color:var(--muted);margin:0}
+.llm-study-roadmap{border-top:1px solid var(--line)}
+.llm-study-step{display:grid;grid-template-columns:62px minmax(0,1fr);gap:24px;padding:22px 7px;border-bottom:1px solid var(--line)}
+.llm-study-index{font:800 1.2rem "JetBrains Mono",monospace;color:var(--llm-accent)}
+.llm-study-step h3{font-size:1rem;margin:0 0 10px}.llm-study-step h3 small{font:600 .66rem "JetBrains Mono",monospace;color:var(--llm-accent);margin-left:10px}
+.llm-study-step p{color:var(--muted);font-size:.8rem;line-height:1.72;max-width:900px}
+.llm-study-cta{margin:30px 0 0;padding:28px;background:var(--panel);border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:25px}
+.llm-study-cta h2{font-size:1.4rem;margin:8px 0}.llm-study-cta p:not(.meta){color:var(--muted);font-size:.79rem;line-height:1.72;max-width:640px}
+.llm-study-cta .btn{flex-shrink:0}
+@media(max-width:850px){.llm-study-intro,.llm-study-principles,.llm-study-detail-grid,.llm-study-next-grid,.llm-study-method{grid-template-columns:1fr}.llm-study-cta{display:block}.llm-study-cta .btn{margin-top:16px}}
+@media(max-width:550px){.llm-study-hero{padding:55px 20px 25px}.llm-study-hero h1{font-size:2.2rem}.llm-study-evidence-row{grid-template-columns:1fr 1fr;gap:8px;padding:14px}.llm-study-evidence-row span:last-child{grid-column:1/-1}.llm-study-evidence-heading span:last-child{display:none}.llm-study-step{grid-template-columns:40px 1fr;gap:12px}.llm-study-step h3 small{display:block;margin:7px 0 0}}

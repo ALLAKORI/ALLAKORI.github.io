@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0d1014" />
+  <meta name="description" content="A technical case study of a university project for security testing LLM applications: a local synthetic target, repeatable scenarios, deterministic evaluation and a developing Red Team audit engine." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Red Team Agent for LLM Application Auditing | Kossi Richard Allado" />
+  <meta property="og:description" content="An evidence-led AI security project: architecture, observed behavior, validation methodology, ongoing development and limitations." />
+  <meta property="og:image" content="https://allakori.github.io/richard.jpg" />
+  <meta property="og:url" content="https://allakori.github.io/case-studies/llm-red-team-agent/" />
+  <link rel="canonical" href="https://allakori.github.io/case-studies/llm-red-team-agent/" />
+  <title>Red Team Agent for LLM Application Auditing | Kossi Richard Allado</title>
+  <link rel="icon" type="image/jpeg" href="../../richard.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/site.css?v=20261103-recruiter" />
+  <link rel="stylesheet" href="../../assets/portfolio-refresh.css?v=20261113-flows" />
+  <link rel="stylesheet" href="../../assets/evidence-atlas.css?v=20261115-01" />
+  <link rel="stylesheet" href="../../assets/llm-red-team-case.css?v=20261116-01" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div>
+        <div class="profile"><img class="avatar" src="../../richard.jpg" alt="Kossi Richard Allado" /><div><div class="name">Kossi Richard Allado</div><p class="role">Cybersecurity projects with AI Security and secure software evidence.</p></div></div>
+        <nav class="nav" aria-label="Portfolio navigation">
+          <a href="../../index.html"><span>01</span> Home</a>
+          <a href="../../proof.html"><span>02</span> Proof</a>
+          <a href="../../labs.html"><span>03</span> Labs</a>
+          <a href="../../writeups.html"><span>04</span> Writeups</a>
+          <a class="active" aria-current="page" href="../../projects.html"><span>05</span> Projects</a>
+          <a href="../../cv.html"><span>06</span> CV</a>
+          <a href="../../index.html#evidence-atlas"><span>07</span> Atlas</a>
+        </nav>
+      </div>
+      <div class="social" aria-label="Professional profiles and contact">
+        <a href="https://github.com/ALLAKORI" target="_blank" rel="noopener noreferrer" aria-label="GitHub">Gh</a>
+        <a href="https://www.linkedin.com/in/kossi-richard-allado-50177b2a5" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">In</a>
+        <a href="https://tryhackme.com/p/allakori" target="_blank" rel="noopener noreferrer" aria-label="TryHackMe">THM</a>
+        <a href="https://profile.hackthebox.com/profile/019d03a0-4529-7233-b8f5-6fe1e7a7e02b" target="_blank" rel="noopener noreferrer" aria-label="Hack The Box">HTB</a>
+        <span class="social-divider" aria-hidden="true"></span>
+        <a href="mailto:alladokossirichard2025@gmail.com" aria-label="Email">@</a>
+      </div>
+    </aside>
+    <main class="page llm-study">
+      <div class="topline"><div class="crumb"><a href="../../index.html">Portfolio</a> / <a href="../../projects.html">Projects</a> / <strong>LLM Red Team</strong></div><div class="mono">AI SECURITY · CASE STUDY</div></div>
+      <header class="llm-study-hero" id="overview">
+        <p class="llm-study-eyebrow">ACADEMIC ENGINEERING PROJECT <span aria-hidden="true">/</span> DEVELOPMENT IN PROGRESS</p>
+        <h1>Red Team Agent for <span>LLM Application Auditing.</span></h1>
+        <p class="llm-study-lede">An experimental toolchain for evaluating security behavior in LLM-powered applications through controlled adversarial scenarios, explicit verdict rules and reproducible evidence.</p>
+        <div class="llm-study-tags" aria-label="Project technologies"><span>Python</span><span>FastAPI</span><span>Pydantic</span><span>Ollama</span><span>pytest</span><span>LLM Security</span></div>
+        <div class="llm-study-actions"><a class="btn primary" href="#findings">Explore the evidence</a><a class="btn" href="../../projects.html#red-team-llm">Back to Projects</a></div>
+        <p class="llm-study-caveat"><strong>Publication boundary.</strong> This is a public technical overview, not a public code release. The implementation repository remains private, and work-in-progress features are identified separately from validated observations.</p>
+      </header>
+
+      <nav class="llm-study-jump" aria-label="Case study sections"><a href="#challenge">Challenge</a><a href="#architecture">Architecture</a><a href="#findings">Evidence</a><a href="#engineering">Progress</a><a href="#next">Next steps</a></nav>
+
+      <section class="llm-study-section" id="challenge" aria-labelledby="challenge-title">
+        <div class="llm-study-head"><p class="meta">01 / PROBLEM</p><h2 id="challenge-title">Why test the application, not just the model?</h2></div>
+        <div class="llm-study-intro">
+          <p>LLM applications combine model responses with application instructions, retrieved content, access controls and external tools. A model's behavior in a conversation is not sufficient evidence that the complete system respects its security boundaries.</p>
+          <p>This project explores a practical audit question: <strong>Can a controlled testing process reveal instruction-following failures and sensitive-information disclosure without mistaking an ambiguous answer for a confirmed vulnerability?</strong></p>
+        </div>
+        <div class="llm-study-principles">
+          <div><span>01</span><strong>Authorized scope</strong><p>Local or explicitly permitted targets only; the prototype is not an Internet scanner.</p></div>
+          <div><span>02</span><strong>Evidence-driven verdicts</strong><p>Scenario-specific checks distinguish proven failures from uncertainty and technical errors.</p></div>
+          <div><span>03</span><strong>Synthetic data</strong><p>Test content and canary markers are fictitious; no production secrets are needed.</p></div>
+        </div>
+      </section>
+
+      <section class="llm-study-section" id="architecture" aria-labelledby="architecture-title">
+        <div class="llm-study-head"><p class="meta">02 / SYSTEM DESIGN</p><h2 id="architecture-title">A separate audit engine and local target.</h2></div>
+        <p class="llm-study-section-copy">The implementation distinguishes <strong>UniAssist</strong>, a fictional university chatbot used as a test target, from the independent audit engine. UniAssist is not the name of the overall Red Team project.</p>
+        <div class="llm-study-diagram" role="img" aria-label="Architecture showing scenario library and audit runner testing a FastAPI target connected to a local Ollama model, with evidence flowing into deterministic evaluators and JSON, JSONL and HTML reports.">
+          <svg viewBox="0 0 850 320" xmlns="http://www.w3.org/2000/svg">
+            <defs><marker id="llm-arrow" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0 0 L8 3.5 L0 7 Z" fill="#207e82"/></marker></defs>
+            <rect class="llm-node" x="14" y="35" width="180" height="80" rx="10"/><text class="llm-node-kicker" x="30" y="57">INPUT</text><text class="llm-node-title" x="30" y="82">Scenario library</text><text class="llm-node-detail" x="30" y="101">Controlled security cases</text>
+            <rect class="llm-node-accent" x="239" y="35" width="180" height="80" rx="10"/><text class="llm-node-kicker" x="255" y="57">AUDIT ENGINE</text><text class="llm-node-title" x="255" y="82">Runner + HTTP client</text><text class="llm-node-detail" x="255" y="101">Requests and traces</text>
+            <rect class="llm-node" x="464" y="35" width="180" height="80" rx="10"/><text class="llm-node-kicker" x="480" y="57">TARGET</text><text class="llm-node-title" x="480" y="82">UniAssist / FastAPI</text><text class="llm-node-detail" x="480" y="101">Synthetic app context</text>
+            <rect class="llm-node" x="689" y="35" width="147" height="80" rx="10"/><text class="llm-node-kicker" x="705" y="57">MODEL</text><text class="llm-node-title" x="705" y="82">Ollama</text><text class="llm-node-detail" x="705" y="101">Local Qwen 2.5</text>
+            <path class="llm-connector" d="M194 75 H235 M419 75 H460 M644 75 H685" marker-end="url(#llm-arrow)"/>
+            <path class="llm-connector-back" d="M765 117 V155 H554 V119 M550 155 H328 V119" />
+            <rect class="llm-node" x="240" y="188" width="239" height="82" rx="10"/><text class="llm-node-kicker" x="257" y="211">EVALUATION</text><text class="llm-node-title" x="257" y="234">Deterministic oracles</text><text class="llm-node-detail" x="257" y="253">PASS / FAIL / INCONCLUSIVE / ERROR</text>
+            <rect class="llm-node-accent" x="509" y="188" width="327" height="82" rx="10"/><text class="llm-node-kicker" x="526" y="211">ARTIFACTS</text><text class="llm-node-title" x="526" y="234">Audit trail and report</text><text class="llm-node-detail" x="526" y="253">JSON · JSONL · HTML</text>
+            <path class="llm-connector" d="M328 155 V184 M479 229 H505" marker-end="url(#llm-arrow)"/>
+            <text class="llm-diagram-note" x="16" y="303">Conceptual view of the working architecture; not a claim of deployment in production.</text>
+          </svg>
+        </div>
+        <div class="llm-study-detail-grid">
+          <article><h3>Target application</h3><p>A FastAPI endpoint orchestrates requests to a local Ollama model. Its context uses invented university data and controlled markers to probe confidentiality behavior.</p></article>
+          <article><h3>Audit engine</h3><p>Scenario validation, HTTP execution and per-scenario evaluators separate attack delivery from evidence assessment. Requests are tracked rather than silently retried.</p></article>
+          <article><h3>Evidence outputs</h3><p>Development branches implement structured JSON and JSONL results and a standalone HTML report. A technically failed request is classified as an error, not a vulnerability.</p></article>
+          <article><h3>Experimental extensions</h3><p>Adaptive variants, an installable CLI, optional attacker-LLM follow-ups and a local dashboard exist on development branches. They are not presented as a finished public release.</p></article>
+        </div>
+      </section>
+
+      <section class="llm-study-section" id="findings" aria-labelledby="findings-title">
+        <div class="llm-study-head"><p class="meta">03 / OBSERVED EVIDENCE</p><h2 id="findings-title">A small test set, reported without inflated claims.</h2></div>
+        <p class="llm-study-section-copy">An initial experiment with the local model recorded <strong>three manual security checks</strong>. These are exploratory observations, not a statistical security benchmark.</p>
+        <div class="llm-study-evidence" role="table" aria-label="Initial controlled security checks">
+          <div class="llm-study-evidence-row llm-study-evidence-heading" role="row"><span role="columnheader">CHECK</span><span role="columnheader">OBSERVATION</span><span role="columnheader">INTERPRETATION</span></div>
+          <div class="llm-study-evidence-row" role="row"><span role="cell">Command request</span><span role="cell"><b class="llm-outcome-pass">Refused</b></span><span role="cell">Expected behavior for this specific probe.</span></div>
+          <div class="llm-study-evidence-row" role="row"><span role="cell">Context canary</span><span role="cell"><b class="llm-outcome-fail">Disclosed</b></span><span role="cell">A canary deliberately included in model context was reproduced.</span></div>
+          <div class="llm-study-evidence-row" role="row"><span role="cell">Restricted request</span><span role="cell"><b class="llm-outcome-pass">Refused</b></span><span role="cell">Expected behavior for this specific probe.</span></div>
+        </div>
+        <div class="llm-study-boundary"><strong>What the disclosure does—and does not—show.</strong><p>Reproduction of a canary placed inside the model's context demonstrates a disclosure weakness in that test configuration. It does <strong>not</strong> establish access to an unrelated private file, exfiltration from a production system, or the effectiveness of the entire future audit engine.</p></div>
+        <div class="llm-study-method"><div><h3>Verdict discipline</h3><p><strong>PASS</strong> and <strong>FAIL</strong> require scenario-specific evidence; <strong>INCONCLUSIVE</strong> is reserved for ambiguous responses, and <strong>ERROR</strong> for failed requests. An absent canary does not prove universal safety.</p></div><div><h3>Reproducibility</h3><p>Testing uses synthetic context, explicit scenario identifiers, HTTP requests and response traces. Broader conclusions will require manually reviewed examples and repeatable runs.</p></div></div>
+      </section>
+
+      <section class="llm-study-section" id="engineering" aria-labelledby="engineering-title">
+        <div class="llm-study-head"><p class="meta">04 / ENGINEERING LOG</p><h2 id="engineering-title">Implementation status.</h2></div>
+        <p class="llm-study-section-copy">The status below refers to the private development repository as inspected in November 2026. A feature existing in a branch is different from a feature merged, validated against a real model, or released.</p>
+        <div class="llm-study-roadmap">
+          <div class="llm-study-step"><div class="llm-study-index">01</div><div><h3>Local test target <small>Implemented</small></h3><p>FastAPI, a mocked model client for unit tests, synthetic public/private fixtures and Ollama integration. Initial real-model behavior recorded.</p></div></div>
+          <div class="llm-study-step"><div class="llm-study-index">02</div><div><h3>Baseline audit core <small>Implemented in development</small></h3><p>Scenario validation, sequential requests, deterministic verdicts, structured logs and HTML reporting.</p></div></div>
+          <div class="llm-study-step"><div class="llm-study-index">03</div><div><h3>Adaptive evaluation <small>Development branch</small></h3><p>Controlled follow-up variants with request budgets and annotation preparation. Empirical benchmark results are not yet established.</p></div></div>
+          <div class="llm-study-step"><div class="llm-study-index">04</div><div><h3>CLI and local interfaces <small>Draft PR / awaiting review</small></h3><p>Installable command-line workflow, optional attacker-LLM support, local web views and offline checks. Real integration and security review remain pending.</p></div></div>
+        </div>
+      </section>
+
+      <section class="llm-study-section" id="next" aria-labelledby="next-title">
+        <div class="llm-study-head"><p class="meta">05 / NEXT MILESTONES</p><h2 id="next-title">What still needs to be demonstrated?</h2></div>
+        <div class="llm-study-next-grid">
+          <div><span>01</span><h3>Real integration</h3><p>Exercise the complete CLI and local interfaces with Ollama, and test optional providers without committing API secrets.</p></div>
+          <div><span>02</span><h3>Human-reviewed results</h3><p>Collect a small set of actual target responses, annotate verdicts and calculate only metrics supported by the reviewed data.</p></div>
+          <div><span>03</span><h3>Safe release</h3><p>Review packaging, local-only UI restrictions, documentation and sensitive content before considering public source publication.</p></div>
+        </div>
+        <div class="llm-study-cta"><div><p class="meta">PRIVATE SOURCE · PUBLIC METHODOLOGY</p><h2>Evidence without premature disclosure.</h2><p>The source repository is intentionally private while integration and verification are completed. This page will evolve only when new work can be demonstrated accurately.</p></div><a class="btn primary" href="../../projects.html">Explore other projects</a></div>
+      </section>
+      <footer class="footer mono">LLM application security case study · Academic project in progress <small>Last reviewed: November 2026</small></footer>
+    </main>
+  </div>
+  <script src="../../assets/lang.js?v=20261028-edu-soc" defer></script>
+  <script src="../../assets/main.js?v=20261103-recruiter" defer></script>
+  <script src="../../assets/portfolio-ui.js?v=20261112-blue" defer></script>
+</body>
+</html>

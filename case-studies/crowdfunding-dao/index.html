@@ -149,7 +149,7 @@
             </g>
           </svg>
         </figure>
-        <div class="chain-note"><strong>Important distinction:</strong> ETH is held by the crowdfunding contract; CFD is a separate governance token. CFD's 1,000:1 issuance rule is not an ETH redemption price. The IPFS CID identifies metadata content, not the money.</div>
+        <div class="chain-note"><strong>Important distinction:</strong> ETH is held by the crowdfunding contract; CFD is a separate governance token. CFD's 1,000:1 issuance rule is not an ETH redemption price. The IPFS CID identifies metadata content, not the money. The optional image is uploaded first, then a CIDv1 JSON document containing title, description and the image URI; only that metadata CID is recorded on-chain. The local Kubo node pins the uploaded objects for the demonstration, which is not evidence of public IPFS persistence.</div>
       </section>
       <section class="chain-section" id="contribution">
         <p class="chain-mini">03 / CONTRIBUTION &amp; TEAM CREDIT</p>
@@ -181,7 +181,8 @@
         <p>CFD voting takes place at the application level. It is distinct from Ethereum's Proof-of-Stake consensus. A proposal waits one day before voting opens, then remains open for three days. The contract uses an historical voting snapshot, a 20% participation quorum and more votes FOR than AGAINST.</p>
         <div class="chain-grid">
           <div class="chain-block"><h3>Example: 5,000 eligible CFD</h3><p>At least 1,000 votes must participate to reach the 20% quorum. If 2,000 vote FOR and none AGAINST, quorum and majority conditions are met; execution still waits until the voting period closes.</p></div>
-          <div class="chain-block"><h3>DAO versus multisignature</h3><p>The DAO records a collective decision weighted by eligible CFD votes. Three designated guardians provide a separate 2-of-3 approval for the large withdrawals defined by the contract. The two mechanisms serve different purposes.</p></div>
+          <div class="chain-block"><h3>DAO versus multisignature</h3><p>The DAO records a collective decision weighted by eligible CFD votes. A payout above <strong>10 ETH</strong> also requires approval from at least <strong>2 of 3</strong> designated trustees for the current withdrawal amount. The two mechanisms serve different purposes.</p></div>
+          <div class="chain-block"><h3>Release is a separate gate</h3><p>Reaching a goal and finalizing a campaign as successful do not directly unlock funds. The beneficiary needs an executed <strong>Release</strong> proposal; before the deadline, the same rule permits an early release only after goal attainment and governance approval.</p></div>
         </div>
       </section>
 
@@ -226,6 +227,8 @@
             <tr><td>Reentrancy defense</td><td>Targeted attacker-contract attempt, state-before-transfer accounting, and guarded refund execution.</td></tr>
             <tr><td>Fund accounting</td><td>Historical amount raised separated from remaining balance, withdrawals and refunds, with accounting invariants.</td></tr>
             <tr><td>Voting</td><td>Snapshot-based voting, one-day delay, three-day voting window, quorum and majority rules.</td></tr>
+            <tr><td>Emergency and payout controls</td><td>Role-gated pause can block contributions and ETH withdrawals; guarded ETH paths use reentrancy protection. Payouts above 10 ETH add the independent 2-of-3 trustee requirement.</td></tr>
+            <tr><td>Off-chain triage bonus</td><td>Read-only Python analysis flags repeated amounts, potential linked addresses through shared campaigns and contribution spikes. These are transparent review signals, not automatic fraud findings or freeze decisions.</td></tr>
             <tr><td>Hardhat</td><td>The supplied verification record (5 November 2026) reports <strong>20 passing contract tests</strong> from <code>npm test</code>.</td></tr>
             <tr><td>Slither</td><td>The group presentation reports 12 low-severity and 5 informational findings, with no medium/high findings in that run.</td></tr>
             <tr><td>Python</td><td>The supplied record reports <strong>8 passing anomaly-signal tests</strong> from <code>npm run test:analysis</code>.</td></tr>

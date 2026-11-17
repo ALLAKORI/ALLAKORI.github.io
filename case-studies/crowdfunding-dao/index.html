@@ -97,7 +97,7 @@
       <section class="chain-hero">
         <p class="chain-kicker">ACADEMIC TEAM PROJECT · 2026–2027 · BLOCKCHAIN &amp; SECURITY</p>
         <h1>CrowdFund DAO: <span class="accent">secure crowdfunding and token-weighted governance.</span></h1>
-        <p>A decentralized crowdfunding prototype on an EVM-compatible network: campaign contributions in ETH, CFD governance tokens, voting on sensitive decisions and security controls for refunds and withdrawals. Built by a three-person engineering team at ENSA Beni Mellal.</p>
+        <p>A decentralized crowdfunding dApp built by a three-person ENSA Beni Mellal team. Users create campaigns, contribute ETH, receive CFD voting power and vote on fund releases. The contracts manage refunds, payouts and the security controls around them.</p>
         <div class="chain-tags"><span>Solidity</span><span>OpenZeppelin</span><span>Hardhat</span><span>ERC-20 / ERC20Votes</span><span>DAO</span><span>React / Ethers.js</span><span>IPFS</span><span>Security testing</span></div>
         <div class="actions"><a class="btn primary" href="#contribution">My engineering contribution</a><a class="btn" href="#architecture">Explore architecture</a><a class="btn secondary-link" href="../../projects.html#crowdfunding-dao">Back to Projects</a></div>
       </section>
@@ -106,8 +106,8 @@
       </nav>
       <section class="chain-section" id="challenge">
         <p class="chain-mini">01 / CHALLENGE</p>
-        <h2>Keep funds under auditable rules, not a single operator's discretion.</h2>
-        <p>The team implemented a crowdfunding workflow in which participants create campaigns, contribute ETH and receive CFD tokens used for selected governance decisions. Campaign funds remain managed by smart contracts until the permitted withdrawal or refund conditions are met. This is an academic prototype, not a live fundraising service or an audited financial product.</p>
+        <h2>Keep campaign funds under contract rules, not one wallet.</h2>
+        <p>The dApp keeps the crowdfunding flow inside the contracts: campaign creation, ETH contributions, CFD minting, refunds and controlled withdrawals. A beneficiary cannot move campaign funds until the contract conditions and the governance decision are satisfied.</p>
         <div class="chain-flow">
           <div class="chain-step"><span class="step-n">01</span><strong>Create a campaign</strong><p>Goal, deadline, beneficiary and IPFS metadata CID.</p></div>
           <div class="chain-step"><span class="step-n">02</span><strong>Contribute ETH</strong><p>The crowdfunding contract accounts for funds and contributions.</p></div>
@@ -117,8 +117,8 @@
       </section>
       <section class="chain-section" id="architecture">
         <p class="chain-mini">02 / ARCHITECTURE</p>
-        <h2>Two core contracts, a wallet-connected frontend, and off-chain metadata.</h2>
-        <p>React and Ethers.js use the contracts' ABIs to prepare calls; MetaMask signs user transactions. Crowdfunding manages campaigns, ETH accounting and DAO decisions. CFDToken handles ERC-20 supply and voting checkpoints. IPFS stores campaign content; the on-chain contract records a CID reference.</p>
+        <h2>What runs where.</h2>
+        <p>The React frontend prepares contract calls with Ethers.js and MetaMask signs them. Crowdfunding.sol manages campaigns, ETH accounting and DAO decisions. CFDToken.sol handles token supply and voting checkpoints. IPFS stores campaign content while the contract keeps the metadata CID.</p>
         <figure class="chain-diagram">
           <svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture: User and MetaMask connect to React and Ethers.js, then Crowdfunding smart contract. Crowdfunding interacts with CFDToken. The frontend reads and writes IPFS metadata. Governance and multisignature authorize sensitive operations.">
             <defs><marker id="chainArrow" markerWidth="9" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0,0 9,3.5 0,7" fill="#60b9fc"/></marker></defs>
@@ -153,12 +153,12 @@
       </section>
       <section class="chain-section" id="contribution">
         <p class="chain-mini">03 / CONTRIBUTION &amp; TEAM CREDIT</p>
-        <h2>My focus: token engineering, crowdfunding accounting and refund security.</h2>
+        <h2>What I worked on.</h2>
         <div class="chain-grid">
           <div class="chain-block"><h3>My engineering work — Kossi Richard Allado</h3>
             <ul>
-              <li>Worked on <strong>CFDToken.sol</strong>: ERC-20 token, role-gated mint/burn, ERC20Permit/ERC20Votes integration and vote delegation behavior.</li>
-              <li>Worked on <strong>Crowdfunding.sol</strong>: campaign creation, contributions, finalization, refund and withdrawal accounting.</li>
+              <li>Implemented and tested <strong>CFDToken.sol</strong>: ERC-20 token, role-gated mint/burn, ERC20Permit/ERC20Votes integration and vote delegation behavior.</li>
+              <li>Implemented and tested <strong>Crowdfunding.sol</strong>: campaign creation, contributions, finalization, refund and withdrawal accounting.</li>
               <li>Strengthened the accounting invariant: <strong>totalRaised = campaignBalances + campaignRefunded + campaignWithdrawn</strong>.</li>
               <li>Built and exercised targeted tests for refund behavior and a recursive-call reentrancy attempt using an attacker contract.</li>
             </ul>
@@ -173,12 +173,12 @@
             <p style="margin-top:12px"><strong>Team:</strong> ADJEVI Kodjo Marius-Ben, ALLADO Kossi Richard, KPADENOU Kossi Roland.</p>
           </div>
         </div>
-        <p class="chain-credits">Original source repository is maintained by a teammate and is private. This public case study documents a legitimate team contribution; it does not imply sole authorship or make the private source publicly accessible.</p>
+        <p class="chain-credits">This was a three-person project. The source repository is private and maintained by a teammate; this page separates my work from the parts delivered together.</p>
       </section>
       <section class="chain-section" id="governance">
         <p class="chain-mini">04 / GOVERNANCE</p>
-        <h2>Quorum, majority and snapshots — not network Proof of Stake.</h2>
-        <p>CFD voting takes place at the application level. It is distinct from Ethereum's Proof-of-Stake consensus. A proposal waits one day before voting opens, then remains open for three days. The contract uses an historical voting snapshot, a 20% participation quorum and more votes FOR than AGAINST.</p>
+        <h2>The voting rules implemented in the contract.</h2>
+        <p>CFD voting is part of the application, not Ethereum consensus. A proposal waits one day before voting opens and stays open for three days. Voting power is read from a historical snapshot; execution needs 20% participation and a strict FOR majority.</p>
         <div class="chain-grid">
           <div class="chain-block"><h3>Example: 5,000 eligible CFD</h3><p>At least 1,000 votes must participate to reach the 20% quorum. If 2,000 vote FOR and none AGAINST, quorum and majority conditions are met; execution still waits until the voting period closes.</p></div>
           <div class="chain-block"><h3>DAO versus multisignature</h3><p>The DAO records a collective decision weighted by eligible CFD votes. A payout above <strong>10 ETH</strong> also requires approval from at least <strong>2 of 3</strong> designated trustees for the current withdrawal amount. The two mechanisms serve different purposes.</p></div>
@@ -188,8 +188,8 @@
 
       <section class="chain-section" id="demonstration">
         <p class="chain-mini">05 / DEMONSTRATION EVIDENCE</p>
-        <h2>From an ETH contribution to a DAO decision.</h2>
-        <p>Four authentic captures from the team's Hardhat-local demo illustrate the working user journey. Open any image to inspect the interface at full size.</p>
+        <h2>The local flow: contribution, vote and release.</h2>
+        <p>These captures come from the local Hardhat demonstration. They show the campaign funded, the MetaMask contribution, the CFD vote and the approved Release proposal.</p>
         <div class="chain-gallery">
           <figure class="chain-screenshot chain-screenshot-wide">
             <a href="../../assets/projects/crowdfunding-dao/01-metamask-contribution.webp" target="_blank" rel="noopener noreferrer" aria-label="Open screenshot: 01 — Contribution via MetaMask">
@@ -216,11 +216,11 @@
             <figcaption><strong>04 — Proposal approved</strong><span>After the voting period and execution, the interface marks Release proposal #001 as APPROVED. Approval is distinct from a beneficiary withdrawal.</span></figcaption>
           </figure>
         </div>
-        <div class="chain-note"><strong>Evidence boundary:</strong> A MetaMask transaction request is not itself a receipt. The funded campaign, confirmed vote and approved proposal are distinct on-screen checkpoints; the campaign still displays <strong>0 ETH released</strong> in its capture, so approval is not presented as proof of payout.</div>
+        <div class="chain-note"><strong>What these captures show:</strong> the wallet request, the funded campaign, the recorded vote and the approved proposal are separate steps. The funded-campaign capture still shows <strong>0 ETH released</strong>; payout is a later beneficiary action after proposal execution.</div>
       </section>
       <section class="chain-section" id="validation">
         <p class="chain-mini">06 / VALIDATION</p>
-        <h2>Security checks and evidence boundaries.</h2>
+        <h2>Checks run on the project.</h2>
         <table class="chain-table">
           <thead><tr><th>Control / test</th><th>What was checked or reported</th></tr></thead>
           <tbody>
@@ -229,21 +229,21 @@
             <tr><td>Voting</td><td>Snapshot-based voting, one-day delay, three-day voting window, quorum and majority rules.</td></tr>
             <tr><td>Emergency and payout controls</td><td>Role-gated pause can block contributions and ETH withdrawals; guarded ETH paths use reentrancy protection. Payouts above 10 ETH add the independent 2-of-3 trustee requirement.</td></tr>
             <tr><td>Off-chain triage bonus</td><td>Read-only Python analysis flags repeated amounts, potential linked addresses through shared campaigns and contribution spikes. These are transparent review signals, not automatic fraud findings or freeze decisions.</td></tr>
-            <tr><td>Hardhat</td><td>The supplied verification record (5 November 2026) reports <strong>20 passing contract tests</strong> from <code>npm test</code>.</td></tr>
-            <tr><td>Slither</td><td>The group presentation reports 12 low-severity and 5 informational findings, with no medium/high findings in that run.</td></tr>
-            <tr><td>Python</td><td>The supplied record reports <strong>8 passing anomaly-signal tests</strong> from <code>npm run test:analysis</code>.</td></tr>
-            <tr><td>Browser walkthrough</td><td>The supplied Windows browser-check record reports successful image/metadata upload and reading, campaign creation, funding, voting, proposal execution, withdrawal, unlock, finalization and refund.</td></tr>
-            <tr><td>Local services</td><td>Verification record: Hardhat chain ID 31337; frontend responded HTTP 200 on port 5173 and IPFS responded HTTP 200 on port 5001.</td></tr>
+            <tr><td>Hardhat</td><td><strong>20 contract and integration tests pass</strong> with <code>npm test</code>.</td></tr>
+            <tr><td>Slither</td><td>The repository includes the static-analysis report and the documented review of its findings. Static analysis supports review; it does not replace a manual audit.</td></tr>
+            <tr><td>Python</td><td><strong>8 anomaly-analysis tests pass</strong> with <code>npm run test:analysis</code>.</td></tr>
+            <tr><td>Browser walkthrough</td><td>The browser flow covers image/metadata upload and reading, campaign creation, funding, voting, proposal execution, withdrawal, token unlock, finalization and refund.</td></tr>
+            <tr><td>Local services</td><td>Local demo stack: Hardhat chain ID 31337, Vite frontend on port 5173 and Kubo IPFS API on port 5001.</td></tr>
           </tbody>
         </table>
-        <div class="chain-note"><strong>Evidence discipline:</strong> The Hardhat/Python counts and browser journey above come from a technical-verification note dated 5 November 2026 and the team's screenshots. The tests were not re-run independently against the latest private repository for this public page. No static-analysis report or passing test suite proves that a smart contract is free from vulnerabilities.</div>
+        <div class="chain-note"><strong>How to read these results:</strong> the tests verify the implemented scenarios and the static-analysis report helps identify review points. Neither one replaces an independent smart-contract audit.</div>
       </section>
       <section class="chain-section" id="limits">
         <p class="chain-mini">07 / LIMITATIONS</p>
-        <h2>A tested local prototype, not a public fundraising product.</h2>
+        <h2>Scope and next steps.</h2>
         <div class="chain-grid">
-          <div class="chain-block"><h3>Deployment status</h3><p>The presentation demonstrates a Hardhat local deployment; public Sepolia deployment had not yet been performed. Fast-forwarding local blockchain time makes multi-day DAO votes demonstrable within a classroom session.</p></div>
-          <div class="chain-block"><h3>Review and maintenance</h3><p>There is no independent external smart contract audit reported. The presentation also identifies manual token-unlocking after campaign payment and the concentration of several responsibilities in the main contract as current limitations.</p></div>
+          <div class="chain-block"><h3>Deployment status</h3><p>The current demonstration runs on a local Hardhat network. Advancing local blockchain time makes the one-day delay and three-day vote period practical to demonstrate during a classroom session. A public Sepolia deployment is the next deployment step.</p></div>
+          <div class="chain-block"><h3>Review and maintenance</h3><p>The project still needs an independent external audit before any real-money use. Manual token unlocking after payment and the size of the main contract are the main areas to improve next.</p></div>
         </div>
         <div class="actions"><a class="btn primary" href="../../projects.html#crowdfunding-dao">Return to project summary</a><a class="btn" href="../../index.html#evidence-atlas">Explore the Evidence Atlas</a></div>
       </section>

@@ -45,12 +45,58 @@
             <p class="meta" data-en="Smart contract security / Academic team project / 2026–2027" data-fr="Sécurité des smart contracts / Projet académique collectif / 2026–2027">Smart contract security / Academic team project / 2026–2027</p>
             <h2 data-en="CrowdFund DAO — Secure Blockchain Crowdfunding" data-fr="CrowdFund DAO — Financement participatif sécurisé">CrowdFund DAO — Secure Blockchain Crowdfunding</h2>
             <p data-en="Ethereum crowdfunding dApp built by a three-person team. Contributors fund campaigns in ETH, receive CFD voting power and vote on fund releases. MetaMask, IPFS and withdrawal safeguards are part of the flow." data-fr="dApp Ethereum réalisée à trois : financement en ETH, pouvoir de vote CFD, déblocage des fonds par gouvernance, MetaMask, IPFS et protections des retraits.">Three-person Ethereum crowdfunding dApp with ETH contributions, CFD governance voting, multisignature withdrawal controls, IPFS metadata and security testing.</p>
-            <a href="case-studies/crowdfunding-dao/#demonstration" aria-label="Open the CrowdFund DAO demonstration evidence" style="display:block;margin:18px 0 2px;text-decoration:none;color:inherit">
-              <figure style="margin:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel)">
-                <img src="assets/projects/crowdfunding-dao/02-funded-campaign.webp" alt="CyberLab ENSA Beni Mellal campaign showing 5 ETH raised out of a 5 ETH goal." loading="lazy" decoding="async" style="display:block;width:100%;max-height:235px;object-fit:cover;object-position:center" />
-                <figcaption style="padding:10px 12px;font:600 .68rem/1.55 'JetBrains Mono',monospace;color:var(--muted)">Demo evidence · CyberLab campaign funded: 5 ETH / 5 ETH</figcaption>
-              </figure>
-            </a>
+            <figure class="rag-architecture project-flow" aria-label="CrowdFund DAO technical architecture">
+              <svg viewBox="0 0 760 286" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="cfd-flow-title cfd-flow-desc">
+                <title id="cfd-flow-title">CrowdFund DAO architecture</title>
+                <desc id="cfd-flow-desc">Contributors connect with MetaMask and fund a Solidity crowdfunding contract. Campaign metadata is stored through IPFS, contributors receive CFD governance tokens, and a snapshot-based DAO vote controls fund releases. Security controls protect the flow.</desc>
+                <defs>
+                  <marker id="cfd-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7bb6ff"/></marker>
+                  <marker id="cfd-arrow-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#80d8ac"/></marker>
+                </defs>
+                <text x="24" y="27" class="pf-kicker">CROWDFUND DAO · ON-CHAIN FLOW</text>
+                <g>
+                  <rect x="24" y="53" width="134" height="96" rx="10" class="pf-node"/>
+                  <text x="91" y="91" text-anchor="middle" class="pf-label">MetaMask users</text>
+                  <text x="91" y="112" text-anchor="middle" class="pf-sub">Create · fund · vote</text>
+                </g>
+                <g>
+                  <rect x="178" y="53" width="180" height="96" rx="10" class="pf-node-accent"/>
+                  <text x="268" y="83" text-anchor="middle" class="pf-label">Crowdfunding.sol</text>
+                  <text x="268" y="104" text-anchor="middle" class="pf-sub">Campaign lifecycle</text>
+                  <text x="268" y="123" text-anchor="middle" class="pf-sub">ETH accounting</text>
+                </g>
+                <g>
+                  <rect x="378" y="53" width="160" height="96" rx="10" class="pf-node-accent"/>
+                  <text x="458" y="83" text-anchor="middle" class="pf-label">CFDToken</text>
+                  <text x="458" y="104" text-anchor="middle" class="pf-sub">ERC-20 · Votes</text>
+                  <text x="458" y="123" text-anchor="middle" class="pf-sub">1,000 CFD / ETH</text>
+                </g>
+                <g>
+                  <rect x="558" y="53" width="178" height="96" rx="10" class="pf-node"/>
+                  <text x="647" y="83" text-anchor="middle" class="pf-label">DAO governance</text>
+                  <text x="647" y="104" text-anchor="middle" class="pf-sub">Snapshot vote</text>
+                  <text x="647" y="123" text-anchor="middle" class="pf-sub">Release / freeze</text>
+                </g>
+                <line x1="162" y1="101" x2="174" y2="101" class="pf-arrow" marker-end="url(#cfd-arrow)"/>
+                <line x1="362" y1="101" x2="374" y2="101" class="pf-arrow" marker-end="url(#cfd-arrow)"/>
+                <line x1="542" y1="101" x2="554" y2="101" class="pf-arrow" marker-end="url(#cfd-arrow)"/>
+                <g>
+                  <rect x="178" y="177" width="180" height="61" rx="10" class="pf-node"/>
+                  <text x="268" y="202" text-anchor="middle" class="pf-label">IPFS metadata</text>
+                  <text x="268" y="222" text-anchor="middle" class="pf-sub">Image + JSON CID</text>
+                </g>
+                <g>
+                  <rect x="378" y="177" width="358" height="61" rx="10" class="pf-node"/>
+                  <text x="557" y="202" text-anchor="middle" class="pf-label">Security controls</text>
+                  <text x="557" y="222" text-anchor="middle" class="pf-sub">Roles · pause · nonReentrant · 2-of-3 above 10 ETH</text>
+                </g>
+                <line x1="268" y1="153" x2="268" y2="173" class="pf-arrow" marker-end="url(#cfd-arrow)"/>
+                <line x1="647" y1="153" x2="647" y2="173" class="pf-arrow" marker-end="url(#cfd-arrow-green)"/>
+                <rect x="24" y="255" width="712" height="20" rx="6" fill="#172842" stroke="#2f4766"/>
+                <text x="380" y="269" text-anchor="middle" class="pf-note">Funds unlock only after campaign success and an executed Release vote</text>
+              </svg>
+              <figcaption>CrowdFund DAO · MetaMask → Solidity → CFD governance → controlled release</figcaption>
+            </figure>
             <ul class="list">
               <li data-en="My work: CFDToken (ERC-20/Permit/Votes), campaign lifecycle, contribution and refund logic, plus explicit fund-accounting invariants." data-fr="Ma contribution : CFDToken (ERC-20/Permit/Votes), cycle de vie des campagnes, contributions, remboursements et invariants comptables explicites.">My work: CFDToken (ERC-20/Permit/Votes), crowdfunding lifecycle, contribution and refund logic, and explicit fund-accounting invariants.</li>
               <li data-en="Validated refund and reentrancy protections with Hardhat tests and an attacker contract; the team also implemented role-gated pause controls, snapshot DAO governance and 2-of-3 trustee approval for payouts above 10 ETH." data-fr="Validation des protections de remboursement et de réentrance avec Hardhat et un contrat attaquant ; l'équipe a aussi réalisé la pause par rôles, la DAO avec snapshot et l'approbation 2-sur-3 au-delà de 10 ETH.">Validated refund and reentrancy protections with Hardhat tests and an attacker contract; the team also implemented role-gated pause controls, snapshot DAO governance and 2-of-3 trustee approval for payouts above 10 ETH.</li>

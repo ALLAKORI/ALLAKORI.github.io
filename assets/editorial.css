@@ -220,3 +220,110 @@ body .sidebar summary:focus-visible{outline:2px solid var(--ed-accent);outline-o
  .editorial-work-grid .evidence-card:last-child{grid-column:1/-1}
  .editorial-work-grid .evidence-card:last-child .case-preview{max-width:610px;width:100%}
 }
+
+/* 2026-11-18 · Subtle blueprint grid, breathing room and hover feedback.
+   Grid is CSS only, photo-free and non-interactive; links and layouts remain intact. */
+body{
+  background-color:var(--ed-bg)!important;
+  background-image:
+    radial-gradient(ellipse 780px 480px at 82% 0%,rgba(71,145,235,.085),transparent 76%),
+    linear-gradient(to right,rgba(125,181,245,.064) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(125,181,245,.064) 1px,transparent 1px)!important;
+  background-size:auto,42px 42px,42px 42px!important;
+  background-position:0 0,0 0,0 0;
+  background-attachment:fixed,fixed,fixed;
+}
+html[data-theme="light"] body{
+  background-image:
+    radial-gradient(ellipse 780px 480px at 82% 0%,rgba(73,139,213,.09),transparent 76%),
+    linear-gradient(to right,rgba(42,106,169,.052) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(42,106,169,.052) 1px,transparent 1px)!important;
+}
+/* Do not compress the main call-to-action and its supporting links together. */
+body .hero .hero-copy>.actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px!important;margin-top:32px!important}
+body .hero .hero-copy>.editorial-secondary-links{
+  display:flex;align-items:center;flex-wrap:wrap;
+  gap:11px 24px!important;
+  max-width:500px;
+  margin-top:21px!important;
+  padding-top:16px;
+  border-top:1px solid var(--ed-hairline);
+}
+body .hero .editorial-muted-link{display:inline-flex;align-items:center;gap:3px;min-height:30px;font-size:.79rem!important;font-weight:630;color:var(--ed-muted)!important;text-decoration:none!important}
+body .hero .editorial-muted-link:hover,
+body .hero .editorial-muted-link:focus-visible{color:var(--ed-accent)!important}
+/* Clear hierarchy and more whitespace around the three featured cases. */
+body #selected-work .section-head{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:12px;margin-bottom:32px!important}
+body #selected-work .section-note{max-width:690px!important;margin:0;color:var(--ed-muted);line-height:1.75}
+body #selected-work .editorial-work-grid{column-gap:clamp(20px,2.2vw,30px)!important;row-gap:27px!important}
+body #selected-work .evidence-card{
+  position:relative;
+  gap:13px!important;
+  padding:clamp(18px,1.5vw,25px)!important;
+  border-color:var(--ed-hairline)!important;
+  transition:border-color .22s ease,transform .22s ease,box-shadow .22s ease!important;
+}
+body #selected-work .case-preview{
+  height:auto!important;
+  min-height:231px!important;
+  padding:15px!important;
+  margin:0 0 18px!important;
+  overflow:hidden;
+  border-radius:10px!important;
+}
+body #selected-work .case-preview .cp-top{gap:8px}
+body #selected-work .evidence-card h3{line-height:1.4}
+body #selected-work .evidence-card .actions{padding-top:17px;margin-top:auto}
+/* The small arrow appears only on actual links, not on a non-clickable card. */
+body .hero .actions a.btn{position:relative;padding-right:34px!important;transition:background .2s ease,border-color .2s ease,transform .2s ease!important}
+body .hero .actions a.btn::after{
+  content:"↗";position:absolute;right:12px;top:50%;
+  color:currentColor;font-size:.91rem;line-height:1;
+  opacity:0;transform:translate(-5px,-35%);
+  transition:opacity .18s ease,transform .18s ease;
+  pointer-events:none;
+}
+body .hero .editorial-muted-link::after{
+  content:"↗";display:inline-block;
+  color:var(--ed-accent);font-size:.82rem;line-height:1;
+  opacity:0;transform:translate(-4px,3px);
+  transition:opacity .18s ease,transform .18s ease;
+  pointer-events:none;
+}
+body #selected-work .evidence-card .actions a{position:relative;transition:transform .2s ease}
+body #selected-work .evidence-card .actions a::after{
+  content:"↗";display:inline-block;margin-left:7px;color:currentColor;
+  opacity:0;transform:translate(-4px,3px);
+  transition:opacity .2s ease,transform .2s ease;
+  pointer-events:none;
+}
+@media(hover:hover) and (pointer:fine){
+ body .hero .actions a.btn:hover{transform:translateY(-2px)}
+ body .hero .actions a.btn:hover::after,
+ body .hero .editorial-muted-link:hover::after,
+ body #selected-work .evidence-card .actions a:hover::after{opacity:1;transform:translate(0,-50%)}
+ body .hero .editorial-muted-link:hover::after,
+ body #selected-work .evidence-card .actions a:hover::after{transform:translate(0,0)}
+ body #selected-work .evidence-card:hover{border-color:color-mix(in srgb,var(--ed-accent) 58%,var(--ed-hairline))!important;transform:translateY(-4px)!important;box-shadow:0 14px 34px rgba(3,15,35,.14)!important}
+ body #selected-work .evidence-card:hover .case-preview{border-color:#608ebd}
+}
+body .hero .actions a.btn:focus-visible::after,
+body .hero .editorial-muted-link:focus-visible::after,
+body #selected-work .evidence-card .actions a:focus-visible::after{opacity:1;transform:translate(0,-50%)}
+body .hero .editorial-muted-link:focus-visible::after,
+body #selected-work .evidence-card .actions a:focus-visible::after{transform:translate(0,0)}
+@media(max-width:860px){
+ body #selected-work .section-head{margin-bottom:24px!important}
+ body #selected-work .case-preview{min-height:220px!important}
+}
+@media(max-width:660px){
+ body .hero .hero-copy>.editorial-secondary-links{gap:7px 16px!important;margin-top:20px!important;padding-top:15px}
+ body #selected-work .case-preview{min-height:219px!important}
+ body #selected-work .evidence-card{padding:18px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ body #selected-work .evidence-card,body .hero .actions a.btn,
+ body .hero .actions a.btn::after,body .hero .editorial-muted-link::after,
+ body #selected-work .evidence-card .actions a::after{transition:none!important}
+ body #selected-work .evidence-card:hover,body .hero .actions a.btn:hover{transform:none!important}
+}

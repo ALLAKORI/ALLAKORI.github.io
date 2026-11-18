@@ -37,7 +37,7 @@ The analysis mapped the banking flows and their supporting infrastructure using 
 
 1. Mapped the application surface, banking workflows and business-critical assets.
 2. Built a probability-versus-impact risk matrix and a 12-item risk register.
-3. Scanned the public demo with OpenVAS through HostedScan, complemented by passive ZAP, SSLyze, Nmap and Nuclei checks.
+3. Scanned the public demo with OpenVAS through HostedScan, complemented by passive ZAP, Nmap and Nuclei checks.
 4. Performed targeted, non-destructive manual validation of authentication, input handling and authorization behavior.
 5. Assigned CVSS v3.1 scores where appropriate and translated technical findings into business risk.
 6. Produced a prioritized remediation plan with immediate, short-term and medium-term actions.
@@ -98,7 +98,7 @@ This distinction matters: a CVSS score describes technical exploitability, while
 
 - Application security analysis in a banking context.
 - Asset classification and risk reasoning using CIA/DIC criteria.
-- Practical use of OpenVAS/HostedScan, ZAP passive checks, SSLyze, Nmap and Nuclei.
+- Practical use of OpenVAS/HostedScan, ZAP passive checks, Nmap and Nuclei.
 - Manual validation of SQL injection, reflected XSS and broken access control.
 - CVSS v3.1 interpretation without confusing technical severity with business risk.
 - Clear security reporting: evidence, limitations, prioritization and actionable remediation.
@@ -109,4 +109,4 @@ This was an academic lab against the public AltoroJ demonstration instance, not 
 
 ## Related Topics
 
-`Application Security` `Banking Security` `OWASP Top 10` `OpenVAS` `ZAP` `Nmap` `SSLyze` `Nuclei` `Risk Assessment` `CVSS v3.1` `Vulnerability Management` `Security Reporting`
+`Application Security` `Banking Security` `OWASP Top 10` `OpenVAS` `ZAP` `Nmap` `Nuclei` `Risk Assessment` `CVSS v3.1` `Vulnerability Management` `Security Reporting`

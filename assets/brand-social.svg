@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b1525"/><stop offset="1" stop-color="#162d4a"/></linearGradient><radialGradient id="glow"><stop stop-color="#356aab" stop-opacity=".27"/><stop offset="1" stop-color="#356aab" stop-opacity="0"/></radialGradient></defs>
+<rect width="1200" height="630" fill="url(#bg)"/><circle cx="1015" cy="100" r="430" fill="url(#glow)"/>
+<g stroke="#294665" opacity=".48"><path d="M0 495H1200M0 540H1200M0 585H1200"/><path d="M1020 0V630M1065 0V630M1110 0V630M1155 0V630"/></g>
+<rect x="90" y="83" width="77" height="77" rx="17" fill="#1b3757" stroke="#4b7da9" stroke-width="2"/><text x="107" y="136" fill="#b8daff" font-family="Arial,Helvetica,sans-serif" font-size="52" font-weight="800">a.</text>
+<text x="193" y="132" fill="#e9f3ff" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="750">allakori</text>
+<text x="90" y="283" fill="#eaf3ff" font-family="Arial,Helvetica,sans-serif" font-size="62" font-weight="760">Kossi Richard Allado</text>
+<text x="90" y="359" fill="#9cc9fa" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="650">Cybersecurity &amp; AI Engineering</text>
+<text x="90" y="417" fill="#b4c5db" font-family="Arial,Helvetica,sans-serif" font-size="25">Offensive Security  /  Application Security  /  DFIR</text>
+<path d="M90 494H540" stroke="#5899d7" stroke-width="3"/><text x="90" y="548" fill="#93aecb" font-family="monospace" font-size="23">allakori.github.io  ·  Evidence-first portfolio</text>
+</svg>

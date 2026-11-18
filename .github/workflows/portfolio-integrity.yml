@@ -1,0 +1,32 @@
+name: Portfolio integrity
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+      - 'assets/**'
+      - 'scripts/check-site-links.mjs'
+      - '.github/workflows/portfolio-integrity.yml'
+  pull_request:
+    paths:
+      - '**/*.html'
+      - 'assets/**'
+      - 'scripts/check-site-links.mjs'
+      - '.github/workflows/portfolio-integrity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-local-links:
+    name: Verify internal links, anchors and HTML files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check portfolio references
+        run: node scripts/check-site-links.mjs

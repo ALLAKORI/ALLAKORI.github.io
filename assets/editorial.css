@@ -193,3 +193,24 @@ body .topline+section{margin-top:0}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:0ms!important;animation-duration:0ms!important}}
 @media print{body .sidebar,body .editorial-footer-links{display:none!important}body .page{max-width:none!important;padding:0!important}}
+
+/* Editorial finish and desktop dropdown behavior. */
+body .editorial-project-intro{padding-top:24px!important}
+.editorial-project-note{padding:18px 0 20px;border-bottom:1px solid var(--ed-hairline)}
+.editorial-project-note h2{max-width:850px;font-size:clamp(1.3rem,2.2vw,2rem)!important;color:var(--ed-text);margin:8px 0}
+.editorial-project-note>p:not(.meta){color:var(--ed-muted);font-size:.85rem;line-height:1.75;max-width:790px}
+.editorial-project-links{margin-top:12px}
+.editorial-project-links summary{cursor:pointer;color:var(--ed-accent);font-size:.74rem;font-weight:750}
+.editorial-project-links .editorial-resource-links{padding-top:10px}
+body .editorial-resource-index{padding-top:23px!important}
+body .sidebar .lang-switch{position:static!important;right:auto!important;top:auto!important;transform:none!important;justify-self:auto!important}
+body .sidebar .site-controls{position:static!important}
+body .sidebar .editorial-brand:focus-visible,body .sidebar .nav a:focus-visible,
+body .sidebar summary:focus-visible{outline:2px solid var(--ed-accent);outline-offset:3px}
+@media(min-width:861px){
+ .editorial-more[open]{background:transparent!important;box-shadow:none!important}
+ .editorial-more[open]::before{display:none}
+ .editorial-more[open]>a{position:absolute;right:0;z-index:4;width:178px;padding:12px!important;background:var(--ed-surface);border-left:1px solid var(--ed-hairline);border-right:1px solid var(--ed-hairline);box-shadow:0 12px 18px rgba(0,0,0,.09)}
+ .editorial-more[open]>a:nth-of-type(1){top:42px;border-top:1px solid var(--ed-hairline);border-radius:9px 9px 0 0}
+ .editorial-more[open]>a:nth-of-type(2){top:80px;border-bottom:1px solid var(--ed-hairline);border-radius:0 0 9px 9px}
+}

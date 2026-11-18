@@ -1,0 +1,29 @@
+/* Recruiter pathways: equal prominence for AppSec, SOC/DFIR and AI Security.
+   Scoped styles, no changes to legacy links or the Evidence Atlas. */
+.career-pathways{padding-top:clamp(32px,4.2vw,55px);scroll-margin-top:24px}
+.career-pathways .section-head{margin-bottom:22px}
+.career-pathway-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;align-items:stretch}
+.career-pathway{position:relative;display:flex;flex-direction:column;min-width:0;gap:14px;padding:clamp(20px,2.1vw,28px);border:1px solid var(--line);border-radius:14px;background:linear-gradient(125deg,rgba(83,151,221,.055),transparent 61%),var(--panel)}
+.career-pathway::before{content:"";position:absolute;top:0;left:22px;right:22px;height:2px;background:var(--cyan);opacity:.72}
+.career-pathway[data-track="soc"]::before{background:var(--green)}
+.career-pathway[data-track="ai"]::before{background:var(--violet)}
+.career-pathway-kicker{font:700 .65rem "JetBrains Mono",monospace;letter-spacing:.055em;color:var(--cyan)}
+.career-pathway[data-track="soc"] .career-pathway-kicker{color:var(--green)}
+.career-pathway[data-track="ai"] .career-pathway-kicker{color:var(--violet)}
+.career-pathway h3{font-size:clamp(1rem,1.6vw,1.3rem);line-height:1.25;margin:0;letter-spacing:-.025em;color:var(--text)}
+.career-pathway p{font-size:.78rem;line-height:1.7;color:var(--muted);margin:0}
+.career-pathway-proof{margin-top:auto;padding-top:15px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:11px}
+.career-pathway-proof-label{font:700 .61rem "JetBrains Mono",monospace;letter-spacing:.07em;color:var(--soft);text-transform:uppercase}
+.career-pathway-proof a{font-weight:650;font-size:.76rem;line-height:1.4;text-decoration:none;color:var(--text);display:flex;align-items:center;gap:9px;min-height:25px}
+.career-pathway-proof a::before{content:"↗";color:var(--cyan);font:700 .9rem "JetBrains Mono",monospace;flex-shrink:0}
+.career-pathway-proof a:hover{text-decoration:underline;text-underline-offset:3px}
+.career-pathway-proof a:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:3px}
+.career-pathways-note{font-size:.72rem;color:var(--muted);margin-top:18px;line-height:1.7}
+.career-pathways-note strong{color:var(--text)}
+.career-pathways--compact{padding-top:10px;padding-bottom:22px}
+.career-pathways--compact .career-pathway{padding:19px;gap:10px}
+.career-pathways--compact .career-pathway p{font-size:.74rem}
+.career-pathways--compact .career-pathway-proof{padding-top:11px;gap:8px}
+@media(max-width:1010px){.career-pathway-grid{grid-template-columns:1fr;gap:12px}.career-pathway{padding:21px}.career-pathway-proof{margin-top:2px}}
+@media(prefers-reduced-motion:no-preference){.career-pathway{transition:border-color .18s,transform .18s}.career-pathway:hover{border-color:var(--cyan);transform:translateY(-2px)}}
+@media(prefers-reduced-motion:reduce){.career-pathway{transition:none}}

@@ -214,3 +214,9 @@ body .sidebar summary:focus-visible{outline:2px solid var(--ed-accent);outline-o
  .editorial-more[open]>a:nth-of-type(1){top:42px;border-top:1px solid var(--ed-hairline);border-radius:9px 9px 0 0}
  .editorial-more[open]>a:nth-of-type(2){top:80px;border-bottom:1px solid var(--ed-hairline);border-radius:0 0 9px 9px}
 }
+
+/* Keep the third featured case visually intentional at tablet widths. */
+@media(min-width:661px) and (max-width:1150px){
+ .editorial-work-grid .evidence-card:last-child{grid-column:1/-1}
+ .editorial-work-grid .evidence-card:last-child .case-preview{max-width:610px;width:100%}
+}

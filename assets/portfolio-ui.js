@@ -52,7 +52,7 @@
       }
     });
     window.addEventListener("resize", function () {
-      if (window.innerWidth > 1200 && sidebar.classList.contains("is-open")) {
+      if (window.innerWidth > 860 && sidebar.classList.contains("is-open")) {
         sidebar.classList.remove("is-open");
         menu.setAttribute("aria-expanded", "false");
         menu.setAttribute("aria-label", "Open navigation menu");

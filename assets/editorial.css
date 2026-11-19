@@ -105,7 +105,7 @@ body .evidence-experience-card{border-color:var(--ed-hairline);grid-template-col
 body .evidence-experience-time strong{font-size:1.55rem}
 .editorial-writing-list{border-top:1px solid var(--ed-hairline)}
 .editorial-writing-item{display:grid;grid-template-columns:112px minmax(0,1fr) 20px;align-items:center;gap:20px;padding:22px 0;border-bottom:1px solid var(--ed-hairline);text-decoration:none!important}
-.editorial-writing-item time{font:650 .65rem "JetBrains Mono",monospace;color:var(--ed-muted)}
+.editorial-writing-item time,.editorial-writing-item .editorial-writing-category{font:650 .65rem "JetBrains Mono",monospace;color:var(--ed-muted)}
 .editorial-writing-item strong{font-size:.97rem;color:var(--ed-text);font-weight:750}
 .editorial-writing-item small{display:block;color:var(--ed-muted);font-size:.72rem;margin-top:7px}
 .editorial-writing-item .arrow{font-size:1.25rem;color:var(--ed-accent)}

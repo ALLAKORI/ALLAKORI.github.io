@@ -55,6 +55,16 @@ Official research: [NetExec](https://www.netexec.wiki/smb-protocol/generate-host
 
 **Search smoke tests:** as rep, AS-REP, asrep, GetNPUsers, password spray, spray, Kerbrute, hosts, WriteDACL, ESC13, kerberoast and a no-match query. Verify the expected first result and the generated command before copying.
 
+## Navigation UX (v0.6)
+
+The command library offers two independent controls:
+- **Category selector:** optional browsing by SMB, Kerberos, LDAP, AD CS, or any other category.
+- **Search box:** free keyword/alias/task search, including English and selected French intent phrases.
+
+The search box does not clear the category. A **Clear** button clears only search text; **Show all** resets both filters. When the current category and search have no intersection, **Search all categories** preserves the query and clears only the category.
+
+Example acceptance checks: `All + find users`, `All + lister les utilisateurs`, `Kerberos + as rep`, `SMB + share`, `SMB + as rep` (zero hits with cross-category fallback). This is curated, deterministic intent mapping, not AI-powered semantic search.
+
 ## Longer-term roadmap
 
 Implement a structured source of truth shared by generator and typeset PDF; add reproducible GOAD, Windows Server 2025, AD CS, BloodHound CE and cross-forest tests; document GPO/OU effective-permission, dMSA/BadSuccessor, delegation, NTLM relay preconditions, detection, rollback and patch dependencies. Avoid publishing real credentials, host inventories, private certificates or sensitive tickets.

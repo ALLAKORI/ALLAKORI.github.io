@@ -61,9 +61,10 @@ function searchRank(item,query){
  const aliases=(item.keywords||[]).map(fold);
  if(title===q||id===q)return 600;
  if(aliases.includes(q))return 550;
- if(INTENT_GROUPS.some(group=>group.ids.includes(item.id)&&group.phrases.some(phrase=>{
-   const p=fold(phrase);return q===p||(q.length>p.length+2&&q.includes(p));
- })))return 510;
+ for(const group of INTENT_GROUPS){
+  const i=group.ids.indexOf(item.id);
+  if(i!==-1&&group.phrases.some(phrase=>{const p=fold(phrase);return q===p||(q.length>p.length+2&&q.includes(p));}))return 510-i;
+ }
  if(title.startsWith(q))return 480;
  if(title.includes(q))return 450;
  if(aliases.some(x=>x.includes(q)))return 410;

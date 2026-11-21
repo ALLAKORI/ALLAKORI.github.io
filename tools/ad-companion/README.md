@@ -1,10 +1,10 @@
 # Active Directory Pentest Companion
 
-**Release track:** v0.4 candidate — 79 documented command recipes. The public v0.3 remains available on `main` until this candidate is reviewed and merged.
+**Release track:** v0.4 candidate — 82 documented command recipes. The public v0.3 remains available on `main` until this candidate is reviewed and merged.
 
 ## Scope
 
-- `index.html` — offline, client-side command generator (79 recipes; original 44 plus 35 lab-driven additions).
+- `index.html` — offline, client-side command generator (82 recipes; original 44 plus 35 lab-driven and 3 password/Kerberos additions).
 - `manual.html` — English, printable online manual with prerequisite and command provenance.
 - No backend or analytics. User input never leaves the browser through this application.
 - Command arguments, shell history, terminal paste and screenshots may still expose passwords, hashes or tickets.
@@ -37,12 +37,23 @@ Official research: [NetExec](https://www.netexec.wiki/smb-protocol/generate-host
 
 ## Tests before publishing
 
-1. Check page loads offline and all 79 recipes appear.
+1. Check page loads offline and all 82 recipes appear.
 2. Check category/search selection and dynamic field visibility.
 3. Check IPv4, CIDR and NT-hash validation; test shell quoting with spaces and apostrophes.
 4. Generate single-host and subnet commands; inspect host-file backup/merge and duplicate detection.
 5. Run portfolio integrity CI and inspect GitHub Pages links.
 6. Do not merge until the CI and relevant manual tests pass.
+
+
+## Fast search and password attack awareness (v0.5)
+
+- Case- and punctuation-insensitive alias matching: `as rep`, `AS-REP`, `asrep`, and `GetNPUsers` map to the AS-REP roasting recipe.
+- `spray`, `password spray`, and `kerbrute` lead to two authorized-lab, single-candidate password-spraying templates and one Kerbrute user-enumeration template.
+- Search includes technique title, alias keywords, category, command and explanatory fields; priority favors exact titles and aliases.
+- Popular-technique chips, `/` or `Ctrl+K` search focus, `Enter` to select the first result, `Escape` to clear, empty-results guidance, and a clear button.
+- Spraying can trigger lockouts and alarms, even when used once; review password/fine-grained lockout policy and explicit test scope first.
+
+**Search smoke tests:** as rep, AS-REP, asrep, GetNPUsers, password spray, spray, Kerbrute, hosts, WriteDACL, ESC13, kerberoast and a no-match query. Verify the expected first result and the generated command before copying.
 
 ## Longer-term roadmap
 

@@ -1,10 +1,10 @@
 # Active Directory Pentest Companion
 
-**Release track:** v0.4 candidate — 95 documented command recipes. The public v0.3 remains available on `main` until this candidate is reviewed and merged.
+**Release track:** v0.4 candidate — 125 documented command recipes. The public v0.3 remains available on `main` until this candidate is reviewed and merged.
 
 ## Scope
 
-- `index.html` — offline, client-side command generator (95 recipes, including 13 new Impacket Pass-the-Hash workflows).
+- `index.html` — offline, client-side command generator (125 recipes, including Impacket PTH and operator workflows across RDP, WinRM, LDAP and MSSQL).
 - `manual.html` — English, printable online manual with prerequisite and command provenance.
 - No backend or analytics. User input never leaves the browser through this application.
 - Command arguments, shell history, terminal paste and screenshots may still expose passwords, hashes or tickets.
@@ -37,7 +37,7 @@ Official research: [NetExec](https://www.netexec.wiki/smb-protocol/generate-host
 
 ## Tests before publishing
 
-1. Check page loads offline and all 95 recipes appear.
+1. Check page loads offline and all 125 recipes appear.
 2. Check category/search selection and dynamic field visibility.
 3. Check IPv4, CIDR and NT-hash validation; test shell quoting with spaces and apostrophes.
 4. Generate single-host and subnet commands; inspect host-file backup/merge and duplicate detection.
@@ -75,6 +75,21 @@ Example acceptance checks: `All + find users`, `All + lister les utilisateurs`, 
 - `secretsdump` is a high-impact lab-only path and its output contains real credential material; use strictly within explicit authorization and do not publish it.
 - CLI references: [Fortra examples](https://github.com/fortra/impacket/tree/master/examples) and [Kali Impacket help](https://www.kali.org/tools/impacket-scripts/).
 - Each new recipe is documentation/source-reviewed, **not individually target-validated**. The v0.7 PDF remains a separate earlier edition until regenerated.
+
+## Practical operator coverage (v0.9)
+
+This update adds **30 source-reviewed command recipes** for FreeRDP 3.x, RDP certificate/authentication handling, graphical sessions and restricted-admin PTH, WinRM PowerShell and tickets, LDAP delegation/SID/LAPS/gMSA checks, MSSQL Windows/NTLM authentication, read-only SQL queries, Windows applied GPO/token inspection and local connectivity diagnostics.
+
+**Important syntax and safety distinctions:**
+- `xfreerdp3` is available in current Kali FreeRDP 3 builds; confirm whether the installed client is `xfreerdp3` or `xfreerdp`. Uses `+f` for full-screen, `+dynamic-resolution`, `/cert:tofu`, and `/pth:` with Restricted Admin requirements.
+- Prefer RDP credential prompts over `/p:` in process arguments. Do not treat authentication-only success as interactive logon approval.
+- WinRM, RDP, SQL Server and SMB have separate authorization requirements.
+- LDAP LAPS/gMSA and Impacket secretsdump may expose sensitive credentials; store no results on the public website.
+- `gpresult`, `whoami` and Windows `netstat` commands run *inside Windows*, not Kali.
+- Category and free-text search are independent. Suggested searches: `xfreerdp`, `remote desktop`, `rdp with hash`, `winrm`, `mssql`, `gmsa`, `LAPS`, `applied gpo`.
+- The goal is an offline, cross-tool AD reference, not a false guarantee that every command will execute successfully on every OS/tool version.
+
+References: [Kali FreeRDP3](https://www.kali.org/tools/freerdp3/), [Evil-WinRM](https://github.com/Hackplayers/evil-winrm), [NetExec](https://www.netexec.wiki/), [Impacket](https://github.com/fortra/impacket/tree/master/examples).
 
 ## Longer-term roadmap
 

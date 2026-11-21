@@ -1,10 +1,10 @@
 # Active Directory Pentest Companion
 
-**Release track:** v0.4 candidate — 82 documented command recipes. The public v0.3 remains available on `main` until this candidate is reviewed and merged.
+**Release track:** v0.4 candidate — 95 documented command recipes. The public v0.3 remains available on `main` until this candidate is reviewed and merged.
 
 ## Scope
 
-- `index.html` — offline, client-side command generator (82 recipes; original 44 plus 35 lab-driven and 3 password/Kerberos additions).
+- `index.html` — offline, client-side command generator (95 recipes, including 13 new Impacket Pass-the-Hash workflows).
 - `manual.html` — English, printable online manual with prerequisite and command provenance.
 - No backend or analytics. User input never leaves the browser through this application.
 - Command arguments, shell history, terminal paste and screenshots may still expose passwords, hashes or tickets.
@@ -37,7 +37,7 @@ Official research: [NetExec](https://www.netexec.wiki/smb-protocol/generate-host
 
 ## Tests before publishing
 
-1. Check page loads offline and all 82 recipes appear.
+1. Check page loads offline and all 95 recipes appear.
 2. Check category/search selection and dynamic field visibility.
 3. Check IPv4, CIDR and NT-hash validation; test shell quoting with spaces and apostrophes.
 4. Generate single-host and subnet commands; inspect host-file backup/merge and duplicate detection.
@@ -64,6 +64,17 @@ The command library offers two independent controls:
 The search box does not clear the category. A **Clear** button clears only search text; **Show all** resets both filters. When the current category and search have no intersection, **Search all categories** preserves the query and clears only the category.
 
 Example acceptance checks: `All + find users`, `All + lister les utilisateurs`, `Kerberos + as rep`, `SMB + share`, `SMB + as rep` (zero hits with cross-category fallback). This is curated, deterministic intent mapping, not AI-powered semantic search.
+
+## Impacket Pass-the-Hash (v0.8)
+
+- New **Impacket PTH** category: 13 recipes for `smbclient`, `lookupsid`, `samrdump`, `rpcdump`, `GetADUsers`, `findDelegation`, `getTGT`, `wmiexec`, `psexec`, `smbexec`, `atexec`, `dcomexec` and scoped lab `secretsdump`.
+- Search synonyms: `pth`, `pass the hash`, `ntlm hash`, `impacket with hash`, `remote command with hash`; category filter still combines with search.
+- The generator accepts **only 32-hex-character test NT hashes** in the hash input; it inserts the user-provided value into Impacket's documented `-hashes :NT_HASH` form.
+- Important upstream syntax difference: `smbexec` launches an interactive shell **without** a positional command argument.
+- Authentication success never implies administrator rights; WMI/DCOM, service/SCM and task scheduler paths have different prerequisites and side effects.
+- `secretsdump` is a high-impact lab-only path and its output contains real credential material; use strictly within explicit authorization and do not publish it.
+- CLI references: [Fortra examples](https://github.com/fortra/impacket/tree/master/examples) and [Kali Impacket help](https://www.kali.org/tools/impacket-scripts/).
+- Each new recipe is documentation/source-reviewed, **not individually target-validated**. The v0.7 PDF remains a separate earlier edition until regenerated.
 
 ## Longer-term roadmap
 

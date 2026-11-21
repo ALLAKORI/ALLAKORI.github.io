@@ -2,9 +2,9 @@
 :root{--bg:#071426;--grid:#153457;--panel:#0d2038;--panel2:#132e4d;--stroke:#2a4d72;--text:#e7f2ff;--muted:#b8cde3;--blue:#66b7ff;--cyan:#74dbe9}
 *{box-sizing:border-box}body{margin:0;color:var(--text);background:radial-gradient(ellipse 900px 400px at 18% 0%,#12446a 0%,transparent 70%),linear-gradient(90deg,#0f2844 1px,transparent 1px),linear-gradient(#0f2844 1px,transparent 1px),var(--bg);background-size:auto,30px 30px,30px 30px,auto;font:15px/1.55 system-ui,-apple-system,'Segoe UI',sans-serif}
 a{color:var(--blue)}header,main,footer{max-width:1270px;margin:auto;padding:20px}header{padding-top:45px;padding-bottom:25px}h1{margin:8px 0 10px;font-size:clamp(34px,4vw,53px);line-height:1.08;letter-spacing:-.025em}h2{font-size:20px;letter-spacing:-.02em;margin:0}.kicker{color:#9bd6f6;font-size:12px;letter-spacing:.12em;font-weight:800}.lead{color:var(--muted);max-width:800px;font-size:16px}.pillbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.pill{border:1px solid var(--stroke);background:#14365a;color:#d4eaff;border-radius:99px;padding:6px 12px;font-size:12px}.layout{display:grid;grid-template-columns:minmax(275px,350px) minmax(0,1fr);gap:18px}.panel{background:#0d2038ee;border:1px solid var(--stroke);border-radius:16px;padding:20px;box-shadow:0 15px 45px #020a1450}.sublabel{font-size:12px;color:var(--muted);font-weight:700}.toolbar{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.toolbar button{font-size:12px;padding:7px 11px}.cards{display:grid;gap:6px;max-height:620px;overflow:auto;margin-top:13px;padding-right:5px}button{cursor:pointer;background:#174366;border:1px solid #3e6f98;color:#f1f7ff;border-radius:9px;padding:9px 13px;font:inherit}button:hover{background:#245985}button:focus-visible,input:focus-visible{outline:2px solid #89d4ff;outline-offset:2px}button.primary{background:#246fb0;border-color:#89d3ff;font-weight:800}button:disabled{opacity:.4;cursor:not-allowed}.item{text-align:left;background:#112e4b;border:1px solid transparent}.item.active{border-color:var(--cyan);background:#1a4567}.item strong{display:block;font-size:13px}.item small{display:block;color:#b4cee5;font-size:11.5px;margin-top:3px}.stack{display:grid;gap:10px}.meta{color:var(--muted);font-size:12px}.note{background:#14365388;border-left:3px solid var(--blue);padding:9px 12px;margin:12px 0;border-radius:3px}.warn{border-left-color:#eac17a}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.field{min-width:0}label{display:block;font-size:12px;color:#bcd5e9;font-weight:750;margin-bottom:5px}input{width:100%;background:#071728;color:white;border:1px solid #416485;border-radius:8px;padding:10px 11px;font:inherit}input[type=password]{letter-spacing:.02em}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.cmd{white-space:pre-wrap;overflow-wrap:anywhere;background:#020c18;border:1px solid #2b5174;border-radius:10px;padding:18px;color:#b7e4ff;font:13px/1.7 ui-monospace,'DejaVu Sans Mono',Consolas,monospace;min-height:80px}.actions{display:flex;gap:10px;align-items:center;margin-top:18px;margin-bottom:10px}.facts{display:grid;grid-template-columns:1fr 1fr;gap:14px}.facts .note{margin:0}.good{color:#88e5d0}footer{color:#b4c9dc;font-size:12px;padding-bottom:45px}.hidden{display:none!important}.status{min-height:24px;color:#a3e4dd;font-size:13px}.shortcut{color:#a1bfd8;font-size:12px}.results{color:#a8cde8;font-size:12px}.tag{font:11px/1 ui-monospace,monospace;border:1px solid var(--stroke);border-radius:6px;padding:4px 6px;color:#c9e8f4}@media(max-width:900px){.layout{grid-template-columns:1fr}.cards{max-height:290px}}@media(max-width:570px){.fields,.facts{grid-template-columns:1fr}.panel{padding:14px}}@media(prefers-reduced-motion:no-preference){button{transition:background .13s ease}}
-.quick-searches{gap:6px;margin:8px 0 12px}.quick-searches button{font-size:12px;padding:6px 9px;background:#102f4f;border-color:#355778}.quick-searches button:hover{background:#22547c}kbd{display:inline-block;padding:0 4px;font:12px ui-monospace,monospace;border:1px solid #476f92;border-radius:4px}.toolbar input{flex:1;min-width:135px}#clear-search{flex-shrink:0}.no-results{padding:16px;border:1px dashed #416485;border-radius:9px;color:#c6dbee;font-size:13px}</style></head><body>
-<header><div class="pillbar"><a class="pill" href="../../index.html" style="text-decoration:none">← Back to portfolio</a><span class="pill">ALLAKORI · SECURITY ATLAS</span><span class="pill">AD COMPANION v0.5</span><span class="pill">OFFLINE · NO TRACKING</span></div><p class="kicker">AUTHENTICATED &amp; UNAUTHENTICATED WORKFLOWS</p><h1>Active Directory<br>Command Companion</h1><p class="lead">Choose a technique, supply the target IP and any required parameters, then copy a command. Each recipe explains prerequisites, expected observations and limitations. Designed for authorized labs; nothing is executed or submitted by this page.</p><p class="shortcut"><a href="manual.html">Read the English field manual (web)</a> · 82 searchable templates · execution depends on target/version · Never use real passwords on a public computer</p></header>
-<main class="layout"><aside class="panel"><div class="row"><h2>Technique library</h2><span class="tag">FILTER / SEARCH</span></div><div class="toolbar"><input id="search" aria-label="Find a technique or tool" placeholder="Try: as rep, GetNPUsers, spray, hosts..." autocomplete="off" spellcheck="false" aria-keyshortcuts="/ Control+k"><button id="clear-search" type="button" aria-label="Clear search">Clear</button></div><p class="shortcut">Search by technique, tool, command, abbreviation or synonym. Press <kbd>/</kbd> to focus.</p><div class="toolbar quick-searches" id="quick-searches" aria-label="Popular technique shortcuts"></div><div class="toolbar" id="filters" aria-label="Command category filters"></div><p class="results" id="count" role="status"></p><div id="cards" class="cards" aria-label="Available techniques"></div></aside>
+.quick-searches{gap:6px;margin:8px 0 12px}.quick-searches button{font-size:12px;padding:6px 9px;background:#102f4f;border-color:#355778}.quick-searches button:hover{background:#22547c}kbd{display:inline-block;padding:0 4px;font:12px ui-monospace,monospace;border:1px solid #476f92;border-radius:4px}.toolbar input{flex:1;min-width:135px}#clear-search{flex-shrink:0}.no-results{padding:16px;border:1px dashed #416485;border-radius:9px;color:#c6dbee;font-size:13px}.search-controls{display:grid;gap:5px;margin-top:18px}.search-controls label{margin:5px 0 0;color:#c5ddeb}.search-controls select{width:100%;background:#071728;color:#fff;border:1px solid #416485;border-radius:8px;padding:11px 12px;font:inherit;cursor:pointer}.search-controls select:focus-visible{outline:2px solid #89d4ff;outline-offset:2px}.search-controls .toolbar{margin:5px 0 8px}.subtle-action{background:transparent;border:1px solid #355778;font-size:12px;padding:5px 9px}.subtle-action:hover{background:#174366}#filter-summary{font-size:12px;color:#c2dbeb}.no-results button{display:block;margin-top:12px}.shortcut{line-height:1.6}</style></head><body>
+<header><div class="pillbar"><a class="pill" href="../../index.html" style="text-decoration:none">← Back to portfolio</a><span class="pill">ALLAKORI · SECURITY ATLAS</span><span class="pill">AD COMPANION v0.6</span><span class="pill">OFFLINE · NO TRACKING</span></div><p class="kicker">AUTHENTICATED &amp; UNAUTHENTICATED WORKFLOWS</p><h1>Active Directory<br>Command Companion</h1><p class="lead">Choose a technique, supply the target IP and any required parameters, then copy a command. Each recipe explains prerequisites, expected observations and limitations. Designed for authorized labs; nothing is executed or submitted by this page.</p><p class="shortcut"><a href="manual.html">Read the English field manual (web)</a> · 82 searchable templates · execution depends on target/version · Never use real passwords on a public computer</p></header>
+<main class="layout"><aside class="panel"><div class="row"><h2>Find a technique</h2><span class="tag">CATEGORY + SEARCH</span></div><div class="search-controls"><label for="category-select">1 · Browse by category (optional)</label><select id="category-select" aria-label="Filter command recipes by category"></select><label for="search">2 · Search by task, tool, or keyword (optional)</label><div class="toolbar"><input id="search" aria-label="Search tasks, tools and techniques" placeholder="e.g. list domain users, as rep, spray, hosts" autocomplete="off" spellcheck="false" aria-keyshortcuts="/ Control+k"><button id="clear-search" type="button" aria-label="Clear search text only">Clear</button></div></div><p class="shortcut">Use either control on its own or combine both. Search accepts common phrases and aliases. Press <kbd>/</kbd> to focus.</p><div class="toolbar quick-searches" id="quick-searches" aria-label="Popular searches across all categories"></div><div class="row"><span id="filter-summary" class="sublabel">All categories</span><button id="reset-filters" type="button" class="subtle-action">Show all</button></div><p class="results" id="count" role="status"></p><div id="cards" class="cards" aria-label="Available techniques"></div></aside>
 <section class="panel"><div class="row"><h2 id="name"></h2><span class="tag" id="shell">Kali / Linux</span></div><p class="lead" id="goal"></p><p class="note"><strong>Prerequisites: </strong><span id="prereq"></span></p>
 <div class="fields" id="fields"><div class="field"><label for="ip">Target IP address</label><input id="ip" placeholder="10.10.11.42" autocomplete="off" spellcheck="false" inputmode="decimal"></div><div class="field"><label for="domain">AD DNS domain</label><input id="domain" placeholder="corp.local" autocomplete="off" spellcheck="false"></div><div class="field"><label for="dc">Domain controller FQDN</label><input id="dc" placeholder="dc01.corp.local" autocomplete="off" spellcheck="false"></div><div class="field"><label for="user">Domain username</label><input id="user" placeholder="analyst" autocomplete="off" spellcheck="false"></div><div class="field"><label for="password">Password for this command</label><input id="password" type="password" value="" autocomplete="new-password" spellcheck="false" placeholder="Use test credentials only"></div><div class="field"><label for="usersfile">Username wordlist path</label><input id="usersfile" value="users.txt" autocomplete="off" spellcheck="false"></div><div class="field"><label for="subnet">Authorized IPv4 CIDR</label><input id="subnet" placeholder="10.10.10.0/24" autocomplete="off" spellcheck="false"></div><div class="field"><label for="share">SMB share name</label><input id="share" placeholder="NETLOGON" autocomplete="off" spellcheck="false"></div><div class="field"><label for="target">Target host or FQDN</label><input id="target" placeholder="ws01.corp.local" autocomplete="off" spellcheck="false"></div><div class="field"><label for="hash">Owned lab NT hash</label><input id="hash" type="password" placeholder="32 hexadecimal characters" autocomplete="new-password" spellcheck="false"></div><div class="field"><label for="ticket">Ticket file path</label><input id="ticket" placeholder="user.ccache" autocomplete="off" spellcheck="false"></div></div>
 <p class="note warn hidden" id="secret-note"><strong>Credential warning:</strong> this page does not send or store passwords; however, pasting passwords into terminal commands can expose them through history, screenshots or process arguments. Prefer secure prompting when a tool supports it.</p>
@@ -43,35 +43,49 @@ function render(){
 function fold(value){
  return String(value||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'');
 }
+// Curated, offline task descriptions. This is deterministic search, not an AI assistant.
+const INTENT_GROUPS=[
+ {phrases:['find users','list users','enumerate users','enumerate domain users','discover users','find domain accounts','lister les utilisateurs','trouver les utilisateurs','enumerer les utilisateurs','liste des utilisateurs','chercher des comptes'],ids:['enumerate-ldap-users-with-netexec','smb-samr-users','smb-rid-2000','rid-cycling-samr-enumeration','kerbrute-validate-usernames']},
+ {phrases:['no credentials','without credentials','no creds','anonymous access','start with ip','without a password','sans identifiants','sans compte','aucun identifiant','je n ai pas de compte'],ids:['core-ad-service-scan','read-ldap-rootdse','hosts-ip','list-smb-shares-anonymously','smb-anon-share-browse']},
+ {phrases:['have credentials','have a domain account','i have a user','i have creds','j ai un compte','j ai un utilisateur','compte du domaine','authentified user'],ids:['enumerate-ldap-users-with-netexec','authenticated-smb-share-inventory','collect-graph-with-bloodhound-ce-python','permissions-bloodyad-writable']},
+ {phrases:['find shares','list shares','enumerate shares','browse smb shares','list smb folders','chercher des partages','lister les partages','partages smb'],ids:['list-smb-shares-anonymously','authenticated-smb-share-inventory','smb-anon-share-browse','smbmap-guest']},
+ {phrases:['fix dns','dns not working','kerberos dns error','name resolution','cannot resolve domain','resolve domain controller','probleme dns','resoudre le domaine','fichier hosts'],ids:['hosts-ip','hosts-check-local','dns-srv-ldap-dc','kerberos-config-generate','hosts-backup-merge']},
+ {phrases:['spray passwords','password spraying','password spray','spray','tester un mot de passe'],ids:['password-spray-netexec-smb-single','password-spray-kerbrute-single','review-domain-password-policy']},
+ {phrases:['as rep','as-rep','asrep','getnpusers'],ids:['request-as-rep-roastable-material']},
+ {phrases:['check permissions','who can modify','object rights','write dacl','gpo rights','voir les permissions','droits utilisateurs','droits active directory'],ids:['permissions-bloodyad-writable','collect-acl-gpo-graph-relationships','permissions-bloodyad-membership']},
+ {phrases:['find certificates','certificate templates','ad cs','adcs','certificats active directory'],ids:['certipy-full-ad-cs-inventory','certipy-enumerate-vulnerable-ad-cs-paths','adcs-issuance-oids']}
+];
 function searchRank(item,query){
  const q=fold(query);if(!q)return 0;
  const title=fold(item.title),id=fold(item.id),cat=fold(item.cat),cmd=fold(item.cmd);
  const aliases=(item.keywords||[]).map(fold);
- if(title===q||id===q)return 500;
- if(aliases.includes(q))return 460;
- if(title.startsWith(q))return 420;
- if(title.includes(q))return 390;
- if(aliases.some(x=>x.includes(q)))return 350;
- if(cmd.includes(q))return 320;
- if(id.includes(q))return 290;
- if(cat.includes(q))return 240;
+ if(title===q||id===q)return 600;
+ if(aliases.includes(q))return 550;
+ for(const group of INTENT_GROUPS){
+  const i=group.ids.indexOf(item.id);
+  if(i!==-1&&group.phrases.some(phrase=>{const p=fold(phrase);return q===p||(q.length>p.length+2&&q.includes(p));}))return 510-i;
+ }
+ if(title.startsWith(q))return 480;
+ if(title.includes(q))return 450;
+ if(aliases.some(x=>x.includes(q)))return 410;
+ if(cmd.includes(q))return 370;
+ if(id.includes(q))return 340;
+ if(cat.includes(q))return 290;
  const text=[item.title,item.cat,item.goal,item.level,item.caveat,item.cmd,item.source,...(item.keywords||[])].join(' ').toLowerCase();
  const terms=query.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
  return terms.length&&terms.every(term=>text.includes(term))?110:-1;
 }
 function setCategory(next){
  category=next;
- document.querySelectorAll('#filters button').forEach(btn=>{
-  const selected=btn.dataset.category===next;
-  btn.classList.toggle('primary',selected);btn.setAttribute('aria-pressed',String(selected));
- });
+ $('category-select').value=next;
 }
 function list(){
  const q=$('search').value.trim();
  const results=DATA.map((item,index)=>({item,index,score:searchRank(item,q)}))
   .filter(row=>row.score>=0&&(category==='All'||row.item.cat===category))
   .sort((a,b)=>b.score-a.score||a.index-b.index).map(row=>row.item);
- $('count').textContent=results.length+' of '+DATA.length+' command recipes'+(q?' matching "'+q+'"':'');
+ $('filter-summary').textContent=category==='All'?'All categories':category+' category';
+ $('count').textContent=results.length+' of '+DATA.length+' recipes'+(category==='All'?'':' in '+category)+(q?' matching "'+q+'"':'');
  $('cards').replaceChildren(...results.map(item=>{
   const btn=document.createElement('button');btn.type='button';btn.className='item';btn.dataset.id=item.id;
   const name=document.createElement('strong');name.textContent=item.title;
@@ -79,9 +93,15 @@ function list(){
   btn.append(name,meta);btn.addEventListener('click',()=>{active=item;render()});return btn;
  }));
  if(!results.length){
-  const empty=document.createElement('p');empty.className='no-results';empty.textContent='No match. Try a shorter term, a tool name (nxc, kerbrute), or a synonym (as rep, spray, hosts).';
+  const empty=document.createElement('div');empty.className='no-results';
+  const p=document.createElement('p');p.textContent=category==='All'?'No matching command. Try a shorter task description, tool name or another keyword.':'No match in '+category+'. Try a different phrase or search all categories.';
+  empty.append(p);
+  if(category!=='All'){
+   const b=document.createElement('button');b.type='button';b.textContent='Search all categories';
+   b.addEventListener('click',()=>{setCategory('All');list()});empty.append(b);
+  }
   $('cards').append(empty);
-  $('name').textContent='No matching technique';$('goal').textContent='Try another search term.';
+  $('name').textContent='No matching technique';$('goal').textContent='Try another search or category.';
   $('prereq').textContent='';$('interp').textContent='';$('caveat').textContent='';
   $('generated').textContent='';$('copy').disabled=true;
   document.querySelectorAll('#fields .field').forEach(field=>field.classList.add('hidden'));
@@ -91,24 +111,24 @@ function list(){
  render();
 }
 for(const cat of ['All',...new Set(DATA.map(item=>item.cat))]){
- const btn=document.createElement('button');btn.type='button';btn.textContent=cat;btn.dataset.category=cat;btn.setAttribute('aria-pressed',String(cat==='All'));
- if(cat==='All')btn.classList.add('primary');
- btn.addEventListener('click',()=>{setCategory(cat);list()});$('filters').append(btn);
+ const opt=document.createElement('option');opt.value=cat;opt.textContent=cat==='All'?'All categories':cat;$('category-select').append(opt);
 }
-for(const query of ['AS-REP','Password spray','Kerberoast','Hosts','BloodHound','AD CS']){
+$('category-select').addEventListener('change',value=>{setCategory($('category-select').value);list()});
+for(const query of ['AS-REP','Password spray','Kerberoast','Hosts','Find users','BloodHound']){
  const btn=document.createElement('button');btn.type='button';btn.textContent=query;
  btn.addEventListener('click',()=>{$('search').value=query;setCategory('All');list();$('search').focus()});
  $('quick-searches').append(btn);
 }
-function handleSearch(){if(category!=='All')setCategory('All');list()}
-$('clear-search').addEventListener('click',()=>{$('search').value='';setCategory('All');list();$('search').focus()});
+function handleSearch(){list()}
+$('clear-search').addEventListener('click',()=>{$('search').value='';list();$('search').focus()});
+$('reset-filters').addEventListener('click',()=>{$('search').value='';setCategory('All');list()});
 document.addEventListener('keydown',event=>{
  const target=event.target;
- const editing=target?.matches?.('input,textarea,[contenteditable="true"]');
+ const editing=target?.matches?.('input,textarea,select,[contenteditable="true"]');
  if((event.key==='/'&&!editing)||((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k')){
   event.preventDefault();$('search').focus();$('search').select();
  }
- if(event.key==='Escape'&&document.activeElement===$('search')){$('search').value='';setCategory('All');list();}
+ if(event.key==='Escape'&&document.activeElement===$('search')){$('search').value='';list();}
  if(event.key==='Enter'&&document.activeElement===$('search')){
   const first=$('cards').querySelector('button.item');if(first){first.click();first.focus();}
  }

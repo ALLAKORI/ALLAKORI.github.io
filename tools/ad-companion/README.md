@@ -94,3 +94,9 @@ References: [Kali FreeRDP3](https://www.kali.org/tools/freerdp3/), [Evil-WinRM](
 ## Longer-term roadmap
 
 Implement a structured source of truth shared by generator and typeset PDF; add reproducible GOAD, Windows Server 2025, AD CS, BloodHound CE and cross-forest tests; document GPO/OU effective-permission, dMSA/BadSuccessor, delegation, NTLM relay preconditions, detection, rollback and patch dependencies. Avoid publishing real credentials, host inventories, private certificates or sensitive tickets.
+
+## Historical v0.3 edition (November 2026)
+
+The independently produced v0.3 reference is preserved under [editions/v0.3](editions/v0.3/README.md) with **125 command recipes**, category/keyword filters, and a 46-page PDF build script. It is an **archive**, not a replacement for the newer command companion at [index.html](index.html). The edition generalizes private lab research and keeps active HTB details out of public release files.
+
+The archived HTML entrypoint is [v0.3/index.html](editions/v0.3/index.html). The [PDF build workflow](../../.github/workflows/ad-companion-v03.yml) generates the release PDF and self-contained offline HTML within the archive. If automated PDF publication has not completed, generate it from the included source or use the previously delivered local download.

